@@ -48,9 +48,12 @@ def build_debug_snapshot(
 
     risk_section = {
         "level": _clean_value(risk.get("level")),
-        "score": _clean_value(risk.get("score")),
-        "reason": _clean_value(risk.get("reason")),
-        "signals": _listify(risk.get("signals")),
+        "score": _clean_value(risk.get("risk_score") if risk.get("risk_score") is not None else risk.get("score")),
+        "reason": _clean_value(risk.get("message") or risk.get("reason")),
+        "signals": _listify(risk.get("triggers") or risk.get("signals")),
+        "risk_score": _clean_value(risk.get("risk_score") if risk.get("risk_score") is not None else risk.get("score")),
+        "message": _clean_value(risk.get("message") or risk.get("reason")),
+        "triggers": _listify(risk.get("triggers") or risk.get("signals")),
         "recent_risk_levels": _listify(summary.get("recent_risk_levels")),
     }
 

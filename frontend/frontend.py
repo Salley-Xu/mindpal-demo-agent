@@ -197,11 +197,23 @@ def display_debug_panel():
         else:
             st.caption("反馈状态: 暂无数据")
 
+def normalize_risk_level(level):
+    """兼容旧风险等级，统一映射到 low / medium / high。"""
+    mapping = {
+        "urgent": "high",
+        "warning_high": "medium",
+        "warning_low": "medium",
+        "warning": "medium",
+        "normal": "low",
+    }
+    return mapping.get(level, level)
+
+
 # 在显示推荐内容之前，先检查是否有紧急情况
 def show_urgent_warning(risk_state):
     """显示紧急情况警告"""
-    level = (risk_state or {}).get('level')
-    if level in ['urgent', 'high']:
+    level = normalize_risk_level((risk_state or {}).get('level'))
+    if level == 'high':
         st.error("""
         🚨 **紧急情况检测**
         
@@ -211,7 +223,7 @@ def show_urgent_warning(risk_state):
         - 专业支持随时可用
         """)
         return True
-    elif level in ['warning_high', 'warning', 'medium']:
+    elif level == 'medium':
         st.warning("""
         ⚠️ **风险提示**
         
@@ -673,7 +685,7 @@ if user_input:
                                 ai_message_data["risk_state"] = risk_state
                             if recommendation_decision:
                                 ai_message_data["recommendation_decision"] = recommendation_decision
-                            if risk_state and risk_state.get("level") in ["urgent", "warning_high", "high", "medium"]:
+                            if risk_state and normalize_risk_level(risk_state.get("level")) in ["high", "medium"]:
                                 ai_message_data["urgent"] = True
                             
                             st.session_state.chat_history.append(ai_message_data)

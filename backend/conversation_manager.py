@@ -237,6 +237,16 @@ class ConversationManager:
             'compression_level': 'none',
         }
         return self.sessions[key]
+
+    async def session_exists_async(self, user_id: str, session_id: str) -> bool:
+        """只检查会话是否存在，避免只读查询隐式创建空会话。"""
+        key = f"{user_id}_{session_id}"
+        if key in self.sessions:
+            return True
+        if not self.use_persistence:
+            return False
+        session_data = await adb_manager.get_session_data(user_id, session_id)
+        return session_data is not None
     
     def add_interaction(self, user_id: str, session_id: str, 
                         user_input: str, emotion: str, context_emotion: str = None,

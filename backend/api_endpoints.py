@@ -113,7 +113,7 @@ async def analyze_emotion(input_data: TextInput):
             trend = "calming"
     
     # 记录紧急情况
-    if urgent_issue['level'] in ['urgent', 'warning_high']:
+    if urgent_issue['level'] in ['high', 'medium']:
         logger.warning(f"紧急情况: {urgent_issue['level']}, 用户: {input_data.user_id}")
     
     return EmotionResponse(
@@ -164,11 +164,11 @@ async def agent_run(request: AgentRunRequest):
 @router.get("/session/{user_id}/{session_id}/summary")
 async def get_session_summary(user_id: str, session_id: str):
     """获取会话摘要"""
-    summary = await conversation_manager.get_conversation_summary_async(user_id, session_id)
-    
-    if not summary:
+    session_exists = await conversation_manager.session_exists_async(user_id, session_id)
+    if not session_exists:
         raise HTTPException(status_code=404, detail="会话不存在")
-    
+
+    summary = await conversation_manager.get_conversation_summary_async(user_id, session_id)
     session = await conversation_manager.get_or_create_session_async(user_id, session_id)
     
     return {
@@ -317,6 +317,10 @@ async def recommend_content(request: ContentRecommendRequest):
                         "preferred_categories": profile.preferred_categories,
                         "preferred_difficulty": profile.preferred_difficulty,
                         "preferred_duration_range": profile.preferred_duration_range,
+                        "preferred_support_style": profile.preferred_support_style,
+                        "avoid_style": profile.avoid_style,
+                        "main_stress_sources": profile.main_stress_sources,
+                        "recommendation_feedback": profile.recommendation_feedback,
                         "last_updated": profile.last_updated.isoformat(),
                     }
             except Exception as e:

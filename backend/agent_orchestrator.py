@@ -194,6 +194,29 @@ class AgentOrchestrator:
             except Exception as e:
                 logger.error(f"Emotion analysis failed: {e}")
             
+            long_term_risk_level = None
+            historical_high_risk_count = 0
+            try:
+                profile_model = await UserProfileTool.get_profile(request.user_id)
+                user_profile = profile_model.model_dump() if profile_model else {}
+                long_term_risk_level = user_profile.get("risk_level")
+            except Exception as e:
+                logger.warning(f"加载用户画像失败，使用空画像继续: {e}")
+                user_profile = {}
+
+            try:
+                recent_mood_events = await MoodTrackingTool.get_recent_trend(
+                    request.user_id,
+                    limit=20,
+                )
+                historical_high_risk_count = sum(
+                    1
+                    for event in recent_mood_events
+                    if getattr(event, "risk_level", "low") == "high"
+                )
+            except Exception as e:
+                logger.warning(f"加载历史风险事件失败，按无历史高风险继续: {e}")
+
             # 1.2 Risk Assessment (Pre-check)
             preliminary_emotion_state = emotion_analyzer.build_emotion_state_payload(
                 text=request.text,
@@ -206,13 +229,9 @@ class AgentOrchestrator:
                 text=request.text,
                 emotion_state=preliminary_emotion_state,
                 conversation_summary=conversation_summary,
+                long_term_risk_level=long_term_risk_level,
+                historical_high_risk_count=historical_high_risk_count,
             )
-            try:
-                profile_model = await UserProfileTool.get_profile(request.user_id)
-                user_profile = profile_model.model_dump() if profile_model else {}
-            except Exception as e:
-                logger.warning(f"加载用户画像失败，使用空画像继续: {e}")
-                user_profile = {}
             recommendation_decision = recommend_gate.decide(
                 emotion_state=preliminary_emotion_state,
                 risk_state=urgent_issue,

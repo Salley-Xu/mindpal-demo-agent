@@ -1,6 +1,8 @@
 import asyncio
 import os
 import sys
+import uuid
+from datetime import datetime, timezone
 
 
 PROJECT_ROOT = os.getcwd()
@@ -24,8 +26,10 @@ from models import (  # noqa: E402
     RiskState,
     SessionSummary,
 )
+from agent_tools import UserProfile  # noqa: E402
 from main import app  # noqa: E402
 import api_endpoints  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
 
 
 def test_model_instantiation():
@@ -33,12 +37,13 @@ def test_model_instantiation():
         response="ok",
         emotion_state=EmotionState(
             current_emotion="焦虑",
+            emotion_type="anxiety",
             context_emotion="自我怀疑",
             confidence=0.91,
             emotion_trend="consistent",
         ),
         risk_state=RiskState(
-            level="warning_high",
+            level="medium",
             message="需要关注",
             suggestions=["联系朋友"],
             triggers=["撑不住"],
@@ -89,12 +94,35 @@ async def test_recommend_endpoint_with_body():
         assert current_emotion == "焦虑"
         assert conversation_summary["conversation_stage"] == "exploring"
         assert conversation_summary["key_concerns"] == ["academic", "future"]
+        assert user_profile["preferred_support_style"] == "direct_actionable"
+        assert user_profile["avoid_style"] == ["empty_comfort"]
+        assert user_profile["main_stress_sources"] == ["求职", "面试"]
+        assert user_profile["recommendation_feedback"] == {
+            "tool_001": "helpful",
+            "audio_003": "avoid",
+        }
         assert limit == 2
         return [], "ok", {"default": 1.0}
 
     async def fake_get_profile(user_id):
         assert user_id == "user_test"
-        return None
+        return UserProfile(
+            user_id=user_id,
+            risk_level="medium",
+            preferences={},
+            preferred_types=["tool"],
+            preferred_categories=["academic"],
+            preferred_difficulty="beginner",
+            preferred_duration_range={"min": 5, "max": 15},
+            preferred_support_style="direct_actionable",
+            avoid_style=["empty_comfort"],
+            main_stress_sources=["求职", "面试"],
+            recommendation_feedback={
+                "tool_001": "helpful",
+                "audio_003": "avoid",
+            },
+            last_updated=datetime.now(timezone.utc),
+        )
 
     api_endpoints.content_recommender.recommend_content = fake_recommend_content
     api_endpoints.UserProfileTool.get_profile = fake_get_profile
@@ -116,6 +144,17 @@ async def test_recommend_endpoint_with_body():
         api_endpoints.UserProfileTool.get_profile = original_get_profile
 
 
+def test_missing_session_summary_returns_404_without_creating_session():
+    user_id = f"user_missing_{uuid.uuid4().hex[:8]}"
+    session_id = f"session_missing_{uuid.uuid4().hex[:8]}"
+
+    with TestClient(app) as client:
+        response = client.get(f"/session/{user_id}/{session_id}/summary")
+
+    assert response.status_code == 404
+    assert response.json()["detail"] == "会话不存在"
+
+
 def main():
     test_model_instantiation()
     print("PASS: model instantiation")
@@ -125,6 +164,9 @@ def main():
 
     asyncio.run(test_recommend_endpoint_with_body())
     print("PASS: recommend endpoint body parsing")
+
+    test_missing_session_summary_returns_404_without_creating_session()
+    print("PASS: missing session summary returns 404")
 
 
 if __name__ == "__main__":

@@ -46,7 +46,7 @@ class UrgentDetector:
         """
         检测用户输入中的紧急情况
         返回: {
-            'level': 'normal'/'warning'/'urgent',
+            'level': 'low'/'medium'/'high',
             'message': str,
             'suggestions': List[str],
             'triggers': List[str],
@@ -72,18 +72,29 @@ class UrgentDetector:
                                warning_keywords: List[str], emotion: str) -> Dict[str, Any]:
         """评估紧急级别"""
         if urgent_keywords:
-            return self._create_urgent_response(urgent_keywords)
+            return self._create_high_risk_response(urgent_keywords)
         
         elif warning_keywords:
-            return self._create_warning_response(warning_keywords, emotion)
+            return self._create_medium_risk_response(warning_keywords, emotion)
         
         else:
-            return self._create_normal_response()
+            return self._create_low_risk_response()
     
-    def _create_urgent_response(self, triggers: List[str]) -> Dict[str, Any]:
-        """创建紧急响应"""
+    def _normalize_level(self, level: Optional[str]) -> str:
+        level_mapping = {
+            "urgent": "high",
+            "warning_high": "medium",
+            "warning_low": "medium",
+            "warning": "medium",
+            "normal": "low",
+            None: "low",
+        }
+        return level_mapping.get(level, level or "low")
+
+    def _create_high_risk_response(self, triggers: List[str]) -> Dict[str, Any]:
+        """创建高风险响应"""
         return {
-            'level': 'urgent',
+            'level': 'high',
             'message': '检测到紧急情况，请立即寻求专业帮助！',
             'suggestions': [
                 '立即拨打心理援助热线(如:400-161-9995)',
@@ -100,8 +111,8 @@ class UrgentDetector:
             'risk_score': 10.0
         }
     
-    def _create_warning_response(self, triggers: List[str], emotion: str) -> Dict[str, Any]:
-        """创建警告响应"""
+    def _create_medium_risk_response(self, triggers: List[str], emotion: str) -> Dict[str, Any]:
+        """创建中风险响应"""
         severity = len(triggers)
         
         # 考虑情绪增强因子
@@ -112,7 +123,7 @@ class UrgentDetector:
         
         if severity >= 3:
             return {
-                'level': 'warning_high',
+                'level': 'medium',
                 'message': '检测到较高风险，建议尽快寻求帮助',
                 'suggestions': [
                     '建议联系学校心理咨询师',
@@ -125,7 +136,7 @@ class UrgentDetector:
             }
         else:
             return {
-                'level': 'warning',
+                'level': 'medium',
                 'message': '检测到潜在风险，需要关注',
                 'suggestions': [
                     '建议寻求专业支持',
@@ -136,10 +147,10 @@ class UrgentDetector:
                 'risk_score': risk_score
             }
     
-    def _create_normal_response(self) -> Dict[str, Any]:
-        """创建正常响应"""
+    def _create_low_risk_response(self) -> Dict[str, Any]:
+        """创建低风险响应"""
         return {
-            'level': 'normal',
+            'level': 'low',
             'message': '',
             'suggestions': [],
             'triggers': [],
@@ -149,9 +160,10 @@ class UrgentDetector:
     async def generate_crisis_response_async(self, user_input: str, urgent_issue: Dict, 
                                conversation_summary: Dict) -> str:
         """针对紧急情况生成特殊回应"""
-        if urgent_issue['level'] == 'urgent':
+        level = self._normalize_level((urgent_issue or {}).get('level'))
+        if level == 'high':
             return await self._generate_urgent_response_async(user_input, urgent_issue)
-        elif urgent_issue['level'].startswith('warning'):
+        elif level == 'medium':
             return await self._generate_warning_response_async(user_input, urgent_issue)
         return None
     

@@ -37,9 +37,9 @@ def test_build_debug_snapshot_aggregates_core_sections():
         },
         risk_state={
             "level": "medium",
-            "score": 0.65,
-            "reason": "recent_negative_trend",
-            "signals": ["negative_trend", "stress_escalation"],
+            "risk_score": 0.65,
+            "message": "需要继续关注压力变化",
+            "triggers": ["negative_trend", "stress_escalation"],
         },
         recommendation_decision={
             "should_recommend": True,
@@ -70,6 +70,12 @@ def test_build_debug_snapshot_aggregates_core_sections():
     assert snapshot["emotion"]["current_emotion"] == "压力"
     assert snapshot["emotion"]["emotion_trend"] == "escalating"
     assert snapshot["risk"]["level"] == "medium"
+    assert snapshot["risk"]["score"] == 0.65
+    assert snapshot["risk"]["reason"] == "需要继续关注压力变化"
+    assert snapshot["risk"]["signals"] == ["negative_trend", "stress_escalation"]
+    assert snapshot["risk"]["risk_score"] == 0.65
+    assert snapshot["risk"]["message"] == "需要继续关注压力变化"
+    assert snapshot["risk"]["triggers"] == ["negative_trend", "stress_escalation"]
     assert snapshot["risk"]["recent_risk_levels"] == ["low", "medium"]
     assert snapshot["decision"]["recommend_type"] == "soft"
     assert snapshot["decision"]["reason_codes"] == ["high_intensity", "seeking_help"]
@@ -93,10 +99,30 @@ def test_build_debug_snapshot_uses_summary_fallbacks():
     assert snapshot["emotion"]["current_emotion"] == "中性"
     assert snapshot["emotion"]["emotion_type"] == "n/a"
     assert snapshot["risk"]["signals"] == []
+    assert snapshot["risk"]["triggers"] == []
     assert snapshot["decision"]["should_recommend"] is False
     assert snapshot["summary"]["turn_count"] == 1
     assert snapshot["recommendations"] == []
     assert snapshot["feedback_map"] == {}
+
+
+def test_build_debug_snapshot_keeps_backward_compatibility_for_legacy_risk_fields():
+    snapshot = build_debug_snapshot(
+        conversation_summary={"recent_risk_levels": ["low"]},
+        risk_state={
+            "level": "medium",
+            "score": 0.42,
+            "reason": "legacy_reason",
+            "signals": ["legacy_signal"],
+        },
+    )
+
+    assert snapshot["risk"]["score"] == 0.42
+    assert snapshot["risk"]["reason"] == "legacy_reason"
+    assert snapshot["risk"]["signals"] == ["legacy_signal"]
+    assert snapshot["risk"]["risk_score"] == 0.42
+    assert snapshot["risk"]["message"] == "legacy_reason"
+    assert snapshot["risk"]["triggers"] == ["legacy_signal"]
 
 
 def main():
@@ -105,6 +131,9 @@ def main():
 
     test_build_debug_snapshot_uses_summary_fallbacks()
     print("PASS: debug snapshot uses summary fallbacks")
+
+    test_build_debug_snapshot_keeps_backward_compatibility_for_legacy_risk_fields()
+    print("PASS: debug snapshot keeps backward compatibility for legacy risk fields")
 
 
 if __name__ == "__main__":
