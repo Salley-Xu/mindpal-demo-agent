@@ -1,12 +1,13 @@
 import logging
 from typing import List, Dict, Any, Tuple
 import re
-from datetime import datetime
+
 from openai import AsyncOpenAI
+
 from config import config
-from models import ContentItem
-from conversation_manager import ConversationManager
 from content_db import content_db
+from hybrid_retriever import hybrid_retriever
+from models import ContentItem
 
 logger = logging.getLogger(__name__)
 
@@ -63,11 +64,22 @@ class ContentRecommender:
             # 构造/归一化用户画像，保证下游逻辑稳定
             normalized_profile = self._normalize_user_profile(user_profile or {})
 
-            # 策略1: 基于情绪、对话上下文 + 用户画像的规则推荐
-            # 为了给 AI rerank 预留余地，这里先取 Top-N 候选，再根据配置裁剪到最终上限
-            rule_limit = max(limit, self.rerank_candidate_size) if self.enable_ai_rerank else limit
-            rule_based_recs = self._rule_based_recommendation(
-                user_input, current_emotion, conversation_summary, normalized_profile, rule_limit
+            # 策略1: 先混合召回候选，再做规则个性化重排
+            candidate_limit = max(limit, self.rerank_candidate_size) if self.enable_ai_rerank else limit
+            retrieved_candidates = self._retrieve_candidates(
+                user_input=user_input,
+                current_emotion=current_emotion,
+                conversation_summary=conversation_summary,
+                user_profile=normalized_profile,
+                limit=max(candidate_limit, 8),
+            )
+            rule_based_recs = self._rank_candidates(
+                candidates=retrieved_candidates,
+                user_input=user_input,
+                current_emotion=current_emotion,
+                conversation_summary=conversation_summary,
+                user_profile=normalized_profile,
+                limit=candidate_limit,
             )
             
             # 策略2: 使用 AI 对规则候选集进行 rerank（可通过配置关闭）
@@ -103,29 +115,108 @@ class ContentRecommender:
             default_recs = content_db.search_content(current_emotion, limit=limit)
             return default_recs, "根据你的当前状态推荐以下内容", {"default": 0.7}
     
-    def _rule_based_recommendation(self,
-                                 user_input: str,
-                                 current_emotion: str,
-                                 conversation_summary: Dict[str, Any],
-                                 user_profile: Dict[str, Any],
-                                 limit: int) -> List[ContentItem]:
-        """基于规则的推荐"""
+    def _retrieve_candidates(
+        self,
+        user_input: str,
+        current_emotion: str,
+        conversation_summary: Dict[str, Any],
+        user_profile: Dict[str, Any],
+        limit: int,
+    ) -> List[Dict[str, Any]]:
         all_content = content_db.get_all_content()
+        query_variants = self._build_query_variants(
+            user_input=user_input,
+            current_emotion=current_emotion,
+            conversation_summary=conversation_summary,
+            user_profile=user_profile,
+        )
+        aggregated: Dict[str, Dict[str, Any]] = {}
+
+        for variant in query_variants:
+            hybrid_results = hybrid_retriever.retrieve(
+                query=variant["query"],
+                items=all_content,
+                limit=limit,
+                extra_terms=variant["extra_terms"],
+            )
+            for rank, (item, score) in enumerate(hybrid_results, start=1):
+                candidate = aggregated.setdefault(
+                    item.id,
+                    {
+                        "item": item,
+                        "retrieval_score": 0.0,
+                        "matched_queries": [],
+                        "retrieval_sources": ["bm25", "vector", "rrf"],
+                        "best_rank": rank,
+                    },
+                )
+                candidate["retrieval_score"] += score * variant["weight"]
+                candidate["best_rank"] = min(candidate["best_rank"], rank)
+                if variant["label"] not in candidate["matched_queries"]:
+                    candidate["matched_queries"].append(variant["label"])
+
+        if aggregated:
+            ranked_candidates = sorted(
+                aggregated.values(),
+                key=lambda candidate: candidate["retrieval_score"],
+                reverse=True,
+            )
+            return ranked_candidates[:limit]
+
+        # 混合检索没有结果时，回退到原始关键词检索
+        fallback_items = content_db.search_content(f"{user_input} {current_emotion}", limit=limit)
+        return [
+            {
+                "item": item,
+                "retrieval_score": 0.2,
+                "matched_queries": ["fallback_keyword"],
+                "retrieval_sources": ["keyword_fallback"],
+                "best_rank": index + 1,
+            }
+            for index, item in enumerate(fallback_items)
+        ]
+
+    def _rank_candidates(
+        self,
+        candidates: List[Dict[str, Any]],
+        user_input: str,
+        current_emotion: str,
+        conversation_summary: Dict[str, Any],
+        user_profile: Dict[str, Any],
+        limit: int,
+    ) -> List[ContentItem]:
+        """对召回候选做规则个性化重排。"""
         scored_items = []
         
         # 提取关键词
         keywords = self._extract_keywords(user_input)
         
-        for item in all_content:
+        recent_risk_levels = conversation_summary.get("recent_risk_levels", []) or []
+        current_risk_level = (
+            recent_risk_levels[-1]
+            if recent_risk_levels
+            else user_profile.get("risk_level", "low")
+        )
+        recent_recommendation_turns = conversation_summary.get("recent_recommendation_turns", []) or []
+
+        for candidate in candidates:
+            item = candidate["item"]
+            retrieval_score = self._normalize_retrieval_score(candidate.get("retrieval_score", 0.0))
+            emotion_match_score = 0.0
+            risk_match_score = 0.0
+            actionability_score = item.actionability
+            repetition_penalty = 0.0
             score = 0.0
             
             # 1. 情绪匹配（权重最高）
             if current_emotion in item.emotion_tags:
                 score += 3.0
+                emotion_match_score = 1.0
             for emotion_tag in item.emotion_tags:
                 if emotion_tag in self.emotion_weights:
                     if current_emotion in self.emotion_weights[emotion_tag]:
                         score += 2.0
+                        emotion_match_score = max(emotion_match_score, 0.8)
             
             # 2. 关键词匹配
             for keyword in keywords:
@@ -152,13 +243,128 @@ class ContentRecommender:
 
             # 6. 画像偏好加权
             score = self._adjust_score_with_profile(score, item, user_profile)
+
+            # 7. 风险适配与禁用条件
+            if current_risk_level in item.risk_levels:
+                risk_match_score = 1.0
+            elif current_risk_level == "high" and "high_risk_crisis" in item.contraindications:
+                risk_match_score = -1.0
+                score -= 4.0
+            else:
+                risk_match_score = 0.2
+
+            # 8. 近期刚推荐过时，整体降权
+            if recent_recommendation_turns:
+                repetition_penalty = 0.4
+                score -= 0.8
+
+            # 9. 推荐形式与优先级
+            score += item.priority
+            score += item.actionability * 0.5
+
+            final_score = (
+                0.35 * retrieval_score
+                + 0.20 * emotion_match_score
+                + 0.15 * risk_match_score
+                + 0.15 * self._preference_match_score(item, user_profile)
+                + 0.10 * actionability_score
+                - 0.05 * repetition_penalty
+                + score * 0.02
+            )
             
-            if score > 0:
-                scored_items.append((score, item))
+            if final_score > 0:
+                enriched_item = item.copy(
+                    update={
+                        "retrieval_metadata": {
+                            "retrieval_score": round(candidate.get("retrieval_score", 0.0), 4),
+                            "final_score": round(final_score, 4),
+                            "matched_queries": candidate.get("matched_queries", []),
+                            "retrieval_sources": candidate.get("retrieval_sources", []),
+                            "best_rank": candidate.get("best_rank"),
+                        }
+                    }
+                )
+                scored_items.append((final_score, enriched_item))
         
         # 按分数排序
         scored_items.sort(key=lambda x: x[0], reverse=True)
         return [item for score, item in scored_items[:limit]]
+
+    def _build_query_variants(
+        self,
+        user_input: str,
+        current_emotion: str,
+        conversation_summary: Dict[str, Any],
+        user_profile: Dict[str, Any],
+    ) -> List[Dict[str, Any]]:
+        key_concerns = conversation_summary.get("key_concerns", []) or []
+        stress_sources = conversation_summary.get("stress_sources", []) or []
+        recent_intents = conversation_summary.get("recent_intents", []) or []
+        main_sources = user_profile.get("main_stress_sources", []) or []
+
+        variants = [
+            {
+                "label": "raw_input",
+                "query": user_input,
+                "extra_terms": [current_emotion],
+                "weight": 1.0,
+            }
+        ]
+        if current_emotion:
+            variants.append(
+                {
+                    "label": "emotion_enhanced",
+                    "query": f"{current_emotion} {' '.join(key_concerns)} 缓解方法",
+                    "extra_terms": [current_emotion] + key_concerns,
+                    "weight": 0.8,
+                }
+            )
+        if stress_sources:
+            variants.append(
+                {
+                    "label": "stress_source",
+                    "query": f"{' '.join(stress_sources)} {' '.join(key_concerns)} 行动建议",
+                    "extra_terms": stress_sources + key_concerns,
+                    "weight": 0.7,
+                }
+            )
+        if recent_intents:
+            intent_text = recent_intents[-1]
+            variants.append(
+                {
+                    "label": "intent_enhanced",
+                    "query": f"{intent_text} 具体方法 可执行建议",
+                    "extra_terms": [intent_text],
+                    "weight": 0.65,
+                }
+            )
+        if main_sources:
+            variants.append(
+                {
+                    "label": "long_memory",
+                    "query": f"{' '.join(main_sources[:2])} 偏好支持",
+                    "extra_terms": main_sources[:2],
+                    "weight": 0.55,
+                }
+            )
+        return variants
+
+    def _normalize_retrieval_score(self, score: float) -> float:
+        return max(0.0, min(score * 5, 1.0))
+
+    def _preference_match_score(self, item: ContentItem, user_profile: Dict[str, Any]) -> float:
+        score = 0.0
+        preferred_types = user_profile.get("preferred_types", []) or []
+        preferred_categories = user_profile.get("preferred_categories", []) or []
+        preferred_difficulty = user_profile.get("preferred_difficulty", "beginner")
+
+        if preferred_types and item.type in preferred_types:
+            score += 0.45
+        if preferred_categories and item.category in preferred_categories:
+            score += 0.35
+        if item.difficulty and item.difficulty == preferred_difficulty:
+            score += 0.2
+        return min(score, 1.0)
     
     async def _ai_based_recommendation(self,
                                 user_input: str,
@@ -368,7 +574,7 @@ class ContentRecommender:
                 personalization_score += 0.05
 
             # 风险等级对某些内容的总体降/升权（这里保持简单：高风险时，过高难度内容略微降权）
-            risk_level = user_profile.get("risk_level", "normal")
+            risk_level = user_profile.get("risk_level", "low")
             if risk_level == "high" and item.difficulty == "advanced":
                 personalization_score -= 0.05
 
@@ -381,7 +587,7 @@ class ContentRecommender:
     def _normalize_user_profile(self, user_profile: Dict[str, Any]) -> Dict[str, Any]:
         """确保用户画像结构完整，提供合理默认值"""
         profile = dict(user_profile or {})
-        profile.setdefault("risk_level", "normal")
+        profile.setdefault("risk_level", "low")
         profile.setdefault("preferred_types", [])
         profile.setdefault("preferred_categories", [])
         profile.setdefault("preferred_difficulty", "beginner")
@@ -399,7 +605,7 @@ class ContentRecommender:
         preferred_categories = user_profile.get("preferred_categories", []) or []
         preferred_difficulty = user_profile.get("preferred_difficulty", "beginner")
         preferred_duration_range = user_profile.get("preferred_duration_range")
-        risk_level = user_profile.get("risk_level", "normal")
+        risk_level = user_profile.get("risk_level", "low")
 
         # 类型偏好
         if preferred_types and item.type in preferred_types:

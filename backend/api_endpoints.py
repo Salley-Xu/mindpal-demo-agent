@@ -9,9 +9,12 @@ from models import (
     EmotionResponse,
     ChatRequest,
     ChatResponse,
-    ContentItem,
     AgentRunRequest,
     AgentRunResponse,
+    ContentRecommendRequest,
+    ContentRecommendResponse,
+    RecommendationFeedbackRequest,
+    RecommendationFeedbackResponse,
 )
 from conversation_manager import conversation_manager
 from emotion_analyzer import emotion_analyzer
@@ -283,30 +286,29 @@ async def get_emergency_resources():
     }
 
 # ==================== 内容推荐API ====================
-@router.post("/content/recommend")
-async def recommend_content(
-    user_input: str,
-    current_emotion: str,
-    conversation_stage: str,
-    key_concerns: Optional[str] = None,
-    user_id: Optional[str] = None,
-    limit: int = 3
-):
+@router.post("/content/recommend", response_model=ContentRecommendResponse)
+async def recommend_content(request: ContentRecommendRequest):
     """个性化内容推荐API"""
     try:
+        key_concerns = request.key_concerns
+        if isinstance(key_concerns, str):
+            key_concerns_list = [item.strip() for item in key_concerns.split(",") if item.strip()]
+        else:
+            key_concerns_list = key_concerns or []
+
         # 构建对话摘要
         conversation_summary = {
-            'conversation_stage': conversation_stage,
-            'key_concerns': key_concerns.split(',') if key_concerns else [],
+            'conversation_stage': request.conversation_stage,
+            'key_concerns': key_concerns_list,
             'turn_count': 1,
-            'recent_emotions': [current_emotion]
+            'recent_emotions': [request.current_emotion]
         }
 
         # 可选：根据 user_id 加载用户画像，用于个性化推荐
         user_profile_context = {}
-        if user_id:
+        if request.user_id:
             try:
-                profile = await UserProfileTool.get_profile(user_id)
+                profile = await UserProfileTool.get_profile(request.user_id)
                 if profile:
                     user_profile_context = {
                         "user_id": profile.user_id,
@@ -321,22 +323,55 @@ async def recommend_content(
                 logger.error(f"/content/recommend 加载用户画像失败: {e}", exc_info=True)
         
         recommendations, rationale, match_scores = await content_recommender.recommend_content(
-            user_input=user_input,
-            current_emotion=current_emotion,
+            user_input=request.user_input,
+            current_emotion=request.current_emotion,
             conversation_summary=conversation_summary,
             user_profile=user_profile_context,
-            limit=limit
+            limit=request.limit
         )
         
-        return {
-            "recommendations": recommendations,
-            "rationale": rationale,
-            "match_scores": match_scores
-        }
+        return ContentRecommendResponse(
+            recommendations=recommendations,
+            rationale=rationale,
+            match_scores=match_scores,
+        )
         
     except Exception as e:
         logger.error(f"内容推荐API失败: {e}")
         raise HTTPException(status_code=500, detail="内容推荐失败")
+
+
+@router.post("/content/feedback", response_model=RecommendationFeedbackResponse)
+async def submit_recommendation_feedback(request: RecommendationFeedbackRequest):
+    """记录用户对推荐内容的反馈"""
+    valid_feedback = {"accepted", "preferred", "helpful", "neutral", "rejected", "not_helpful", "avoid"}
+    if request.feedback not in valid_feedback:
+        raise HTTPException(status_code=400, detail="反馈值无效")
+
+    try:
+        profile = await UserProfileTool.get_profile(request.user_id)
+        existing_feedback = profile.recommendation_feedback if profile else {}
+        updated_feedback = dict(existing_feedback or {})
+        updated_feedback[request.content_id] = request.feedback
+
+        await UserProfileTool.upsert_profile(
+            user_id=request.user_id,
+            recommendation_feedback=updated_feedback,
+        )
+        conversation_manager.record_recommendation_feedback(
+            user_id=request.user_id,
+            session_id=request.session_id,
+            content_id=request.content_id,
+            feedback=request.feedback,
+        )
+        return RecommendationFeedbackResponse(
+            message="推荐反馈已记录",
+            content_id=request.content_id,
+            feedback=request.feedback,
+        )
+    except Exception as e:
+        logger.error(f"推荐反馈记录失败: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail="推荐反馈记录失败")
 
 @router.get("/content/search")
 async def search_content(q: str, limit: int = 10):

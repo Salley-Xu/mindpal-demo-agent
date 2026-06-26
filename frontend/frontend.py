@@ -6,13 +6,54 @@ import uuid
 import hashlib
 import json
 from datetime import datetime
+from debug_panel import build_debug_snapshot
 
-def display_recommendations(recommendations, rationale):
+
+def submit_recommendation_feedback(content_id, feedback):
+    """提交推荐反馈到后端并更新本地状态"""
+    feedback_url = f"{st.session_state.api_base}/content/feedback"
+    payload = {
+        "user_id": st.session_state.user_id,
+        "session_id": st.session_state.session_id,
+        "content_id": content_id,
+        "feedback": feedback,
+    }
+    resp = requests.post(feedback_url, json=payload, timeout=10)
+    if resp.status_code == 200:
+        st.session_state.recommendation_feedback_map[content_id] = feedback
+        return True
+    try:
+        detail = resp.json().get("detail", "反馈提交失败")
+    except Exception:
+        detail = f"反馈提交失败 (状态码: {resp.status_code})"
+    st.error(detail)
+    return False
+
+
+def display_recommendation_decision(decision):
+    """显示推荐门控决策摘要"""
+    if not decision:
+        return
+    type_map = {
+        "none": "不触发推荐",
+        "soft": "软推荐",
+        "hard": "硬推荐",
+    }
+    reason_codes = decision.get("reason_codes", [])
+    reason_text = "、".join(reason_codes) if reason_codes else "无"
+    st.caption(
+        f"推荐门控: {type_map.get(decision.get('recommend_type', 'none'), '未知')} | "
+        f"score={decision.get('score', 0)} | "
+        f"reasons={reason_text}"
+    )
+
+def display_recommendations(recommendations, rationale, recommendation_decision=None):
     """显示推荐内容"""
     if recommendations:
         # 创建一个漂亮的卡片式展示
         st.markdown("---")
         st.markdown("### 📚 为你推荐")
+        display_recommendation_decision(recommendation_decision)
         
         # 显示推荐理由
         if rationale:
@@ -81,15 +122,86 @@ def display_recommendations(recommendations, rationale):
                         """, unsafe_allow_html=True)
                     else:
                         st.caption("📝 内部资源")
+
+                    retrieval_metadata = item.get("retrieval_metadata") or {}
+                    if retrieval_metadata:
+                        with st.expander("检索说明", expanded=False):
+                            st.caption(
+                                f"最终分数: {retrieval_metadata.get('final_score', 'n/a')} | "
+                                f"召回分数: {retrieval_metadata.get('retrieval_score', 'n/a')}"
+                            )
+                            st.caption(
+                                f"命中查询: {', '.join(retrieval_metadata.get('matched_queries', [])) or '无'}"
+                            )
+                            st.caption(
+                                f"召回来源: {', '.join(retrieval_metadata.get('retrieval_sources', [])) or '无'}"
+                            )
+
+                    current_feedback = st.session_state.recommendation_feedback_map.get(item.get("id"))
+                    feedback_col1, feedback_col2, feedback_col3 = st.columns(3)
+                    with feedback_col1:
+                        if st.button("有帮助", key=f"fb_helpful_{item.get('id')}"):
+                            if submit_recommendation_feedback(item.get("id"), "helpful"):
+                                st.success("已记录反馈")
+                    with feedback_col2:
+                        if st.button("一般", key=f"fb_neutral_{item.get('id')}"):
+                            if submit_recommendation_feedback(item.get("id"), "neutral"):
+                                st.success("已记录反馈")
+                    with feedback_col3:
+                        if st.button("不想要", key=f"fb_avoid_{item.get('id')}"):
+                            if submit_recommendation_feedback(item.get("id"), "avoid"):
+                                st.success("已记录反馈")
+                    if current_feedback:
+                        st.caption(f"当前反馈: {current_feedback}")
         
         # 如果还有更多推荐，显示提示
         if len(recommendations) > 3:
             st.caption(f"还有 {len(recommendations) - 3} 个相关推荐...")
 
+
+def display_debug_panel():
+    """在侧边栏集中展示当前调试状态。"""
+    snapshot = build_debug_snapshot(
+        conversation_summary=st.session_state.conversation_summary,
+        emotion_state=st.session_state.latest_emotion_state,
+        risk_state=st.session_state.latest_risk_state,
+        recommendation_decision=st.session_state.recommendation_decision,
+        recommendations=st.session_state.latest_recommendations,
+        feedback_map=st.session_state.recommendation_feedback_map,
+    )
+
+    with st.expander("🧪 调试视图", expanded=False):
+        st.caption("情绪状态")
+        st.json(snapshot["emotion"], expanded=False)
+
+        st.caption("风险状态")
+        st.json(snapshot["risk"], expanded=False)
+
+        st.caption("推荐门控")
+        st.json(snapshot["decision"], expanded=False)
+
+        st.caption("会话摘要")
+        st.json(snapshot["summary"], expanded=False)
+
+        if snapshot["recommendations"]:
+            st.caption("推荐与检索")
+            for item in snapshot["recommendations"][:3]:
+                with st.expander(f"{item['id']} | {item['title']}", expanded=False):
+                    st.json(item, expanded=False)
+        else:
+            st.caption("推荐与检索: 暂无数据")
+
+        if snapshot["feedback_map"]:
+            st.caption("反馈状态")
+            st.json(snapshot["feedback_map"], expanded=False)
+        else:
+            st.caption("反馈状态: 暂无数据")
+
 # 在显示推荐内容之前，先检查是否有紧急情况
-def show_urgent_warning(urgent_issue):
+def show_urgent_warning(risk_state):
     """显示紧急情况警告"""
-    if urgent_issue and urgent_issue.get('level') == 'urgent':
+    level = (risk_state or {}).get('level')
+    if level in ['urgent', 'high']:
         st.error("""
         🚨 **紧急情况检测**
         
@@ -99,7 +211,7 @@ def show_urgent_warning(urgent_issue):
         - 专业支持随时可用
         """)
         return True
-    elif urgent_issue and urgent_issue.get('level') in ['warning_high', 'warning']:
+    elif level in ['warning_high', 'warning', 'medium']:
         st.warning("""
         ⚠️ **风险提示**
         
@@ -179,6 +291,14 @@ if "cache_expiry" not in st.session_state:
     st.session_state.cache_expiry = {}
 if "performance_stats" not in st.session_state:
     st.session_state.performance_stats = []
+if "recommendation_decision" not in st.session_state:
+    st.session_state.recommendation_decision = {}
+if "recommendation_feedback_map" not in st.session_state:
+    st.session_state.recommendation_feedback_map = {}
+if "latest_emotion_state" not in st.session_state:
+    st.session_state.latest_emotion_state = {}
+if "latest_risk_state" not in st.session_state:
+    st.session_state.latest_risk_state = {}
 
 # ------------------ 侧边栏配置 ------------------
 with st.sidebar:
@@ -275,6 +395,12 @@ with st.sidebar:
         turn_count = summary.get('turn_count', 0)
         if turn_count > 0:
             st.caption(f"对话轮次: {turn_count}")
+
+        if st.session_state.recommendation_decision:
+            display_recommendation_decision(st.session_state.recommendation_decision)
+
+    st.divider()
+    display_debug_panel()
     
     st.divider()
     
@@ -294,23 +420,27 @@ with st.sidebar:
     
     with col2:
         if st.button("🗑️ 新会话", use_container_width=True):
+            old_session_id = st.session_state.session_id
+            try:
+                clear_url = f"{st.session_state.api_base}/session/{st.session_state.user_id}/{old_session_id}"
+                requests.delete(clear_url, timeout=3)
+            except Exception as e:
+                st.warning(f"清除后端会话失败: {str(e)}")
+
             # 清除当前会话并创建新会话
             st.session_state.chat_history = []
             st.session_state.session_id = f"session_{int(time.time())}_{uuid.uuid4().hex[:8]}"
             st.session_state.conversation_summary = {}
             st.session_state.latest_recommendations = []
             st.session_state.recommendation_rationale = ""
+            st.session_state.recommendation_decision = {}
+            st.session_state.recommendation_feedback_map = {}
+            st.session_state.latest_emotion_state = {}
+            st.session_state.latest_risk_state = {}
             # 清除相关缓存
             st.session_state.api_cache = {}
             st.session_state.cache_expiry = {}
-            
-            # 通知后端清除旧会话
-            try:
-                clear_url = f"{st.session_state.api_base}/session/{st.session_state.user_id}/{st.session_state.session_id}"
-                requests.delete(clear_url, timeout=3)
-            except Exception as e:
-                st.warning(f"清除后端会话失败: {str(e)}")
-                
+
             st.rerun()
     
     st.divider()
@@ -359,9 +489,14 @@ with st.sidebar:
                     recommend_url = f"{st.session_state.api_base}/content/recommend"
                     recommend_data = {
                         "user_input": latest_user_message,
-                        "current_emotion": st.session_state.conversation_summary.get("current_emotion", "中性"),
+                        "current_emotion": (
+                            st.session_state.conversation_summary.get("current_emotion")
+                            or st.session_state.conversation_summary.get("primary_emotion")
+                            or "中性"
+                        ),
                         "conversation_stage": st.session_state.conversation_summary.get("conversation_stage", "initial"),
-                        "key_concerns": ",".join(st.session_state.conversation_summary.get("key_concerns", [])),
+                        "key_concerns": st.session_state.conversation_summary.get("key_concerns", []),
+                        "user_id": st.session_state.user_id,
                         "limit": 3
                     }
                     
@@ -437,8 +572,14 @@ for idx, chat in enumerate(st.session_state.chat_history):
         # 不在chat_message中显示，而是独立显示
         display_recommendations(
             st.session_state.latest_recommendations,
-            st.session_state.recommendation_rationale
+            st.session_state.recommendation_rationale,
+            st.session_state.recommendation_decision,
         )
+
+    if (chat["role"] == "assistant" and
+        idx == len(st.session_state.chat_history) - 1 and
+        chat.get("risk_state")):
+        show_urgent_warning(chat["risk_state"])
 
 # 用户输入区域
 user_input = st.chat_input("请描述你的心情或困扰...")
@@ -475,21 +616,6 @@ if user_input:
                     chat_result = cached_response
                     st.caption("💾 使用缓存响应")
                 else:
-                    # 添加进度指示
-                    import threading
-                    def check_processing_time():
-                        while time.time() - start_time < 30:
-                            if time.time() - start_time > 5:
-                                st.info("系统正在处理，请稍候...")
-                            elif time.time() - start_time > 10:
-                                st.warning("处理时间较长，系统仍在工作中...")
-                            time.sleep(1)
-                    
-                    # 启动进度检查线程
-                    progress_thread = threading.Thread(target=check_processing_time)
-                    progress_thread.daemon = True
-                    progress_thread.start()
-                    
                     chat_resp = requests.post(chat_url, json=chat_data, timeout=30)
                     
                     if chat_resp.status_code == 200:
@@ -508,24 +634,32 @@ if user_input:
                             
                             ai_response = chat_result["response"]
                             
-                            # 获取情绪摘要信息
-                            emotion_summary = chat_result.get("emotion_summary", {})
+                            # 获取结构化状态
+                            emotion_state = chat_result.get("emotion_state") or {}
+                            risk_state = chat_result.get("risk_state") or chat_result.get("urgent_issue") or {}
+                            session_summary = chat_result.get("session_summary") or chat_result.get("emotion_summary") or {}
                             
                             # 获取推荐内容
                             recommendations = chat_result.get("recommendations", [])
                             recommendation_rationale = chat_result.get("recommendation_rationale", "")
+                            recommendation_decision = chat_result.get("recommendation_decision") or {}
                             
                             # 显示AI回复
                             st.markdown(ai_response)
+                            show_urgent_warning(risk_state)
+                            display_recommendation_decision(recommendation_decision)
                             
                             # 更新用户消息的情绪信息
-                            if emotion_summary:
-                                st.session_state.chat_history[temp_message_id]["current_emotion"] = emotion_summary.get("current_emotion", "未知")
-                                st.session_state.chat_history[temp_message_id]["context_emotion"] = emotion_summary.get("context_emotion", "未知")
+                            if emotion_state:
+                                st.session_state.chat_history[temp_message_id]["current_emotion"] = emotion_state.get("current_emotion", "未知")
+                                st.session_state.chat_history[temp_message_id]["context_emotion"] = emotion_state.get("context_emotion", "未知")
                             
                             # 保存推荐内容
                             st.session_state.latest_recommendations = recommendations
                             st.session_state.recommendation_rationale = recommendation_rationale
+                            st.session_state.recommendation_decision = recommendation_decision
+                            st.session_state.latest_emotion_state = emotion_state
+                            st.session_state.latest_risk_state = risk_state
                             
                             # 保存AI回复到历史
                             ai_message_data = {
@@ -534,15 +668,25 @@ if user_input:
                                 "time": datetime.now().strftime("%H:%M")
                             }
                             
-                            # 如果有紧急情况，标记
-                            urgent_issue = chat_result.get("urgent_issue")
-                            if urgent_issue and urgent_issue.get("level") in ["urgent", "warning_high"]:
+                            # 如果有风险情况，标记并保留状态供重渲染时展示
+                            if risk_state:
+                                ai_message_data["risk_state"] = risk_state
+                            if recommendation_decision:
+                                ai_message_data["recommendation_decision"] = recommendation_decision
+                            if risk_state and risk_state.get("level") in ["urgent", "warning_high", "high", "medium"]:
                                 ai_message_data["urgent"] = True
                             
                             st.session_state.chat_history.append(ai_message_data)
                             
                             # 更新对话摘要
-                            st.session_state.conversation_summary = emotion_summary
+                            merged_summary = dict(session_summary)
+                            if emotion_state:
+                                merged_summary["current_emotion"] = emotion_state.get("current_emotion")
+                                merged_summary["context_emotion"] = emotion_state.get("context_emotion")
+                                merged_summary["confidence"] = emotion_state.get("confidence")
+                                if emotion_state.get("emotion_trend"):
+                                    merged_summary["emotion_trend"] = emotion_state.get("emotion_trend")
+                            st.session_state.conversation_summary = merged_summary
                     elif chat_resp.status_code == 400:
                         # 客户端错误
                         try:

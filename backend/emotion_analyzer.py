@@ -1,10 +1,12 @@
-import logging
-from typing import Optional, Dict, Tuple
-from openai import AsyncOpenAI
-from config import config
 import hashlib
-import time
+import logging
 import re
+import time
+from typing import Any, Dict, Optional, Tuple
+
+from openai import AsyncOpenAI
+
+from config import config
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +94,28 @@ class EmotionAnalyzer:
         except Exception as e:
             logger.error(f"情绪分析失败(异步): {e}")
             return "中性", "中性", 0.5
+
+    def build_emotion_state_payload(
+        self,
+        text: str,
+        current_emotion: str,
+        context_emotion: str,
+        confidence: float,
+        conversation_summary: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        summary = conversation_summary or {}
+        emotion_trend = summary.get("emotion_trend")
+        return {
+            "current_emotion": current_emotion,
+            "emotion_type": self._normalize_emotion_type(current_emotion),
+            "context_emotion": context_emotion,
+            "emotion_intensity": self._estimate_emotion_intensity(text, current_emotion, emotion_trend),
+            "stress_source": self._detect_stress_source(text, summary),
+            "user_intent": self._detect_user_intent(text),
+            "negative_trend": self._detect_negative_trend(current_emotion, summary),
+            "confidence": confidence,
+            "emotion_trend": emotion_trend,
+        }
     
     async def _call_llm(self, messages: list, temperature: float = 0.1, max_tokens: int = 100) -> str:
         """调用LLM API"""
@@ -176,6 +200,108 @@ class EmotionAnalyzer:
             base_confidence -= 0.1
         
         return max(0.5, min(1.0, base_confidence))
+
+    def _normalize_emotion_type(self, emotion: str) -> str:
+        mapping = {
+            "焦虑": "anxiety",
+            "抑郁": "sadness",
+            "低落": "sadness",
+            "愤怒": "anger",
+            "压力": "stress",
+            "学业压力": "stress",
+            "困惑": "confusion",
+            "不确定": "confusion",
+            "未来迷茫": "confusion",
+            "无助": "helplessness",
+            "孤独": "helplessness",
+            "中性": "neutral",
+            "平静": "positive",
+            "快乐": "positive",
+            "放松": "positive",
+        }
+        return mapping.get(emotion, "neutral")
+
+    def _estimate_emotion_intensity(
+        self, text: str, current_emotion: str, emotion_trend: Optional[str]
+    ) -> float:
+        base = 0.55
+        negative_emotions = {"焦虑", "抑郁", "愤怒", "压力", "学业压力", "无助", "孤独"}
+        strong_markers = ["非常", "特别", "真的", "完全", "根本", "太", "崩溃", "撑不住"]
+        medium_markers = ["有点", "有些", "比较", "有一点", "不太"]
+
+        if current_emotion in negative_emotions:
+            base += 0.12
+
+        for marker in strong_markers:
+            if marker in text:
+                base += 0.08
+
+        for marker in medium_markers:
+            if marker in text:
+                base += 0.04
+
+        if len(text) > 80:
+            base += 0.05
+
+        if emotion_trend in {"escalating", "consistent"} and current_emotion in negative_emotions:
+            base += 0.08
+        elif emotion_trend in {"improving", "calming"}:
+            base -= 0.05
+
+        return max(0.0, min(1.0, round(base, 2)))
+
+    def _detect_stress_source(
+        self, text: str, conversation_summary: Optional[Dict[str, Any]] = None
+    ) -> Optional[str]:
+        source_keywords = {
+            "学业/求职压力": ["考试", "论文", "学习", "毕业", "面试", "求职", "找工作", "实习"],
+            "人际关系压力": ["朋友", "室友", "对象", "男朋友", "女朋友", "关系", "沟通", "家人"],
+            "未来规划压力": ["未来", "方向", "规划", "迷茫", "不知道做什么"],
+            "自我评价压力": ["自己不行", "怀疑自己", "没用", "做不好", "不够好"],
+            "睡眠/身体压力": ["睡不着", "失眠", "很累", "身体", "头疼", "没精神"],
+        }
+
+        for source, keywords in source_keywords.items():
+            if any(keyword in text for keyword in keywords):
+                return source
+
+        concerns = (conversation_summary or {}).get("key_concerns", [])
+        concern_to_source = {
+            "academic": "学业/求职压力",
+            "relationship": "人际关系压力",
+            "future": "未来规划压力",
+            "self": "自我评价压力",
+        }
+        for concern in concerns:
+            if concern in concern_to_source:
+                return concern_to_source[concern]
+
+        return None
+
+    def _detect_user_intent(self, text: str) -> str:
+        intent_rules = {
+            "seeking_help": ["怎么办", "怎么做", "帮帮我", "我该怎么办", "有什么办法"],
+            "planning": ["计划", "安排", "拆分", "步骤", "怎么开始"],
+            "seeking_relief": ["缓解", "放松", "平静", "睡着", "减轻"],
+            "sharing": [],
+        }
+        for intent, keywords in intent_rules.items():
+            if keywords and any(keyword in text for keyword in keywords):
+                return intent
+        return "sharing"
+
+    def _detect_negative_trend(
+        self, current_emotion: str, conversation_summary: Optional[Dict[str, Any]] = None
+    ) -> bool:
+        summary = conversation_summary or {}
+        if summary.get("emotion_trend") in {"escalating", "consistent"}:
+            recent = summary.get("recent_emotions", []) or []
+            negative_emotions = {"焦虑", "抑郁", "愤怒", "压力", "学业压力", "无助", "孤独"}
+            if current_emotion in negative_emotions:
+                if recent and all(emotion in negative_emotions for emotion in recent):
+                    return True
+                return summary.get("emotion_trend") == "escalating"
+        return False
     
     async def analyze_conversation_emotions_async(self, conversation_history: list) -> Tuple[str, str, float]:
         try:

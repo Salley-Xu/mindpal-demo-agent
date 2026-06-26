@@ -141,6 +141,32 @@ class DatabaseManager:
                 )
             """)
 
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS recommendation_events (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id INTEGER NOT NULL,
+                    turn_number INTEGER NOT NULL,
+                    recommend_type TEXT NOT NULL,
+                    item_ids TEXT DEFAULT '[]',
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS recommendation_feedback (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id INTEGER NOT NULL,
+                    user_id TEXT NOT NULL,
+                    content_id TEXT NOT NULL,
+                    feedback TEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(session_id, content_id),
+                    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                )
+            """)
+
             # 创建索引
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_session_lookup ON sessions(user_id, session_id)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_history_session ON conversation_history(session_id)")
@@ -148,8 +174,41 @@ class DatabaseManager:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_last_active ON sessions(last_active)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_profile ON user_profile(user_id)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_mood_events_user ON mood_events(user_id, created_at)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_rec_events_session ON recommendation_events(session_id, created_at)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_session ON recommendation_feedback(session_id, updated_at)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_user ON recommendation_feedback(user_id, updated_at)")
+            self._run_schema_migrations(cursor)
             
             logger.info("数据库表结构初始化完成")
+
+    def _run_schema_migrations(self, cursor):
+        """以兼容方式补充新增字段，避免破坏已有数据库。"""
+        self._ensure_column_exists(cursor, "mood_events", "emotion_type", "TEXT")
+        self._ensure_column_exists(cursor, "mood_events", "emotion_intensity", "REAL DEFAULT 0.5")
+        self._ensure_column_exists(cursor, "mood_events", "stress_source", "TEXT")
+        self._ensure_column_exists(cursor, "mood_events", "user_intent", "TEXT")
+        self._ensure_column_exists(cursor, "mood_events", "event_summary", "TEXT")
+        self._ensure_column_exists(cursor, "mood_events", "risk_level", "TEXT DEFAULT 'low'")
+
+    def _ensure_column_exists(self, cursor, table_name: str, column_name: str, definition: str):
+        cursor.execute(f"PRAGMA table_info({table_name})")
+        existing_columns = {row["name"] for row in cursor.fetchall()}
+        if column_name not in existing_columns:
+            cursor.execute(
+                f"ALTER TABLE {table_name} ADD COLUMN {column_name} {definition}"
+            )
+            logger.info("已为 %s 添加字段 %s", table_name, column_name)
+
+    def _normalize_risk_level(self, risk_level: Optional[str]) -> str:
+        mapping = {
+            "normal": "low",
+            "warning": "medium",
+            "warning_low": "medium",
+            "warning_high": "medium",
+            "urgent": "high",
+            None: "low",
+        }
+        return mapping.get(risk_level, risk_level or "low")
     
     def create_or_update_session(self, user_id: str, session_id: str, 
                                 conversation_stage: str = 'initial',
@@ -260,6 +319,35 @@ class DatabaseManager:
                 }
                 for row in emotion_rows
             ]
+
+            cursor.execute("""
+                SELECT turn_number, recommend_type, item_ids, created_at
+                FROM recommendation_events
+                WHERE session_id = ?
+                ORDER BY created_at ASC, id ASC
+            """, (session_db_id,))
+            recommendation_event_rows = cursor.fetchall()
+            recommendation_events = [
+                {
+                    "turn_number": row["turn_number"],
+                    "recommend_type": row["recommend_type"],
+                    "item_ids": json.loads(row["item_ids"] or "[]"),
+                    "timestamp": row["created_at"],
+                }
+                for row in recommendation_event_rows
+            ]
+
+            cursor.execute("""
+                SELECT content_id, feedback, created_at, updated_at
+                FROM recommendation_feedback
+                WHERE session_id = ?
+                ORDER BY updated_at ASC, id ASC
+            """, (session_db_id,))
+            recommendation_feedback_rows = cursor.fetchall()
+            recommendation_feedback = {
+                row["content_id"]: row["feedback"]
+                for row in recommendation_feedback_rows
+            }
             
             return {
                 'id': session_db_id,
@@ -270,7 +358,9 @@ class DatabaseManager:
                 'created_at': session_row['created_at'],
                 'last_active': session_row['last_active'],
                 'history': history,
-                'emotion_timeline': emotion_timeline
+                'emotion_timeline': emotion_timeline,
+                'recommendation_events': recommendation_events,
+                'recommendation_feedback': recommendation_feedback,
             }
     
     def get_user_sessions(self, user_id: str, limit: int = 10) -> List[Dict[str, Any]]:
@@ -402,7 +492,7 @@ class DatabaseManager:
                 return None
             return {
                 "user_id": row["user_id"],
-                "risk_level": row["risk_level"],
+                "risk_level": self._normalize_risk_level(row["risk_level"]),
                 "preferences": json.loads(row["preferences"] or "{}"),
                 "last_updated": row["last_updated"],
             }
@@ -416,10 +506,10 @@ class DatabaseManager:
             if existing:
                 merged_preferences = existing["preferences"]
                 merged_preferences.update(preferences_patch or {})
-                final_risk = risk_level or existing["risk_level"]
+                final_risk = self._normalize_risk_level(risk_level or existing["risk_level"])
             else:
                 merged_preferences = preferences_patch or {}
-                final_risk = risk_level or "normal"
+                final_risk = self._normalize_risk_level(risk_level or "low")
 
             cursor.execute(
                 """
@@ -440,26 +530,95 @@ class DatabaseManager:
         emotion: str,
         source: str,
         text_snippet: str,
+        emotion_type: Optional[str] = None,
+        emotion_intensity: Optional[float] = None,
+        stress_source: Optional[str] = None,
+        user_intent: Optional[str] = None,
+        event_summary: Optional[str] = None,
+        risk_level: Optional[str] = None,
     ) -> str:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                INSERT INTO mood_events (user_id, session_id, emotion, source, text_snippet)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO mood_events (
+                    user_id, session_id, emotion, source, text_snippet,
+                    emotion_type, emotion_intensity, stress_source, user_intent,
+                    event_summary, risk_level
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (user_id, session_id, emotion, source, text_snippet[:100]),
+                (
+                    user_id,
+                    session_id,
+                    emotion,
+                    source,
+                    text_snippet[:100],
+                    emotion_type or emotion,
+                    emotion_intensity if emotion_intensity is not None else 0.5,
+                    stress_source,
+                    user_intent,
+                    event_summary[:200] if event_summary else None,
+                    self._normalize_risk_level(risk_level),
+                ),
             )
             cursor.execute("SELECT created_at FROM mood_events WHERE id = last_insert_rowid()")
             row = cursor.fetchone()
             return row["created_at"] if row else datetime.now().isoformat()
+
+    def add_recommendation_event(
+        self,
+        session_db_id: int,
+        turn_number: int,
+        recommend_type: str,
+        item_ids: Optional[List[str]] = None,
+    ):
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                INSERT INTO recommendation_events (session_id, turn_number, recommend_type, item_ids)
+                VALUES (?, ?, ?, ?)
+                """,
+                (
+                    session_db_id,
+                    turn_number,
+                    recommend_type,
+                    json.dumps(item_ids or [], ensure_ascii=False),
+                ),
+            )
+
+    def upsert_recommendation_feedback(
+        self,
+        session_db_id: int,
+        user_id: str,
+        content_id: str,
+        feedback: str,
+    ):
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                INSERT INTO recommendation_feedback (
+                    session_id, user_id, content_id, feedback, created_at, updated_at
+                )
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                ON CONFLICT(session_id, content_id) DO UPDATE SET
+                    feedback = excluded.feedback,
+                    user_id = excluded.user_id,
+                    updated_at = CURRENT_TIMESTAMP
+                """,
+                (session_db_id, user_id, content_id, feedback),
+            )
 
     def get_recent_mood_events(self, user_id: str, limit: int = 20) -> List[Dict[str, Any]]:
         with self.get_connection() as conn:
             cursor = conn.cursor()
             cursor.execute(
                 """
-                SELECT user_id, session_id, emotion, source, text_snippet, created_at
+                SELECT user_id, session_id, emotion, source, text_snippet, created_at,
+                       emotion_type, emotion_intensity, stress_source, user_intent,
+                       event_summary, risk_level
                 FROM mood_events
                 WHERE user_id = ?
                 ORDER BY created_at DESC
@@ -475,6 +634,12 @@ class DatabaseManager:
                     "emotion": r["emotion"],
                     "source": r["source"],
                     "text_snippet": r["text_snippet"],
+                    "emotion_type": r["emotion_type"] or r["emotion"],
+                    "emotion_intensity": r["emotion_intensity"] if r["emotion_intensity"] is not None else 0.5,
+                    "stress_source": r["stress_source"],
+                    "user_intent": r["user_intent"],
+                    "event_summary": r["event_summary"],
+                    "risk_level": self._normalize_risk_level(r["risk_level"]),
                     "created_at": r["created_at"],
                 }
                 for r in rows
@@ -551,14 +716,71 @@ class AsyncDatabaseManager:
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     )
                 """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS recommendation_events (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        session_id INTEGER NOT NULL,
+                        turn_number INTEGER NOT NULL,
+                        recommend_type TEXT NOT NULL,
+                        item_ids TEXT DEFAULT '[]',
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS recommendation_feedback (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        session_id INTEGER NOT NULL,
+                        user_id TEXT NOT NULL,
+                        content_id TEXT NOT NULL,
+                        feedback TEXT NOT NULL,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        UNIQUE(session_id, content_id),
+                        FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                    )
+                """)
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_session_lookup ON sessions(user_id, session_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_history_session ON conversation_history(session_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_emotion_session ON emotion_timeline(session_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_last_active ON sessions(last_active)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_user_profile ON user_profile(user_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_mood_events_user ON mood_events(user_id, created_at)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_rec_events_session ON recommendation_events(session_id, created_at)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_session ON recommendation_feedback(session_id, updated_at)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_user ON recommendation_feedback(user_id, updated_at)")
+                await self._run_schema_migrations(conn)
                 await conn.commit()
             self._initialized = True
+
+    async def _run_schema_migrations(self, conn):
+        await self._ensure_column_exists(conn, "mood_events", "emotion_type", "TEXT")
+        await self._ensure_column_exists(conn, "mood_events", "emotion_intensity", "REAL DEFAULT 0.5")
+        await self._ensure_column_exists(conn, "mood_events", "stress_source", "TEXT")
+        await self._ensure_column_exists(conn, "mood_events", "user_intent", "TEXT")
+        await self._ensure_column_exists(conn, "mood_events", "event_summary", "TEXT")
+        await self._ensure_column_exists(conn, "mood_events", "risk_level", "TEXT DEFAULT 'low'")
+
+    async def _ensure_column_exists(self, conn, table_name: str, column_name: str, definition: str):
+        cursor = await conn.execute(f"PRAGMA table_info({table_name})")
+        rows = await cursor.fetchall()
+        existing_columns = {row[1] for row in rows}
+        if column_name not in existing_columns:
+            await conn.execute(
+                f"ALTER TABLE {table_name} ADD COLUMN {column_name} {definition}"
+            )
+            logger.info("已为 %s 添加字段 %s", table_name, column_name)
+
+    def _normalize_risk_level(self, risk_level: Optional[str]) -> str:
+        mapping = {
+            "normal": "low",
+            "warning": "medium",
+            "warning_low": "medium",
+            "warning_high": "medium",
+            "urgent": "high",
+            None: "low",
+        }
+        return mapping.get(risk_level, risk_level or "low")
 
     async def create_or_update_session(self, user_id: str, session_id: str,
                                        conversation_stage: str = 'initial',
@@ -653,6 +875,33 @@ class AsyncDatabaseManager:
                 }
                 for r in emotion_rows
             ]
+            cursor = await conn.execute("""
+                SELECT turn_number, recommend_type, item_ids, created_at
+                FROM recommendation_events
+                WHERE session_id = ?
+                ORDER BY created_at ASC, id ASC
+            """, (session_db_id,))
+            recommendation_event_rows = await cursor.fetchall()
+            recommendation_events = [
+                {
+                    'turn_number': r["turn_number"],
+                    'recommend_type': r["recommend_type"],
+                    'item_ids': json.loads(r["item_ids"] or "[]"),
+                    'timestamp': r["created_at"]
+                }
+                for r in recommendation_event_rows
+            ]
+            cursor = await conn.execute("""
+                SELECT content_id, feedback
+                FROM recommendation_feedback
+                WHERE session_id = ?
+                ORDER BY updated_at ASC, id ASC
+            """, (session_db_id,))
+            recommendation_feedback_rows = await cursor.fetchall()
+            recommendation_feedback = {
+                r["content_id"]: r["feedback"]
+                for r in recommendation_feedback_rows
+            }
             return {
                 'id': session_db_id,
                 'user_id': session_row["user_id"],
@@ -662,7 +911,9 @@ class AsyncDatabaseManager:
                 'created_at': session_row["created_at"],
                 'last_active': session_row["last_active"],
                 'history': history,
-                'emotion_timeline': emotion_timeline
+                'emotion_timeline': emotion_timeline,
+                'recommendation_events': recommendation_events,
+                'recommendation_feedback': recommendation_feedback,
             }
 
     async def cleanup_expired_sessions(self, days: int = 30) -> int:
@@ -747,7 +998,7 @@ class AsyncDatabaseManager:
                 return None
             return {
                 "user_id": row["user_id"],
-                "risk_level": row["risk_level"],
+                "risk_level": self._normalize_risk_level(row["risk_level"]),
                 "preferences": json.loads(row["preferences"] or "{}"),
                 "last_updated": row["last_updated"],
             }
@@ -769,10 +1020,10 @@ class AsyncDatabaseManager:
             if row:
                 merged_preferences = json.loads(row["preferences"] or "{}")
                 merged_preferences.update(preferences_patch or {})
-                final_risk = risk_level or row["risk_level"]
+                final_risk = self._normalize_risk_level(risk_level or row["risk_level"])
             else:
                 merged_preferences = preferences_patch or {}
-                final_risk = risk_level or "normal"
+                final_risk = self._normalize_risk_level(risk_level or "low")
 
             await conn.execute(
                 """
@@ -794,15 +1045,37 @@ class AsyncDatabaseManager:
         emotion: str,
         source: str,
         text_snippet: str,
+        emotion_type: Optional[str] = None,
+        emotion_intensity: Optional[float] = None,
+        stress_source: Optional[str] = None,
+        user_intent: Optional[str] = None,
+        event_summary: Optional[str] = None,
+        risk_level: Optional[str] = None,
     ) -> str:
         await self._ensure_initialized()
         async with aiosqlite.connect(self.db_path) as conn:
             await conn.execute(
                 """
-                INSERT INTO mood_events (user_id, session_id, emotion, source, text_snippet)
-                VALUES (?, ?, ?, ?, ?)
+                INSERT INTO mood_events (
+                    user_id, session_id, emotion, source, text_snippet,
+                    emotion_type, emotion_intensity, stress_source, user_intent,
+                    event_summary, risk_level
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (user_id, session_id, emotion, source, text_snippet[:100]),
+                (
+                    user_id,
+                    session_id,
+                    emotion,
+                    source,
+                    text_snippet[:100],
+                    emotion_type or emotion,
+                    emotion_intensity if emotion_intensity is not None else 0.5,
+                    stress_source,
+                    user_intent,
+                    event_summary[:200] if event_summary else None,
+                    self._normalize_risk_level(risk_level),
+                ),
             )
             cursor = await conn.execute(
                 "SELECT created_at FROM mood_events WHERE id = last_insert_rowid()"
@@ -817,7 +1090,9 @@ class AsyncDatabaseManager:
             conn.row_factory = aiosqlite.Row
             cursor = await conn.execute(
                 """
-                SELECT user_id, session_id, emotion, source, text_snippet, created_at
+                SELECT user_id, session_id, emotion, source, text_snippet, created_at,
+                       emotion_type, emotion_intensity, stress_source, user_intent,
+                       event_summary, risk_level
                 FROM mood_events
                 WHERE user_id = ?
                 ORDER BY created_at DESC
@@ -833,10 +1108,63 @@ class AsyncDatabaseManager:
                     "emotion": r["emotion"],
                     "source": r["source"],
                     "text_snippet": r["text_snippet"],
+                    "emotion_type": r["emotion_type"] or r["emotion"],
+                    "emotion_intensity": r["emotion_intensity"] if r["emotion_intensity"] is not None else 0.5,
+                    "stress_source": r["stress_source"],
+                    "user_intent": r["user_intent"],
+                    "event_summary": r["event_summary"],
+                    "risk_level": self._normalize_risk_level(r["risk_level"]),
                     "created_at": r["created_at"],
                 }
                 for r in rows
             ]
+
+    async def add_recommendation_event(
+        self,
+        session_db_id: int,
+        turn_number: int,
+        recommend_type: str,
+        item_ids: Optional[List[str]] = None,
+    ):
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.execute(
+                """
+                INSERT INTO recommendation_events (session_id, turn_number, recommend_type, item_ids)
+                VALUES (?, ?, ?, ?)
+                """,
+                (
+                    session_db_id,
+                    turn_number,
+                    recommend_type,
+                    json.dumps(item_ids or [], ensure_ascii=False),
+                ),
+            )
+            await conn.commit()
+
+    async def upsert_recommendation_feedback(
+        self,
+        session_db_id: int,
+        user_id: str,
+        content_id: str,
+        feedback: str,
+    ):
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.execute(
+                """
+                INSERT INTO recommendation_feedback (
+                    session_id, user_id, content_id, feedback, created_at, updated_at
+                )
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                ON CONFLICT(session_id, content_id) DO UPDATE SET
+                    feedback = excluded.feedback,
+                    user_id = excluded.user_id,
+                    updated_at = CURRENT_TIMESTAMP
+                """,
+                (session_db_id, user_id, content_id, feedback),
+            )
+            await conn.commit()
     
     async def get_user_sessions(self, user_id: str, limit: int = 10) -> List[Dict[str, Any]]:
         await self._ensure_initialized()

@@ -333,9 +333,12 @@ class UrgentLogger:
         """计算统计信息"""
         return {
             'total_cases': len(cases),
-            'urgent_count': len([c for c in cases if c['urgent_level'] == 'urgent']),
-            'warning_high_count': len([c for c in cases if c['urgent_level'] == 'warning_high']),
-            'warning_count': len([c for c in cases if c['urgent_level'] == 'warning']),
+            'urgent_count': len([c for c in cases if c['urgent_level'] in ['urgent', 'high']]),
+            'warning_high_count': len([c for c in cases if c['urgent_level'] in ['warning_high', 'medium']]),
+            'warning_count': len([c for c in cases if c['urgent_level'] in ['warning', 'low']]),
+            'high_count': len([c for c in cases if c['urgent_level'] == 'high']),
+            'medium_count': len([c for c in cases if c['urgent_level'] == 'medium']),
+            'low_count': len([c for c in cases if c['urgent_level'] == 'low']),
             'period_days': days,
             'avg_risk_score': sum(c.get('risk_score', 0) for c in cases) / max(len(cases), 1)
         }

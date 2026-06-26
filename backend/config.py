@@ -25,6 +25,10 @@ class Config:
     # 对话配置
     MAX_HISTORY: int = int(os.getenv("MAX_HISTORY", "20"))
     SESSION_TIMEOUT_MINUTES: int = int(os.getenv("SESSION_TIMEOUT", "30"))
+    MAX_CONTEXT_TOKENS: int = int(os.getenv("MAX_CONTEXT_TOKENS", "2400"))
+    CONTEXT_SOFT_THRESHOLD: float = float(os.getenv("CONTEXT_SOFT_THRESHOLD", "0.65"))
+    CONTEXT_HARD_THRESHOLD: float = float(os.getenv("CONTEXT_HARD_THRESHOLD", "0.85"))
+    CONTEXT_MIN_RECENT_TURNS: int = int(os.getenv("CONTEXT_MIN_RECENT_TURNS", "2"))
     
     # 日志配置
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")

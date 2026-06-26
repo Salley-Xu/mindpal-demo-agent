@@ -38,13 +38,17 @@ class UserProfile(BaseModel):
     """
 
     user_id: str
-    risk_level: str = "normal"
+    risk_level: str = "low"
     preferences: Dict[str, Any] = {}
     # 结构化偏好字段（方便上游/下游直接使用）
     preferred_types: List[str] = []
     preferred_categories: List[str] = []
     preferred_difficulty: str = "beginner"
     preferred_duration_range: Optional[Dict[str, Any]] = None
+    preferred_support_style: Optional[str] = None
+    avoid_style: List[str] = []
+    main_stress_sources: List[str] = []
+    recommendation_feedback: Dict[str, str] = {}
     last_updated: datetime
 
 
@@ -52,6 +56,12 @@ class MoodEvent(BaseModel):
     user_id: str
     session_id: str
     emotion: str
+    emotion_type: Optional[str] = None
+    emotion_intensity: float = 0.5
+    stress_source: Optional[str] = None
+    user_intent: Optional[str] = None
+    event_summary: Optional[str] = None
+    risk_level: str = "low"
     source: str
     text_snippet: str
     created_at: datetime
@@ -118,12 +128,16 @@ class UserProfileTool:
 
             return UserProfile(
                 user_id=row["user_id"],
-                risk_level=row.get("risk_level", "normal"),
+                risk_level=row.get("risk_level", "low"),
                 preferences=preferences,
                 preferred_types=preferences.get("preferred_types", []) or [],
                 preferred_categories=preferences.get("preferred_categories", []) or [],
                 preferred_difficulty=preferences.get("preferred_difficulty", "beginner"),
                 preferred_duration_range=preferences.get("preferred_duration_range"),
+                preferred_support_style=preferences.get("preferred_support_style"),
+                avoid_style=preferences.get("avoid_style", []) or [],
+                main_stress_sources=preferences.get("main_stress_sources", []) or [],
+                recommendation_feedback=preferences.get("recommendation_feedback", {}) or {},
                 last_updated=datetime.fromisoformat(row["last_updated"]),
             )
         except Exception as e:
@@ -139,6 +153,10 @@ class UserProfileTool:
         preferred_categories: Optional[List[str]] = None,
         preferred_difficulty: Optional[str] = None,
         preferred_duration_range: Optional[Dict[str, Any]] = None,
+        preferred_support_style: Optional[str] = None,
+        avoid_style: Optional[List[str]] = None,
+        main_stress_sources: Optional[List[str]] = None,
+        recommendation_feedback: Optional[Dict[str, str]] = None,
     ) -> UserProfile:
         try:
             # 将显式偏好字段合并进 preferences_patch，写回统一的 JSON 结构中
@@ -151,6 +169,14 @@ class UserProfileTool:
                 merged_patch["preferred_difficulty"] = preferred_difficulty
             if preferred_duration_range is not None:
                 merged_patch["preferred_duration_range"] = preferred_duration_range
+            if preferred_support_style is not None:
+                merged_patch["preferred_support_style"] = preferred_support_style
+            if avoid_style is not None:
+                merged_patch["avoid_style"] = avoid_style
+            if main_stress_sources is not None:
+                merged_patch["main_stress_sources"] = main_stress_sources
+            if recommendation_feedback is not None:
+                merged_patch["recommendation_feedback"] = recommendation_feedback
 
             await adb_manager.upsert_user_profile(user_id, risk_level, merged_patch)
             row = await adb_manager.get_user_profile(user_id)
@@ -167,12 +193,16 @@ class UserProfileTool:
 
             return UserProfile(
                 user_id=row["user_id"],
-                risk_level=row.get("risk_level", "normal"),
+                risk_level=row.get("risk_level", "low"),
                 preferences=preferences,
                 preferred_types=preferences.get("preferred_types", []) or [],
                 preferred_categories=preferences.get("preferred_categories", []) or [],
                 preferred_difficulty=preferences.get("preferred_difficulty", "beginner"),
                 preferred_duration_range=preferences.get("preferred_duration_range"),
+                preferred_support_style=preferences.get("preferred_support_style"),
+                avoid_style=preferences.get("avoid_style", []) or [],
+                main_stress_sources=preferences.get("main_stress_sources", []) or [],
+                recommendation_feedback=preferences.get("recommendation_feedback", {}) or {},
                 last_updated=datetime.fromisoformat(row["last_updated"]),
             )
         except Exception as e:
@@ -190,6 +220,12 @@ class MoodTrackingTool:
         emotion: str,
         source: str,
         text_snippet: str,
+        emotion_type: Optional[str] = None,
+        emotion_intensity: float = 0.5,
+        stress_source: Optional[str] = None,
+        user_intent: Optional[str] = None,
+        event_summary: Optional[str] = None,
+        risk_level: str = "low",
     ) -> MoodEvent:
         try:
             created_at = await adb_manager.add_mood_event(
@@ -198,11 +234,23 @@ class MoodTrackingTool:
                 emotion=emotion,
                 source=source,
                 text_snippet=text_snippet[:100],
+                emotion_type=emotion_type,
+                emotion_intensity=emotion_intensity,
+                stress_source=stress_source,
+                user_intent=user_intent,
+                event_summary=event_summary,
+                risk_level=risk_level,
             )
             return MoodEvent(
                 user_id=user_id,
                 session_id=session_id,
                 emotion=emotion,
+                emotion_type=emotion_type or emotion,
+                emotion_intensity=emotion_intensity,
+                stress_source=stress_source,
+                user_intent=user_intent,
+                event_summary=event_summary,
+                risk_level=risk_level,
                 source=source,
                 text_snippet=text_snippet[:100],
                 created_at=datetime.fromisoformat(created_at),
@@ -225,6 +273,12 @@ class MoodTrackingTool:
                         user_id=row["user_id"],
                         session_id=row["session_id"],
                         emotion=row["emotion"],
+                        emotion_type=row.get("emotion_type"),
+                        emotion_intensity=row.get("emotion_intensity", 0.5),
+                        stress_source=row.get("stress_source"),
+                        user_intent=row.get("user_intent"),
+                        event_summary=row.get("event_summary"),
+                        risk_level=row.get("risk_level", "low"),
                         source=row.get("source", "conversation"),
                         text_snippet=row.get("text_snippet", ""),
                         created_at=datetime.fromisoformat(row["created_at"]),
@@ -310,10 +364,13 @@ TOOL_DEFINITIONS = [
                 "type": "object",
                 "properties": {
                     "user_id": {"type": "string", "description": "用户ID (自动填充)"},
-                    "risk_level": {"type": "string", "enum": ["normal", "warning_low", "warning_high", "urgent"]},
+                    "risk_level": {"type": "string", "enum": ["low", "medium", "high"]},
                     "preferred_types": {"type": "array", "items": {"type": "string"}},
                     "preferred_categories": {"type": "array", "items": {"type": "string"}},
-                    "preferred_difficulty": {"type": "string"}
+                    "preferred_difficulty": {"type": "string"},
+                    "preferred_support_style": {"type": "string"},
+                    "avoid_style": {"type": "array", "items": {"type": "string"}},
+                    "main_stress_sources": {"type": "array", "items": {"type": "string"}}
                 },
                 "required": []
             }
@@ -330,6 +387,12 @@ TOOL_DEFINITIONS = [
                     "user_id": {"type": "string", "description": "自动填充"},
                     "session_id": {"type": "string", "description": "自动填充"},
                     "emotion": {"type": "string", "description": "检测到的情绪"},
+                    "emotion_type": {"type": "string", "description": "标准化情绪类型"},
+                    "emotion_intensity": {"type": "number", "description": "情绪强度 0-1"},
+                    "stress_source": {"type": "string", "description": "压力来源"},
+                    "user_intent": {"type": "string", "description": "当前用户意图"},
+                    "event_summary": {"type": "string", "description": "事件摘要"},
+                    "risk_level": {"type": "string", "enum": ["low", "medium", "high"]},
                     "source": {"type": "string", "default": "agent"},
                     "text_snippet": {"type": "string", "description": "相关的用户输入片段"}
                 },
@@ -367,4 +430,3 @@ TOOL_DEFINITIONS = [
         }
     }
 ]
-
