@@ -1,0 +1,877 @@
+import sqlite3
+from datetime import datetime, timedelta
+from typing import Optional, List, Dict, Any
+from contextlib import contextmanager
+import json
+import logging
+from config import config
+import threading
+import asyncio
+import aiosqlite
+
+logger = logging.getLogger(__name__)
+
+class DatabaseManager:
+    """数据库管理器 - 处理会话持久化"""
+    
+    def __init__(self, db_path: str = None, pool_size: int = 5):
+        self.db_path = db_path or config.SESSION_DB_PATH
+        self.pool_size = pool_size
+        self._connection_pool = []
+        self._lock = threading.Lock()
+        self._init_database()
+        self._init_connection_pool()
+    
+    def _init_connection_pool(self):
+        """初始化连接池"""
+        for _ in range(self.pool_size):
+            conn = sqlite3.connect(self.db_path)
+            conn.row_factory = sqlite3.Row
+            self._connection_pool.append(conn)
+        logger.info(f"数据库连接池初始化完成，大小: {self.pool_size}")
+    
+    def _get_connection(self):
+        """从连接池获取连接"""
+        with self._lock:
+            if not self._connection_pool:
+                # 连接池为空，创建新连接
+                conn = sqlite3.connect(self.db_path)
+                conn.row_factory = sqlite3.Row
+                logger.warning("连接池为空，创建新连接")
+                return conn
+            return self._connection_pool.pop()
+    
+    def _return_connection(self, conn):
+        """归还连接到连接池"""
+        try:
+            with self._lock:
+                if len(self._connection_pool) < self.pool_size:
+                    self._connection_pool.append(conn)
+                else:
+                    # 连接池已满，关闭多余连接
+                    conn.close()
+        except Exception as e:
+            logger.error(f"归还连接失败: {e}")
+            try:
+                conn.close()
+            except:
+                pass
+    
+    @contextmanager
+    def get_connection(self):
+        """获取数据库连接上下文管理器"""
+        conn = self._get_connection()
+        try:
+            yield conn
+            conn.commit()
+        except Exception as e:
+            conn.rollback()
+            logger.error(f"数据库操作失败: {e}")
+            raise
+        finally:
+            self._return_connection(conn)
+    
+    def _init_database(self):
+        """初始化数据库表结构"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            
+            # 会话表
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS sessions (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id TEXT NOT NULL,
+                    session_id TEXT NOT NULL,
+                    conversation_stage TEXT DEFAULT 'initial',
+                    key_concerns TEXT DEFAULT '[]',
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    last_active TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    UNIQUE(user_id, session_id)
+                )
+            """)
+            
+            # 对话历史表
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS conversation_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id INTEGER NOT NULL,
+                    turn_number INTEGER NOT NULL,
+                    user_input TEXT NOT NULL,
+                    detected_emotion TEXT NOT NULL,
+                    context_emotion TEXT,
+                    confidence REAL DEFAULT 0.5,
+                    ai_response TEXT NOT NULL,
+                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                )
+            """)
+            
+            # 情绪时间线表
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS emotion_timeline (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    session_id INTEGER NOT NULL,
+                    emotion TEXT NOT NULL,
+                    text_snippet TEXT,
+                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                )
+            """)
+            
+            # 用户画像表
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS user_profile (
+                    user_id TEXT PRIMARY KEY,
+                    risk_level TEXT DEFAULT 'normal',
+                    preferences TEXT DEFAULT '{}',
+                    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
+            # 情绪事件表（跨会话的情绪追踪）
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS mood_events (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    user_id TEXT NOT NULL,
+                    session_id TEXT NOT NULL,
+                    emotion TEXT NOT NULL,
+                    source TEXT DEFAULT 'conversation',
+                    text_snippet TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
+            # 创建索引
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_session_lookup ON sessions(user_id, session_id)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_history_session ON conversation_history(session_id)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_emotion_session ON emotion_timeline(session_id)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_last_active ON sessions(last_active)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_profile ON user_profile(user_id)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_mood_events_user ON mood_events(user_id, created_at)")
+            
+            logger.info("数据库表结构初始化完成")
+    
+    def create_or_update_session(self, user_id: str, session_id: str, 
+                                conversation_stage: str = 'initial',
+                                key_concerns: List[str] = None) -> int:
+        """创建或更新会话，返回session_id"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            
+            concerns_json = json.dumps(key_concerns or [], ensure_ascii=False)
+            
+            cursor.execute("""
+                INSERT INTO sessions (user_id, session_id, conversation_stage, key_concerns, last_active)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+                ON CONFLICT(user_id, session_id) 
+                DO UPDATE SET 
+                    conversation_stage = excluded.conversation_stage,
+                    key_concerns = excluded.key_concerns,
+                    last_active = CURRENT_TIMESTAMP
+            """, (user_id, session_id, conversation_stage, concerns_json))
+            
+            # 获取会话ID
+            cursor.execute("SELECT id FROM sessions WHERE user_id = ? AND session_id = ?", 
+                         (user_id, session_id))
+            result = cursor.fetchone()
+            return result['id'] if result else None
+    
+    def add_conversation_turn(self, session_db_id: int, turn_number: int,
+                             user_input: str, detected_emotion: str,
+                             context_emotion: str, confidence: float,
+                             ai_response: str):
+        """添加对话轮次"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO conversation_history 
+                (session_id, turn_number, user_input, detected_emotion, 
+                 context_emotion, confidence, ai_response)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (session_db_id, turn_number, user_input, detected_emotion,
+                  context_emotion, confidence, ai_response))
+    
+    def add_emotion_event(self, session_db_id: int, emotion: str, 
+                         text_snippet: str):
+        """添加情绪事件"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                INSERT INTO emotion_timeline (session_id, emotion, text_snippet)
+                VALUES (?, ?, ?)
+            """, (session_db_id, emotion, text_snippet[:50]))
+    
+    def get_session_data(self, user_id: str, session_id: str) -> Optional[Dict[str, Any]]:
+        """获取会话完整数据"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            
+            # 获取会话基本信息
+            cursor.execute("""
+                SELECT id, user_id, session_id, conversation_stage, 
+                       key_concerns, created_at, last_active
+                FROM sessions 
+                WHERE user_id = ? AND session_id = ?
+            """, (user_id, session_id))
+            
+            session_row = cursor.fetchone()
+            if not session_row:
+                return None
+            
+            session_db_id = session_row['id']
+            
+            # 获取对话历史
+            cursor.execute("""
+                SELECT turn_number, user_input, detected_emotion, 
+                       context_emotion, confidence, ai_response, timestamp
+                FROM conversation_history
+                WHERE session_id = ?
+                ORDER BY turn_number ASC
+            """, (session_db_id,))
+            
+            history_rows = cursor.fetchall()
+            history = [
+                {
+                    'turn_number': row['turn_number'],
+                    'user_input': row['user_input'],
+                    'detected_emotion': row['detected_emotion'],
+                    'context_emotion': row['context_emotion'],
+                    'confidence': row['confidence'],
+                    'ai_response': row['ai_response'],
+                    'timestamp': row['timestamp']
+                }
+                for row in history_rows
+            ]
+            
+            # 获取情绪时间线
+            cursor.execute("""
+                SELECT emotion, text_snippet, timestamp
+                FROM emotion_timeline
+                WHERE session_id = ?
+                ORDER BY timestamp ASC
+            """, (session_db_id,))
+            
+            emotion_rows = cursor.fetchall()
+            emotion_timeline = [
+                {
+                    'emotion': row['emotion'],
+                    'text_snippet': row['text_snippet'],
+                    'timestamp': row['timestamp']
+                }
+                for row in emotion_rows
+            ]
+            
+            return {
+                'id': session_db_id,
+                'user_id': session_row['user_id'],
+                'session_id': session_row['session_id'],
+                'conversation_stage': session_row['conversation_stage'],
+                'key_concerns': json.loads(session_row['key_concerns']),
+                'created_at': session_row['created_at'],
+                'last_active': session_row['last_active'],
+                'history': history,
+                'emotion_timeline': emotion_timeline
+            }
+    
+    def get_user_sessions(self, user_id: str, limit: int = 10) -> List[Dict[str, Any]]:
+        """获取用户的所有会话列表"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT id, user_id, session_id, conversation_stage,
+                       key_concerns, created_at, last_active
+                FROM sessions
+                WHERE user_id = ?
+                ORDER BY last_active DESC
+                LIMIT ?
+            """, (user_id, limit))
+            
+            rows = cursor.fetchall()
+            return [
+                {
+                    'id': row['id'],
+                    'user_id': row['user_id'],
+                    'session_id': row['session_id'],
+                    'conversation_stage': row['conversation_stage'],
+                    'key_concerns': json.loads(row['key_concerns']),
+                    'created_at': row['created_at'],
+                    'last_active': row['last_active']
+                }
+                for row in rows
+            ]
+    
+    def delete_session(self, user_id: str, session_id: str) -> bool:
+        """删除会话"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                DELETE FROM sessions 
+                WHERE user_id = ? AND session_id = ?
+            """, (user_id, session_id))
+            return cursor.rowcount > 0
+    
+    def cleanup_expired_sessions(self, days: int = 30) -> int:
+        """清理过期会话"""
+        cutoff_date = datetime.now() - timedelta(days=days)
+        
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                DELETE FROM sessions 
+                WHERE last_active < ?
+            """, (cutoff_date.isoformat(),))
+            deleted_count = cursor.rowcount
+            logger.info(f"清理了 {deleted_count} 个过期会话")
+            return deleted_count
+    
+    def get_session_statistics(self, user_id: Optional[str] = None) -> Dict[str, Any]:
+        """获取会话统计信息"""
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            
+            if user_id:
+                # 单用户统计
+                cursor.execute("""
+                    SELECT 
+                        COUNT(*) as total_sessions,
+                        AVG(CAST((julianday('now') - julianday(last_active)) * 24 * 60 as REAL)) as avg_inactive_minutes,
+                        MAX(last_active) as last_active
+                    FROM sessions
+                    WHERE user_id = ?
+                """, (user_id,))
+            else:
+                # 全局统计
+                cursor.execute("""
+                    SELECT 
+                        COUNT(*) as total_sessions,
+                        COUNT(DISTINCT user_id) as total_users,
+                        AVG(CAST((julianday('now') - julianday(last_active)) * 24 * 60 as REAL)) as avg_inactive_minutes
+                    FROM sessions
+                """)
+            
+            row = cursor.fetchone()
+            
+            # 获取情绪分布
+            if user_id:
+                cursor.execute("""
+                    SELECT emotion, COUNT(*) as count
+                    FROM emotion_timeline et
+                    JOIN sessions s ON et.session_id = s.id
+                    WHERE s.user_id = ?
+                    GROUP BY emotion
+                    ORDER BY count DESC
+                    LIMIT 5
+                """, (user_id,))
+            else:
+                cursor.execute("""
+                    SELECT emotion, COUNT(*) as count
+                    FROM emotion_timeline
+                    GROUP BY emotion
+                    ORDER BY count DESC
+                    LIMIT 5
+                """)
+            
+            emotion_dist = cursor.fetchall()
+            
+            return {
+                'total_sessions': row['total_sessions'] if row else 0,
+                'total_users': row.get('total_users', 0) if row else 0,
+                'avg_inactive_minutes': row['avg_inactive_minutes'] if row else 0,
+                'last_active': row.get('last_active') if row else None,
+                'top_emotions': [
+                    {'emotion': e['emotion'], 'count': e['count']}
+                    for e in emotion_dist
+                ]
+            }
+
+    # ---------- 用户画像与情绪事件（同步接口，主要用于管理/调试） ----------
+
+    def get_user_profile(self, user_id: str) -> Optional[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT user_id, risk_level, preferences, last_updated
+                FROM user_profile
+                WHERE user_id = ?
+                """,
+                (user_id,),
+            )
+            row = cursor.fetchone()
+            if not row:
+                return None
+            return {
+                "user_id": row["user_id"],
+                "risk_level": row["risk_level"],
+                "preferences": json.loads(row["preferences"] or "{}"),
+                "last_updated": row["last_updated"],
+            }
+
+    def upsert_user_profile(
+        self, user_id: str, risk_level: Optional[str], preferences_patch: Dict[str, Any]
+    ):
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            existing = self.get_user_profile(user_id)
+            if existing:
+                merged_preferences = existing["preferences"]
+                merged_preferences.update(preferences_patch or {})
+                final_risk = risk_level or existing["risk_level"]
+            else:
+                merged_preferences = preferences_patch or {}
+                final_risk = risk_level or "normal"
+
+            cursor.execute(
+                """
+                INSERT INTO user_profile (user_id, risk_level, preferences, last_updated)
+                VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                ON CONFLICT(user_id) DO UPDATE SET
+                    risk_level = excluded.risk_level,
+                    preferences = excluded.preferences,
+                    last_updated = CURRENT_TIMESTAMP
+                """,
+                (user_id, final_risk, json.dumps(merged_preferences, ensure_ascii=False)),
+            )
+
+    def add_mood_event(
+        self,
+        user_id: str,
+        session_id: str,
+        emotion: str,
+        source: str,
+        text_snippet: str,
+    ) -> str:
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                INSERT INTO mood_events (user_id, session_id, emotion, source, text_snippet)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (user_id, session_id, emotion, source, text_snippet[:100]),
+            )
+            cursor.execute("SELECT created_at FROM mood_events WHERE id = last_insert_rowid()")
+            row = cursor.fetchone()
+            return row["created_at"] if row else datetime.now().isoformat()
+
+    def get_recent_mood_events(self, user_id: str, limit: int = 20) -> List[Dict[str, Any]]:
+        with self.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                """
+                SELECT user_id, session_id, emotion, source, text_snippet, created_at
+                FROM mood_events
+                WHERE user_id = ?
+                ORDER BY created_at DESC
+                LIMIT ?
+                """,
+                (user_id, limit),
+            )
+            rows = cursor.fetchall()
+            return [
+                {
+                    "user_id": r["user_id"],
+                    "session_id": r["session_id"],
+                    "emotion": r["emotion"],
+                    "source": r["source"],
+                    "text_snippet": r["text_snippet"],
+                    "created_at": r["created_at"],
+                }
+                for r in rows
+            ]
+
+# 创建全局数据库实例
+db_manager = DatabaseManager()
+
+class AsyncDatabaseManager:
+    def __init__(self, db_path: str = None):
+        self.db_path = db_path or config.SESSION_DB_PATH
+        self._initialized = False
+        self._init_lock = asyncio.Lock()
+
+    async def _ensure_initialized(self):
+        if self._initialized:
+            return
+        async with self._init_lock:
+            if self._initialized:
+                return
+            async with aiosqlite.connect(self.db_path) as conn:
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS sessions (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id TEXT NOT NULL,
+                        session_id TEXT NOT NULL,
+                        conversation_stage TEXT DEFAULT 'initial',
+                        key_concerns TEXT DEFAULT '[]',
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        last_active TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        UNIQUE(user_id, session_id)
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS conversation_history (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        session_id INTEGER NOT NULL,
+                        turn_number INTEGER NOT NULL,
+                        user_input TEXT NOT NULL,
+                        detected_emotion TEXT NOT NULL,
+                        context_emotion TEXT,
+                        confidence REAL DEFAULT 0.5,
+                        ai_response TEXT NOT NULL,
+                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS emotion_timeline (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        session_id INTEGER NOT NULL,
+                        emotion TEXT NOT NULL,
+                        text_snippet TEXT,
+                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS user_profile (
+                        user_id TEXT PRIMARY KEY,
+                        risk_level TEXT DEFAULT 'normal',
+                        preferences TEXT DEFAULT '{}',
+                        last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS mood_events (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        user_id TEXT NOT NULL,
+                        session_id TEXT NOT NULL,
+                        emotion TEXT NOT NULL,
+                        source TEXT DEFAULT 'conversation',
+                        text_snippet TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_session_lookup ON sessions(user_id, session_id)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_history_session ON conversation_history(session_id)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_emotion_session ON emotion_timeline(session_id)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_last_active ON sessions(last_active)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_user_profile ON user_profile(user_id)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_mood_events_user ON mood_events(user_id, created_at)")
+                await conn.commit()
+            self._initialized = True
+
+    async def create_or_update_session(self, user_id: str, session_id: str,
+                                       conversation_stage: str = 'initial',
+                                       key_concerns: List[str] = None) -> int:
+        await self._ensure_initialized()
+        concerns_json = json.dumps(key_concerns or [], ensure_ascii=False)
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.execute("""
+                INSERT INTO sessions (user_id, session_id, conversation_stage, key_concerns, last_active)
+                VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)
+                ON CONFLICT(user_id, session_id) 
+                DO UPDATE SET 
+                    conversation_stage = excluded.conversation_stage,
+                    key_concerns = excluded.key_concerns,
+                    last_active = CURRENT_TIMESTAMP
+            """, (user_id, session_id, conversation_stage, concerns_json))
+            cursor = await conn.execute("SELECT id FROM sessions WHERE user_id = ? AND session_id = ?", (user_id, session_id))
+            row = await cursor.fetchone()
+            await conn.commit()
+            return row[0] if row else None
+
+    async def add_conversation_turn(self, session_db_id: int, turn_number: int,
+                                    user_input: str, detected_emotion: str,
+                                    context_emotion: str, confidence: float,
+                                    ai_response: str):
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.execute("""
+                INSERT INTO conversation_history 
+                (session_id, turn_number, user_input, detected_emotion, 
+                 context_emotion, confidence, ai_response)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            """, (session_db_id, turn_number, user_input, detected_emotion,
+                  context_emotion, confidence, ai_response))
+            await conn.commit()
+
+    async def add_emotion_event(self, session_db_id: int, emotion: str, text_snippet: str):
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.execute("""
+                INSERT INTO emotion_timeline (session_id, emotion, text_snippet)
+                VALUES (?, ?, ?)
+            """, (session_db_id, emotion, text_snippet[:50]))
+            await conn.commit()
+
+    async def get_session_data(self, user_id: str, session_id: str) -> Optional[Dict[str, Any]]:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            cursor = await conn.execute("""
+                SELECT id, user_id, session_id, conversation_stage, 
+                       key_concerns, created_at, last_active
+                FROM sessions 
+                WHERE user_id = ? AND session_id = ?
+            """, (user_id, session_id))
+            session_row = await cursor.fetchone()
+            if not session_row:
+                return None
+            session_db_id = session_row["id"]
+            cursor = await conn.execute("""
+                SELECT turn_number, user_input, detected_emotion, 
+                       context_emotion, confidence, ai_response, timestamp
+                FROM conversation_history
+                WHERE session_id = ?
+                ORDER BY turn_number ASC
+            """, (session_db_id,))
+            history_rows = await cursor.fetchall()
+            history = [
+                {
+                    'turn_number': r["turn_number"],
+                    'user_input': r["user_input"],
+                    'detected_emotion': r["detected_emotion"],
+                    'context_emotion': r["context_emotion"],
+                    'confidence': r["confidence"],
+                    'ai_response': r["ai_response"],
+                    'timestamp': r["timestamp"]
+                }
+                for r in history_rows
+            ]
+            cursor = await conn.execute("""
+                SELECT emotion, text_snippet, timestamp
+                FROM emotion_timeline
+                WHERE session_id = ?
+                ORDER BY timestamp ASC
+            """, (session_db_id,))
+            emotion_rows = await cursor.fetchall()
+            emotion_timeline = [
+                {
+                    'emotion': r["emotion"],
+                    'text_snippet': r["text_snippet"],
+                    'timestamp': r["timestamp"]
+                }
+                for r in emotion_rows
+            ]
+            return {
+                'id': session_db_id,
+                'user_id': session_row["user_id"],
+                'session_id': session_row["session_id"],
+                'conversation_stage': session_row["conversation_stage"],
+                'key_concerns': json.loads(session_row["key_concerns"]),
+                'created_at': session_row["created_at"],
+                'last_active': session_row["last_active"],
+                'history': history,
+                'emotion_timeline': emotion_timeline
+            }
+
+    async def cleanup_expired_sessions(self, days: int = 30) -> int:
+        await self._ensure_initialized()
+        cutoff_date = datetime.now() - timedelta(days=days)
+        async with aiosqlite.connect(self.db_path) as conn:
+            cursor = await conn.execute("""
+                DELETE FROM sessions 
+                WHERE last_active < ?
+            """, (cutoff_date.isoformat(),))
+            await conn.commit()
+            return cursor.rowcount
+    
+    async def get_session_statistics(self, user_id: Optional[str] = None) -> Dict[str, Any]:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            if user_id:
+                cursor = await conn.execute("""
+                    SELECT 
+                        COUNT(*) as total_sessions,
+                        AVG(CAST((julianday('now') - julianday(last_active)) * 24 * 60 as REAL)) as avg_inactive_minutes,
+                        MAX(last_active) as last_active
+                    FROM sessions
+                    WHERE user_id = ?
+                """, (user_id,))
+            else:
+                cursor = await conn.execute("""
+                    SELECT 
+                        COUNT(*) as total_sessions,
+                        COUNT(DISTINCT user_id) as total_users,
+                        AVG(CAST((julianday('now') - julianday(last_active)) * 24 * 60 as REAL)) as avg_inactive_minutes
+                    FROM sessions
+                """)
+            row = await cursor.fetchone()
+            if user_id:
+                emo_cur = await conn.execute("""
+                    SELECT emotion, COUNT(*) as count
+                    FROM emotion_timeline et
+                    JOIN sessions s ON et.session_id = s.id
+                    WHERE s.user_id = ?
+                    GROUP BY emotion
+                    ORDER BY count DESC
+                    LIMIT 5
+                """, (user_id,))
+            else:
+                emo_cur = await conn.execute("""
+                    SELECT emotion, COUNT(*) as count
+                    FROM emotion_timeline
+                    GROUP BY emotion
+                    ORDER BY count DESC
+                    LIMIT 5
+                """)
+            emotion_dist = await emo_cur.fetchall()
+            return {
+                'total_sessions': row['total_sessions'] if row else 0,
+                'total_users': (row['total_users'] if 'total_users' in row.keys() else 0) if row else 0,
+                'avg_inactive_minutes': row['avg_inactive_minutes'] if row else 0,
+                'last_active': (row['last_active'] if 'last_active' in row.keys() else None) if row else None,
+                'top_emotions': [
+                    {'emotion': e['emotion'], 'count': e['count']}
+                    for e in emotion_dist
+                ]
+            }
+
+    # ---------- 用户画像与情绪事件（异步接口，供 Agent 工具使用） ----------
+
+    async def get_user_profile(self, user_id: str) -> Optional[Dict[str, Any]]:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            cursor = await conn.execute(
+                """
+                SELECT user_id, risk_level, preferences, last_updated
+                FROM user_profile
+                WHERE user_id = ?
+                """,
+                (user_id,),
+            )
+            row = await cursor.fetchone()
+            if not row:
+                return None
+            return {
+                "user_id": row["user_id"],
+                "risk_level": row["risk_level"],
+                "preferences": json.loads(row["preferences"] or "{}"),
+                "last_updated": row["last_updated"],
+            }
+
+    async def upsert_user_profile(
+        self, user_id: str, risk_level: Optional[str], preferences_patch: Dict[str, Any]
+    ):
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            # 读取现有
+            cursor = await conn.execute(
+                """
+                SELECT risk_level, preferences FROM user_profile WHERE user_id = ?
+                """,
+                (user_id,),
+            )
+            row = await cursor.fetchone()
+            if row:
+                merged_preferences = json.loads(row["preferences"] or "{}")
+                merged_preferences.update(preferences_patch or {})
+                final_risk = risk_level or row["risk_level"]
+            else:
+                merged_preferences = preferences_patch or {}
+                final_risk = risk_level or "normal"
+
+            await conn.execute(
+                """
+                INSERT INTO user_profile (user_id, risk_level, preferences, last_updated)
+                VALUES (?, ?, ?, CURRENT_TIMESTAMP)
+                ON CONFLICT(user_id) DO UPDATE SET
+                    risk_level = excluded.risk_level,
+                    preferences = excluded.preferences,
+                    last_updated = CURRENT_TIMESTAMP
+                """,
+                (user_id, final_risk, json.dumps(merged_preferences, ensure_ascii=False)),
+            )
+            await conn.commit()
+
+    async def add_mood_event(
+        self,
+        user_id: str,
+        session_id: str,
+        emotion: str,
+        source: str,
+        text_snippet: str,
+    ) -> str:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            await conn.execute(
+                """
+                INSERT INTO mood_events (user_id, session_id, emotion, source, text_snippet)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (user_id, session_id, emotion, source, text_snippet[:100]),
+            )
+            cursor = await conn.execute(
+                "SELECT created_at FROM mood_events WHERE id = last_insert_rowid()"
+            )
+            row = await cursor.fetchone()
+            await conn.commit()
+            return row[0] if row else datetime.now().isoformat()
+
+    async def get_recent_mood_events(self, user_id: str, limit: int = 20) -> List[Dict[str, Any]]:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            cursor = await conn.execute(
+                """
+                SELECT user_id, session_id, emotion, source, text_snippet, created_at
+                FROM mood_events
+                WHERE user_id = ?
+                ORDER BY created_at DESC
+                LIMIT ?
+                """,
+                (user_id, limit),
+            )
+            rows = await cursor.fetchall()
+            return [
+                {
+                    "user_id": r["user_id"],
+                    "session_id": r["session_id"],
+                    "emotion": r["emotion"],
+                    "source": r["source"],
+                    "text_snippet": r["text_snippet"],
+                    "created_at": r["created_at"],
+                }
+                for r in rows
+            ]
+    
+    async def get_user_sessions(self, user_id: str, limit: int = 10) -> List[Dict[str, Any]]:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            conn.row_factory = aiosqlite.Row
+            cursor = await conn.execute("""
+                SELECT id, user_id, session_id, conversation_stage,
+                       key_concerns, created_at, last_active
+                FROM sessions
+                WHERE user_id = ?
+                ORDER BY last_active DESC
+                LIMIT ?
+            """, (user_id, limit))
+            rows = await cursor.fetchall()
+            return [
+                {
+                    'id': row['id'],
+                    'user_id': row['user_id'],
+                    'session_id': row['session_id'],
+                    'conversation_stage': row['conversation_stage'],
+                    'key_concerns': json.loads(row['key_concerns']),
+                    'created_at': row['created_at'],
+                    'last_active': row['last_active']
+                }
+                for row in rows
+            ]
+    
+    async def delete_session(self, user_id: str, session_id: str) -> bool:
+        await self._ensure_initialized()
+        async with aiosqlite.connect(self.db_path) as conn:
+            cursor = await conn.execute("""
+                DELETE FROM sessions 
+                WHERE user_id = ? AND session_id = ?
+            """, (user_id, session_id))
+            await conn.commit()
+            return cursor.rowcount > 0
+
+adb_manager = AsyncDatabaseManager()
