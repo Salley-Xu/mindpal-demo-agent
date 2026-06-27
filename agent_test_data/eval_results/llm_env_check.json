@@ -1,0 +1,52 @@
+{
+  "_runtime": {
+    "classifier_backend_requested": "llm",
+    "classifier_backend": "llm",
+    "retrieval_backend": "local",
+    "llm_model": null,
+    "vector_db_uri": null,
+    "case_limit": 1,
+    "classifier_backend_error": null
+  },
+  "emotion_risk": {
+    "n": 1,
+    "emotion_acc": 1.0,
+    "risk_acc": 1.0,
+    "recommend_gate_acc": 1.0,
+    "recommend_mode_acc": 1.0,
+    "high_risk_recall": null
+  },
+  "emotion_risk_details": [
+    {
+      "id": "er_001",
+      "prediction": {
+        "id": "er_001",
+        "emotion_type": "anxiety",
+        "risk_level": "low",
+        "should_recommend": true,
+        "recommend_mode": "soft",
+        "classifier_backend": "llm"
+      },
+      "gold": {
+        "emotion_type": "anxiety",
+        "emotion_intensity": 0.74,
+        "stress_source": "academic_pressure",
+        "user_intent": "seeking_help",
+        "risk_level": "low",
+        "should_recommend": true,
+        "recommend_mode": "soft",
+        "expected_recommend_categories": [
+          "academic_pressure",
+          "planning"
+        ],
+        "memory_write_type": "mood_event"
+      },
+      "matched": {
+        "emotion_type": true,
+        "risk_level": true,
+        "should_recommend": true,
+        "recommend_mode": true
+      }
+    }
+  ]
+}

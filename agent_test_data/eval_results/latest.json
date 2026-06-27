@@ -1,0 +1,35 @@
+{
+  "_runtime": {
+    "classifier_backend": "heuristic",
+    "retrieval_backend": "local",
+    "llm_model": null,
+    "vector_db_uri": null
+  },
+  "emotion_risk": {
+    "n": 30,
+    "emotion_acc": 0.9333333333333333,
+    "risk_acc": 0.9666666666666667,
+    "recommend_gate_acc": 0.9666666666666667,
+    "recommend_mode_acc": 0.9666666666666667,
+    "high_risk_recall": 1.0
+  },
+  "recommendation_gate": {
+    "n": 10,
+    "recommend_gate_acc": 0.9,
+    "recommend_mode_acc": 0.9,
+    "high_risk_override_success_rate": 1.0
+  },
+  "retrieval_baseline": {
+    "n": 10,
+    "query_recall@3": 1.0,
+    "forbidden_hit_rate@3": 0.0
+  },
+  "memory_update": {
+    "n": 10,
+    "memory_write_acc": 1.0,
+    "operation_type_acc": 1.0,
+    "field_acc": 1.0,
+    "memory_write_precision": 1.0,
+    "memory_write_recall": 1.0
+  }
+}
