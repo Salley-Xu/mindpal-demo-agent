@@ -48,14 +48,14 @@
   - 本地评测输出目录，按需自动生成，默认不纳入版本控制。
 - `agent_test_data/faiss_store*/`
   - 本地 FAISS 索引目录，按需自动生成，默认不纳入版本控制。
-- `agent_test_data/hf_models/`
-  - 本地手动放置的 Hugging Face 模型目录，默认不纳入版本控制。
-- `agent_test_data/_vendor/`
-  - 当前保留的本地 vendored Python 依赖目录，用于受限环境下加载 `transformers` 相关依赖。
-- `agent_test_data/_wheelhouse/`
-  - 离线 wheel 缓存目录，用于需要时重建或补装本地依赖。
 - `agent_test_data/_*.log`
   - 调试或排障日志，属于临时文件，默认不纳入版本控制。
+- `third_party/agent_test_runtime/vendor/`
+  - 本地 vendored Python 依赖目录，用于受限环境下加载 `transformers` 相关依赖。
+- `third_party/agent_test_runtime/wheelhouse/`
+  - 离线 wheel 缓存目录，用于需要时重建或补装本地依赖。
+- `third_party/agent_test_runtime/models/`
+  - 本地手动放置的 Hugging Face 模型目录，默认不纳入版本控制。
 
 ## 快速开始
 
@@ -155,7 +155,7 @@ FAISS 索引默认使用：
 当前第一版默认不依赖额外模型下载，而是使用项目内一致的中文分词 + 同义词扩展 + 哈希向量来构建 FAISS 索引，这样更适合先跑通离线评测链路。
 如果要升级成更强的语义 embedding，当前已接入基于 `transformers + torch` 的 stronger embedding 通路，推荐使用 `BAAI/bge-small-zh-v1.5`。考虑到当前 Windows 本地环境对 Hugging Face 在线下载不稳定，默认做法是先把模型文件准备到本地目录，再通过 `--embedding-model <local_model_dir>` 传入；项目内约定的默认本地目录为：
 
-- `agent_test_data/hf_models/bge-small-zh-v1.5`
+- `third_party/agent_test_runtime/models/bge-small-zh-v1.5`
 
 需要的最小文件包括：
 
@@ -169,7 +169,7 @@ FAISS 索引默认使用：
 示例：
 
 ```bash
-python agent_test_data/build_faiss_index.py --store-dir agent_test_data/faiss_store_bge --embedding-model agent_test_data/hf_models/bge-small-zh-v1.5
+python agent_test_data/build_faiss_index.py --store-dir agent_test_data/faiss_store_bge --embedding-model third_party/agent_test_runtime/models/bge-small-zh-v1.5
 ```
 
 ## 建议评测指标

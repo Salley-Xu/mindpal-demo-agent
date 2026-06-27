@@ -11,7 +11,12 @@ from typing import Any, Dict, List, Tuple
 import numpy as np
 
 BASE_DIR = Path(__file__).resolve().parent
-VENDOR_DIR = BASE_DIR / "_vendor"
+PROJECT_ROOT = BASE_DIR.parent
+RUNTIME_DEPS_DIR = PROJECT_ROOT / "third_party" / "agent_test_runtime"
+LEGACY_VENDOR_DIR = BASE_DIR / "_vendor"
+VENDOR_DIR = RUNTIME_DEPS_DIR / "vendor"
+if not VENDOR_DIR.exists() and LEGACY_VENDOR_DIR.exists():
+    VENDOR_DIR = LEGACY_VENDOR_DIR
 if VENDOR_DIR.exists() and str(VENDOR_DIR) not in sys.path:
     sys.path.append(str(VENDOR_DIR))
 YAML_VENDOR_DIR = VENDOR_DIR / "yaml"
@@ -20,7 +25,7 @@ if YAML_VENDOR_DIR.exists() and str(YAML_VENDOR_DIR) not in sys.path:
 
 DEFAULT_EMBEDDING_MODEL = "hash-zh-v1"
 DEFAULT_STRONG_EMBEDDING_MODEL = "BAAI/bge-small-zh-v1.5"
-DEFAULT_STRONG_EMBEDDING_LOCAL_DIR = BASE_DIR / "hf_models" / "bge-small-zh-v1.5"
+DEFAULT_STRONG_EMBEDDING_LOCAL_DIR = RUNTIME_DEPS_DIR / "models" / "bge-small-zh-v1.5"
 DEFAULT_HASH_DIM = 512
 SYNONYMS = {
     "焦虑": ["紧张", "担心", "不安", "anxiety"],
@@ -66,7 +71,8 @@ def _import_transformers():
         from transformers.models.auto.tokenization_auto import AutoTokenizer
     except ImportError as exc:
         raise ImportError(
-            "未安装 transformers 相关依赖。请先将 transformers / tokenizers / huggingface_hub 等依赖安装到 agent_test_data/_vendor。"
+            "未安装 transformers 相关依赖。请先将 transformers / tokenizers / huggingface_hub 等依赖安装到 "
+            "`third_party/agent_test_runtime/vendor`。"
         ) from exc
     return torch, AutoModel, AutoTokenizer
 
