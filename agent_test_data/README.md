@@ -35,6 +35,27 @@
   - 多轮端到端场景测试。
 - `eval_skeleton.py`
   - 离线评测脚手架。当前已接通 `emotion_risk_turns.jsonl`、`recommendation_gate_cases.jsonl` 和基于 `rag_*` 数据文件的本地 retrieval baseline；后续可继续扩展到 memory update 和 end-to-end 评测。
+- `build_faiss_index.py`
+  - 本地构建 `faiss_store/` 索引目录的脚本。
+- `faiss_utils.py`
+  - FAISS 检索与 embedding 编码的公共工具函数。
+
+## 目录约定
+
+- `agent_test_data/` 根目录
+  - 仅保留评测数据、评测脚本和说明文档。
+- `agent_test_data/eval_results/`
+  - 本地评测输出目录，按需自动生成，默认不纳入版本控制。
+- `agent_test_data/faiss_store*/`
+  - 本地 FAISS 索引目录，按需自动生成，默认不纳入版本控制。
+- `agent_test_data/hf_models/`
+  - 本地手动放置的 Hugging Face 模型目录，默认不纳入版本控制。
+- `agent_test_data/_vendor/`
+  - 当前保留的本地 vendored Python 依赖目录，用于受限环境下加载 `transformers` 相关依赖。
+- `agent_test_data/_wheelhouse/`
+  - 离线 wheel 缓存目录，用于需要时重建或补装本地依赖。
+- `agent_test_data/_*.log`
+  - 调试或排障日志，属于临时文件，默认不纳入版本控制。
 
 ## 快速开始
 
@@ -83,6 +104,7 @@ python agent_test_data/eval_skeleton.py --task all --output-json agent_test_data
 ```
 
 当前会把已执行任务的摘要指标统一写入一个 JSON 文件，便于后续做版本对比。
+`agent_test_data/eval_results/` 属于本地产物目录；如目录不存在，脚本会自动创建。
 
 如果需要输出每条 case 的 `prediction / gold / matched` 明细，可追加：
 
@@ -118,6 +140,8 @@ python agent_test_data/build_faiss_index.py --store-dir agent_test_data/faiss_st
 ```bash
 python agent_test_data/eval_skeleton.py --task retrieval_baseline --retrieval-backend faiss --faiss-store-dir agent_test_data/faiss_store --output-json agent_test_data/eval_results/faiss_retrieval.json --include-details
 ```
+
+`agent_test_data/faiss_store/` 属于本地索引产物目录；如目录不存在，构建脚本会自动创建。
 
 FAISS 索引默认使用：
 

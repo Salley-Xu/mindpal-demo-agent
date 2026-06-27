@@ -21,6 +21,11 @@ htmlcov/
 
 logs/
 backend/logs/
+agent_test_data/_*.log
+agent_test_data/**/__pycache__/
+agent_test_data/eval_results/
+agent_test_data/faiss_store*/
+agent_test_data/hf_models/
 
 *.db
 *.sqlite
