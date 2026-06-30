@@ -1,12 +1,23 @@
 import logging
 from typing import Any, Dict, List, Optional
 
+from risk_levels import (
+    LEVEL_0,
+    LEVEL_1,
+    LEVEL_2,
+    LEVEL_3,
+    normalize_risk_level,
+    risk_level_band,
+    risk_level_index,
+    risk_level_label,
+)
+
 
 logger = logging.getLogger(__name__)
 
 
 class RiskEvaluator:
-    """结构化风险评估器，输出 low / medium / high 三层风险。"""
+    """结构化风险评估器，输出四级风险语义并保留旧等级兼容字段。"""
 
     def __init__(self):
         self.high_risk_keywords = [
@@ -63,9 +74,13 @@ class RiskEvaluator:
             historical_high_risk_count=historical_high_risk_count,
         )
         level = self._map_level(score, triggers)
+        legacy_level = risk_level_band(level)
 
         response = {
             "level": level,
+            "legacy_level": legacy_level,
+            "level_index": risk_level_index(level),
+            "level_label": risk_level_label(level),
             "message": self._build_message(level),
             "suggestions": self._build_suggestions(level),
             "triggers": triggers,
@@ -91,6 +106,7 @@ class RiskEvaluator:
         historical_high_risk_count: int,
     ) -> float:
         score = 0.5
+        normalized_long_term_level = normalize_risk_level(long_term_risk_level)
 
         high_hits = [item for item in triggers if item in self.high_risk_keywords]
         medium_hits = [item for item in triggers if item in self.medium_risk_keywords]
@@ -120,9 +136,11 @@ class RiskEvaluator:
         elif trend == "consistent" and emotion_type in {"sadness", "helplessness", "anxiety"}:
             score += 0.6
 
-        if long_term_risk_level == "high":
+        if normalized_long_term_level == LEVEL_3:
             score += 1.5
-        elif long_term_risk_level == "medium":
+        elif normalized_long_term_level == LEVEL_2:
+            score += 1.0
+        elif normalized_long_term_level == LEVEL_1:
             score += 0.8
 
         score += min(historical_high_risk_count, 3) * 0.5
@@ -134,27 +152,36 @@ class RiskEvaluator:
 
     def _map_level(self, score: float, triggers: List[str]) -> str:
         if any(item in self.high_risk_keywords for item in triggers):
-            return "high"
+            return LEVEL_3
         if score >= 5.0:
-            return "medium"
-        return "low"
+            return LEVEL_2
+        if score >= 2.5:
+            return LEVEL_1
+        return LEVEL_0
 
     def _build_message(self, level: str) -> str:
         messages = {
-            "high": "检测到高风险信号，请优先稳定情绪并尽快联系可信任的人或专业支持。",
-            "medium": "检测到持续负面或较强烈情绪，需要加强安抚并提供具体支持建议。",
-            "low": "",
+            LEVEL_3: "检测到紧急风险信号，请优先保证当前安全并立即联系可信任的人或专业支持。",
+            LEVEL_2: "检测到高风险倾向，请先停止普通问题分析，优先确认当前安全并寻求现实支持。",
+            LEVEL_1: "检测到持续负面或较强烈情绪，需要加强安抚并提供具体支持建议。",
+            LEVEL_0: "",
         }
         return messages[level]
 
     def _build_suggestions(self, level: str) -> List[str]:
-        if level == "high":
+        if level == LEVEL_3:
             return [
                 "立即联系信任的家人、朋友或辅导员",
                 "尽快联系当地心理援助热线或医院急诊",
                 "暂时远离可能伤害自己的环境或物品",
             ]
-        if level == "medium":
+        if level == LEVEL_2:
+            return [
+                "先确认自己现在是否处于安全环境",
+                "联系身边可信任的人，不要独自承受",
+                "如果风险感持续上升，尽快联系专业支持",
+            ]
+        if level == LEVEL_1:
             return [
                 "先做一次缓慢深呼吸，给身体一个暂停",
                 "把最强烈的感受告诉信任的人",

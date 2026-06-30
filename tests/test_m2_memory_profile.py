@@ -3,6 +3,8 @@ import os
 import sys
 import tempfile
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -20,6 +22,20 @@ from database import DatabaseManager, AsyncDatabaseManager  # noqa: E402
 from conversation_manager import ConversationManager  # noqa: E402
 
 
+@pytest.fixture
+def db_path():
+    fd, path = tempfile.mkstemp(suffix=".sqlite3")
+    os.close(fd)
+    try:
+        yield path
+    finally:
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+            except PermissionError:
+                pass
+
+
 def test_sync_database_memory_extensions(db_path: str):
     db = DatabaseManager(db_path=db_path, pool_size=1)
 
@@ -35,7 +51,7 @@ def test_sync_database_memory_extensions(db_path: str):
     )
     profile = db.get_user_profile("user_memory")
     assert profile is not None
-    assert profile["risk_level"] == "medium"
+    assert profile["risk_level"] == "level_2"
     assert profile["preferences"]["preferred_support_style"] == "direct_actionable"
     assert profile["preferences"]["main_stress_sources"] == ["学业/求职压力"]
 
@@ -59,9 +75,10 @@ def test_sync_database_memory_extensions(db_path: str):
     assert events[0]["emotion_type"] == "anxiety"
     assert events[0]["emotion_intensity"] == 0.82
     assert events[0]["stress_source"] == "学业/求职压力"
-    assert events[0]["risk_level"] == "medium"
+    assert events[0]["risk_level"] == "level_1"
 
 
+@pytest.mark.asyncio
 async def test_async_database_profile_extensions(db_path: str):
     adb = AsyncDatabaseManager(db_path=db_path)
     await adb.upsert_user_profile(
@@ -75,10 +92,11 @@ async def test_async_database_profile_extensions(db_path: str):
     )
     profile = await adb.get_user_profile("user_async")
     assert profile is not None
-    assert profile["risk_level"] == "high"
+    assert profile["risk_level"] == "level_3"
     assert profile["preferences"]["avoid_style"] == ["过度说教"]
 
 
+@pytest.mark.asyncio
 async def test_conversation_summary_extensions():
     manager = ConversationManager(use_persistence=False)
     manager.add_interaction(
@@ -123,7 +141,7 @@ async def test_conversation_summary_extensions():
     assert "学业/求职压力" in summary["stress_sources"]
     assert "未来规划压力" in summary["stress_sources"]
     assert summary["recent_intents"][-1] == "planning"
-    assert summary["recent_risk_levels"][-1] == "low"
+    assert summary["recent_risk_levels"][-1] == "level_0"
     assert session["long_term_profile"]["preferred_support_style"] == "direct_actionable"
     assert "main_stress_sources" in session["long_term_profile"]
 
@@ -142,7 +160,10 @@ def main():
         print("PASS: conversation summary extensions")
     finally:
         if os.path.exists(db_path):
-            os.remove(db_path)
+            try:
+                os.remove(db_path)
+            except PermissionError:
+                pass
 
 
 if __name__ == "__main__":

@@ -1,5 +1,7 @@
 from typing import Any, Dict, List, Optional
 
+from risk_levels import LEVEL_0, LEVEL_1, LEVEL_2, LEVEL_3, is_emergency_risk, normalize_risk_level
+
 
 class RecommendGate:
     """推荐门控：决定当前轮是否推荐，以及采用软推荐还是硬推荐。"""
@@ -30,11 +32,16 @@ class RecommendGate:
 
         reason_codes: List[str] = []
         emotion_intensity = float(emotion_state.get("emotion_intensity", 0.0) or 0.0)
-        risk_level = risk_state.get("level", "low")
+        risk_level = normalize_risk_level(risk_state.get("level", LEVEL_0))
         user_intent = emotion_state.get("user_intent", "sharing")
         negative_trend = bool(emotion_state.get("negative_trend", False))
 
-        risk_score = {"low": 0.0, "medium": 0.65, "high": 1.0}.get(risk_level, 0.0)
+        risk_score = {
+            LEVEL_0: 0.0,
+            LEVEL_1: 0.4,
+            LEVEL_2: 0.75,
+            LEVEL_3: 1.0,
+        }.get(risk_level, 0.0)
         intent_score = {
             "sharing": 0.0,
             "seeking_relief": 0.45,
@@ -54,13 +61,13 @@ class RecommendGate:
             - cooldown_penalty
         )
 
-        if risk_level == "high":
+        if is_emergency_risk(risk_level):
             return {
                 "should_recommend": False,
                 "recommend_type": "none",
                 "score": round(recommend_score, 2),
                 "threshold": self.soft_threshold,
-                "reason_codes": ["high_risk_safety_route"],
+                "reason_codes": ["high_risk_safety_route", "level_3_safety_route"],
                 "cooldown_remaining": cooldown_remaining,
             }
 

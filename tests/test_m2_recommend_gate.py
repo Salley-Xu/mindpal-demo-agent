@@ -3,6 +3,8 @@ import os
 import sys
 from types import SimpleNamespace
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -30,13 +32,14 @@ def test_high_risk_routes_to_safety():
             "negative_trend": True,
             "stress_source": "学业/求职压力",
         },
-        risk_state={"level": "high"},
+        risk_state={"level": "level_3"},
         conversation_summary={"turn_count": 3, "recent_recommendation_turns": []},
         user_profile={"preferred_support_style": "direct_actionable"},
     )
     assert decision["should_recommend"] is False
     assert decision["recommend_type"] == "none"
     assert "high_risk_safety_route" in decision["reason_codes"]
+    assert "level_3_safety_route" in decision["reason_codes"]
 
 
 def test_soft_and_hard_recommendation_levels():
@@ -61,7 +64,7 @@ def test_soft_and_hard_recommendation_levels():
             "negative_trend": True,
             "stress_source": "学业/求职压力",
         },
-        risk_state={"level": "medium"},
+        risk_state={"level": "level_1"},
         conversation_summary={"turn_count": 5, "recent_recommendation_turns": []},
         user_profile={
             "preferred_support_style": "direct_actionable",
@@ -97,6 +100,7 @@ def test_cooldown_penalty_and_summary_tracking():
     assert decision["cooldown_remaining"] >= 1
 
 
+@pytest.mark.asyncio
 async def test_orchestrator_blocks_recommend_tool_when_not_hard():
     tool_call = SimpleNamespace(
         id="tool_1",

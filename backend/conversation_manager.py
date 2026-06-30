@@ -5,6 +5,7 @@ import logging
 from database import db_manager, adb_manager
 from config import config
 import asyncio
+from risk_levels import LEVEL_0, is_non_low_risk, normalize_risk_level
 
 logger = logging.getLogger(__name__)
 
@@ -258,6 +259,7 @@ class ConversationManager:
         key = f"{user_id}_{session_id}"
         emotion_state = emotion_state or {}
         risk_state = risk_state or {}
+        canonical_risk_level = normalize_risk_level(risk_state.get("level", LEVEL_0))
         
         # 计算轮次号
         turn_number = len(session['history']) + 1
@@ -274,7 +276,7 @@ class ConversationManager:
             'stress_source': emotion_state.get('stress_source'),
             'user_intent': emotion_state.get('user_intent'),
             'negative_trend': emotion_state.get('negative_trend', False),
-            'risk_level': risk_state.get('level', 'low'),
+            'risk_level': canonical_risk_level,
             'ai_response': ai_response
         }
         session['history'].append(history_entry)
@@ -291,7 +293,7 @@ class ConversationManager:
             'emotion_intensity': emotion_state.get('emotion_intensity', confidence),
             'stress_source': emotion_state.get('stress_source'),
             'user_intent': emotion_state.get('user_intent'),
-            'risk_level': risk_state.get('level', 'low'),
+            'risk_level': canonical_risk_level,
             'text_snippet': user_input[:50]
         }
         session['emotion_timeline'].append(emotion_entry)
@@ -333,11 +335,11 @@ class ConversationManager:
                     stress_source=emotion_state.get('stress_source'),
                     user_intent=emotion_state.get('user_intent'),
                     event_summary=self._build_event_summary(user_input, emotion_state),
-                    risk_level=risk_state.get('level', 'low'),
+                    risk_level=canonical_risk_level,
                 )
                 await adb_manager.upsert_user_profile(
                     user_id=user_id,
-                    risk_level=risk_state.get('level'),
+                    risk_level=canonical_risk_level,
                     preferences_patch=session.get('long_term_profile', {}),
                 )
             try:
@@ -580,7 +582,7 @@ class ConversationManager:
             profile["preferred_support_style"] = "direct_actionable"
 
         if risk_state.get("level"):
-            profile["risk_level"] = risk_state["level"]
+            profile["risk_level"] = normalize_risk_level(risk_state["level"])
 
     def mark_recommendation(
         self,
@@ -703,9 +705,9 @@ class ConversationManager:
             if source and source not in stress_sources:
                 stress_sources.append(source)
         recent_risk_levels = [
-            h.get('risk_level', 'low') for h in session['history'][-3:]
+            normalize_risk_level(h.get("risk_level", LEVEL_0)) for h in session['history'][-3:]
         ]
-        risk_expressions = any(level in {'medium', 'high'} for level in recent_risk_levels)
+        risk_expressions = any(is_non_low_risk(level) for level in recent_risk_levels)
         recent_recommendation_turns = [
             event.get("turn_number")
             for event in session.get("recommendation_events", [])[-3:]

@@ -15,6 +15,26 @@ def _listify(value: Any) -> List[Any]:
     return [value]
 
 
+def _normalize_recent_risk_levels(values: Any) -> List[Any]:
+    normalized = []
+    for value in _listify(values):
+        if value in (None, ""):
+            continue
+        text = str(value).strip().lower()
+        mapping = {
+            "urgent": "level_3",
+            "high": "level_3",
+            "warning_high": "level_2",
+            "warning": "level_1",
+            "warning_low": "level_1",
+            "medium": "level_1",
+            "normal": "level_0",
+            "low": "level_0",
+        }
+        normalized.append(mapping.get(text, text))
+    return normalized
+
+
 def build_debug_snapshot(
     conversation_summary: Optional[Dict[str, Any]] = None,
     emotion_state: Optional[Dict[str, Any]] = None,
@@ -48,13 +68,16 @@ def build_debug_snapshot(
 
     risk_section = {
         "level": _clean_value(risk.get("level")),
+        "legacy_level": _clean_value(risk.get("legacy_level")),
+        "level_label": _clean_value(risk.get("level_label")),
+        "level_index": _clean_value(risk.get("level_index")),
         "score": _clean_value(risk.get("risk_score") if risk.get("risk_score") is not None else risk.get("score")),
         "reason": _clean_value(risk.get("message") or risk.get("reason")),
         "signals": _listify(risk.get("triggers") or risk.get("signals")),
         "risk_score": _clean_value(risk.get("risk_score") if risk.get("risk_score") is not None else risk.get("score")),
         "message": _clean_value(risk.get("message") or risk.get("reason")),
         "triggers": _listify(risk.get("triggers") or risk.get("signals")),
-        "recent_risk_levels": _listify(summary.get("recent_risk_levels")),
+        "recent_risk_levels": _normalize_recent_risk_levels(summary.get("recent_risk_levels")),
     }
 
     decision_section = {

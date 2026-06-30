@@ -26,6 +26,7 @@ if YAML_VENDOR_DIR.exists() and str(YAML_VENDOR_DIR) not in sys.path:
 DEFAULT_EMBEDDING_MODEL = "hash-zh-v1"
 DEFAULT_STRONG_EMBEDDING_MODEL = "BAAI/bge-small-zh-v1.5"
 DEFAULT_STRONG_EMBEDDING_LOCAL_DIR = RUNTIME_DEPS_DIR / "models" / "bge-small-zh-v1.5"
+LEGACY_STRONG_EMBEDDING_LOCAL_DIR = BASE_DIR / "hf_models" / "bge-small-zh-v1.5"
 DEFAULT_HASH_DIM = 512
 SYNONYMS = {
     "焦虑": ["紧张", "担心", "不安", "anxiety"],
@@ -157,21 +158,28 @@ def encode_with_hash_embeddings(
 _TRANSFORMER_EMBEDDER_CACHE: Dict[str, Tuple[Any, Any, Any]] = {}
 
 
+def _resolve_local_embedding_dir_candidates() -> List[Path]:
+    candidates = [DEFAULT_STRONG_EMBEDDING_LOCAL_DIR]
+    if LEGACY_STRONG_EMBEDDING_LOCAL_DIR not in candidates:
+        candidates.append(LEGACY_STRONG_EMBEDDING_LOCAL_DIR)
+    return candidates
+
+
 def resolve_embedding_model_source(model_name: str) -> Tuple[str, bool]:
     model_path = Path(model_name)
     if model_path.exists():
         return str(model_path.resolve()), True
 
     if model_name == DEFAULT_STRONG_EMBEDDING_MODEL:
-        local_dir = DEFAULT_STRONG_EMBEDDING_LOCAL_DIR
-        required_files = [
-            local_dir / "config.json",
-            local_dir / "tokenizer_config.json",
-            local_dir / "vocab.txt",
-        ]
-        has_weights = (local_dir / "model.safetensors").exists() or (local_dir / "pytorch_model.bin").exists()
-        if local_dir.exists() and has_weights and all(path.exists() for path in required_files):
-            return str(local_dir.resolve()), True
+        for local_dir in _resolve_local_embedding_dir_candidates():
+            required_files = [
+                local_dir / "config.json",
+                local_dir / "tokenizer_config.json",
+                local_dir / "vocab.txt",
+            ]
+            has_weights = (local_dir / "model.safetensors").exists() or (local_dir / "pytorch_model.bin").exists()
+            if local_dir.exists() and has_weights and all(path.exists() for path in required_files):
+                return str(local_dir.resolve()), True
 
     return model_name, False
 
@@ -184,6 +192,7 @@ def _get_transformer_embedder(model_name: str):
             raise RuntimeError(
                 "当前环境默认禁用远程 Hugging Face 模型下载，以避免 Windows 本地运行时崩溃。"
                 f" 请先将模型文件放到 `{DEFAULT_STRONG_EMBEDDING_LOCAL_DIR}`，"
+                f"（兼容旧目录 `{LEGACY_STRONG_EMBEDDING_LOCAL_DIR}`），"
                 " 或通过 `--embedding-model` 传入本地模型目录；若确认当前网络与依赖稳定，可显式设置"
                 " `ALLOW_REMOTE_HF_MODEL_DOWNLOAD=1` 后再尝试在线加载。"
             )

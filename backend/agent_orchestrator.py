@@ -36,6 +36,15 @@ from agent_tools import (
     KnowledgeBaseQuery
 )
 from agent_prompts import STRATEGY_PROMPTS, SYSTEM_PROMPT_TEMPLATE
+from risk_levels import (
+    LEVEL_0,
+    is_emergency_risk,
+    is_non_low_risk,
+    normalize_risk_level,
+    risk_level_band,
+    risk_level_index,
+    risk_level_label,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -199,7 +208,8 @@ class AgentOrchestrator:
             try:
                 profile_model = await UserProfileTool.get_profile(request.user_id)
                 user_profile = profile_model.model_dump() if profile_model else {}
-                long_term_risk_level = user_profile.get("risk_level")
+                long_term_risk_level = normalize_risk_level(user_profile.get("risk_level"))
+                user_profile["risk_level"] = long_term_risk_level
             except Exception as e:
                 logger.warning(f"加载用户画像失败，使用空画像继续: {e}")
                 user_profile = {}
@@ -212,7 +222,7 @@ class AgentOrchestrator:
                 historical_high_risk_count = sum(
                     1
                     for event in recent_mood_events
-                    if getattr(event, "risk_level", "low") == "high"
+                    if risk_level_band(getattr(event, "risk_level", LEVEL_0)) == "high"
                 )
             except Exception as e:
                 logger.warning(f"加载历史风险事件失败，按无历史高风险继续: {e}")
@@ -247,7 +257,7 @@ class AgentOrchestrator:
                 tool_calls=[]
             ))
 
-            if urgent_issue and urgent_issue.get("level") == "high":
+            if urgent_issue and is_emergency_risk(urgent_issue.get("level")):
                 safety_step_start = datetime.now(timezone.utc)
                 final_response_text = await urgent_detector.generate_crisis_response_async(
                     user_input=request.text,
@@ -364,7 +374,7 @@ class AgentOrchestrator:
             )
 
             # 4.1 Urgent Case Logging
-            if urgent_issue and urgent_issue.get('level') != 'low':
+            if urgent_issue and is_non_low_risk(urgent_issue.get("level")):
                 interaction_data = {
                     'user_id': request.user_id,
                     'session_id': request.session_id,
@@ -492,14 +502,18 @@ class AgentOrchestrator:
 
     def _build_risk_state(self, urgent_issue: Optional[Dict[str, Any]]) -> RiskState:
         issue = urgent_issue or {
-            "level": "low",
+            "level": LEVEL_0,
             "message": "",
             "suggestions": [],
             "triggers": [],
             "risk_score": 0.0,
         }
+        canonical_level = normalize_risk_level(issue.get("level", LEVEL_0))
         return RiskState(
-            level=issue.get("level", "low"),
+            level=canonical_level,
+            legacy_level=issue.get("legacy_level", risk_level_band(canonical_level)),
+            level_index=issue.get("level_index", risk_level_index(canonical_level)),
+            level_label=issue.get("level_label", risk_level_label(canonical_level)),
             message=issue.get("message", ""),
             suggestions=issue.get("suggestions", []),
             triggers=issue.get("triggers", []),
@@ -884,20 +898,20 @@ class AgentOrchestrator:
         if target_emotions.intersection(event_emotions):
             score += 1
 
-        if getattr(event, "risk_level", "low") in {"medium", "high"}:
+        if is_non_low_risk(getattr(event, "risk_level", LEVEL_0)):
             score += 1
         return score
 
     def _format_mood_event_for_memory(self, event: Any) -> str:
         emotion = getattr(event, "emotion", None) or getattr(event, "emotion_type", "中性")
         stress_source = getattr(event, "stress_source", None)
-        risk_level = getattr(event, "risk_level", "low")
+        risk_level = normalize_risk_level(getattr(event, "risk_level", LEVEL_0))
         summary_text = getattr(event, "event_summary", None) or getattr(event, "text_snippet", "") or "无摘要"
         summary_text = summary_text[:80]
         parts = [f"情绪={emotion}"]
         if stress_source:
             parts.append(f"主题={stress_source}")
-        if risk_level != "low":
+        if risk_level != LEVEL_0:
             parts.append(f"风险={risk_level}")
         return f"{'，'.join(parts)}；{self._safe_prompt_text(summary_text, '无摘要')}"
 
@@ -928,7 +942,7 @@ class AgentOrchestrator:
         if not user_profile:
             return "暂无长期画像信息"
         lines = [
-            f"- 长期风险等级: {self._safe_prompt_text(user_profile.get('risk_level'), 'low')}",
+            f"- 长期风险等级: {self._safe_prompt_text(user_profile.get('risk_level'), LEVEL_0)}",
             f"- 偏好支持风格: {self._safe_prompt_text(user_profile.get('preferred_support_style'), '未知')}",
             f"- 避免风格: {self._safe_prompt_text(', '.join(user_profile.get('avoid_style', []) or []), '无')}",
             f"- 主要压力来源: {self._safe_prompt_text(', '.join(user_profile.get('main_stress_sources', []) or []), '无')}",
@@ -953,8 +967,10 @@ class AgentOrchestrator:
     def _format_risk_state_for_prompt(self, risk_state: Dict[str, Any]) -> str:
         if not risk_state:
             return "暂无风险状态"
+        canonical_level = normalize_risk_level(risk_state.get("level", LEVEL_0))
         lines = [
-            f"- 风险等级: {self._safe_prompt_text(risk_state.get('level'), 'low')}",
+            f"- 风险等级: {self._safe_prompt_text(canonical_level, LEVEL_0)}",
+            f"- 兼容等级: {self._safe_prompt_text(risk_state.get('legacy_level', risk_level_band(canonical_level)), 'low')}",
             f"- 风险提示: {self._safe_prompt_text(risk_state.get('message'), '无')}",
             f"- 触发信号: {self._safe_prompt_text(', '.join(risk_state.get('triggers', []) or []), '无')}",
             f"- 风险分数: {self._safe_prompt_text(risk_state.get('risk_score'), '0.0')}",

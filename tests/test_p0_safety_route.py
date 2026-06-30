@@ -3,6 +3,8 @@ import os
 import sys
 import uuid
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -24,6 +26,7 @@ from models import AgentRunRequest  # noqa: E402
 from urgent_detector import urgent_detector  # noqa: E402
 
 
+@pytest.mark.asyncio
 async def test_high_risk_routes_to_dedicated_safety_response():
     user_id = f"user_safe_{uuid.uuid4().hex[:8]}"
     session_id = f"session_safe_{uuid.uuid4().hex[:8]}"
@@ -41,7 +44,7 @@ async def test_high_risk_routes_to_dedicated_safety_response():
 
     async def fake_generate_crisis_response_async(user_input, urgent_issue, conversation_summary):
         safety_called["value"] = True
-        assert urgent_issue["level"] == "high"
+        assert urgent_issue["level"] == "level_3"
         return "请先联系你现在身边信任的人，并立即拨打心理援助热线。"
 
     async def fail_if_normal_llm_called(*args, **kwargs):
@@ -72,7 +75,8 @@ async def test_high_risk_routes_to_dedicated_safety_response():
         assert llm_called["value"] is False
         assert chat.response == "请先联系你现在身边信任的人，并立即拨打心理援助热线。"
         assert chat.risk_state is not None
-        assert chat.risk_state.level == "high"
+        assert chat.risk_state.level == "level_3"
+        assert chat.risk_state.legacy_level == "high"
         assert chat.recommendation_decision is not None
         assert chat.recommendation_decision.should_recommend is False
         assert chat.recommendation_decision.recommend_type == "none"

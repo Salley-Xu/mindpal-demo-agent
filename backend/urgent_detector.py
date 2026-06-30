@@ -7,6 +7,18 @@ from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional
 from openai import AsyncOpenAI
 from config import config
+from risk_levels import (
+    LEVEL_0,
+    LEVEL_1,
+    LEVEL_2,
+    LEVEL_3,
+    is_emergency_risk,
+    is_non_low_risk,
+    normalize_risk_level,
+    risk_level_band,
+    risk_level_index,
+    risk_level_label,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +58,7 @@ class UrgentDetector:
         """
         检测用户输入中的紧急情况
         返回: {
-            'level': 'low'/'medium'/'high',
+            'level': 'level_0'/'level_1'/'level_2'/'level_3',
             'message': str,
             'suggestions': List[str],
             'triggers': List[str],
@@ -81,20 +93,15 @@ class UrgentDetector:
             return self._create_low_risk_response()
     
     def _normalize_level(self, level: Optional[str]) -> str:
-        level_mapping = {
-            "urgent": "high",
-            "warning_high": "medium",
-            "warning_low": "medium",
-            "warning": "medium",
-            "normal": "low",
-            None: "low",
-        }
-        return level_mapping.get(level, level or "low")
+        return normalize_risk_level(level)
 
     def _create_high_risk_response(self, triggers: List[str]) -> Dict[str, Any]:
         """创建高风险响应"""
         return {
-            'level': 'high',
+            'level': LEVEL_3,
+            'legacy_level': risk_level_band(LEVEL_3),
+            'level_index': risk_level_index(LEVEL_3),
+            'level_label': risk_level_label(LEVEL_3),
             'message': '检测到紧急情况，请立即寻求专业帮助！',
             'suggestions': [
                 '立即拨打心理援助热线(如:400-161-9995)',
@@ -123,7 +130,10 @@ class UrgentDetector:
         
         if severity >= 3:
             return {
-                'level': 'medium',
+                'level': LEVEL_2,
+                'legacy_level': risk_level_band(LEVEL_2),
+                'level_index': risk_level_index(LEVEL_2),
+                'level_label': risk_level_label(LEVEL_2),
                 'message': '检测到较高风险，建议尽快寻求帮助',
                 'suggestions': [
                     '建议联系学校心理咨询师',
@@ -136,7 +146,10 @@ class UrgentDetector:
             }
         else:
             return {
-                'level': 'medium',
+                'level': LEVEL_1,
+                'legacy_level': risk_level_band(LEVEL_1),
+                'level_index': risk_level_index(LEVEL_1),
+                'level_label': risk_level_label(LEVEL_1),
                 'message': '检测到潜在风险，需要关注',
                 'suggestions': [
                     '建议寻求专业支持',
@@ -150,7 +163,10 @@ class UrgentDetector:
     def _create_low_risk_response(self) -> Dict[str, Any]:
         """创建低风险响应"""
         return {
-            'level': 'low',
+            'level': LEVEL_0,
+            'legacy_level': risk_level_band(LEVEL_0),
+            'level_index': risk_level_index(LEVEL_0),
+            'level_label': risk_level_label(LEVEL_0),
             'message': '',
             'suggestions': [],
             'triggers': [],
@@ -161,9 +177,9 @@ class UrgentDetector:
                                conversation_summary: Dict) -> str:
         """针对紧急情况生成特殊回应"""
         level = self._normalize_level((urgent_issue or {}).get('level'))
-        if level == 'high':
+        if is_emergency_risk(level):
             return await self._generate_urgent_response_async(user_input, urgent_issue)
-        elif level == 'medium':
+        elif is_non_low_risk(level):
             return await self._generate_warning_response_async(user_input, urgent_issue)
         return None
     
@@ -286,7 +302,11 @@ class UrgentLogger:
             'timestamp': datetime.now().isoformat(),
             'user_id': interaction_data['user_id'],
             'session_id': interaction_data['session_id'],
-            'urgent_level': interaction_data['urgent_issue']['level'],
+            'urgent_level': normalize_risk_level(interaction_data['urgent_issue']['level']),
+            'legacy_level': interaction_data['urgent_issue'].get(
+                'legacy_level',
+                risk_level_band(interaction_data['urgent_issue']['level']),
+            ),
             'triggers': interaction_data['urgent_issue']['triggers'],
             'risk_score': interaction_data['urgent_issue'].get('risk_score', 0.0),
             'user_input': interaction_data['user_input'][:200],
@@ -345,12 +365,20 @@ class UrgentLogger:
         """计算统计信息"""
         return {
             'total_cases': len(cases),
-            'urgent_count': len([c for c in cases if c['urgent_level'] in ['urgent', 'high']]),
-            'warning_high_count': len([c for c in cases if c['urgent_level'] in ['warning_high', 'medium']]),
-            'warning_count': len([c for c in cases if c['urgent_level'] in ['warning', 'low']]),
-            'high_count': len([c for c in cases if c['urgent_level'] == 'high']),
-            'medium_count': len([c for c in cases if c['urgent_level'] == 'medium']),
-            'low_count': len([c for c in cases if c['urgent_level'] == 'low']),
+            'urgent_count': len(
+                [c for c in cases if normalize_risk_level(c['urgent_level']) == LEVEL_3]
+            ),
+            'warning_high_count': len(
+                [c for c in cases if normalize_risk_level(c['urgent_level']) == LEVEL_2]
+            ),
+            'warning_count': len(
+                [c for c in cases if normalize_risk_level(c['urgent_level']) == LEVEL_1]
+            ),
+            'high_count': len([c for c in cases if normalize_risk_level(c['urgent_level']) == LEVEL_3]),
+            'medium_count': len(
+                [c for c in cases if normalize_risk_level(c['urgent_level']) in {LEVEL_1, LEVEL_2}]
+            ),
+            'low_count': len([c for c in cases if normalize_risk_level(c['urgent_level']) == LEVEL_0]),
             'period_days': days,
             'avg_risk_score': sum(c.get('risk_score', 0) for c in cases) / max(len(cases), 1)
         }

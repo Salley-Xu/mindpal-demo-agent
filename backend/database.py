@@ -8,6 +8,7 @@ from config import config
 import threading
 import asyncio
 import aiosqlite
+from risk_levels import normalize_risk_level
 
 logger = logging.getLogger(__name__)
 
@@ -200,15 +201,7 @@ class DatabaseManager:
             logger.info("已为 %s 添加字段 %s", table_name, column_name)
 
     def _normalize_risk_level(self, risk_level: Optional[str]) -> str:
-        mapping = {
-            "normal": "low",
-            "warning": "medium",
-            "warning_low": "medium",
-            "warning_high": "medium",
-            "urgent": "high",
-            None: "low",
-        }
-        return mapping.get(risk_level, risk_level or "low")
+        return normalize_risk_level(risk_level)
     
     def create_or_update_session(self, user_id: str, session_id: str, 
                                 conversation_stage: str = 'initial',
@@ -772,15 +765,7 @@ class AsyncDatabaseManager:
             logger.info("已为 %s 添加字段 %s", table_name, column_name)
 
     def _normalize_risk_level(self, risk_level: Optional[str]) -> str:
-        mapping = {
-            "normal": "low",
-            "warning": "medium",
-            "warning_low": "medium",
-            "warning_high": "medium",
-            "urgent": "high",
-            None: "low",
-        }
-        return mapping.get(risk_level, risk_level or "low")
+        return normalize_risk_level(risk_level)
 
     async def create_or_update_session(self, user_id: str, session_id: str,
                                        conversation_stage: str = 'initial',

@@ -157,6 +157,10 @@ FAISS 索引默认使用：
 
 - `third_party/agent_test_runtime/models/bge-small-zh-v1.5`
 
+如果你之前已经把模型放在旧目录中，当前代码仍兼容以下历史路径：
+
+- `agent_test_data/hf_models/bge-small-zh-v1.5`
+
 需要的最小文件包括：
 
 - `config.json`

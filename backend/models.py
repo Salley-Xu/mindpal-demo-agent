@@ -37,7 +37,10 @@ class EmotionState(BaseModel):
 
 
 class RiskState(BaseModel):
-    level: str
+    level: str = "level_0"
+    legacy_level: str = "low"
+    level_index: int = 0
+    level_label: str = "Level 0"
     message: str = ""
     suggestions: List[str] = Field(default_factory=list)
     triggers: List[str] = Field(default_factory=list)

@@ -200,6 +200,10 @@ def display_debug_panel():
 def normalize_risk_level(level):
     """兼容旧风险等级，统一映射到 low / medium / high。"""
     mapping = {
+        "level_0": "low",
+        "level_1": "medium",
+        "level_2": "medium",
+        "level_3": "high",
         "urgent": "high",
         "warning_high": "medium",
         "warning_low": "medium",

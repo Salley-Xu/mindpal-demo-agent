@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Tuple
 
 from pydantic import BaseModel
+from risk_levels import LEVEL_0
 
 from content_db import content_db
 from content_recommender import content_recommender
@@ -38,7 +39,7 @@ class UserProfile(BaseModel):
     """
 
     user_id: str
-    risk_level: str = "low"
+    risk_level: str = LEVEL_0
     preferences: Dict[str, Any] = {}
     # 结构化偏好字段（方便上游/下游直接使用）
     preferred_types: List[str] = []
@@ -61,7 +62,7 @@ class MoodEvent(BaseModel):
     stress_source: Optional[str] = None
     user_intent: Optional[str] = None
     event_summary: Optional[str] = None
-    risk_level: str = "low"
+    risk_level: str = LEVEL_0
     source: str
     text_snippet: str
     created_at: datetime
@@ -364,7 +365,10 @@ TOOL_DEFINITIONS = [
                 "type": "object",
                 "properties": {
                     "user_id": {"type": "string", "description": "用户ID (自动填充)"},
-                    "risk_level": {"type": "string", "enum": ["low", "medium", "high"]},
+                    "risk_level": {
+                        "type": "string",
+                        "enum": ["level_0", "level_1", "level_2", "level_3", "low", "medium", "high"],
+                    },
                     "preferred_types": {"type": "array", "items": {"type": "string"}},
                     "preferred_categories": {"type": "array", "items": {"type": "string"}},
                     "preferred_difficulty": {"type": "string"},
@@ -392,7 +396,10 @@ TOOL_DEFINITIONS = [
                     "stress_source": {"type": "string", "description": "压力来源"},
                     "user_intent": {"type": "string", "description": "当前用户意图"},
                     "event_summary": {"type": "string", "description": "事件摘要"},
-                    "risk_level": {"type": "string", "enum": ["low", "medium", "high"]},
+                    "risk_level": {
+                        "type": "string",
+                        "enum": ["level_0", "level_1", "level_2", "level_3", "low", "medium", "high"],
+                    },
                     "source": {"type": "string", "default": "agent"},
                     "text_snippet": {"type": "string", "description": "相关的用户输入片段"}
                 },

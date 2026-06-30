@@ -24,6 +24,7 @@ from content_db import content_db
 from utils import validate_user_input
 from agent_orchestrator import agent_orchestrator
 from agent_tools import UserProfileTool
+from risk_levels import is_non_low_risk
 
 logger = logging.getLogger(__name__)
 
@@ -113,7 +114,7 @@ async def analyze_emotion(input_data: TextInput):
             trend = "calming"
     
     # 记录紧急情况
-    if urgent_issue['level'] in ['high', 'medium']:
+    if is_non_low_risk(urgent_issue.get("level")):
         logger.warning(f"紧急情况: {urgent_issue['level']}, 用户: {input_data.user_id}")
     
     return EmotionResponse(

@@ -8,6 +8,7 @@ from config import config
 from content_db import content_db
 from hybrid_retriever import hybrid_retriever
 from models import ContentItem
+from risk_levels import risk_level_band
 
 logger = logging.getLogger(__name__)
 
@@ -197,6 +198,7 @@ class ContentRecommender:
             if recent_risk_levels
             else user_profile.get("risk_level", "low")
         )
+        current_risk_band = risk_level_band(current_risk_level)
         recent_recommendation_turns = conversation_summary.get("recent_recommendation_turns", []) or []
 
         for candidate in candidates:
@@ -245,9 +247,9 @@ class ContentRecommender:
             score = self._adjust_score_with_profile(score, item, user_profile)
 
             # 7. 风险适配与禁用条件
-            if current_risk_level in item.risk_levels:
+            if current_risk_band in item.risk_levels:
                 risk_match_score = 1.0
-            elif current_risk_level == "high" and "high_risk_crisis" in item.contraindications:
+            elif current_risk_band == "high" and "high_risk_crisis" in item.contraindications:
                 risk_match_score = -1.0
                 score -= 4.0
             else:
@@ -574,7 +576,7 @@ class ContentRecommender:
                 personalization_score += 0.05
 
             # 风险等级对某些内容的总体降/升权（这里保持简单：高风险时，过高难度内容略微降权）
-            risk_level = user_profile.get("risk_level", "low")
+            risk_level = risk_level_band(user_profile.get("risk_level", "low"))
             if risk_level == "high" and item.difficulty == "advanced":
                 personalization_score -= 0.05
 
@@ -605,7 +607,7 @@ class ContentRecommender:
         preferred_categories = user_profile.get("preferred_categories", []) or []
         preferred_difficulty = user_profile.get("preferred_difficulty", "beginner")
         preferred_duration_range = user_profile.get("preferred_duration_range")
-        risk_level = user_profile.get("risk_level", "low")
+        risk_level = risk_level_band(user_profile.get("risk_level", "low"))
 
         # 类型偏好
         if preferred_types and item.type in preferred_types:

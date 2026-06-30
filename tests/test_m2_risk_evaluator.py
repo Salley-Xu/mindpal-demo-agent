@@ -5,6 +5,8 @@ import uuid
 from datetime import datetime, timezone
 from types import SimpleNamespace
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -37,7 +39,8 @@ def test_high_risk_detection():
         },
         conversation_summary={"emotion_trend": "escalating"},
     )
-    assert result["level"] == "high"
+    assert result["level"] == "level_3"
+    assert result["legacy_level"] == "high"
     assert result["risk_score"] >= 8.0
     assert result["suggestions"]
 
@@ -52,7 +55,8 @@ def test_medium_risk_detection():
         },
         conversation_summary={"emotion_trend": "consistent"},
     )
-    assert result["level"] == "medium"
+    assert result["level"] == "level_2"
+    assert result["legacy_level"] == "medium"
     assert result["risk_score"] >= 5.0
 
 
@@ -66,7 +70,8 @@ def test_low_risk_detection():
         },
         conversation_summary={"emotion_trend": "calming"},
     )
-    assert result["level"] == "low"
+    assert result["level"] == "level_0"
+    assert result["legacy_level"] == "low"
 
 
 def test_long_term_risk_context_lifts_score():
@@ -87,10 +92,10 @@ def test_long_term_risk_context_lifts_score():
             "negative_trend": False,
         },
         conversation_summary={"emotion_trend": "consistent"},
-        long_term_risk_level="high",
+        long_term_risk_level="level_3",
         historical_high_risk_count=3,
     )
-    assert baseline["level"] == "low"
+    assert baseline["level"] == "level_0"
     assert contextual["risk_score"] > baseline["risk_score"]
     assert contextual["risk_score"] >= baseline["risk_score"] + 3.0
 
@@ -105,7 +110,8 @@ def test_orchestrator_risk_state_builder():
             "risk_score": 6.4,
         }
     )
-    assert risk_state.level == "medium"
+    assert risk_state.level == "level_1"
+    assert risk_state.legacy_level == "medium"
     assert risk_state.risk_score == 6.4
 
 
@@ -122,13 +128,14 @@ def test_urgent_logger_statistics_compatibility():
         days=1,
     )
     assert stats["urgent_count"] == 2
-    assert stats["warning_high_count"] == 2
+    assert stats["warning_high_count"] == 1
     assert stats["warning_count"] == 2
-    assert stats["high_count"] == 1
-    assert stats["medium_count"] == 1
+    assert stats["high_count"] == 2
+    assert stats["medium_count"] == 3
     assert stats["low_count"] == 1
 
 
+@pytest.mark.asyncio
 async def test_run_agent_passes_long_term_risk_context_into_precheck():
     user_id = f"user_risk_ctx_{uuid.uuid4().hex[:8]}"
     session_id = f"session_risk_ctx_{uuid.uuid4().hex[:8]}"
@@ -148,7 +155,7 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
         assert user_id_arg == user_id
         return UserProfile(
             user_id=user_id_arg,
-            risk_level="high",
+            risk_level="level_3",
             preferred_types=[],
             preferred_categories=[],
             preferred_difficulty="beginner",
@@ -172,7 +179,7 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
                 stress_source="求职",
                 user_intent="sharing",
                 event_summary="历史上出现明显风险升高。",
-                risk_level="high",
+                risk_level="level_3",
                 source="conversation",
                 text_snippet="之前一度觉得撑不住。",
                 created_at=datetime.now(timezone.utc),
@@ -186,7 +193,7 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
                 stress_source="学业",
                 user_intent="sharing",
                 event_summary="又一次高风险波动。",
-                risk_level="high",
+                risk_level="level_3",
                 source="conversation",
                 text_snippet="那几天一直很绝望。",
                 created_at=datetime.now(timezone.utc),
@@ -200,7 +207,7 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
                 stress_source="日常",
                 user_intent="sharing",
                 event_summary="普通低风险事件。",
-                risk_level="low",
+                risk_level="level_0",
                 source="conversation",
                 text_snippet="最近有点累。",
                 created_at=datetime.now(timezone.utc),
@@ -210,7 +217,7 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
     def fake_evaluate(**kwargs):
         captured.update(kwargs)
         return {
-            "level": "low",
+            "level": "level_0",
             "message": "",
             "suggestions": [],
             "triggers": [],
@@ -243,7 +250,7 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
             )
         )
         assert result.chat.response == "我们先把今天最难受的部分拆开来说。"
-        assert captured["long_term_risk_level"] == "high"
+        assert captured["long_term_risk_level"] == "level_3"
         assert captured["historical_high_risk_count"] == 2
         assert captured["text"] == "这两天我有点麻木，感觉自己快撑不住了。"
         assert captured["conversation_summary"]["primary_emotion"] == "压力"
