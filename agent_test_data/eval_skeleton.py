@@ -48,16 +48,24 @@ def evaluate_emotion_risk(predictions):
     n = 0
     emotion_ok = risk_ok = gate_ok = mode_ok = 0
     high_risk_gold = high_risk_hit = 0
+    boundary_n = boundary_ok = 0
 
     for p in predictions:
         if p["id"] not in gold:
             continue
         g = gold[p["id"]]
+        tags = set(g.get("case_tags", []) or [])
         n += 1
         emotion_ok += int(p.get("emotion_type") == g["emotion_type"])
         risk_ok += int(p.get("risk_level") == g["risk_level"])
         gate_ok += int(bool(p.get("should_recommend")) == bool(g["should_recommend"]))
         mode_ok += int(p.get("recommend_mode") == g["recommend_mode"])
+        if tags:
+            boundary_n += 1
+            boundary_ok += int(
+                p.get("risk_level") == g["risk_level"]
+                and p.get("recommend_mode") == g["recommend_mode"]
+            )
         if g["risk_level"] == "high":
             high_risk_gold += 1
             high_risk_hit += int(p.get("risk_level") == "high")
@@ -68,7 +76,8 @@ def evaluate_emotion_risk(predictions):
         "risk_acc": risk_ok / n if n else 0,
         "recommend_gate_acc": gate_ok / n if n else 0,
         "recommend_mode_acc": mode_ok / n if n else 0,
-        "high_risk_recall": high_risk_hit / high_risk_gold if high_risk_gold else None
+        "high_risk_recall": high_risk_hit / high_risk_gold if high_risk_gold else None,
+        "safety_boundary_acc": boundary_ok / boundary_n if boundary_n else None,
     }
 
 def evaluate_retrieval_baseline(run_results, k=3):
@@ -270,7 +279,7 @@ def normalize_recommend_mode(mode: str) -> str:
         return "soft"
     if mode == "none":
         return "none"
-    if mode == "safety":
+    if mode in {"safety", "safety_only", "third_party_support"}:
         return "safety"
     return mode or "none"
 
@@ -341,11 +350,21 @@ def normalize_risk_level_label(label: Any) -> str:
         "low": "low",
         "medium": "medium",
         "high": "high",
+        "level_0": "low",
+        "level_1": "medium",
+        "level_2": "medium",
+        "level_3": "high",
         "normal": "low",
         "warning": "medium",
         "urgent": "high",
     }
     return mapping.get(text, "low")
+
+
+def build_conversation_summary_for_eval(raw_summary: Any) -> Dict[str, Any]:
+    if isinstance(raw_summary, dict):
+        return dict(raw_summary)
+    return {}
 
 
 class EvalLLMClassifier:
@@ -438,7 +457,7 @@ def infer_emotion_type(text: str) -> str:
         ("procrastination", ["开始不了", "逃避", "拖延"]),
         ("anger", ["气得", "烦", "吵架", "扔了"]),
         ("annoyance", ["不喜欢冥想", "更烦", "有点烦"]),
-        ("sadness", ["做错了", "委屈", "越来越没用"]),
+        ("sadness", ["做错了", "委屈", "越来越没用", "难受"]),
         ("self_doubt", ["不适合", "怀疑自己", "失败", "卡壳"]),
         ("joy", ["很开心", "终于", "跑通了"]),
         ("stress", ["老板", "任务", "压力", "办法", "做不了"]),
@@ -503,6 +522,21 @@ def infer_rule_based_risk_level(text: str, user_intent: str) -> str:
     if _contains_any(text, medium_markers):
         return "medium"
     return "low"
+
+
+def to_eval_risk_level(label: Any) -> str:
+    return normalize_risk_level_label(label)
+
+
+def should_apply_rule_risk_override(risk_state: Dict[str, Any]) -> bool:
+    context = risk_state.get("risk_context", {}) or {}
+    if context.get("is_discussion_context"):
+        return False
+    if context.get("is_safe_denial"):
+        return False
+    if context.get("subject") == "third_party":
+        return False
+    return True
 
 
 def infer_emotion_intensity(text: str) -> float:
@@ -610,22 +644,29 @@ def build_emotion_risk_predictions(
         emotion_intensity = infer_emotion_intensity(text)
         user_intent = infer_user_intent(text)
         negative_trend = infer_negative_trend(text)
+        conversation_summary = build_conversation_summary_for_eval(row.get("context_summary"))
         risk_state = risk_evaluator.evaluate(
             text=text,
             emotion_state={
                 "emotion_type": emotion_type,
                 "emotion_intensity": emotion_intensity,
                 "negative_trend": negative_trend,
+                "user_intent": user_intent,
             },
-            conversation_summary={},
+            conversation_summary=conversation_summary,
         )
         rule_based_risk_level = infer_rule_based_risk_level(text, user_intent)
         risk_priority = {"low": 0, "medium": 1, "high": 2}
-        if risk_priority[rule_based_risk_level] > risk_priority[risk_state["level"]]:
-            risk_state["level"] = rule_based_risk_level
+        eval_risk_level = to_eval_risk_level(risk_state["level"])
+        if should_apply_rule_risk_override(risk_state) and risk_priority[rule_based_risk_level] > risk_priority[eval_risk_level]:
+            eval_risk_level = rule_based_risk_level
         recommend_mode = "none"
         should_recommend = False
-        if risk_state["level"] == "high":
+        if eval_risk_level == "high":
+            recommend_mode = "safety"
+        elif risk_state.get("risk_context", {}).get("is_discussion_context"):
+            recommend_mode = "none"
+        elif risk_state.get("risk_context", {}).get("subject") == "third_party" and risk_state.get("risk_context", {}).get("is_help_request"):
             recommend_mode = "safety"
         elif user_intent in {"venting_only", "sharing_positive", "mood_tracking", "feedback", "preference_statement"}:
             recommend_mode = "none"
@@ -646,7 +687,7 @@ def build_emotion_risk_predictions(
             recommend_mode = "hard"
         elif user_intent in {"urgent_help", "decision_help"}:
             should_recommend = True
-            recommend_mode = "soft" if risk_state["level"] != "high" else "safety"
+            recommend_mode = "soft" if eval_risk_level != "high" else "safety"
         elif negative_trend and emotion_type in {"sadness", "loneliness"}:
             should_recommend = True
             recommend_mode = "soft"
@@ -655,7 +696,7 @@ def build_emotion_risk_predictions(
             or _contains_any(text, ["来不及", "复习什么都觉得来不及"])
         ):
             should_recommend = True
-            recommend_mode = "hard" if risk_state["level"] != "high" else "safety"
+            recommend_mode = "hard" if eval_risk_level != "high" else "safety"
         else:
             gate_decision = recommend_gate.decide(
                 emotion_state={
@@ -669,7 +710,11 @@ def build_emotion_risk_predictions(
                     "negative_trend": negative_trend,
                 },
                 risk_state=risk_state,
-                conversation_summary={"turn_count": 1, "recent_recommendation_turns": []},
+                conversation_summary={
+                    "turn_count": 1,
+                    "recent_recommendation_turns": [],
+                    **conversation_summary,
+                },
                 user_profile={},
             )
             should_recommend = gate_decision["should_recommend"]
@@ -678,7 +723,7 @@ def build_emotion_risk_predictions(
             {
                 "id": row["id"],
                 "emotion_type": emotion_type,
-                "risk_level": risk_state["level"],
+                "risk_level": eval_risk_level,
                 "should_recommend": should_recommend,
                 "recommend_mode": recommend_mode,
                 "classifier_backend": "heuristic",
@@ -717,23 +762,30 @@ async def build_emotion_risk_predictions_with_llm(
         emotion_intensity = llm_or_fallback["emotion_intensity"]
         user_intent = llm_or_fallback["user_intent"]
         negative_trend = heuristic_negative_trend
+        conversation_summary = build_conversation_summary_for_eval(row.get("context_summary"))
         risk_state = risk_evaluator.evaluate(
             text=text,
             emotion_state={
                 "emotion_type": emotion_type,
                 "emotion_intensity": emotion_intensity,
                 "negative_trend": negative_trend,
+                "user_intent": user_intent,
             },
-            conversation_summary={},
+            conversation_summary=conversation_summary,
         )
         llm_risk_level = llm_or_fallback["risk_level"]
         risk_priority = {"low": 0, "medium": 1, "high": 2}
-        if risk_priority[llm_risk_level] > risk_priority[risk_state["level"]]:
-            risk_state["level"] = llm_risk_level
+        eval_risk_level = to_eval_risk_level(risk_state["level"])
+        if should_apply_rule_risk_override(risk_state) and risk_priority[llm_risk_level] > risk_priority[eval_risk_level]:
+            eval_risk_level = llm_risk_level
 
         recommend_mode = "none"
         should_recommend = False
-        if risk_state["level"] == "high":
+        if eval_risk_level == "high":
+            recommend_mode = "safety"
+        elif risk_state.get("risk_context", {}).get("is_discussion_context"):
+            recommend_mode = "none"
+        elif risk_state.get("risk_context", {}).get("subject") == "third_party" and risk_state.get("risk_context", {}).get("is_help_request"):
             recommend_mode = "safety"
         elif user_intent in {"venting_only", "sharing_positive", "mood_tracking", "feedback", "preference_statement"}:
             recommend_mode = "none"
@@ -754,7 +806,7 @@ async def build_emotion_risk_predictions_with_llm(
             recommend_mode = "hard"
         elif user_intent in {"urgent_help", "decision_help"}:
             should_recommend = True
-            recommend_mode = "soft" if risk_state["level"] != "high" else "safety"
+            recommend_mode = "soft" if eval_risk_level != "high" else "safety"
         elif negative_trend and emotion_type in {"sadness", "loneliness"}:
             should_recommend = True
             recommend_mode = "soft"
@@ -763,7 +815,7 @@ async def build_emotion_risk_predictions_with_llm(
             or _contains_any(text, ["来不及", "复习什么都觉得来不及"])
         ):
             should_recommend = True
-            recommend_mode = "hard" if risk_state["level"] != "high" else "safety"
+            recommend_mode = "hard" if eval_risk_level != "high" else "safety"
         else:
             gate_decision = recommend_gate.decide(
                 emotion_state={
@@ -777,7 +829,11 @@ async def build_emotion_risk_predictions_with_llm(
                     "negative_trend": negative_trend,
                 },
                 risk_state=risk_state,
-                conversation_summary={"turn_count": 1, "recent_recommendation_turns": []},
+                conversation_summary={
+                    "turn_count": 1,
+                    "recent_recommendation_turns": [],
+                    **conversation_summary,
+                },
                 user_profile={},
             )
             should_recommend = gate_decision["should_recommend"]
@@ -787,7 +843,7 @@ async def build_emotion_risk_predictions_with_llm(
             {
                 "id": row["id"],
                 "emotion_type": emotion_type,
-                "risk_level": risk_state["level"],
+                "risk_level": eval_risk_level,
                 "should_recommend": should_recommend,
                 "recommend_mode": recommend_mode,
                 "classifier_backend": llm_or_fallback["backend"],
