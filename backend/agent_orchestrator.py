@@ -15,6 +15,7 @@ from urgent_detector import urgent_detector, urgent_logger
 from emotion_analyzer import emotion_analyzer
 from risk_evaluator import risk_evaluator
 from recommend_gate import recommend_gate
+from output_safety_checker import output_safety_checker
 from models import (
     AgentRunRequest,
     AgentRunResponse,
@@ -38,6 +39,7 @@ from agent_tools import (
 from agent_prompts import STRATEGY_PROMPTS, SYSTEM_PROMPT_TEMPLATE
 from risk_levels import (
     LEVEL_0,
+    LEVEL_2,
     is_emergency_risk,
     is_non_low_risk,
     normalize_risk_level,
@@ -273,6 +275,22 @@ class AgentOrchestrator:
                         tool_calls=[],
                     )
                 )
+            elif urgent_issue and normalize_risk_level(urgent_issue.get("level")) == LEVEL_2:
+                support_step_start = datetime.now(timezone.utc)
+                final_response_text = await urgent_detector.generate_crisis_response_async(
+                    user_input=request.text,
+                    urgent_issue=urgent_issue,
+                    conversation_summary=conversation_summary,
+                )
+                steps.append(
+                    AgentStep(
+                        name="HighRiskSupport",
+                        description="Level-2 input routed to dedicated high-risk support mode",
+                        started_at=support_step_start,
+                        finished_at=datetime.now(timezone.utc),
+                        tool_calls=[],
+                    )
+                )
             else:
 
                 # 2. Build Messages
@@ -399,6 +417,31 @@ class AgentOrchestrator:
                     user_profile=user_profile,
                     limit=2,
                 )
+            safety_check_started = datetime.now(timezone.utc)
+            safety_review = output_safety_checker.review(
+                response_text=final_response_text,
+                risk_state=urgent_issue,
+                recommendation_decision=recommendation_decision,
+                recommendations=final_recommendations,
+                recommendation_rationale=final_rationale,
+            )
+            final_response_text = safety_review["response_text"]
+            final_recommendations = safety_review["recommendations"]
+            final_rationale = safety_review["recommendation_rationale"]
+            recommendation_decision = safety_review["recommendation_decision"]
+            steps.append(
+                AgentStep(
+                    name="OutputSafetyCheck",
+                    description=(
+                        "Applied output safety fallback rules"
+                        if safety_review["triggered_rules"]
+                        else "Validated final response against output safety rules"
+                    ),
+                    started_at=safety_check_started,
+                    finished_at=datetime.now(timezone.utc),
+                    tool_calls=[],
+                )
+            )
 
             if final_recommendations and recommendation_decision and recommendation_decision.get("should_recommend"):
                 conversation_manager.mark_recommendation(
@@ -518,6 +561,10 @@ class AgentOrchestrator:
             suggestions=issue.get("suggestions", []),
             triggers=issue.get("triggers", []),
             risk_score=issue.get("risk_score", 0.0),
+            raw_score=issue.get("raw_score", issue.get("risk_score", 0.0)),
+            risk_dimensions=issue.get("risk_dimensions", {}),
+            risk_evidence=issue.get("risk_evidence", {}),
+            escalation_reasons=issue.get("escalation_reasons", []),
         )
 
     def _build_session_summary(

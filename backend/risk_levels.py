@@ -75,5 +75,9 @@ def is_emergency_risk(level: Optional[Any]) -> bool:
     return normalize_risk_level(level) == LEVEL_3
 
 
+def is_high_support_risk(level: Optional[Any]) -> bool:
+    return risk_level_index(level) >= 2
+
+
 def is_non_low_risk(level: Optional[Any]) -> bool:
     return risk_level_index(level) >= 1

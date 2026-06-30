@@ -43,6 +43,10 @@ def test_high_risk_detection():
     assert result["legacy_level"] == "high"
     assert result["risk_score"] >= 8.0
     assert result["suggestions"]
+    assert result["risk_dimensions"]["risk_ideation"] == 3
+    assert result["risk_dimensions"]["time_urgency"] >= 2
+    assert "explicit_high_risk_keywords" in result["escalation_reasons"]
+    assert "risk_ideation" in result["risk_evidence"]
 
 
 def test_medium_risk_detection():
@@ -58,6 +62,8 @@ def test_medium_risk_detection():
     assert result["level"] == "level_2"
     assert result["legacy_level"] == "medium"
     assert result["risk_score"] >= 5.0
+    assert result["risk_dimensions"]["self_control"] >= 1
+    assert result["risk_dimensions"]["risk_ideation"] >= 1
 
 
 def test_low_risk_detection():
@@ -72,6 +78,39 @@ def test_low_risk_detection():
     )
     assert result["level"] == "level_0"
     assert result["legacy_level"] == "low"
+    assert result["risk_dimensions"]["protective_factors"] == 0
+    assert result["risk_evidence"]["protective_factors"] == ["仍存在求助或调整意愿"]
+
+
+def test_hard_rule_escalates_immediate_action_to_level_3():
+    result = risk_evaluator.evaluate(
+        text="我已经准备好了，现在就去做。",
+        emotion_state={
+            "emotion_type": "sadness",
+            "emotion_intensity": 0.9,
+            "negative_trend": True,
+        },
+        conversation_summary={"emotion_trend": "escalating"},
+    )
+    assert result["level"] == "level_3"
+    assert result["risk_dimensions"]["action_intent"] == 3
+    assert result["risk_dimensions"]["time_urgency"] == 3
+    assert "hard_rule:action_with_near_term_urgency" in result["escalation_reasons"]
+
+
+def test_safe_denial_keeps_ideation_score_low():
+    result = risk_evaluator.evaluate(
+        text="我没有想自杀，只是最近压力真的很大。",
+        emotion_state={
+            "emotion_type": "stress",
+            "emotion_intensity": 0.72,
+            "negative_trend": False,
+        },
+        conversation_summary={"emotion_trend": "consistent"},
+    )
+    assert result["level"] != "level_3"
+    assert result["risk_dimensions"]["risk_ideation"] == 0
+    assert "显式否认当前自伤/自杀意图" in result["risk_evidence"]["risk_ideation"]
 
 
 def test_long_term_risk_context_lifts_score():
@@ -108,11 +147,18 @@ def test_orchestrator_risk_state_builder():
             "suggestions": ["联系朋友"],
             "triggers": ["撑不住"],
             "risk_score": 6.4,
+            "raw_score": 6.4,
+            "risk_dimensions": {"risk_ideation": 1, "self_control": 1},
+            "risk_evidence": {"risk_ideation": ["撑不住"]},
+            "escalation_reasons": ["score_threshold:level_1"],
         }
     )
     assert risk_state.level == "level_1"
     assert risk_state.legacy_level == "medium"
     assert risk_state.risk_score == 6.4
+    assert risk_state.raw_score == 6.4
+    assert risk_state.risk_dimensions["risk_ideation"] == 1
+    assert risk_state.escalation_reasons == ["score_threshold:level_1"]
 
 
 def test_urgent_logger_statistics_compatibility():

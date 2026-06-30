@@ -19,6 +19,7 @@ os.environ.setdefault("CHAT_MODEL", "deepseek-chat")
 os.environ.setdefault("API_BASE_URL", "https://api.deepseek.com/v1")
 
 from recommend_gate import recommend_gate  # noqa: E402
+from content_recommender import content_recommender  # noqa: E402
 from conversation_manager import ConversationManager  # noqa: E402
 from agent_orchestrator import agent_orchestrator  # noqa: E402
 from main import app  # noqa: E402
@@ -73,6 +74,38 @@ def test_soft_and_hard_recommendation_levels():
     )
     assert hard_decision["should_recommend"] is True
     assert hard_decision["recommend_type"] == "hard"
+
+
+def test_level_2_disables_ordinary_recommendation():
+    decision = recommend_gate.decide(
+        emotion_state={
+            "emotion_intensity": 0.86,
+            "user_intent": "seeking_help",
+            "negative_trend": True,
+            "stress_source": "学业/求职压力",
+        },
+        risk_state={"level": "level_2"},
+        conversation_summary={"turn_count": 4, "recent_recommendation_turns": []},
+        user_profile={"preferred_support_style": "direct_actionable"},
+    )
+    assert decision["should_recommend"] is False
+    assert decision["recommend_type"] == "safety_only"
+    assert "level_2_support_route" in decision["reason_codes"]
+
+
+@pytest.mark.asyncio
+async def test_content_recommender_filters_for_level_2():
+    recommendations, _, _ = await content_recommender.recommend_content(
+        user_input="我最近快撑不住了，想先找点简单的方法缓一缓。",
+        current_emotion="压力",
+        conversation_summary={"recent_risk_levels": ["level_2"]},
+        user_profile={"risk_level": "level_2"},
+        limit=5,
+    )
+    assert recommendations
+    assert all(item.recommend_type == "soft" for item in recommendations)
+    assert all(item.difficulty in {None, "beginner"} for item in recommendations)
+    assert all((item.duration_minutes is None or item.duration_minutes <= 10) for item in recommendations)
 
 
 def test_cooldown_penalty_and_summary_tracking():
@@ -131,11 +164,17 @@ def main():
     test_soft_and_hard_recommendation_levels()
     print("PASS: soft and hard recommendation levels")
 
+    test_level_2_disables_ordinary_recommendation()
+    print("PASS: level 2 disables ordinary recommendation")
+
     test_cooldown_penalty_and_summary_tracking()
     print("PASS: cooldown penalty and summary tracking")
 
     asyncio.run(test_orchestrator_blocks_recommend_tool_when_not_hard())
     print("PASS: orchestrator blocks recommend tool when not hard")
+
+    asyncio.run(test_content_recommender_filters_for_level_2())
+    print("PASS: content recommender filters for level 2")
 
     test_openapi_contains_recommendation_decision()
     print("PASS: recommendation decision openapi schema")

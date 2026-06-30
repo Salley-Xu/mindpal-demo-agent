@@ -8,7 +8,7 @@ from config import config
 from content_db import content_db
 from hybrid_retriever import hybrid_retriever
 from models import ContentItem
-from risk_levels import risk_level_band
+from risk_levels import LEVEL_2, LEVEL_3, normalize_risk_level, risk_level_band
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +64,16 @@ class ContentRecommender:
         try:
             # 构造/归一化用户画像，保证下游逻辑稳定
             normalized_profile = self._normalize_user_profile(user_profile or {})
+            recent_risk_levels = conversation_summary.get("recent_risk_levels", []) or []
+            current_risk_level = (
+                recent_risk_levels[-1]
+                if recent_risk_levels
+                else normalized_profile.get("risk_level", "low")
+            )
+            canonical_risk_level = normalize_risk_level(current_risk_level)
+
+            if canonical_risk_level == LEVEL_3:
+                return [], "", {}
 
             # 策略1: 先混合召回候选，再做规则个性化重排
             candidate_limit = max(limit, self.rerank_candidate_size) if self.enable_ai_rerank else limit
@@ -82,6 +92,11 @@ class ContentRecommender:
                 user_profile=normalized_profile,
                 limit=candidate_limit,
             )
+            if canonical_risk_level == LEVEL_2:
+                rule_based_recs = [
+                    item for item in rule_based_recs
+                    if self._is_item_allowed_for_risk(item, canonical_risk_level)
+                ]
             
             # 策略2: 使用 AI 对规则候选集进行 rerank（可通过配置关闭）
             if self.enable_ai_rerank and rule_based_recs:
@@ -203,6 +218,8 @@ class ContentRecommender:
 
         for candidate in candidates:
             item = candidate["item"]
+            if not self._is_item_allowed_for_risk(item, current_risk_level):
+                continue
             retrieval_score = self._normalize_retrieval_score(candidate.get("retrieval_score", 0.0))
             emotion_match_score = 0.0
             risk_match_score = 0.0
@@ -275,7 +292,7 @@ class ContentRecommender:
             )
             
             if final_score > 0:
-                enriched_item = item.copy(
+                enriched_item = item.model_copy(
                     update={
                         "retrieval_metadata": {
                             "retrieval_score": round(candidate.get("retrieval_score", 0.0), 4),
@@ -291,6 +308,23 @@ class ContentRecommender:
         # 按分数排序
         scored_items.sort(key=lambda x: x[0], reverse=True)
         return [item for score, item in scored_items[:limit]]
+
+    def _is_item_allowed_for_risk(self, item: ContentItem, risk_level: str) -> bool:
+        canonical_level = normalize_risk_level(risk_level)
+        risk_band = risk_level_band(canonical_level)
+        if canonical_level == LEVEL_3:
+            return False
+        if canonical_level == LEVEL_2:
+            return (
+                item.recommend_type == "soft"
+                and (item.difficulty in {None, "beginner"})
+                and item.actionability >= 0.5
+                and (
+                    item.duration_minutes is None
+                    or item.duration_minutes <= 10
+                )
+            )
+        return True
 
     def _build_query_variants(
         self,

@@ -1,6 +1,14 @@
 from typing import Any, Dict, List, Optional
 
-from risk_levels import LEVEL_0, LEVEL_1, LEVEL_2, LEVEL_3, is_emergency_risk, normalize_risk_level
+from risk_levels import (
+    LEVEL_0,
+    LEVEL_1,
+    LEVEL_2,
+    LEVEL_3,
+    is_emergency_risk,
+    is_high_support_risk,
+    normalize_risk_level,
+)
 
 
 class RecommendGate:
@@ -70,6 +78,15 @@ class RecommendGate:
                 "reason_codes": ["high_risk_safety_route", "level_3_safety_route"],
                 "cooldown_remaining": cooldown_remaining,
             }
+        if risk_level == LEVEL_2:
+            return {
+                "should_recommend": False,
+                "recommend_type": "safety_only",
+                "score": round(recommend_score, 2),
+                "threshold": self.soft_threshold,
+                "reason_codes": ["level_2_support_route", "ordinary_recommendation_disabled"],
+                "cooldown_remaining": cooldown_remaining,
+            }
 
         if emotion_intensity >= 0.75:
             reason_codes.append("high_emotion_intensity")
@@ -86,7 +103,7 @@ class RecommendGate:
         should_recommend = False
         threshold = self.soft_threshold
 
-        if recommend_score >= self.hard_threshold and (
+        if recommend_score >= self.hard_threshold and not is_high_support_risk(risk_level) and (
             user_intent in {"seeking_help", "planning"} or emotion_intensity >= 0.8 or negative_trend
         ):
             should_recommend = True

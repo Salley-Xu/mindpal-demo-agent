@@ -20,6 +20,15 @@ class RiskEvaluator:
     """结构化风险评估器，输出四级风险语义并保留旧等级兼容字段。"""
 
     def __init__(self):
+        self.dimension_names = [
+            "risk_ideation",
+            "action_intent",
+            "plan_specificity",
+            "time_urgency",
+            "means_access",
+            "self_control",
+            "protective_factors",
+        ]
         self.high_risk_keywords = [
             "自杀",
             "不想活了",
@@ -53,6 +62,56 @@ class RiskEvaluator:
             "都是我的错",
             "我什么都做不好",
         ]
+        self.passive_ideation_keywords = [
+            "想消失",
+            "不想再醒来",
+            "不想醒来",
+            "如果我消失了",
+            "明天之后就都结束了",
+            "活着没意义",
+            "没有希望",
+            "想放弃",
+        ]
+        self.action_intent_keywords = [
+            "准备去做",
+            "准备这么做",
+            "我会做傻事",
+            "做出什么事",
+            "结束生命",
+            "伤害自己",
+            "伤害别人",
+            "已经准备好了",
+            "我已经准备好了",
+        ]
+        self.plan_keywords = [
+            "跳楼",
+            "割腕",
+            "服毒",
+            "上吊",
+            "烧炭",
+            "遗书",
+            "天台",
+            "刀",
+            "药",
+            "绳",
+            "安排好了",
+            "准备好了",
+        ]
+        self.time_urgent_keywords = ["现在", "马上", "立刻", "已经"]
+        self.time_near_keywords = ["今晚", "今天", "这几天", "明天"]
+        self.means_keywords = ["刀", "药", "绳", "天台", "阳台", "独处", "一个人", "没人"]
+        self.self_control_keywords = ["控制不住", "停不下来", "失控", "我怕自己会做出什么事", "控制不了"]
+        self.supportive_keywords = ["想慢慢调整", "想做个计划", "想试试看", "愿意求助", "想找人聊", "寻求帮助"]
+        self.help_seeking_intents = {"seeking_help", "planning"}
+        self.dimension_weights = {
+            "risk_ideation": 0.23,
+            "action_intent": 0.20,
+            "plan_specificity": 0.15,
+            "time_urgency": 0.14,
+            "means_access": 0.10,
+            "self_control": 0.12,
+            "protective_factors": 0.06,
+        }
 
     def evaluate(
         self,
@@ -65,16 +124,28 @@ class RiskEvaluator:
         summary = conversation_summary or {}
         state = emotion_state or {}
         triggers = self._collect_triggers(text)
-        score = self._calculate_risk_score(
+        dimensions = self._score_dimensions(
             text=text,
             triggers=triggers,
+            emotion_state=state,
+            conversation_summary=summary,
+        )
+        raw_score = self._calculate_raw_score(
+            dimensions=dimensions,
             emotion_state=state,
             conversation_summary=summary,
             long_term_risk_level=long_term_risk_level,
             historical_high_risk_count=historical_high_risk_count,
         )
-        level = self._map_level(score, triggers)
+        level, escalation_reasons = self._determine_level(
+            text=text,
+            triggers=triggers,
+            dimensions=dimensions,
+            raw_score=raw_score,
+        )
         legacy_level = risk_level_band(level)
+        risk_evidence = self._build_risk_evidence(dimensions)
+        calibrated_score = self._calibrate_display_score(level, raw_score)
 
         response = {
             "level": level,
@@ -84,9 +155,22 @@ class RiskEvaluator:
             "message": self._build_message(level),
             "suggestions": self._build_suggestions(level),
             "triggers": triggers,
-            "risk_score": round(score, 2),
+            "risk_score": round(calibrated_score, 2),
+            "raw_score": round(raw_score, 2),
+            "risk_dimensions": {
+                name: item["score"] for name, item in dimensions.items()
+            },
+            "risk_evidence": risk_evidence,
+            "escalation_reasons": escalation_reasons,
         }
-        logger.info("风险评估完成: level=%s score=%.2f triggers=%s", level, score, triggers)
+        logger.info(
+            "风险评估完成: level=%s raw_score=%.2f display_score=%.2f triggers=%s escalation=%s",
+            level,
+            raw_score,
+            calibrated_score,
+            triggers,
+            escalation_reasons,
+        )
         return response
 
     def _collect_triggers(self, text: str) -> List[str]:
@@ -96,10 +180,113 @@ class RiskEvaluator:
                 found.append(keyword)
         return found
 
-    def _calculate_risk_score(
+    def _score_dimensions(
         self,
         text: str,
         triggers: List[str],
+        emotion_state: Dict[str, Any],
+        conversation_summary: Dict[str, Any],
+    ) -> Dict[str, Dict[str, Any]]:
+        text = text or ""
+        dimensions = {
+            name: {"score": 0, "evidence": []}
+            for name in self.dimension_names
+        }
+
+        explicit_ideation_hits = self._matched_keywords(text, self.high_risk_keywords)
+        passive_ideation_hits = self._matched_keywords(text, self.passive_ideation_keywords)
+        medium_distress_hits = self._matched_keywords(text, self.medium_risk_keywords)
+        negation_hits = self._matched_keywords(text, self.self_negation_keywords)
+        action_hits = self._matched_keywords(text, self.action_intent_keywords)
+        plan_hits = self._matched_keywords(text, self.plan_keywords)
+        urgent_time_hits = self._matched_keywords(text, self.time_urgent_keywords)
+        near_time_hits = self._matched_keywords(text, self.time_near_keywords)
+        means_hits = self._matched_keywords(text, self.means_keywords)
+        self_control_hits = self._matched_keywords(text, self.self_control_keywords)
+        support_hits = self._matched_keywords(text, self.supportive_keywords)
+
+        if self._contains_safe_denial(text):
+            dimensions["risk_ideation"]["score"] = 0
+            dimensions["risk_ideation"]["evidence"].append("显式否认当前自伤/自杀意图")
+        elif explicit_ideation_hits:
+            dimensions["risk_ideation"]["score"] = 3
+            dimensions["risk_ideation"]["evidence"].extend(explicit_ideation_hits)
+        elif passive_ideation_hits:
+            dimensions["risk_ideation"]["score"] = 2
+            dimensions["risk_ideation"]["evidence"].extend(passive_ideation_hits)
+        elif medium_distress_hits or negation_hits:
+            dimensions["risk_ideation"]["score"] = 1
+            dimensions["risk_ideation"]["evidence"].extend((medium_distress_hits or [])[:2] + (negation_hits or [])[:1])
+
+        if any(token in text for token in ["现在就", "马上就", "今晚就", "已经准备"]):
+            dimensions["action_intent"]["score"] = 3
+            dimensions["action_intent"]["evidence"].append("存在明确近期行动表达")
+        elif action_hits:
+            dimensions["action_intent"]["score"] = 2
+            dimensions["action_intent"]["evidence"].extend(action_hits[:2])
+        elif any(token in text for token in ["撑不住", "怕自己会做出什么事", "做傻事"]):
+            dimensions["action_intent"]["score"] = 1
+            dimensions["action_intent"]["evidence"].append("存在模糊行动倾向或担心失控")
+
+        if any(token in text for token in ["安排好了", "遗书"]) or len(plan_hits) >= 2:
+            dimensions["plan_specificity"]["score"] = 3
+            dimensions["plan_specificity"]["evidence"].extend(plan_hits[:3] or ["存在明确准备/安排表达"])
+        elif plan_hits:
+            dimensions["plan_specificity"]["score"] = 2
+            dimensions["plan_specificity"]["evidence"].extend(plan_hits[:2])
+        elif any(token in text for token in ["怎么做", "这样做"]):
+            dimensions["plan_specificity"]["score"] = 1
+            dimensions["plan_specificity"]["evidence"].append("提到模糊的行为方式")
+
+        if urgent_time_hits:
+            dimensions["time_urgency"]["score"] = 3
+            dimensions["time_urgency"]["evidence"].extend(urgent_time_hits[:2])
+        elif near_time_hits:
+            dimensions["time_urgency"]["score"] = 2
+            dimensions["time_urgency"]["evidence"].extend(near_time_hits[:2])
+        elif conversation_summary.get("emotion_trend") == "escalating":
+            dimensions["time_urgency"]["score"] = 1
+            dimensions["time_urgency"]["evidence"].append("近期风险趋势上升")
+
+        if any(token in text for token in ["手边", "就在旁边", "一个人待着"]) and means_hits:
+            dimensions["means_access"]["score"] = 3
+            dimensions["means_access"]["evidence"].extend(means_hits[:3])
+        elif means_hits or plan_hits:
+            dimensions["means_access"]["score"] = 2
+            dimensions["means_access"]["evidence"].extend((means_hits or plan_hits)[:2])
+        elif any(token in text for token in ["一个人", "没人", "独处"]):
+            dimensions["means_access"]["score"] = 1
+            dimensions["means_access"]["evidence"].append("可能处于较孤立或独处状态")
+
+        if any(token in text for token in ["控制不住", "已经失控", "停不下来"]):
+            dimensions["self_control"]["score"] = 3
+            dimensions["self_control"]["evidence"].append("表达已经无法控制自己")
+        elif self_control_hits:
+            dimensions["self_control"]["score"] = 2
+            dimensions["self_control"]["evidence"].extend(self_control_hits[:2])
+        elif any(token in text for token in ["崩溃", "撑不住"]):
+            dimensions["self_control"]["score"] = 1
+            dimensions["self_control"]["evidence"].append("情绪接近崩溃，但仍可交流")
+
+        user_intent = emotion_state.get("user_intent")
+        if support_hits or user_intent in self.help_seeking_intents:
+            dimensions["protective_factors"]["score"] = 0
+            dimensions["protective_factors"]["evidence"].append("仍存在求助或调整意愿")
+        elif any(token in text for token in ["没人帮我", "不想求助", "谁也别管我", "一个人待着"]):
+            dimensions["protective_factors"]["score"] = 3
+            dimensions["protective_factors"]["evidence"].append("保护性因素很弱或拒绝求助")
+        elif conversation_summary.get("turn_count", 0) >= 3:
+            dimensions["protective_factors"]["score"] = 2
+            dimensions["protective_factors"]["evidence"].append("持续负面表达但未出现明确求助")
+        else:
+            dimensions["protective_factors"]["score"] = 1
+            dimensions["protective_factors"]["evidence"].append("保护性因素有限")
+
+        return dimensions
+
+    def _calculate_raw_score(
+        self,
+        dimensions: Dict[str, Dict[str, Any]],
         emotion_state: Dict[str, Any],
         conversation_summary: Dict[str, Any],
         long_term_risk_level: Optional[str],
@@ -107,57 +294,144 @@ class RiskEvaluator:
     ) -> float:
         score = 0.5
         normalized_long_term_level = normalize_risk_level(long_term_risk_level)
-
-        high_hits = [item for item in triggers if item in self.high_risk_keywords]
-        medium_hits = [item for item in triggers if item in self.medium_risk_keywords]
-        self_negation_hits = [item for item in triggers if item in self.self_negation_keywords]
-
-        score += len(high_hits) * 4.0
-        score += len(medium_hits) * 1.6
-        score += len(self_negation_hits) * 1.2
+        weighted_dimension_score = 0.0
+        for name, weight in self.dimension_weights.items():
+            weighted_dimension_score += dimensions[name]["score"] * weight
+        score += (weighted_dimension_score / 3.0) * 8.8
 
         emotion_type = emotion_state.get("emotion_type")
         emotion_intensity = emotion_state.get("emotion_intensity", 0.0)
         negative_trend = emotion_state.get("negative_trend", False)
 
         if emotion_type in {"sadness", "helplessness", "anxiety", "stress"}:
-            score += 1.0
+            score += 0.55
         if emotion_intensity >= 0.8:
-            score += 1.8
+            score += 0.95
         elif emotion_intensity >= 0.65:
-            score += 1.0
+            score += 0.5
 
         if negative_trend:
-            score += 1.5
+            score += 0.6
 
         trend = conversation_summary.get("emotion_trend")
         if trend == "escalating":
-            score += 1.0
+            score += 0.35
         elif trend == "consistent" and emotion_type in {"sadness", "helplessness", "anxiety"}:
-            score += 0.6
+            score += 0.2
 
         if normalized_long_term_level == LEVEL_3:
-            score += 1.5
+            score += 1.6
         elif normalized_long_term_level == LEVEL_2:
             score += 1.0
         elif normalized_long_term_level == LEVEL_1:
-            score += 0.8
+            score += 0.5
 
         score += min(historical_high_risk_count, 3) * 0.5
 
-        if any(token in text for token in ["立刻", "马上", "现在", "今晚"]):
-            score += 0.8
-
         return min(score, 10.0)
 
-    def _map_level(self, score: float, triggers: List[str]) -> str:
-        if any(item in self.high_risk_keywords for item in triggers):
-            return LEVEL_3
-        if score >= 5.0:
-            return LEVEL_2
-        if score >= 2.5:
-            return LEVEL_1
-        return LEVEL_0
+    def _determine_level(
+        self,
+        text: str,
+        triggers: List[str],
+        dimensions: Dict[str, Dict[str, Any]],
+        raw_score: float,
+    ) -> tuple[str, List[str]]:
+        reasons: List[str] = []
+        has_safe_denial = self._contains_safe_denial(text)
+        ideation = dimensions["risk_ideation"]["score"]
+        action = dimensions["action_intent"]["score"]
+        plan = dimensions["plan_specificity"]["score"]
+        urgency = dimensions["time_urgency"]["score"]
+        means = dimensions["means_access"]["score"]
+        self_control = dimensions["self_control"]["score"]
+
+        if not has_safe_denial and any(item in self.high_risk_keywords for item in triggers):
+            reasons.append("explicit_high_risk_keywords")
+            return LEVEL_3, reasons
+        if self_control >= 3:
+            reasons.append("hard_rule:self_control_loss")
+            return LEVEL_3, reasons
+        if action >= 3 and urgency >= 2:
+            reasons.append("hard_rule:action_with_near_term_urgency")
+            return LEVEL_3, reasons
+        if action >= 2 and plan >= 2:
+            reasons.append("hard_rule:action_with_plan")
+            return LEVEL_3, reasons
+        if plan >= 2 and urgency >= 3:
+            reasons.append("hard_rule:plan_with_immediate_urgency")
+            return LEVEL_3, reasons
+        if ideation >= 2 and urgency >= 3:
+            reasons.append("hard_rule:ideation_with_immediate_urgency")
+            return LEVEL_3, reasons
+
+        level = LEVEL_0
+        if raw_score >= 4.8:
+            level = LEVEL_2
+            reasons.append("score_threshold:level_2")
+        elif raw_score >= 2.8:
+            level = LEVEL_1
+            reasons.append("score_threshold:level_1")
+
+        if action >= 2:
+            if level != LEVEL_2:
+                reasons.append("hard_rule:action_intent_floor_level_2")
+            level = max(level, LEVEL_2, key=risk_level_index)
+        if plan >= 2 and means >= 2:
+            if level != LEVEL_2:
+                reasons.append("hard_rule:plan_and_means_floor_level_2")
+            level = max(level, LEVEL_2, key=risk_level_index)
+        if ideation >= 3 and raw_score >= 5.5:
+            if level != LEVEL_2:
+                reasons.append("hard_rule:explicit_ideation_floor_level_2")
+            level = max(level, LEVEL_2, key=risk_level_index)
+        # 这里直接读取文本外的情绪强度不方便，改用基础分近似不足，因此由调用侧在 score 中体现；
+        # 如果已经表现为明显崩溃 + 自控变弱，也至少应进入 Level 2。
+        if ideation >= 1 and self_control >= 1 and raw_score >= 3.5:
+            if level != LEVEL_2:
+                reasons.append("hard_rule:distress_with_dysregulation_floor_level_2")
+            level = max(level, LEVEL_2, key=risk_level_index)
+
+        if not reasons:
+            reasons.append("score_threshold:level_0")
+        return level, reasons
+
+    def _build_risk_evidence(
+        self,
+        dimensions: Dict[str, Dict[str, Any]],
+    ) -> Dict[str, List[str]]:
+        return {
+            name: item["evidence"]
+            for name, item in dimensions.items()
+            if item["evidence"]
+        }
+
+    def _matched_keywords(self, text: str, keywords: List[str]) -> List[str]:
+        found: List[str] = []
+        for keyword in keywords:
+            if keyword in text and keyword not in found:
+                found.append(keyword)
+        return found
+
+    def _contains_safe_denial(self, text: str) -> bool:
+        safe_denials = [
+            "没有想自杀",
+            "没有想伤害自己",
+            "没有想伤害别人",
+            "不会自杀",
+            "不会伤害自己",
+            "我没有想死",
+        ]
+        return any(token in text for token in safe_denials)
+
+    def _calibrate_display_score(self, level: str, raw_score: float) -> float:
+        if level == LEVEL_3:
+            return max(raw_score, 8.0)
+        if level == LEVEL_2:
+            return max(raw_score, 5.0)
+        if level == LEVEL_1:
+            return max(raw_score, 2.8)
+        return raw_score
 
     def _build_message(self, level: str) -> str:
         messages = {
