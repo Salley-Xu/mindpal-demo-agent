@@ -111,6 +111,42 @@ def test_safe_denial_keeps_ideation_score_low():
     assert result["level"] != "level_3"
     assert result["risk_dimensions"]["risk_ideation"] == 0
     assert "显式否认当前自伤/自杀意图" in result["risk_evidence"]["risk_ideation"]
+    assert result["risk_context"]["is_safe_denial"] is True
+
+
+def test_third_party_help_request_is_not_escalated_as_self_harm():
+    result = risk_evaluator.evaluate(
+        text="我朋友说他不想活了，我该怎么办？",
+        emotion_state={
+            "emotion_type": "stress",
+            "emotion_intensity": 0.4,
+            "negative_trend": False,
+            "user_intent": "seeking_help",
+        },
+        conversation_summary={"emotion_trend": "stable"},
+    )
+    assert result["level"] == "level_1"
+    assert result["risk_context"]["subject"] == "third_party"
+    assert result["risk_dimensions"]["risk_ideation"] == 1
+    assert result["risk_dimensions"]["action_intent"] == 0
+    assert "context_guard:third_party_context" in result["escalation_reasons"]
+
+
+def test_discussion_context_does_not_trigger_self_risk_route():
+    result = risk_evaluator.evaluate(
+        text="这部电影里主角最后自杀了，我看完心里很难受。",
+        emotion_state={
+            "emotion_type": "sadness",
+            "emotion_intensity": 0.55,
+            "negative_trend": False,
+            "user_intent": "sharing",
+        },
+        conversation_summary={"emotion_trend": "stable"},
+    )
+    assert result["level"] == "level_0"
+    assert result["risk_context"]["subject"] == "discussion"
+    assert result["risk_dimensions"]["risk_ideation"] == 0
+    assert "context_guard:discussion_context" in result["escalation_reasons"]
 
 
 def test_long_term_risk_context_lifts_score():
@@ -137,6 +173,61 @@ def test_long_term_risk_context_lifts_score():
     assert baseline["level"] == "level_0"
     assert contextual["risk_score"] > baseline["risk_score"]
     assert contextual["risk_score"] >= baseline["risk_score"] + 3.0
+
+
+def test_recent_level_3_keeps_inertia_floor_at_level_2():
+    result = risk_evaluator.evaluate(
+        text="我说完之后稍微缓了一点，但还是很空。",
+        emotion_state={
+            "emotion_type": "stress",
+            "emotion_intensity": 0.35,
+            "negative_trend": False,
+            "user_intent": "sharing",
+        },
+        conversation_summary={
+            "emotion_trend": "stable",
+            "recent_risk_levels": ["level_3"],
+        },
+    )
+    assert result["level"] == "level_2"
+    assert "risk_inertia:recent_level_3_floor_level_2" in result["escalation_reasons"]
+    assert result["recent_risk_levels"] == ["level_3"]
+
+
+def test_recent_level_2_does_not_drop_to_level_0_without_stability():
+    result = risk_evaluator.evaluate(
+        text="今天还是很累，脑子很乱。",
+        emotion_state={
+            "emotion_type": "stress",
+            "emotion_intensity": 0.32,
+            "negative_trend": False,
+            "user_intent": "sharing",
+        },
+        conversation_summary={
+            "emotion_trend": "stable",
+            "recent_risk_levels": ["level_1", "level_2"],
+        },
+    )
+    assert result["level"] == "level_1"
+    assert "risk_inertia:recent_level_2_floor_level_1" in result["escalation_reasons"]
+
+
+def test_recent_level_2_can_step_down_when_stable_and_help_seeking():
+    result = risk_evaluator.evaluate(
+        text="这周有点累，但我愿意求助，也想慢慢调整状态。",
+        emotion_state={
+            "emotion_type": "stress",
+            "emotion_intensity": 0.35,
+            "negative_trend": False,
+            "user_intent": "seeking_help",
+        },
+        conversation_summary={
+            "emotion_trend": "improving",
+            "recent_risk_levels": ["level_2"],
+        },
+    )
+    assert result["level"] == "level_0"
+    assert not any(reason.startswith("risk_inertia:") for reason in result["escalation_reasons"])
 
 
 def test_orchestrator_risk_state_builder():
@@ -322,6 +413,21 @@ def main():
 
     test_long_term_risk_context_lifts_score()
     print("PASS: long-term risk context lifts score")
+
+    test_third_party_help_request_is_not_escalated_as_self_harm()
+    print("PASS: third-party help request is not escalated as self harm")
+
+    test_discussion_context_does_not_trigger_self_risk_route()
+    print("PASS: discussion context does not trigger self risk route")
+
+    test_recent_level_3_keeps_inertia_floor_at_level_2()
+    print("PASS: recent level 3 keeps inertia floor at level 2")
+
+    test_recent_level_2_does_not_drop_to_level_0_without_stability()
+    print("PASS: recent level 2 does not drop to level 0 without stability")
+
+    test_recent_level_2_can_step_down_when_stable_and_help_seeking()
+    print("PASS: recent level 2 can step down when stable and help seeking")
 
     test_orchestrator_risk_state_builder()
     print("PASS: orchestrator risk state builder")

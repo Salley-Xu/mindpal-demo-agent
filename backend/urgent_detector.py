@@ -182,6 +182,42 @@ class UrgentDetector:
         elif is_non_low_risk(level):
             return await self._generate_warning_response_async(user_input, urgent_issue)
         return None
+
+    async def generate_third_party_support_response_async(
+        self,
+        user_input: str,
+        urgent_issue: Dict,
+        conversation_summary: Dict,
+    ) -> str:
+        """为第三方危机求助生成专门回应。"""
+        prompt = f"""用户正在为他人的风险状态求助："{user_input}"
+
+请生成支持性回应，目标是帮助用户安全地支持对方：
+1. 先肯定用户愿意求助很重要
+2. 明确建议优先确保对方不是一个人，并尽快联系现实中的成年人、家属、老师、辅导员或当地紧急资源
+3. 鼓励用户直接询问对方当前是否安全，是否已经有具体行动计划
+4. 避免把风险当成用户本人
+5. 不提供危险细节
+
+回应要求：
+- 不超过180字
+- 直接、可执行
+- 保持冷静支持
+"""
+        try:
+            response = await self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": "你是一位帮助用户处理第三方心理危机求助的安全支持助手。"},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=0.3,
+                max_tokens=300,
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            logger.error(f"生成第三方危机支持回应失败: {e}")
+            return self._get_default_third_party_support_response()
     
     async def _generate_urgent_response_async(self, user_input: str, urgent_issue: Dict) -> str:
         """生成紧急情况回应"""
@@ -267,6 +303,12 @@ class UrgentDetector:
     def _get_default_warning_response(self) -> str:
         """获取默认警告回应"""
         return "我能感受到你现在可能有些困扰。如果你愿意，可以多和我聊聊你的感受。寻求帮助是勇敢的表现，如果需要，我可以为你提供一些专业资源的建议。"
+
+    def _get_default_third_party_support_response(self) -> str:
+        return (
+            "你愿意为对方求助很重要。现在先尽量不要让对方一个人待着，直接联系他身边可信任的家人、老师、辅导员或同住的人，"
+            "并询问他现在是否安全、是否已经有具体计划；如果风险很近或已经失控，请立即联系当地紧急服务。"
+        )
 
 
 class UrgentLogger:

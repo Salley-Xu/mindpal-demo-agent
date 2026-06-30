@@ -275,6 +275,30 @@ class AgentOrchestrator:
                         tool_calls=[],
                     )
                 )
+            elif self._is_third_party_crisis_help_request(urgent_issue):
+                support_step_start = datetime.now(timezone.utc)
+                final_response_text = await urgent_detector.generate_third_party_support_response_async(
+                    user_input=request.text,
+                    urgent_issue=urgent_issue,
+                    conversation_summary=conversation_summary,
+                )
+                recommendation_decision = {
+                    "should_recommend": False,
+                    "recommend_type": "third_party_support",
+                    "score": 0.0,
+                    "threshold": 0.0,
+                    "reason_codes": ["third_party_crisis_support_route"],
+                    "cooldown_remaining": 0,
+                }
+                steps.append(
+                    AgentStep(
+                        name="ThirdPartyCrisisSupport",
+                        description="Third-party crisis help request routed to dedicated support guidance",
+                        started_at=support_step_start,
+                        finished_at=datetime.now(timezone.utc),
+                        tool_calls=[],
+                    )
+                )
             elif urgent_issue and normalize_risk_level(urgent_issue.get("level")) == LEVEL_2:
                 support_step_start = datetime.now(timezone.utc)
                 final_response_text = await urgent_detector.generate_crisis_response_async(
@@ -565,6 +589,14 @@ class AgentOrchestrator:
             risk_dimensions=issue.get("risk_dimensions", {}),
             risk_evidence=issue.get("risk_evidence", {}),
             escalation_reasons=issue.get("escalation_reasons", []),
+            risk_context=issue.get("risk_context", {}),
+        )
+
+    def _is_third_party_crisis_help_request(self, urgent_issue: Optional[Dict[str, Any]]) -> bool:
+        context = (urgent_issue or {}).get("risk_context", {})
+        return (
+            context.get("subject") == "third_party"
+            and context.get("is_help_request") is True
         )
 
     def _build_session_summary(

@@ -49,6 +49,7 @@ class RiskState(BaseModel):
     risk_dimensions: Dict[str, int] = Field(default_factory=dict)
     risk_evidence: Dict[str, List[str]] = Field(default_factory=dict)
     escalation_reasons: List[str] = Field(default_factory=list)
+    risk_context: Dict[str, Any] = Field(default_factory=dict)
 
 
 class SessionSummary(BaseModel):

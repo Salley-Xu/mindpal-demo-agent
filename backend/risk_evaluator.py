@@ -123,12 +123,14 @@ class RiskEvaluator:
     ) -> Dict[str, Any]:
         summary = conversation_summary or {}
         state = emotion_state or {}
+        context = self._analyze_context(text)
         triggers = self._collect_triggers(text)
         dimensions = self._score_dimensions(
             text=text,
             triggers=triggers,
             emotion_state=state,
             conversation_summary=summary,
+            context=context,
         )
         raw_score = self._calculate_raw_score(
             dimensions=dimensions,
@@ -142,6 +144,20 @@ class RiskEvaluator:
             triggers=triggers,
             dimensions=dimensions,
             raw_score=raw_score,
+            context=context,
+        )
+        level, escalation_reasons = self._apply_risk_inertia(
+            level=level,
+            dimensions=dimensions,
+            emotion_state=state,
+            conversation_summary=summary,
+            reasons=escalation_reasons,
+        )
+        level, escalation_reasons = self._apply_context_guardrails(
+            level=level,
+            dimensions=dimensions,
+            context=context,
+            reasons=escalation_reasons,
         )
         legacy_level = risk_level_band(level)
         risk_evidence = self._build_risk_evidence(dimensions)
@@ -162,6 +178,11 @@ class RiskEvaluator:
             },
             "risk_evidence": risk_evidence,
             "escalation_reasons": escalation_reasons,
+            "recent_risk_levels": [
+                normalize_risk_level(item)
+                for item in summary.get("recent_risk_levels", [])
+            ],
+            "risk_context": context,
         }
         logger.info(
             "风险评估完成: level=%s raw_score=%.2f display_score=%.2f triggers=%s escalation=%s",
@@ -186,6 +207,7 @@ class RiskEvaluator:
         triggers: List[str],
         emotion_state: Dict[str, Any],
         conversation_summary: Dict[str, Any],
+        context: Dict[str, Any],
     ) -> Dict[str, Dict[str, Any]]:
         text = text or ""
         dimensions = {
@@ -205,9 +227,15 @@ class RiskEvaluator:
         self_control_hits = self._matched_keywords(text, self.self_control_keywords)
         support_hits = self._matched_keywords(text, self.supportive_keywords)
 
-        if self._contains_safe_denial(text):
+        if context["is_discussion_context"]:
+            dimensions["risk_ideation"]["score"] = 0
+            dimensions["risk_ideation"]["evidence"].append("识别为影视/新闻/论文等讨论语境")
+        elif context["is_safe_denial"]:
             dimensions["risk_ideation"]["score"] = 0
             dimensions["risk_ideation"]["evidence"].append("显式否认当前自伤/自杀意图")
+        elif context["is_third_party_risk"]:
+            dimensions["risk_ideation"]["score"] = 1 if context["is_help_request"] else 0
+            dimensions["risk_ideation"]["evidence"].append("风险主体更像第三方而非用户本人")
         elif explicit_ideation_hits:
             dimensions["risk_ideation"]["score"] = 3
             dimensions["risk_ideation"]["evidence"].extend(explicit_ideation_hits)
@@ -218,7 +246,11 @@ class RiskEvaluator:
             dimensions["risk_ideation"]["score"] = 1
             dimensions["risk_ideation"]["evidence"].extend((medium_distress_hits or [])[:2] + (negation_hits or [])[:1])
 
-        if any(token in text for token in ["现在就", "马上就", "今晚就", "已经准备"]):
+        if context["is_discussion_context"] or context["is_third_party_risk"]:
+            dimensions["action_intent"]["score"] = 0
+            if context["is_third_party_risk"]:
+                dimensions["action_intent"]["evidence"].append("行动风险来自第三方转述，不直接视为用户本人行动倾向")
+        elif any(token in text for token in ["现在就", "马上就", "今晚就", "已经准备"]):
             dimensions["action_intent"]["score"] = 3
             dimensions["action_intent"]["evidence"].append("存在明确近期行动表达")
         elif action_hits:
@@ -228,7 +260,11 @@ class RiskEvaluator:
             dimensions["action_intent"]["score"] = 1
             dimensions["action_intent"]["evidence"].append("存在模糊行动倾向或担心失控")
 
-        if any(token in text for token in ["安排好了", "遗书"]) or len(plan_hits) >= 2:
+        if context["is_discussion_context"] or context["is_third_party_risk"]:
+            dimensions["plan_specificity"]["score"] = 0
+            if context["is_discussion_context"]:
+                dimensions["plan_specificity"]["evidence"].append("计划信息位于讨论语境，不直接计为用户计划")
+        elif any(token in text for token in ["安排好了", "遗书"]) or len(plan_hits) >= 2:
             dimensions["plan_specificity"]["score"] = 3
             dimensions["plan_specificity"]["evidence"].extend(plan_hits[:3] or ["存在明确准备/安排表达"])
         elif plan_hits:
@@ -238,7 +274,11 @@ class RiskEvaluator:
             dimensions["plan_specificity"]["score"] = 1
             dimensions["plan_specificity"]["evidence"].append("提到模糊的行为方式")
 
-        if urgent_time_hits:
+        if context["is_discussion_context"] or context["is_third_party_risk"]:
+            dimensions["time_urgency"]["score"] = 0
+            if context["is_third_party_risk"] and context["is_help_request"]:
+                dimensions["time_urgency"]["evidence"].append("第三方危机求助需谨慎跟进，但不直接视为用户立即风险")
+        elif urgent_time_hits:
             dimensions["time_urgency"]["score"] = 3
             dimensions["time_urgency"]["evidence"].extend(urgent_time_hits[:2])
         elif near_time_hits:
@@ -248,7 +288,9 @@ class RiskEvaluator:
             dimensions["time_urgency"]["score"] = 1
             dimensions["time_urgency"]["evidence"].append("近期风险趋势上升")
 
-        if any(token in text for token in ["手边", "就在旁边", "一个人待着"]) and means_hits:
+        if context["is_discussion_context"] or context["is_third_party_risk"]:
+            dimensions["means_access"]["score"] = 0
+        elif any(token in text for token in ["手边", "就在旁边", "一个人待着"]) and means_hits:
             dimensions["means_access"]["score"] = 3
             dimensions["means_access"]["evidence"].extend(means_hits[:3])
         elif means_hits or plan_hits:
@@ -258,7 +300,9 @@ class RiskEvaluator:
             dimensions["means_access"]["score"] = 1
             dimensions["means_access"]["evidence"].append("可能处于较孤立或独处状态")
 
-        if any(token in text for token in ["控制不住", "已经失控", "停不下来"]):
+        if context["is_discussion_context"]:
+            dimensions["self_control"]["score"] = 0
+        elif any(token in text for token in ["控制不住", "已经失控", "停不下来"]):
             dimensions["self_control"]["score"] = 3
             dimensions["self_control"]["evidence"].append("表达已经无法控制自己")
         elif self_control_hits:
@@ -269,7 +313,13 @@ class RiskEvaluator:
             dimensions["self_control"]["evidence"].append("情绪接近崩溃，但仍可交流")
 
         user_intent = emotion_state.get("user_intent")
-        if support_hits or user_intent in self.help_seeking_intents:
+        if context["is_third_party_risk"] and context["is_help_request"]:
+            dimensions["protective_factors"]["score"] = 0
+            dimensions["protective_factors"]["evidence"].append("用户正在主动为第三方风险寻求帮助")
+        elif context["is_discussion_context"]:
+            dimensions["protective_factors"]["score"] = 0
+            dimensions["protective_factors"]["evidence"].append("讨论语境不视为当前自我风险")
+        elif support_hits or user_intent in self.help_seeking_intents:
             dimensions["protective_factors"]["score"] = 0
             dimensions["protective_factors"]["evidence"].append("仍存在求助或调整意愿")
         elif any(token in text for token in ["没人帮我", "不想求助", "谁也别管我", "一个人待着"]):
@@ -336,9 +386,10 @@ class RiskEvaluator:
         triggers: List[str],
         dimensions: Dict[str, Dict[str, Any]],
         raw_score: float,
+        context: Dict[str, Any],
     ) -> tuple[str, List[str]]:
         reasons: List[str] = []
-        has_safe_denial = self._contains_safe_denial(text)
+        has_safe_denial = context["is_safe_denial"]
         ideation = dimensions["risk_ideation"]["score"]
         action = dimensions["action_intent"]["score"]
         plan = dimensions["plan_specificity"]["score"]
@@ -346,7 +397,12 @@ class RiskEvaluator:
         means = dimensions["means_access"]["score"]
         self_control = dimensions["self_control"]["score"]
 
-        if not has_safe_denial and any(item in self.high_risk_keywords for item in triggers):
+        if (
+            not has_safe_denial
+            and not context["is_third_party_risk"]
+            and not context["is_discussion_context"]
+            and any(item in self.high_risk_keywords for item in triggers)
+        ):
             reasons.append("explicit_high_risk_keywords")
             return LEVEL_3, reasons
         if self_control >= 3:
@@ -396,6 +452,91 @@ class RiskEvaluator:
             reasons.append("score_threshold:level_0")
         return level, reasons
 
+    def _apply_context_guardrails(
+        self,
+        level: str,
+        dimensions: Dict[str, Dict[str, Any]],
+        context: Dict[str, Any],
+        reasons: List[str],
+    ) -> tuple[str, List[str]]:
+        adjusted_level = level
+        adjusted_reasons = list(reasons)
+
+        if context["is_discussion_context"]:
+            adjusted_level = LEVEL_0
+            adjusted_reasons.append("context_guard:discussion_context")
+        elif context["is_third_party_risk"]:
+            adjusted_level = LEVEL_1 if context["is_help_request"] else LEVEL_0
+            adjusted_reasons.append("context_guard:third_party_context")
+
+        if adjusted_level == LEVEL_0 and dimensions["risk_ideation"]["score"] > 0 and context["is_safe_denial"]:
+            adjusted_reasons.append("context_guard:safe_denial")
+
+        return adjusted_level, adjusted_reasons
+
+    def _apply_risk_inertia(
+        self,
+        level: str,
+        dimensions: Dict[str, Dict[str, Any]],
+        emotion_state: Dict[str, Any],
+        conversation_summary: Dict[str, Any],
+        reasons: List[str],
+    ) -> tuple[str, List[str]]:
+        recent_levels = [
+            normalize_risk_level(item)
+            for item in (conversation_summary.get("recent_risk_levels", []) or [])
+        ]
+        if not recent_levels:
+            return level, reasons
+
+        latest_level = recent_levels[-1]
+        max_recent_level = max(recent_levels, key=risk_level_index)
+        stabilized = self._has_stabilizing_signals(
+            dimensions=dimensions,
+            emotion_state=emotion_state,
+            conversation_summary=conversation_summary,
+        )
+        adjusted_level = level
+        adjusted_reasons = list(reasons)
+
+        if latest_level == LEVEL_3 and risk_level_index(level) < risk_level_index(LEVEL_2):
+            adjusted_level = LEVEL_2
+            adjusted_reasons.append("risk_inertia:recent_level_3_floor_level_2")
+        elif max_recent_level == LEVEL_3 and risk_level_index(level) == risk_level_index(LEVEL_0):
+            adjusted_level = LEVEL_1 if stabilized else LEVEL_2
+            adjusted_reasons.append("risk_inertia:recent_level_3_decay_guard")
+        elif latest_level == LEVEL_2 and risk_level_index(level) < risk_level_index(LEVEL_1) and not stabilized:
+            adjusted_level = LEVEL_1
+            adjusted_reasons.append("risk_inertia:recent_level_2_floor_level_1")
+        elif recent_levels.count(LEVEL_2) >= 2 and risk_level_index(level) < risk_level_index(LEVEL_1):
+            adjusted_level = LEVEL_1
+            adjusted_reasons.append("risk_inertia:repeated_level_2_floor_level_1")
+
+        return adjusted_level, adjusted_reasons
+
+    def _has_stabilizing_signals(
+        self,
+        dimensions: Dict[str, Dict[str, Any]],
+        emotion_state: Dict[str, Any],
+        conversation_summary: Dict[str, Any],
+    ) -> bool:
+        low_risk_signal = (
+            dimensions["risk_ideation"]["score"] == 0
+            and dimensions["action_intent"]["score"] == 0
+            and dimensions["plan_specificity"]["score"] == 0
+            and dimensions["time_urgency"]["score"] == 0
+            and dimensions["self_control"]["score"] == 0
+        )
+        has_protection = dimensions["protective_factors"]["score"] == 0
+        user_intent = emotion_state.get("user_intent")
+        emotion_trend = conversation_summary.get("emotion_trend")
+        return (
+            low_risk_signal
+            and has_protection
+            and user_intent in self.help_seeking_intents
+            and emotion_trend in {"improving", "calming", "stable"}
+        )
+
     def _build_risk_evidence(
         self,
         dimensions: Dict[str, Dict[str, Any]],
@@ -412,6 +553,68 @@ class RiskEvaluator:
             if keyword in text and keyword not in found:
                 found.append(keyword)
         return found
+
+    def _analyze_context(self, text: str) -> Dict[str, Any]:
+        text = text or ""
+        discussion_markers = [
+            "电影里",
+            "电影中",
+            "主角",
+            "剧情里",
+            "新闻里",
+            "新闻中",
+            "报道里",
+            "论文里",
+            "论文中",
+            "研究里",
+            "案例里",
+            "书里",
+            "作品里",
+        ]
+        third_party_markers = [
+            "我朋友",
+            "朋友说",
+            "朋友最近",
+            "他不想活了",
+            "她不想活了",
+            "我同学",
+            "同学说",
+            "室友说",
+            "我室友",
+            "我家人",
+            "我妈",
+            "我爸",
+            "别人说",
+            "有人说",
+        ]
+        help_request_markers = ["怎么办", "怎么帮", "该怎么做", "我该怎么做", "怎么帮助", "要不要报警"]
+        safe_denials = [
+            "没有想自杀",
+            "没有想伤害自己",
+            "没有想伤害别人",
+            "不会自杀",
+            "不会伤害自己",
+            "我没有想死",
+        ]
+
+        is_discussion_context = any(marker in text for marker in discussion_markers)
+        is_third_party_risk = any(marker in text for marker in third_party_markers)
+        is_help_request = any(marker in text for marker in help_request_markers)
+        is_safe_denial = any(token in text for token in safe_denials)
+
+        subject = "self"
+        if is_discussion_context:
+            subject = "discussion"
+        elif is_third_party_risk:
+            subject = "third_party"
+
+        return {
+            "subject": subject,
+            "is_discussion_context": is_discussion_context,
+            "is_third_party_risk": is_third_party_risk,
+            "is_help_request": is_help_request,
+            "is_safe_denial": is_safe_denial,
+        }
 
     def _contains_safe_denial(self, text: str) -> bool:
         safe_denials = [

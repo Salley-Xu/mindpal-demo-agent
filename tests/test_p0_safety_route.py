@@ -156,12 +156,91 @@ async def test_level_2_routes_to_high_risk_support_mode():
         await conversation_manager.delete_session_async(user_id, session_id)
 
 
+@pytest.mark.asyncio
+async def test_third_party_crisis_help_routes_to_dedicated_support_mode():
+    user_id = f"user_third_party_{uuid.uuid4().hex[:8]}"
+    session_id = f"session_third_party_{uuid.uuid4().hex[:8]}"
+    llm_called = {"value": False}
+    third_party_called = {"value": False}
+    self_crisis_called = {"value": False}
+
+    original_use_persistence = conversation_manager.use_persistence
+    original_emotion_method = emotion_analyzer.analyze_with_context_async
+    original_third_party_method = urgent_detector.generate_third_party_support_response_async
+    original_safety_method = urgent_detector.generate_crisis_response_async
+    original_chat_create = agent_orchestrator.client.chat.completions.create
+    original_get_profile = UserProfileTool.get_profile
+
+    async def fake_analyze_with_context_async(text, conversation_summary):
+        return "焦虑", "担心", 0.78
+
+    async def fake_generate_third_party_support_response_async(user_input, urgent_issue, conversation_summary):
+        third_party_called["value"] = True
+        assert urgent_issue["risk_context"]["subject"] == "third_party"
+        assert urgent_issue["risk_context"]["is_help_request"] is True
+        return "你愿意为对方求助很重要。现在先尽量联系他身边能到场陪伴的人，并确认他现在是否安全。"
+
+    async def fake_generate_crisis_response_async(user_input, urgent_issue, conversation_summary):
+        self_crisis_called["value"] = True
+        raise AssertionError("third-party crisis should not use self-crisis response template")
+
+    async def fail_if_normal_llm_called(*args, **kwargs):
+        llm_called["value"] = True
+        raise AssertionError("third-party crisis help should not enter normal agent loop")
+
+    async def fake_get_profile(user_id_arg):
+        assert user_id_arg == user_id
+        return None
+
+    conversation_manager.use_persistence = False
+    emotion_analyzer.analyze_with_context_async = fake_analyze_with_context_async
+    urgent_detector.generate_third_party_support_response_async = fake_generate_third_party_support_response_async
+    urgent_detector.generate_crisis_response_async = fake_generate_crisis_response_async
+    agent_orchestrator.client.chat.completions.create = fail_if_normal_llm_called
+    UserProfileTool.get_profile = fake_get_profile
+
+    try:
+        result = await agent_orchestrator.run_agent(
+            AgentRunRequest(
+                text="我朋友说他不想活了，我该怎么办？",
+                user_id=user_id,
+                session_id=session_id,
+                return_steps=True,
+            )
+        )
+        chat = result.chat
+        assert third_party_called["value"] is True
+        assert self_crisis_called["value"] is False
+        assert llm_called["value"] is False
+        assert chat.risk_state is not None
+        assert chat.risk_state.level == "level_1"
+        assert chat.risk_state.risk_context["subject"] == "third_party"
+        assert chat.response.startswith("你愿意为对方求助很重要")
+        assert chat.recommendation_decision is not None
+        assert chat.recommendation_decision.should_recommend is False
+        assert chat.recommendation_decision.recommend_type == "third_party_support"
+        assert chat.recommendations is None
+        assert any(step.name == "ThirdPartyCrisisSupport" for step in (result.steps or []))
+        assert all(step.name != "AgentLoop" for step in (result.steps or []))
+    finally:
+        conversation_manager.use_persistence = original_use_persistence
+        emotion_analyzer.analyze_with_context_async = original_emotion_method
+        urgent_detector.generate_third_party_support_response_async = original_third_party_method
+        urgent_detector.generate_crisis_response_async = original_safety_method
+        agent_orchestrator.client.chat.completions.create = original_chat_create
+        UserProfileTool.get_profile = original_get_profile
+        await conversation_manager.delete_session_async(user_id, session_id)
+
+
 def main():
     asyncio.run(test_high_risk_routes_to_dedicated_safety_response())
     print("PASS: high risk routes to dedicated safety response")
 
     asyncio.run(test_level_2_routes_to_high_risk_support_mode())
     print("PASS: level 2 routes to high-risk support mode")
+
+    asyncio.run(test_third_party_crisis_help_routes_to_dedicated_support_mode())
+    print("PASS: third-party crisis help routes to dedicated support mode")
 
 
 if __name__ == "__main__":
