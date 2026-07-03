@@ -2,6 +2,8 @@ import asyncio
 import os
 import sys
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -22,6 +24,7 @@ from models import RecommendationFeedbackRequest  # noqa: E402
 import api_endpoints  # noqa: E402
 
 
+@pytest.mark.asyncio
 async def test_feedback_endpoint_updates_profile():
     captured = {"patch": None}
 
@@ -68,6 +71,7 @@ async def test_feedback_endpoint_updates_profile():
         api_endpoints.conversation_manager.record_recommendation_feedback = original_record_feedback
 
 
+@pytest.mark.asyncio
 async def test_conversation_feedback_updates_summary_state():
     manager = ConversationManager(use_persistence=False)
     manager.add_interaction(

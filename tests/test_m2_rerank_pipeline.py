@@ -2,6 +2,8 @@ import asyncio
 import os
 import sys
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -63,6 +65,7 @@ def test_query_variants_and_candidate_metadata():
     assert "retrieval_sources" in candidates[0]
 
 
+@pytest.mark.asyncio
 async def test_rerank_pipeline_metadata():
     original_enable_ai = content_recommender.enable_ai_rerank
     content_recommender.enable_ai_rerank = False

@@ -2,6 +2,8 @@ import asyncio
 import os
 import sys
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -18,6 +20,7 @@ os.environ.setdefault("API_BASE_URL", "https://api.deepseek.com/v1")
 from agent_orchestrator import AgentOrchestrator  # noqa: E402
 
 
+@pytest.mark.asyncio
 async def test_build_initial_messages_includes_memory_context():
     orchestrator = AgentOrchestrator()
     messages = await orchestrator._build_initial_messages(

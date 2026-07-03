@@ -4,6 +4,8 @@ import sys
 import uuid
 from datetime import datetime, timezone
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -85,6 +87,7 @@ def test_openapi_schema():
     assert "session_summary" in properties
 
 
+@pytest.mark.asyncio
 async def test_recommend_endpoint_with_body():
     original_recommend = api_endpoints.content_recommender.recommend_content
     original_get_profile = api_endpoints.UserProfileTool.get_profile

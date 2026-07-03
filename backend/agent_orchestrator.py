@@ -14,6 +14,7 @@ from conversation_manager import conversation_manager
 from urgent_detector import urgent_detector, urgent_logger
 from emotion_analyzer import emotion_analyzer
 from risk_evaluator import risk_evaluator
+from risk_memory import RiskMemoryReader, RiskMemoryWriter
 from recommend_gate import recommend_gate
 from output_safety_checker import output_safety_checker
 from models import (
@@ -237,12 +238,21 @@ class AgentOrchestrator:
                 confidence=confidence,
                 conversation_summary=conversation_summary,
             )
+            # v6.0: 加载长期风险基线
+            risk_baseline = "low"
+            try:
+                memory = await RiskMemoryReader().get_baseline(request.user_id)
+                risk_baseline = memory.get("baseline", "low")
+            except Exception:
+                pass
+
             urgent_issue = risk_evaluator.evaluate(
                 text=request.text,
                 emotion_state=preliminary_emotion_state,
                 conversation_summary=conversation_summary,
                 long_term_risk_level=long_term_risk_level,
                 historical_high_risk_count=historical_high_risk_count,
+                risk_baseline=risk_baseline,
             )
             recommendation_decision = recommend_gate.decide(
                 emotion_state=preliminary_emotion_state,
@@ -474,6 +484,18 @@ class AgentOrchestrator:
                     recommendation_decision.get("recommend_type", "soft"),
                     [item.id for item in final_recommendations],
                 )
+
+            # v6.0: 写入长期风险记忆
+            try:
+                await RiskMemoryWriter().update(
+                    user_id=request.user_id,
+                    session_id=request.session_id,
+                    risk_state=urgent_issue,
+                    conversation_summary=updated_conversation_summary or conversation_summary or {},
+                    emotion_state=preliminary_emotion_state,
+                )
+            except Exception:
+                pass
 
         except Exception as e:
             logger.error(f"Critical error in run_agent: {e}", exc_info=True)

@@ -64,6 +64,7 @@ class RiskEvaluator:
         conversation_summary: Optional[Dict[str, Any]] = None,
         long_term_risk_level: Optional[str] = None,
         historical_high_risk_count: int = 0,
+        risk_baseline: str = "low",
     ) -> Dict[str, Any]:
         """
         对用户输入进行风险评级。
@@ -77,13 +78,14 @@ class RiskEvaluator:
 
         utterance_level = bert_result["level"]
 
-        # 会话级聚合（v5.0）
+        # 会话级聚合（v5.0 + v6.0 Safety Gate）
         session_result = self._session_aggregator.aggregate(
             utterance_level=utterance_level,
             utterance_binary_prob=bert_result["binary_probability"],
             utterance_rule_hit=bert_result["rule_matched"],
             text=text,
             conversation_summary=summary,
+            baseline=risk_baseline,
         )
 
         level = session_result["session_level"]

@@ -58,6 +58,7 @@ class SessionRiskAggregator:
         utterance_rule_hit: bool,
         text: str,
         conversation_summary: Optional[Dict[str, Any]] = None,
+        baseline: str = "low",
     ) -> Dict[str, Any]:
         """
         对当前轮 BERT 单轮预测进行会话级聚合。
@@ -68,6 +69,7 @@ class SessionRiskAggregator:
             utterance_rule_hit: 是否命中 BERT 内部规则兜底
             text: 当前轮用户输入（用于安全确认检测）
             conversation_summary: 会话摘要（含 recent_risk_levels 等）
+            baseline: 长期风险基线 (low/medium/high)，来自风险记忆层 v6.0
 
         返回:
             session_level: str          聚合后的会话级风险等级
@@ -146,6 +148,21 @@ class SessionRiskAggregator:
                 if risk_level_index(lowered) >= utterance_idx:
                     session_level = lowered
                     active_rules.append("safety_confirmation_deescalate")
+
+        # ============================================================
+        # 规则 5：Safety Gate — 长期基线轻量修正（v6.0）
+        # 只在 utterance_level 和 session_level 都 < 2 时生效
+        # ============================================================
+        if baseline == "high" and risk_level_index(session_level) < 1:
+            session_level = LEVEL_1
+            active_rules.append("baseline:high_floor_1")
+        elif baseline == "medium" and risk_level_index(session_level) < 1:
+            # medium 基线只在当前轮或上轮非 Level 0 时提升
+            utterance_is_0 = risk_level_index(utterance_level) == 0
+            prev_is_0 = bool(recent) and risk_level_index(recent[-1]) == 0
+            if not (utterance_is_0 and prev_is_0):
+                session_level = LEVEL_1
+                active_rules.append("baseline:medium_floor_1")
 
         # ============================================================
         # 趋势判定

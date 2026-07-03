@@ -2,6 +2,8 @@ import asyncio
 import os
 import sys
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -55,6 +57,7 @@ def test_vector_and_hybrid_retrieval():
     assert any(item_id in hybrid_top_ids for item_id in ["audio_001", "audio_002", "article_003"])
 
 
+@pytest.mark.asyncio
 async def test_content_recommender_still_works():
     original_enable_ai = content_recommender.enable_ai_rerank
     content_recommender.enable_ai_rerank = False

@@ -3,6 +3,8 @@ import os
 import sys
 from datetime import datetime, timezone
 
+import pytest
+
 
 PROJECT_ROOT = os.getcwd()
 BACKEND_DIR = os.path.join(PROJECT_ROOT, "backend")
@@ -20,6 +22,7 @@ from agent_orchestrator import AgentOrchestrator  # noqa: E402
 from agent_tools import MoodEvent, MoodTrackingTool  # noqa: E402
 
 
+@pytest.mark.asyncio
 async def test_build_initial_messages_includes_relevant_long_term_memory():
     orchestrator = AgentOrchestrator()
     original_get_recent_trend = MoodTrackingTool.get_recent_trend
@@ -119,7 +122,7 @@ async def test_build_initial_messages_includes_relevant_long_term_memory():
     assert "相关长期压力源: 求职, 面试" in system_prompt
     assert "稳定支持偏好: 偏好 direct_actionable；避免 empty_comfort" in system_prompt
     assert "历史推荐反馈: 更可能接受 tool_001；明确拒绝 audio_003" in system_prompt
-    assert "相似经历1: 情绪=焦虑，主题=求职，风险=medium" in system_prompt
+    assert "相似经历1: 情绪=焦虑，主题=求职，风险=level_1" in system_prompt
     assert "用户围绕求职和面试准备反复感到紧张" in system_prompt
     assert "和朋友闹矛盾" not in system_prompt
 
