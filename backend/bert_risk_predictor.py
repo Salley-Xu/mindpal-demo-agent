@@ -90,26 +90,6 @@ class MultiTaskBERT(nn.Module):
 
 
 # ============================================================
-# 桩模块：BERT 不可用时回退
-# ============================================================
-class BertRiskNotAvailable:
-    """BERT 模型不可用时的降级桩，不改变原始风险等级。"""
-
-    def predict(self, text: str) -> Dict:
-        return {
-            "level": LEVEL_0,
-            "level_4_prediction": 0,
-            "binary_probability": 0.0,
-            "class_probabilities": [0.0, 0.0, 0.0, 0.0],
-            "fusion_source": "not_available",
-            "rule_matched": False,
-        }
-
-    def predict_level(self, text: str) -> str:
-        return LEVEL_0
-
-
-# ============================================================
 # 主预测器
 # ============================================================
 class BertRiskPredictor:
