@@ -1,0 +1,15 @@
+{
+  "model_name": "hfl/chinese-macbert-base",
+  "architecture": "MultiTaskBERT",
+  "tasks": [
+    "cssrs_lite_level_4class",
+    "high_risk_binary"
+  ],
+  "id2label": {
+    "0": "level_0",
+    "1": "level_1",
+    "2": "level_2",
+    "3": "level_3"
+  },
+  "fusion_min_level": 2
+}

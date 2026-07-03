@@ -53,7 +53,7 @@ def test_chat_feedback_summary_regression():
             "emotion_trend": "escalating",
         }
         risk_state = {
-            "level": "medium",
+            "level": "level_1",
             "message": "需要继续关注压力变化",
             "suggestions": ["联系可信任的人", "尝试短时呼吸练习"],
             "triggers": ["求职压力", "长期疲惫"],
@@ -163,7 +163,7 @@ def test_chat_feedback_summary_regression():
             assert chat_resp.status_code == 200
             chat_payload = chat_resp.json()
             assert chat_payload["emotion_state"]["current_emotion"] == "压力"
-            assert chat_payload["risk_state"]["level"] == "medium"
+            assert chat_payload["risk_state"]["level"] == "level_1"
             assert chat_payload["recommendation_decision"]["recommend_type"] == "soft"
             assert chat_payload["recommendations"][0]["retrieval_metadata"]["retrieval_sources"] == ["bm25", "vector"]
 
@@ -172,7 +172,7 @@ def test_chat_feedback_summary_regression():
             summary_payload = summary_resp.json()["summary"]
             assert summary_payload["turn_count"] == 1
             assert summary_payload["stress_sources"] == ["求职"]
-            assert summary_payload["recent_risk_levels"] == ["medium"]
+            assert summary_payload["recent_risk_levels"] == ["level_1"]
             assert summary_payload["recent_recommendation_turns"] == [1]
 
             helpful_resp = client.post(

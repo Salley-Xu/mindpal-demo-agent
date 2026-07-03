@@ -48,6 +48,11 @@ class Config:
     # 推荐配置（规则 + 画像 + 可选 AI rerank）
     ENABLE_RECOMMEND_AI_RERANK: bool = os.getenv("ENABLE_RECOMMEND_AI_RERANK", "true").lower() == "true"
     RECOMMEND_RERANK_CANDIDATE_SIZE: int = int(os.getenv("RECOMMEND_RERANK_CANDIDATE_SIZE", "10"))
+
+    # BERT 风险预测配置（风险评定已完全基于 BERT 模型）
+    BERT_MODEL_PATH: str = os.getenv("BERT_MODEL_PATH", "bert_data/models/v4_2_multitask_calibrated/best_model")
+    BERT_DEVICE: str = os.getenv("BERT_DEVICE", "cpu")
+    BERT_BINARY_THRESHOLD: float = float(os.getenv("BERT_BINARY_THRESHOLD", "0.50"))
     
     def validate(self):
         """验证配置"""

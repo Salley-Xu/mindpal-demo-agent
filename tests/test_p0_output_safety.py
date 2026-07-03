@@ -24,6 +24,7 @@ from conversation_manager import conversation_manager  # noqa: E402
 from emotion_analyzer import emotion_analyzer  # noqa: E402
 from models import AgentRunRequest  # noqa: E402
 from output_safety_checker import output_safety_checker  # noqa: E402
+from risk_evaluator import risk_evaluator  # noqa: E402
 from urgent_detector import urgent_detector  # noqa: E402
 
 
@@ -67,6 +68,7 @@ async def test_orchestrator_rewrites_unsafe_level_3_response_before_return():
     original_safety_method = urgent_detector.generate_crisis_response_async
     original_chat_create = agent_orchestrator.client.chat.completions.create
     original_get_profile = UserProfileTool.get_profile
+    original_evaluate = risk_evaluator.evaluate
 
     async def fake_analyze_with_context_async(text, conversation_summary):
         return "绝望", "无助", 0.98
@@ -82,11 +84,32 @@ async def test_orchestrator_rewrites_unsafe_level_3_response_before_return():
         assert user_id_arg == user_id
         return None
 
+    def fake_evaluate(**kwargs):
+        return {
+            "level": "level_3",
+            "legacy_level": "high",
+            "level_index": 3,
+            "level_label": "Level 3",
+            "message": "",
+            "suggestions": [],
+            "triggers": [],
+            "risk_score": 9.0,
+            "raw_score": 9.0,
+            "risk_dimensions": {},
+            "risk_evidence": {},
+            "escalation_reasons": [],
+            "recent_risk_levels": [],
+            "risk_context": {"subject": "self", "is_third_party_risk": False,
+                             "is_help_request": False, "is_discussion_context": False,
+                             "is_safe_denial": False},
+        }
+
     conversation_manager.use_persistence = False
     emotion_analyzer.analyze_with_context_async = fake_analyze_with_context_async
     urgent_detector.generate_crisis_response_async = fake_generate_crisis_response_async
     agent_orchestrator.client.chat.completions.create = fail_if_normal_llm_called
     UserProfileTool.get_profile = fake_get_profile
+    risk_evaluator.evaluate = fake_evaluate
 
     try:
         result = await agent_orchestrator.run_agent(
@@ -109,6 +132,7 @@ async def test_orchestrator_rewrites_unsafe_level_3_response_before_return():
         urgent_detector.generate_crisis_response_async = original_safety_method
         agent_orchestrator.client.chat.completions.create = original_chat_create
         UserProfileTool.get_profile = original_get_profile
+        risk_evaluator.evaluate = original_evaluate
         await conversation_manager.delete_session_async(user_id, session_id)
 
 

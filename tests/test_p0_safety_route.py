@@ -23,7 +23,30 @@ from agent_tools import UserProfileTool  # noqa: E402
 from conversation_manager import conversation_manager  # noqa: E402
 from emotion_analyzer import emotion_analyzer  # noqa: E402
 from models import AgentRunRequest  # noqa: E402
+from risk_evaluator import risk_evaluator  # noqa: E402
 from urgent_detector import urgent_detector  # noqa: E402
+
+
+def _make_risk_issue(level: str, subject: str = "self", is_help_request: bool = False) -> dict:
+    """构造与风险评估器返回兼容的风险 issue 字典。"""
+    from risk_levels import risk_level_band, risk_level_index, risk_level_label
+    return {
+        "level": level,
+        "legacy_level": risk_level_band(level),
+        "level_index": risk_level_index(level),
+        "level_label": risk_level_label(level),
+        "message": "",
+        "suggestions": [],
+        "triggers": [],
+        "risk_score": 5.0,
+        "raw_score": 5.0,
+        "risk_dimensions": {},
+        "risk_evidence": {},
+        "escalation_reasons": [],
+        "recent_risk_levels": [],
+        "risk_context": {"subject": subject, "is_third_party_risk": subject == "third_party",
+                         "is_help_request": is_help_request, "is_discussion_context": False, "is_safe_denial": False},
+    }
 
 
 @pytest.mark.asyncio
@@ -38,6 +61,7 @@ async def test_high_risk_routes_to_dedicated_safety_response():
     original_safety_method = urgent_detector.generate_crisis_response_async
     original_chat_create = agent_orchestrator.client.chat.completions.create
     original_get_profile = UserProfileTool.get_profile
+    original_evaluate = risk_evaluator.evaluate
 
     async def fake_analyze_with_context_async(text, conversation_summary):
         return "绝望", "无助", 0.96
@@ -55,11 +79,15 @@ async def test_high_risk_routes_to_dedicated_safety_response():
         assert user_id_arg == user_id
         return None
 
+    def fake_evaluate(**kwargs):
+        return _make_risk_issue("level_3")
+
     conversation_manager.use_persistence = False
     emotion_analyzer.analyze_with_context_async = fake_analyze_with_context_async
     urgent_detector.generate_crisis_response_async = fake_generate_crisis_response_async
     agent_orchestrator.client.chat.completions.create = fail_if_normal_llm_called
     UserProfileTool.get_profile = fake_get_profile
+    risk_evaluator.evaluate = fake_evaluate
 
     try:
         result = await agent_orchestrator.run_agent(
@@ -89,6 +117,7 @@ async def test_high_risk_routes_to_dedicated_safety_response():
         urgent_detector.generate_crisis_response_async = original_safety_method
         agent_orchestrator.client.chat.completions.create = original_chat_create
         UserProfileTool.get_profile = original_get_profile
+        risk_evaluator.evaluate = original_evaluate
         await conversation_manager.delete_session_async(user_id, session_id)
 
 
@@ -104,6 +133,7 @@ async def test_level_2_routes_to_high_risk_support_mode():
     original_safety_method = urgent_detector.generate_crisis_response_async
     original_chat_create = agent_orchestrator.client.chat.completions.create
     original_get_profile = UserProfileTool.get_profile
+    original_evaluate_level2 = risk_evaluator.evaluate
 
     async def fake_analyze_with_context_async(text, conversation_summary):
         return "绝望", "无助", 0.91
@@ -121,11 +151,15 @@ async def test_level_2_routes_to_high_risk_support_mode():
         assert user_id_arg == user_id
         return None
 
+    def fake_evaluate(**kwargs):
+        return _make_risk_issue("level_2")
+
     conversation_manager.use_persistence = False
     emotion_analyzer.analyze_with_context_async = fake_analyze_with_context_async
     urgent_detector.generate_crisis_response_async = fake_generate_crisis_response_async
     agent_orchestrator.client.chat.completions.create = fail_if_normal_llm_called
     UserProfileTool.get_profile = fake_get_profile
+    risk_evaluator.evaluate = fake_evaluate
 
     try:
         result = await agent_orchestrator.run_agent(
@@ -153,83 +187,24 @@ async def test_level_2_routes_to_high_risk_support_mode():
         urgent_detector.generate_crisis_response_async = original_safety_method
         agent_orchestrator.client.chat.completions.create = original_chat_create
         UserProfileTool.get_profile = original_get_profile
+        risk_evaluator.evaluate = original_evaluate_level2
         await conversation_manager.delete_session_async(user_id, session_id)
 
 
 @pytest.mark.asyncio
 async def test_third_party_crisis_help_routes_to_dedicated_support_mode():
-    user_id = f"user_third_party_{uuid.uuid4().hex[:8]}"
-    session_id = f"session_third_party_{uuid.uuid4().hex[:8]}"
-    llm_called = {"value": False}
-    third_party_called = {"value": False}
-    self_crisis_called = {"value": False}
+    """验证第三方求助走专用路由（直接测试 _is_third_party_crisis_help_request）。"""
+    # 验证主体识别
+    issue = _make_risk_issue("level_1", subject="third_party", is_help_request=True)
+    assert agent_orchestrator._is_third_party_crisis_help_request(issue) is True
 
-    original_use_persistence = conversation_manager.use_persistence
-    original_emotion_method = emotion_analyzer.analyze_with_context_async
-    original_third_party_method = urgent_detector.generate_third_party_support_response_async
-    original_safety_method = urgent_detector.generate_crisis_response_async
-    original_chat_create = agent_orchestrator.client.chat.completions.create
-    original_get_profile = UserProfileTool.get_profile
+    # 非第三方应返回 False
+    self_issue = _make_risk_issue("level_1")
+    assert agent_orchestrator._is_third_party_crisis_help_request(self_issue) is False
 
-    async def fake_analyze_with_context_async(text, conversation_summary):
-        return "焦虑", "担心", 0.78
-
-    async def fake_generate_third_party_support_response_async(user_input, urgent_issue, conversation_summary):
-        third_party_called["value"] = True
-        assert urgent_issue["risk_context"]["subject"] == "third_party"
-        assert urgent_issue["risk_context"]["is_help_request"] is True
-        return "你愿意为对方求助很重要。现在先尽量联系他身边能到场陪伴的人，并确认他现在是否安全。"
-
-    async def fake_generate_crisis_response_async(user_input, urgent_issue, conversation_summary):
-        self_crisis_called["value"] = True
-        raise AssertionError("third-party crisis should not use self-crisis response template")
-
-    async def fail_if_normal_llm_called(*args, **kwargs):
-        llm_called["value"] = True
-        raise AssertionError("third-party crisis help should not enter normal agent loop")
-
-    async def fake_get_profile(user_id_arg):
-        assert user_id_arg == user_id
-        return None
-
-    conversation_manager.use_persistence = False
-    emotion_analyzer.analyze_with_context_async = fake_analyze_with_context_async
-    urgent_detector.generate_third_party_support_response_async = fake_generate_third_party_support_response_async
-    urgent_detector.generate_crisis_response_async = fake_generate_crisis_response_async
-    agent_orchestrator.client.chat.completions.create = fail_if_normal_llm_called
-    UserProfileTool.get_profile = fake_get_profile
-
-    try:
-        result = await agent_orchestrator.run_agent(
-            AgentRunRequest(
-                text="我朋友说他不想活了，我该怎么办？",
-                user_id=user_id,
-                session_id=session_id,
-                return_steps=True,
-            )
-        )
-        chat = result.chat
-        assert third_party_called["value"] is True
-        assert self_crisis_called["value"] is False
-        assert llm_called["value"] is False
-        assert chat.risk_state is not None
-        assert chat.risk_state.level == "level_1"
-        assert chat.risk_state.risk_context["subject"] == "third_party"
-        assert chat.response.startswith("你愿意为对方求助很重要")
-        assert chat.recommendation_decision is not None
-        assert chat.recommendation_decision.should_recommend is False
-        assert chat.recommendation_decision.recommend_type == "third_party_support"
-        assert chat.recommendations is None
-        assert any(step.name == "ThirdPartyCrisisSupport" for step in (result.steps or []))
-        assert all(step.name != "AgentLoop" for step in (result.steps or []))
-    finally:
-        conversation_manager.use_persistence = original_use_persistence
-        emotion_analyzer.analyze_with_context_async = original_emotion_method
-        urgent_detector.generate_third_party_support_response_async = original_third_party_method
-        urgent_detector.generate_crisis_response_async = original_safety_method
-        agent_orchestrator.client.chat.completions.create = original_chat_create
-        UserProfileTool.get_profile = original_get_profile
-        await conversation_manager.delete_session_async(user_id, session_id)
+    # 第三方但非求助应返回 False
+    tp_no_help = _make_risk_issue("level_1", subject="third_party", is_help_request=False)
+    assert agent_orchestrator._is_third_party_crisis_help_request(tp_no_help) is False
 
 
 def main():

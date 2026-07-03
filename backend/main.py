@@ -1,4 +1,12 @@
 # main.py
+import os
+
+# 压制 transformers/HF 非关键警告（模型已缓存到本地，无需联网检查）
+os.environ.setdefault("TRANSFORMERS_NO_ADVISORY_WARNINGS", "1")
+os.environ.setdefault("HF_HUB_DISABLE_TELEMETRY", "1")
+# 压制 OpenMP 运行时冲突警告（torch 与 sklearn 等库共存时常见）
+os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
+
 import uvicorn
 import logging
 from fastapi import FastAPI
@@ -23,13 +31,13 @@ async def lifespan(app: FastAPI):
     """管理应用生命周期"""
     # 启动时执行
     logger.info("应用启动中...")
-    
+
     try:
         import aiosqlite  # 依赖检查
         logger.info("依赖检查通过: aiosqlite 可用")
     except Exception as e:
         logger.warning(f"依赖检查: aiosqlite 不可用，建议安装 pip install aiosqlite。错误: {e}")
-    
+
     # 启动定时任务（每天凌晨3点执行）
     scheduler.add_job(
         func=cleanup_expired_sessions,
@@ -40,7 +48,10 @@ async def lifespan(app: FastAPI):
     )
     scheduler.start()
     logger.info(f"定时任务已启动：每天凌晨3点清理 {config.SESSION_CLEANUP_DAYS} 天前的会话")
-    
+
+    # 预热 BERT 模型（延迟初始化，由 risk_evaluator 在首次请求时加载）
+    logger.info("BERT 风险预测模型将在首次请求时自动加载")
+
     yield
     
     # 关闭时执行

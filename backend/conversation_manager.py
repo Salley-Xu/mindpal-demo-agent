@@ -705,7 +705,7 @@ class ConversationManager:
             if source and source not in stress_sources:
                 stress_sources.append(source)
         recent_risk_levels = [
-            normalize_risk_level(h.get("risk_level", LEVEL_0)) for h in session['history'][-3:]
+            normalize_risk_level(h.get("risk_level", LEVEL_0)) for h in session['history'][-5:]
         ]
         risk_expressions = any(is_non_low_risk(level) for level in recent_risk_levels)
         recent_recommendation_turns = [

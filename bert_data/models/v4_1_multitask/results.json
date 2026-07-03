@@ -1,0 +1,80 @@
+{
+  "config": {
+    "model_name": "hfl/chinese-macbert-base",
+    "architecture": "MultiTaskBERT",
+    "batch_size": 16,
+    "learning_rate": 2e-05,
+    "num_epochs": 6,
+    "loss_weight_main": 1.0,
+    "loss_weight_aux": 0.3,
+    "fusion_min_level": 2
+  },
+  "best_epoch": 5,
+  "test_4class": {
+    "accuracy_4": 0.592,
+    "macro_f1_4": 0.5878807807275916,
+    "per_class": {
+      "0": 0.5555555555555556,
+      "1": 0.6885245901639344,
+      "2": 0.6176470588235294,
+      "3": 0.4897959183673469
+    }
+  },
+  "test_binary": {
+    "accuracy_2": 0.792,
+    "binary_f1": 0.7868852459016393
+  },
+  "test_fused": {
+    "accuracy": 0.576,
+    "macro_f1": 0.5713867233056998
+  },
+  "test_final_with_rules": {
+    "accuracy": 0.6,
+    "macro_f1": 0.5997349385251425,
+    "weighted_f1": 0.6020216576920382,
+    "per_class_f1": {
+      "level_0": 0.5074626865671642,
+      "level_1": 0.6666666666666666,
+      "level_2": 0.647887323943662,
+      "level_3": 0.5769230769230769
+    },
+    "per_class_precision": {
+      "level_0": 0.53125,
+      "level_1": 0.7142857142857143,
+      "level_2": 0.696969696969697,
+      "level_3": 0.46875
+    },
+    "per_class_recall": {
+      "level_0": 0.4857142857142857,
+      "level_1": 0.625,
+      "level_2": 0.6052631578947368,
+      "level_3": 0.75
+    },
+    "confusion_matrix": [
+      [
+        17,
+        6,
+        5,
+        7
+      ],
+      [
+        7,
+        20,
+        3,
+        2
+      ],
+      [
+        6,
+        1,
+        23,
+        8
+      ],
+      [
+        2,
+        1,
+        2,
+        15
+      ]
+    ]
+  }
+}

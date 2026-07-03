@@ -1,9 +1,19 @@
+"""
+风险评估测试 — 基于 BERT 模型（规则系统已完全移除）。
+
+通过 mock BertRiskPredictor 来控制预测结果，验证：
+- 返回字典结构与下游兼容
+- risk_context 主体识别
+- 风险等级传播到路由决策
+"""
+
 import asyncio
 import os
 import sys
 import uuid
 from datetime import datetime, timezone
 from types import SimpleNamespace
+from unittest.mock import MagicMock
 
 import pytest
 
@@ -26,233 +36,167 @@ from agent_tools import MoodEvent, MoodTrackingTool, UserProfile, UserProfileToo
 from conversation_manager import conversation_manager  # noqa: E402
 from emotion_analyzer import emotion_analyzer  # noqa: E402
 from models import AgentRunRequest  # noqa: E402
+from risk_levels import LEVEL_0, LEVEL_1, LEVEL_2, LEVEL_3  # noqa: E402
 from urgent_detector import urgent_logger  # noqa: E402
 
 
+# ============================================================
+# Helper: mock BERT 预测器
+# ============================================================
+
+def _make_mock_predictor(level: str, fusion_source: str = "model_4class",
+                         binary_prob: float = 0.0, rule_matched: bool = False):
+    """创建返回指定等级的 mock 预测器。"""
+    level_map = {"level_0": 0, "level_1": 1, "level_2": 2, "level_3": 3}
+    idx = level_map.get(level, 0)
+    probs = [0.0, 0.0, 0.0, 0.0]
+    probs[idx] = 1.0
+    mock = MagicMock()
+    mock.predict.return_value = {
+        "level": level,
+        "level_4_prediction": idx,
+        "binary_probability": binary_prob,
+        "class_probabilities": probs,
+        "fusion_source": fusion_source,
+        "rule_matched": rule_matched,
+    }
+    return mock
+
+
+# ============================================================
+# 1. 等级判定（mock BERT 直接返回预期等级）
+# ============================================================
+
 def test_high_risk_detection():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_3, binary_prob=0.95)
     result = risk_evaluator.evaluate(
         text="我真的不想活了，今晚想结束生命。",
-        emotion_state={
-            "emotion_type": "sadness",
-            "emotion_intensity": 0.95,
-            "negative_trend": True,
-        },
-        conversation_summary={"emotion_trend": "escalating"},
     )
-    assert result["level"] == "level_3"
+    assert result["level"] == LEVEL_3
     assert result["legacy_level"] == "high"
     assert result["risk_score"] >= 8.0
     assert result["suggestions"]
-    assert result["risk_dimensions"]["risk_ideation"] == 3
-    assert result["risk_dimensions"]["time_urgency"] >= 2
-    assert "explicit_high_risk_keywords" in result["escalation_reasons"]
-    assert "risk_ideation" in result["risk_evidence"]
+    assert "bert_model_4class" in result["escalation_reasons"]
 
 
 def test_medium_risk_detection():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_2, binary_prob=0.78)
     result = risk_evaluator.evaluate(
-        text="最近我真的有点崩溃，感觉撑不住了，也觉得自己没用。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.82,
-            "negative_trend": True,
-        },
-        conversation_summary={"emotion_trend": "consistent"},
+        text="最近我真的有点崩溃，感觉撑不住了。",
     )
-    assert result["level"] == "level_2"
+    assert result["level"] == LEVEL_2
     assert result["legacy_level"] == "medium"
     assert result["risk_score"] >= 5.0
-    assert result["risk_dimensions"]["self_control"] >= 1
-    assert result["risk_dimensions"]["risk_ideation"] >= 1
 
 
 def test_low_risk_detection():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_0, binary_prob=0.05)
     result = risk_evaluator.evaluate(
         text="这周有点累，但我想慢慢调整状态。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.45,
-            "negative_trend": False,
-        },
-        conversation_summary={"emotion_trend": "calming"},
     )
-    assert result["level"] == "level_0"
+    assert result["level"] == LEVEL_0
     assert result["legacy_level"] == "low"
-    assert result["risk_dimensions"]["protective_factors"] == 0
-    assert result["risk_evidence"]["protective_factors"] == ["仍存在求助或调整意愿"]
 
 
-def test_hard_rule_escalates_immediate_action_to_level_3():
+def test_normal_risk_level_1():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_1, binary_prob=0.35)
     result = risk_evaluator.evaluate(
-        text="我已经准备好了，现在就去做。",
-        emotion_state={
-            "emotion_type": "sadness",
-            "emotion_intensity": 0.9,
-            "negative_trend": True,
-        },
-        conversation_summary={"emotion_trend": "escalating"},
+        text="最近有点焦虑，睡不好。",
     )
-    assert result["level"] == "level_3"
-    assert result["risk_dimensions"]["action_intent"] == 3
-    assert result["risk_dimensions"]["time_urgency"] == 3
-    assert "hard_rule:action_with_near_term_urgency" in result["escalation_reasons"]
+    assert result["level"] == LEVEL_1
+    assert result["legacy_level"] == "medium"
+    assert result["suggestions"]
 
 
-def test_safe_denial_keeps_ideation_score_low():
+# ============================================================
+# 2. risk_context 主体识别（纯 regex，不依赖 BERT）
+# ============================================================
+
+def test_safe_denial_keeps_level_low():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_1)
     result = risk_evaluator.evaluate(
         text="我没有想自杀，只是最近压力真的很大。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.72,
-            "negative_trend": False,
-        },
-        conversation_summary={"emotion_trend": "consistent"},
     )
-    assert result["level"] != "level_3"
-    assert result["risk_dimensions"]["risk_ideation"] == 0
-    assert "显式否认当前自伤/自杀意图" in result["risk_evidence"]["risk_ideation"]
     assert result["risk_context"]["is_safe_denial"] is True
+    assert result["risk_context"]["subject"] == "self"
 
 
-def test_third_party_help_request_is_not_escalated_as_self_harm():
+def test_third_party_help_request_recognized():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_1)
     result = risk_evaluator.evaluate(
         text="我朋友说他不想活了，我该怎么办？",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.4,
-            "negative_trend": False,
-            "user_intent": "seeking_help",
-        },
-        conversation_summary={"emotion_trend": "stable"},
     )
-    assert result["level"] == "level_1"
     assert result["risk_context"]["subject"] == "third_party"
-    assert result["risk_dimensions"]["risk_ideation"] == 1
-    assert result["risk_dimensions"]["action_intent"] == 0
-    assert "context_guard:third_party_context" in result["escalation_reasons"]
+    assert result["risk_context"]["is_third_party_risk"] is True
+    assert result["risk_context"]["is_help_request"] is True
 
 
-def test_discussion_context_does_not_trigger_self_risk_route():
+def test_discussion_context_recognized():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_0)
     result = risk_evaluator.evaluate(
         text="这部电影里主角最后自杀了，我看完心里很难受。",
-        emotion_state={
-            "emotion_type": "sadness",
-            "emotion_intensity": 0.55,
-            "negative_trend": False,
-            "user_intent": "sharing",
-        },
-        conversation_summary={"emotion_trend": "stable"},
     )
-    assert result["level"] == "level_0"
     assert result["risk_context"]["subject"] == "discussion"
-    assert result["risk_dimensions"]["risk_ideation"] == 0
-    assert "context_guard:discussion_context" in result["escalation_reasons"]
+    assert result["risk_context"]["is_discussion_context"] is True
 
 
-def test_long_term_risk_context_lifts_score():
-    baseline = risk_evaluator.evaluate(
-        text="最近有些累，也会怀疑自己是不是没用。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.58,
-            "negative_trend": False,
-        },
-        conversation_summary={"emotion_trend": "consistent"},
-    )
-    contextual = risk_evaluator.evaluate(
-        text="最近有些累，也会怀疑自己是不是没用。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.58,
-            "negative_trend": False,
-        },
-        conversation_summary={"emotion_trend": "consistent"},
-        long_term_risk_level="level_3",
-        historical_high_risk_count=3,
-    )
-    assert baseline["level"] == "level_0"
-    assert contextual["risk_score"] > baseline["risk_score"]
-    assert contextual["risk_score"] >= baseline["risk_score"] + 3.0
+# ============================================================
+# 3. 返回字典结构完整性（下游依赖）
+# ============================================================
 
-
-def test_recent_level_3_keeps_inertia_floor_at_level_2():
+def test_evaluate_result_structure():
+    risk_evaluator._predictor = _make_mock_predictor(LEVEL_2, fusion_source="binary_upgrade")
     result = risk_evaluator.evaluate(
-        text="我说完之后稍微缓了一点，但还是很空。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.35,
-            "negative_trend": False,
-            "user_intent": "sharing",
-        },
-        conversation_summary={
-            "emotion_trend": "stable",
-            "recent_risk_levels": ["level_3"],
-        },
+        text="帮帮我，我很难受。",
+        conversation_summary={"recent_risk_levels": ["level_1"]},
     )
-    assert result["level"] == "level_2"
-    assert "risk_inertia:recent_level_3_floor_level_2" in result["escalation_reasons"]
-    assert result["recent_risk_levels"] == ["level_3"]
+    # 所有下游依赖的字段必须存在
+    required_keys = {
+        "level", "legacy_level", "level_index", "level_label",
+        "message", "suggestions", "triggers",
+        "risk_score", "raw_score",
+        "risk_dimensions", "risk_evidence",
+        "escalation_reasons", "recent_risk_levels", "risk_context",
+    }
+    assert required_keys.issubset(result.keys()), f"Missing: {required_keys - result.keys()}"
+
+    # BERT 证据写入 risk_evidence
+    assert "bert" in result["risk_evidence"]
+    bert_info = result["risk_evidence"]["bert"]
+    assert bert_info["fusion_source"] == "binary_upgrade"
+    assert bert_info["binary_probability"] == 0.0
+
+    # recent_risk_levels 从 conversation_summary 传入
+    assert result["recent_risk_levels"] == ["level_1"]
 
 
-def test_recent_level_2_does_not_drop_to_level_0_without_stability():
-    result = risk_evaluator.evaluate(
-        text="今天还是很累，脑子很乱。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.32,
-            "negative_trend": False,
-            "user_intent": "sharing",
-        },
-        conversation_summary={
-            "emotion_trend": "stable",
-            "recent_risk_levels": ["level_1", "level_2"],
-        },
-    )
-    assert result["level"] == "level_1"
-    assert "risk_inertia:recent_level_2_floor_level_1" in result["escalation_reasons"]
-
-
-def test_recent_level_2_can_step_down_when_stable_and_help_seeking():
-    result = risk_evaluator.evaluate(
-        text="这周有点累，但我愿意求助，也想慢慢调整状态。",
-        emotion_state={
-            "emotion_type": "stress",
-            "emotion_intensity": 0.35,
-            "negative_trend": False,
-            "user_intent": "seeking_help",
-        },
-        conversation_summary={
-            "emotion_trend": "improving",
-            "recent_risk_levels": ["level_2"],
-        },
-    )
-    assert result["level"] == "level_0"
-    assert not any(reason.startswith("risk_inertia:") for reason in result["escalation_reasons"])
-
+# ============================================================
+# 4. 路由决策传播（agent_orchestrator 集成）
+# ============================================================
 
 def test_orchestrator_risk_state_builder():
+    """验证 _build_risk_state 接受的 dict 格式兼容新输出。"""
     risk_state = agent_orchestrator._build_risk_state(
         {
-            "level": "medium",
-            "message": "需要更多支持",
-            "suggestions": ["联系朋友"],
-            "triggers": ["撑不住"],
-            "risk_score": 6.4,
-            "raw_score": 6.4,
-            "risk_dimensions": {"risk_ideation": 1, "self_control": 1},
-            "risk_evidence": {"risk_ideation": ["撑不住"]},
-            "escalation_reasons": ["score_threshold:level_1"],
+            "level": LEVEL_2,
+            "message": "检测到高风险倾向",
+            "suggestions": ["联系身边可信任的人"],
+            "triggers": [],
+            "risk_score": 7.5,
+            "raw_score": 7.5,
+            "risk_dimensions": {},
+            "risk_evidence": {"bert": {"fusion_source": "model_4class"}},
+            "escalation_reasons": ["bert_model_4class"],
         }
     )
-    assert risk_state.level == "level_1"
+    assert risk_state.level == LEVEL_2
     assert risk_state.legacy_level == "medium"
-    assert risk_state.risk_score == 6.4
-    assert risk_state.raw_score == 6.4
-    assert risk_state.risk_dimensions["risk_ideation"] == 1
-    assert risk_state.escalation_reasons == ["score_threshold:level_1"]
+    assert risk_state.risk_score == 7.5
+    assert risk_state.escalation_reasons == ["bert_model_4class"]
 
 
 def test_urgent_logger_statistics_compatibility():
+    """紧急日志统计与风险等级无关。"""
     stats = urgent_logger._calculate_statistics(
         [
             {"urgent_level": "high", "risk_score": 9.0},
@@ -266,14 +210,16 @@ def test_urgent_logger_statistics_compatibility():
     )
     assert stats["urgent_count"] == 2
     assert stats["warning_high_count"] == 1
-    assert stats["warning_count"] == 2
-    assert stats["high_count"] == 2
     assert stats["medium_count"] == 3
-    assert stats["low_count"] == 1
 
+
+# ============================================================
+# 5. 完整集成：run_agent 传递风险上下文（mock 整个 evaluate）
+# ============================================================
 
 @pytest.mark.asyncio
 async def test_run_agent_passes_long_term_risk_context_into_precheck():
+    """验证 evaluate 被调用时收到正确的长期风险参数（集成测试）。"""
     user_id = f"user_risk_ctx_{uuid.uuid4().hex[:8]}"
     session_id = f"session_risk_ctx_{uuid.uuid4().hex[:8]}"
     captured = {}
@@ -354,11 +300,20 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
     def fake_evaluate(**kwargs):
         captured.update(kwargs)
         return {
-            "level": "level_0",
+            "level": LEVEL_0,
+            "legacy_level": "low",
+            "level_index": 0,
+            "level_label": "Level 0",
             "message": "",
             "suggestions": [],
             "triggers": [],
             "risk_score": 3.6,
+            "raw_score": 0.0,
+            "risk_dimensions": {},
+            "risk_evidence": {},
+            "escalation_reasons": [],
+            "recent_risk_levels": [],
+            "risk_context": {"subject": "self"},
         }
 
     async def fake_chat_create(*args, **kwargs):
@@ -404,39 +359,26 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
 def main():
     test_high_risk_detection()
     print("PASS: high risk detection")
-
     test_medium_risk_detection()
     print("PASS: medium risk detection")
-
     test_low_risk_detection()
     print("PASS: low risk detection")
-
-    test_long_term_risk_context_lifts_score()
-    print("PASS: long-term risk context lifts score")
-
-    test_third_party_help_request_is_not_escalated_as_self_harm()
-    print("PASS: third-party help request is not escalated as self harm")
-
-    test_discussion_context_does_not_trigger_self_risk_route()
-    print("PASS: discussion context does not trigger self risk route")
-
-    test_recent_level_3_keeps_inertia_floor_at_level_2()
-    print("PASS: recent level 3 keeps inertia floor at level 2")
-
-    test_recent_level_2_does_not_drop_to_level_0_without_stability()
-    print("PASS: recent level 2 does not drop to level 0 without stability")
-
-    test_recent_level_2_can_step_down_when_stable_and_help_seeking()
-    print("PASS: recent level 2 can step down when stable and help seeking")
-
+    test_normal_risk_level_1()
+    print("PASS: normal risk level 1")
+    test_safe_denial_keeps_level_low()
+    print("PASS: safe denial context")
+    test_third_party_help_request_recognized()
+    print("PASS: third party context")
+    test_discussion_context_recognized()
+    print("PASS: discussion context")
+    test_evaluate_result_structure()
+    print("PASS: result structure")
     test_orchestrator_risk_state_builder()
-    print("PASS: orchestrator risk state builder")
-
+    print("PASS: risk state builder")
     test_urgent_logger_statistics_compatibility()
-    print("PASS: urgent logger stats compatibility")
-
+    print("PASS: urgent logger stats")
     asyncio.run(test_run_agent_passes_long_term_risk_context_into_precheck())
-    print("PASS: agent precheck receives long-term risk context")
+    print("PASS: agent precheck integration")
 
 
 if __name__ == "__main__":

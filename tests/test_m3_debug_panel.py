@@ -76,7 +76,7 @@ def test_build_debug_snapshot_aggregates_core_sections():
     assert snapshot["risk"]["risk_score"] == 0.65
     assert snapshot["risk"]["message"] == "需要继续关注压力变化"
     assert snapshot["risk"]["triggers"] == ["negative_trend", "stress_escalation"]
-    assert snapshot["risk"]["recent_risk_levels"] == ["low", "medium"]
+    assert snapshot["risk"]["recent_risk_levels"] == ["level_0", "level_1"]
     assert snapshot["decision"]["recommend_type"] == "soft"
     assert snapshot["decision"]["reason_codes"] == ["high_intensity", "seeking_help"]
     assert snapshot["summary"]["stress_sources"] == ["论文", "求职"]
