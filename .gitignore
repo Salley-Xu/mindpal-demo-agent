@@ -37,3 +37,8 @@ third_party/agent_test_runtime/models/
 backend/.vscode/
 .DS_Store
 Thumbs.db
+
+# Model weight files (too large for git, use Git LFS or HuggingFace instead)
+bert_data/models/**/model.safetensors
+bert_data/models/**/model_state.pt
+bert_data/models/**/pytorch_model.bin
