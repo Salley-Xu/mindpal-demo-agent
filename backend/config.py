@@ -45,6 +45,9 @@ class Config:
     SESSION_DB_PATH: str = os.getenv("SESSION_DB_PATH", "data/sessions.db")
     SESSION_CLEANUP_DAYS: int = int(os.getenv("SESSION_CLEANUP_DAYS", "30"))
 
+    # API 安全配置（Bearer Token 认证，空字符串=不启用）
+    API_AUTH_TOKEN: str = os.getenv("API_AUTH_TOKEN", "")
+
     # 推荐配置（规则 + 画像 + 可选 AI rerank）
     ENABLE_RECOMMEND_AI_RERANK: bool = os.getenv("ENABLE_RECOMMEND_AI_RERANK", "true").lower() == "true"
     RECOMMEND_RERANK_CANDIDATE_SIZE: int = int(os.getenv("RECOMMEND_RERANK_CANDIDATE_SIZE", "10"))

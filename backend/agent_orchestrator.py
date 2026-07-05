@@ -364,9 +364,14 @@ class AgentOrchestrator:
                         )
                         
                         message = response.choices[0].message
-                        messages.append(message)
-                        
-                        # Check for tool calls
+                        # 统一消息格式为 dict（避免 SDK 对象与 dict 混用）
+                        if hasattr(message, 'model_dump'):
+                            message_dict = message.model_dump()
+                        else:
+                            message_dict = {"role": "assistant", "content": message.content}
+                        messages.append(message_dict)
+
+                        # Check for tool calls（使用 SDK 对象执行工具，保持 _execute_single_tool 兼容）
                         if message.tool_calls:
                             # Parallel tool execution
                             tasks = [
@@ -717,7 +722,10 @@ class AgentOrchestrator:
             key_concerns_str = str(key_concerns).replace('{', '{{').replace('}', '}}')
 
         risk_level = urgent_issue.get('level', 'low')
-        
+
+        # 转义 strategy_guidance 中的花括号，防止 .format() 崩溃
+        strategy_guidance = strategy_guidance.replace('{', '{{').replace('}', '}}')
+
         system_prompt = SYSTEM_PROMPT_TEMPLATE.format(
             stage=stage,
             key_concerns=key_concerns_str,

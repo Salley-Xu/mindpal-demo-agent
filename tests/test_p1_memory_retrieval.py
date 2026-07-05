@@ -84,7 +84,6 @@ async def test_build_initial_messages_includes_relevant_long_term_memory():
             urgent_issue={
                 "level": "low",
                 "message": "",
-                "triggers": [],
                 "risk_score": 0.18,
             },
             user_id="user_memory_focus",

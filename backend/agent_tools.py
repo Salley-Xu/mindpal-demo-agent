@@ -367,7 +367,8 @@ TOOL_DEFINITIONS = [
                     "user_id": {"type": "string", "description": "用户ID (自动填充)"},
                     "risk_level": {
                         "type": "string",
-                        "enum": ["level_0", "level_1", "level_2", "level_3", "low", "medium", "high"],
+                        "enum": ["level_0", "level_1", "level_2", "level_3"],
+                        "description": "风险等级（level_0=低风险～level_3=紧急）",
                     },
                     "preferred_types": {"type": "array", "items": {"type": "string"}},
                     "preferred_categories": {"type": "array", "items": {"type": "string"}},
@@ -398,7 +399,8 @@ TOOL_DEFINITIONS = [
                     "event_summary": {"type": "string", "description": "事件摘要"},
                     "risk_level": {
                         "type": "string",
-                        "enum": ["level_0", "level_1", "level_2", "level_3", "low", "medium", "high"],
+                        "enum": ["level_0", "level_1", "level_2", "level_3"],
+                        "description": "风险等级（level_0=低风险～level_3=紧急）",
                     },
                     "source": {"type": "string", "default": "agent"},
                     "text_snippet": {"type": "string", "description": "相关的用户输入片段"}
@@ -426,13 +428,25 @@ TOOL_DEFINITIONS = [
         "type": "function",
         "function": {
             "name": "recommend_content",
-            "description": "根据用户当前状态推荐相关内容（冥想、文章等）",
+            "description": "根据用户当前状态推荐相关内容（冥想、文章、练习等）",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "limit": {"type": "integer", "description": "推荐数量", "default": 2}
+                    "query": {
+                        "type": "string",
+                        "description": "推荐查询主题，描述用户当前的需求方向"
+                    },
+                    "current_emotion": {
+                        "type": "string",
+                        "description": "检测到的当前情绪（如：焦虑、压力、抑郁）"
+                    },
+                    "limit": {
+                        "type": "integer",
+                        "description": "推荐数量",
+                        "default": 2
+                    }
                 },
-                "required": []
+                "required": ["query"]
             }
         }
     }

@@ -88,57 +88,36 @@ class ConversationManager:
         except RuntimeError:
             asyncio.run(coro)
     
-    def get_or_create_session(self, user_id: str, session_id: str) -> Dict:
-        """获取或创建对话会话"""
-        key = f"{user_id}_{session_id}"
-        
-        # 先检查内存缓存
-        if key in self.sessions:
-            self.sessions[key]['last_active'] = datetime.now()
-            return self.sessions[key]
-        
-        # 如果启用了持久化，尝试从数据库加载
-        if self.use_persistence:
-            session_data = db_manager.get_session_data(user_id, session_id)
-            if session_data:
-                profile_data = db_manager.get_user_profile(user_id) or {}
-                recommendation_feedback = session_data.get("recommendation_feedback", {}) or {}
-                feedback_state = self._derive_feedback_state(recommendation_feedback)
-                # 加载到内存缓存
-                self.sessions[key] = {
-                    'id': session_data['id'],
-                    'history': session_data['history'],
-                    'emotion_timeline': session_data['emotion_timeline'],
-                    'key_concerns': session_data['key_concerns'],
-                    'conversation_stage': session_data['conversation_stage'],
-                    'created_at': datetime.fromisoformat(session_data['created_at']),
-                    'last_active': datetime.fromisoformat(session_data['last_active']),
-                    'long_term_profile': profile_data.get('preferences', {}),
-                    'recommendation_events': session_data.get('recommendation_events', [])[-5:],
-                    'recommendation_feedback': recommendation_feedback,
-                    'accepted_recommendations': feedback_state["accepted_recommendations"],
-                    'rejected_recommendations': feedback_state["rejected_recommendations"],
-                    'emotion_cache': {
-                        'main_emotion': '中性',
-                        'overall_emotion': '中性',
-                        'confidence': 0.5,
-                        'last_analyzed_turn': len(session_data['history']),
-                        'analysis_timestamp': datetime.now().isoformat()
-                    }
-                }
-                self.session_db_ids[key] = session_data['id']
-                logger.info(f"从数据库加载会话: {key}")
-                return self.sessions[key]
-        
-        # 创建新会话
-        if self.use_persistence:
-            session_db_id = db_manager.create_or_update_session(
-                user_id, session_id, 'initial', []
-            )
-            self.session_db_ids[key] = session_db_id
-        
-        self.sessions[key] = {
-            'id': self.session_db_ids.get(key),
+    @staticmethod
+    def _build_loaded_session_dict(
+        session_data: Dict, profile_data: Dict, feedback_state: Dict, session_db_id: int
+    ) -> Dict:
+        return {
+            'id': session_db_id,
+            'history': session_data['history'],
+            'emotion_timeline': session_data['emotion_timeline'],
+            'key_concerns': session_data['key_concerns'],
+            'conversation_stage': session_data['conversation_stage'],
+            'created_at': datetime.fromisoformat(session_data['created_at']),
+            'last_active': datetime.fromisoformat(session_data['last_active']),
+            'long_term_profile': profile_data.get('preferences', {}),
+            'recommendation_events': session_data.get('recommendation_events', [])[-5:],
+            'recommendation_feedback': session_data.get("recommendation_feedback", {}) or {},
+            'accepted_recommendations': feedback_state["accepted_recommendations"],
+            'rejected_recommendations': feedback_state["rejected_recommendations"],
+            'emotion_cache': {
+                'main_emotion': '中性',
+                'overall_emotion': '中性',
+                'confidence': 0.5,
+                'last_analyzed_turn': len(session_data['history']),
+                'analysis_timestamp': datetime.now().isoformat()
+            }
+        }
+
+    @staticmethod
+    def _build_new_session_dict(session_db_id: Optional[int]) -> Dict:
+        return {
+            'id': session_db_id,
             'history': [],
             'emotion_timeline': [],
             'key_concerns': [],
@@ -158,8 +137,30 @@ class ConversationManager:
                 'analysis_timestamp': None
             }
         }
-        
-        # 初始化上下文缓存
+
+    def get_or_create_session(self, user_id: str, session_id: str) -> Dict:
+        """获取或创建对话会话（同步版本）"""
+        key = f"{user_id}_{session_id}"
+        if key in self.sessions:
+            self.sessions[key]['last_active'] = datetime.now()
+            return self.sessions[key]
+        if self.use_persistence:
+            session_data = db_manager.get_session_data(user_id, session_id)
+            if session_data:
+                profile_data = db_manager.get_user_profile(user_id) or {}
+                recommendation_feedback = session_data.get("recommendation_feedback", {}) or {}
+                feedback_state = self._derive_feedback_state(recommendation_feedback)
+                self.sessions[key] = self._build_loaded_session_dict(
+                    session_data, profile_data, feedback_state, session_data['id']
+                )
+                self.session_db_ids[key] = session_data['id']
+                return self.sessions[key]
+        if self.use_persistence:
+            session_db_id = db_manager.create_or_update_session(
+                user_id, session_id, 'initial', []
+            )
+            self.session_db_ids[key] = session_db_id
+        self.sessions[key] = self._build_new_session_dict(self.session_db_ids.get(key))
         self.context_cache[key] = {
             'compressed_context': '',
             'last_compressed_turn': 0,
@@ -168,9 +169,8 @@ class ConversationManager:
             'compression_applied': False,
             'compression_level': 'none',
         }
-        
         return self.sessions[key]
-    
+
     async def get_or_create_session_async(self, user_id: str, session_id: str) -> Dict:
         key = f"{user_id}_{session_id}"
         if key in self.sessions:
@@ -182,53 +182,17 @@ class ConversationManager:
                 profile_data = await adb_manager.get_user_profile(user_id) or {}
                 recommendation_feedback = session_data.get("recommendation_feedback", {}) or {}
                 feedback_state = self._derive_feedback_state(recommendation_feedback)
-                self.sessions[key] = {
-                    'id': session_data['id'],
-                    'history': session_data['history'],
-                    'emotion_timeline': session_data['emotion_timeline'],
-                    'key_concerns': session_data['key_concerns'],
-                    'conversation_stage': session_data['conversation_stage'],
-                    'created_at': datetime.fromisoformat(session_data['created_at']),
-                    'last_active': datetime.fromisoformat(session_data['last_active']),
-                    'long_term_profile': profile_data.get('preferences', {}),
-                    'recommendation_events': session_data.get('recommendation_events', [])[-5:],
-                    'recommendation_feedback': recommendation_feedback,
-                    'accepted_recommendations': feedback_state["accepted_recommendations"],
-                    'rejected_recommendations': feedback_state["rejected_recommendations"],
-                    'emotion_cache': {
-                        'main_emotion': '中性',
-                        'overall_emotion': '中性',
-                        'confidence': 0.5,
-                        'last_analyzed_turn': len(session_data['history']),
-                        'analysis_timestamp': datetime.now().isoformat()
-                    }
-                }
+                self.sessions[key] = self._build_loaded_session_dict(
+                    session_data, profile_data, feedback_state, session_data['id']
+                )
                 self.session_db_ids[key] = session_data['id']
                 return self.sessions[key]
         if self.use_persistence:
-            session_db_id = await adb_manager.create_or_update_session(user_id, session_id, 'initial', [])
+            session_db_id = await adb_manager.create_or_update_session(
+                user_id, session_id, 'initial', []
+            )
             self.session_db_ids[key] = session_db_id
-        self.sessions[key] = {
-            'id': self.session_db_ids.get(key),
-            'history': [],
-            'emotion_timeline': [],
-            'key_concerns': [],
-            'conversation_stage': 'initial',
-            'created_at': datetime.now(),
-            'last_active': datetime.now(),
-            'long_term_profile': {},
-            'recommendation_events': [],
-            'recommendation_feedback': {},
-            'accepted_recommendations': [],
-            'rejected_recommendations': [],
-            'emotion_cache': {
-                'main_emotion': '中性',
-                'overall_emotion': '中性',
-                'confidence': 0.5,
-                'last_analyzed_turn': 0,
-                'analysis_timestamp': None
-            }
-        }
+        self.sessions[key] = self._build_new_session_dict(self.session_db_ids.get(key))
         self.context_cache[key] = {
             'compressed_context': '',
             'last_compressed_turn': 0,
@@ -627,9 +591,8 @@ class ConversationManager:
         session = self.get_or_create_session(user_id, session_id)
         session.setdefault("recommendation_feedback", {})
         session["recommendation_feedback"][content_id] = feedback
-        profile = session.setdefault("long_term_profile", {})
-        profile.setdefault("recommendation_feedback", {})
-        profile["recommendation_feedback"][content_id] = feedback
+        # 同步更新 long_term_profile 缓存（被 UserProfileTool.get_profile 读取）
+        session.setdefault("long_term_profile", {}).setdefault("recommendation_feedback", {})[content_id] = feedback
 
         if feedback in {"accepted", "preferred", "helpful"}:
             session.setdefault("accepted_recommendations", [])

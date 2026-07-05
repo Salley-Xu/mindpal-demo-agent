@@ -116,10 +116,8 @@ class RiskEvaluator:
             "level_label": risk_level_label(level),
             "message": self._build_message(level),
             "suggestions": self._build_suggestions(level),
-            "triggers": [],
             "risk_score": round(min(risk_score, 10.0), 2),
             "raw_score": round(bert_result["binary_probability"] * 10.0, 2),
-            "risk_dimensions": {},
             "risk_evidence": {
                 "bert": {
                     "fusion_source": bert_result["fusion_source"],

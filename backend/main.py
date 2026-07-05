@@ -10,7 +10,6 @@ os.environ.setdefault("KMP_DUPLICATE_LIB_OK", "TRUE")
 import uvicorn
 import logging
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -18,6 +17,7 @@ from api_endpoints import router
 from conversation_manager import conversation_manager
 from config import config
 from error_handler import setup_error_handlers
+from middleware import setup_middlewares
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -67,14 +67,8 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-# 添加CORS中间件
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# 添加中间件（CORS → Auth）
+setup_middlewares(app)
 
 # 添加响应压缩中间件
 app.add_middleware(

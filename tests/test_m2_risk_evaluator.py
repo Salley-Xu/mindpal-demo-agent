@@ -153,9 +153,8 @@ def test_evaluate_result_structure():
     # 所有下游依赖的字段必须存在
     required_keys = {
         "level", "legacy_level", "level_index", "level_label",
-        "message", "suggestions", "triggers",
+        "message", "suggestions",
         "risk_score", "raw_score",
-        "risk_dimensions", "risk_evidence",
         "escalation_reasons", "recent_risk_levels", "risk_context",
     }
     assert required_keys.issubset(result.keys()), f"Missing: {required_keys - result.keys()}"
@@ -181,10 +180,8 @@ def test_orchestrator_risk_state_builder():
             "level": LEVEL_2,
             "message": "检测到高风险倾向",
             "suggestions": ["联系身边可信任的人"],
-            "triggers": [],
             "risk_score": 7.5,
             "raw_score": 7.5,
-            "risk_dimensions": {},
             "risk_evidence": {"bert": {"fusion_source": "model_4class"}},
             "escalation_reasons": ["bert_model_4class"],
         }
@@ -306,10 +303,8 @@ async def test_run_agent_passes_long_term_risk_context_into_precheck():
             "level_label": "Level 0",
             "message": "",
             "suggestions": [],
-            "triggers": [],
             "risk_score": 3.6,
             "raw_score": 0.0,
-            "risk_dimensions": {},
             "risk_evidence": {},
             "escalation_reasons": [],
             "recent_risk_levels": [],

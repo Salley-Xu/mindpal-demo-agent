@@ -146,7 +146,7 @@ async def intelligent_chat(chat_request: ChatRequest):
         return agent_response.chat
     except Exception as e:
         logger.error(f"智能对话处理失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"服务器内部错误: {str(e)}")
+        raise HTTPException(status_code=500, detail="服务器内部错误")
 
 
 @router.post("/agent/run", response_model=AgentRunResponse)
@@ -159,7 +159,7 @@ async def agent_run(request: AgentRunRequest):
         return await agent_orchestrator.run_agent(request)
     except Exception as e:
         logger.error(f"/agent/run 处理失败: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"服务器内部错误: {str(e)}")
+        raise HTTPException(status_code=500, detail="服务器内部错误")
 
 # ==================== 会话管理API ====================
 @router.get("/session/{user_id}/{session_id}/summary")
