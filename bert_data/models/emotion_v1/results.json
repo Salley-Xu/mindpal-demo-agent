@@ -4,71 +4,71 @@
   },
   "best_epoch": 2,
   "test_metrics": {
-    "loss": 0.5073,
-    "accuracy": 0.8387,
-    "macro_f1": 0.8242,
+    "loss": 0.2101,
+    "accuracy": 0.7683,
+    "macro_f1": 0.7692,
     "per_class": {
       "neutral": {
-        "precision": 0.7712,
-        "recall": 0.7913,
-        "f1": 0.7811
+        "precision": 0.7319,
+        "recall": 0.8783,
+        "f1": 0.7984
       },
       "positive": {
-        "precision": 0.9709,
-        "recall": 0.8333,
-        "f1": 0.8969
+        "precision": 0.9307,
+        "recall": 0.7833,
+        "f1": 0.8507
       },
       "anxiety": {
-        "precision": 0.67,
-        "recall": 0.8072,
-        "f1": 0.7322
+        "precision": 0.4698,
+        "recall": 0.8434,
+        "f1": 0.6034
       },
       "sadness": {
-        "precision": 0.903,
-        "recall": 0.8735,
-        "f1": 0.888
+        "precision": 0.9451,
+        "recall": 0.6327,
+        "f1": 0.7579
       },
       "anger": {
-        "precision": 0.8065,
-        "recall": 0.8403,
-        "f1": 0.823
+        "precision": 0.8,
+        "recall": 0.8739,
+        "f1": 0.8353
       }
     },
     "confusion_matrix": [
       [
-        91,
+        101,
+        3,
+        5,
         2,
-        6,
-        6,
-        10
+        4
       ],
       [
-        13,
-        100,
-        5,
-        1,
+        18,
+        94,
+        7,
+        0,
         1
       ],
       [
+        3,
         2,
-        1,
-        67,
-        8,
-        5
+        70,
+        4,
+        4
+      ],
+      [
+        9,
+        2,
+        62,
+        155,
+        17
       ],
       [
         7,
         0,
-        16,
-        214,
-        8
-      ],
-      [
         5,
-        0,
-        6,
-        8,
-        100
+        3,
+        104
       ]
     ]
   }

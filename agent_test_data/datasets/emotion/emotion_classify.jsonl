@@ -1,55 +1,140 @@
 {"id": "emo_001", "text": "明天答辩，我脑子一片空白，感觉准备得很差。", "label": "anxiety", "confidence": 0.95, "source": "er_001"}
 {"id": "emo_002", "text": "今天老板又临时加任务，我真的有点撑不住，但还得继续做。", "label": "anxiety", "confidence": 0.85, "source": "er_002", "note": "stress 合并到 anxiety"}
-{"id": "emo_003", "text": "我只是想吐槽一下，不需要建议，就是觉得这周很累。", "label": "neutral", "confidence": 0.80, "source": "er_003"}
-{"id": "emo_004", "text": "我最近睡前一直想论文的事，越想越睡不着。", "label": "anxiety", "confidence": 0.90, "source": "er_004"}
+{"id": "emo_003", "text": "我只是想吐槽一下，不需要建议，就是觉得这周很累。", "label": "neutral", "confidence": 0.8, "source": "er_003"}
+{"id": "emo_004", "text": "我最近睡前一直想论文的事，越想越睡不着。", "label": "anxiety", "confidence": 0.9, "source": "er_004"}
 {"id": "emo_005", "text": "朋友一直不回我消息，我开始怀疑是不是自己哪里做错了。", "label": "sadness", "confidence": 0.85, "source": "er_005"}
-{"id": "emo_006", "text": "我现在有点慌，心跳很快，感觉控制不住。", "label": "anxiety", "confidence": 0.90, "source": "er_006", "note": "panic 合并到 anxiety"}
-{"id": "emo_007", "text": "面试官一问细节我就卡壳，我是不是根本不适合做算法。", "label": "sadness", "confidence": 0.80, "source": "er_007", "note": "self_doubt 合并到 sadness"}
+{"id": "emo_006", "text": "我现在有点慌，心跳很快，感觉控制不住。", "label": "anxiety", "confidence": 0.9, "source": "er_006", "note": "panic 合并到 anxiety"}
+{"id": "emo_007", "text": "面试官一问细节我就卡壳，我是不是根本不适合做算法。", "label": "sadness", "confidence": 0.8, "source": "er_007", "note": "self_doubt 合并到 sadness"}
 {"id": "emo_008", "text": "今天状态还行，想把之前的计划继续推进。", "label": "neutral", "confidence": 0.95, "source": "er_008"}
 {"id": "emo_009", "text": "我真的不想再这样下去了，感觉看不到任何希望。", "label": "sadness", "confidence": 0.85, "source": "er_009", "note": "despair 合并到 sadness"}
-{"id": "emo_010", "text": "我现在很危险，不想一个人待着。", "label": "anxiety", "confidence": 0.80, "source": "er_010", "note": "crisis 合并到 anxiety"}
-{"id": "emo_011", "text": "这个实验失败太多次了，我气得想把所有东西都扔了。", "label": "anger", "confidence": 0.90, "source": "er_011"}
+{"id": "emo_010", "text": "我现在很危险，不想一个人待着。", "label": "anxiety", "confidence": 0.8, "source": "er_010", "note": "crisis 合并到 anxiety"}
+{"id": "emo_011", "text": "这个实验失败太多次了，我气得想把所有东西都扔了。", "label": "anger", "confidence": 0.9, "source": "er_011"}
 {"id": "emo_012", "text": "我其实知道要做什么，但就是开始不了，一想到任务就逃避。", "label": "anxiety", "confidence": 0.85, "source": "er_012", "note": "procrastination 合并到 anxiety"}
 {"id": "emo_013", "text": "我今天很开心，终于把代码跑通了。", "label": "positive", "confidence": 0.95, "source": "er_013"}
-{"id": "emo_014", "text": "别给我讲大道理，我现在只想要一个能马上做的办法。", "label": "anxiety", "confidence": 0.80, "source": "er_014", "note": "stress 合并到 anxiety"}
+{"id": "emo_014", "text": "别给我讲大道理，我现在只想要一个能马上做的办法。", "label": "anxiety", "confidence": 0.8, "source": "er_014", "note": "stress 合并到 anxiety"}
 {"id": "emo_015", "text": "我不喜欢冥想，之前试过反而更烦。", "label": "anger", "confidence": 0.75, "source": "er_015", "note": "annoyance 合并到 anger"}
-{"id": "emo_016", "text": "连续几天都这样，我感觉自己越来越没用。", "label": "sadness", "confidence": 0.90, "source": "er_016"}
+{"id": "emo_016", "text": "连续几天都这样，我感觉自己越来越没用。", "label": "sadness", "confidence": 0.9, "source": "er_016"}
 {"id": "emo_017", "text": "我和室友吵架后一直很烦，但也不知道怎么开口。", "label": "anger", "confidence": 0.85, "source": "er_017"}
-{"id": "emo_018", "text": "考试只剩三天，我现在复习什么都觉得来不及。", "label": "anxiety", "confidence": 0.90, "source": "er_018"}
-{"id": "emo_019", "text": "我只是记录一下：今天因为组会被问住，压力7分。", "label": "anxiety", "confidence": 0.80, "source": "er_019", "note": "stress 合并到 anxiety"}
+{"id": "emo_018", "text": "考试只剩三天，我现在复习什么都觉得来不及。", "label": "anxiety", "confidence": 0.9, "source": "er_018"}
+{"id": "emo_019", "text": "我只是记录一下：今天因为组会被问住，压力7分。", "label": "anxiety", "confidence": 0.8, "source": "er_019", "note": "stress 合并到 anxiety"}
 {"id": "emo_020", "text": "算了，反正也没人真的在乎我。", "label": "sadness", "confidence": 0.85, "source": "er_020", "note": "loneliness 合并到 sadness"}
 {"id": "emo_021", "text": "我想制定一个这周的复习计划。", "label": "neutral", "confidence": 0.95, "source": "er_021"}
-{"id": "emo_022", "text": "刚刚做完呼吸练习，好像稍微缓过来了。", "label": "positive", "confidence": 0.80, "source": "er_022", "note": "relief 合并到 positive"}
+{"id": "emo_022", "text": "刚刚做完呼吸练习，好像稍微缓过来了。", "label": "positive", "confidence": 0.8, "source": "er_022", "note": "relief 合并到 positive"}
 {"id": "emo_023", "text": "你上次说的任务拆分对我有用，下次还可以这样提醒我。", "label": "positive", "confidence": 0.85, "source": "er_023", "note": "approval 合并到 positive"}
-{"id": "emo_024", "text": "我已经连续三晚睡不着了，白天也没精神。", "label": "anxiety", "confidence": 0.90, "source": "er_024", "note": "stress 合并到 anxiety"}
-{"id": "emo_025", "text": "我现在不知道该不该退学，感觉所有选择都错。", "label": "anxiety", "confidence": 0.80, "source": "er_025", "note": "confusion 合并到 anxiety"}
-{"id": "emo_026", "text": "这件事其实没什么，我就是有点烦。", "label": "anger", "confidence": 0.70, "source": "er_026", "note": "annoyance 合并到 anger"}
+{"id": "emo_024", "text": "我已经连续三晚睡不着了，白天也没精神。", "label": "anxiety", "confidence": 0.9, "source": "er_024", "note": "stress 合并到 anxiety"}
+{"id": "emo_025", "text": "我现在不知道该不该退学，感觉所有选择都错。", "label": "anxiety", "confidence": 0.8, "source": "er_025", "note": "confusion 合并到 anxiety"}
+{"id": "emo_026", "text": "这件事其实没什么，我就是有点烦。", "label": "anger", "confidence": 0.7, "source": "er_026", "note": "annoyance 合并到 anger"}
 {"id": "emo_027", "text": "我担心父母失望，所以一直不敢说我最近状态很差。", "label": "anxiety", "confidence": 0.85, "source": "er_027", "note": "fear 合并到 anxiety"}
-{"id": "emo_028", "text": "我想消失一阵子，不想见任何人。", "label": "sadness", "confidence": 0.80, "source": "er_028", "note": "withdrawal 合并到 sadness"}
+{"id": "emo_028", "text": "我想消失一阵子，不想见任何人。", "label": "sadness", "confidence": 0.8, "source": "er_028", "note": "withdrawal 合并到 sadness"}
 {"id": "emo_029", "text": "现在先别分析原因，你能不能陪我把今晚熬过去。", "label": "sadness", "confidence": 0.75, "source": "er_029", "note": "despair 合并到 sadness"}
-{"id": "emo_030", "text": "今天没什么问题，就是想复盘一下最近情绪波动。", "label": "neutral", "confidence": 0.90, "source": "er_030"}
+{"id": "emo_030", "text": "今天没什么问题，就是想复盘一下最近情绪波动。", "label": "neutral", "confidence": 0.9, "source": "er_030"}
 {"id": "emo_031", "text": "我没有想自杀，只是最近压力真的很大，想找个办法缓一下。", "label": "anxiety", "confidence": 0.85, "source": "er_031", "note": "stress 合并到 anxiety"}
-{"id": "emo_032", "text": "我朋友说他不想活了，我该怎么办？", "label": "neutral", "confidence": 0.70, "source": "er_032"}
+{"id": "emo_032", "text": "我朋友说他不想活了，我该怎么办？", "label": "neutral", "confidence": 0.7, "source": "er_032"}
 {"id": "emo_033", "text": "这部电影里主角最后自杀了，我看完心里很难受。", "label": "sadness", "confidence": 0.85, "source": "er_033"}
 {"id": "emo_034", "text": "刚刚室友陪我聊了一会儿，我现在先待在客厅。", "label": "neutral", "confidence": 0.85, "source": "er_034"}
-{"id": "emo_035", "text": "明天就考科目二了，我紧张得睡不着。", "label": "anxiety", "confidence": 0.90, "source": "synthetic"}
+{"id": "emo_035", "text": "明天就考科目二了，我紧张得睡不着。", "label": "anxiety", "confidence": 0.9, "source": "synthetic"}
 {"id": "emo_036", "text": "今天天气真好，出去走了走心情不错。", "label": "positive", "confidence": 0.95, "source": "synthetic"}
 {"id": "emo_037", "text": "项目终于验收了，虽然过程很辛苦但结果还行。", "label": "positive", "confidence": 0.85, "source": "synthetic"}
-{"id": "emo_038", "text": "我被老板当众批评了，觉得特别丢脸。", "label": "sadness", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_038", "text": "我被老板当众批评了，觉得特别丢脸。", "label": "sadness", "confidence": 0.8, "source": "synthetic"}
 {"id": "emo_039", "text": "新来的同事什么都不会，什么都要我教，烦死了。", "label": "anger", "confidence": 0.85, "source": "synthetic"}
 {"id": "emo_040", "text": "每天通勤就要两个小时，感觉人生都浪费在路上了。", "label": "anxiety", "confidence": 0.75, "source": "synthetic"}
 {"id": "emo_041", "text": "收到 offer 了！终于等到这一天！", "label": "positive", "confidence": 0.95, "source": "synthetic"}
 {"id": "emo_042", "text": "中午吃了什么？哦我吃了一份沙拉。", "label": "neutral", "confidence": 0.97, "source": "synthetic"}
-{"id": "emo_043", "text": "我恨我自己为什么总是这么软弱。", "label": "anger", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_043", "text": "我恨我自己为什么总是这么软弱。", "label": "anger", "confidence": 0.8, "source": "synthetic"}
 {"id": "emo_044", "text": "太久没回家了，有点想家。", "label": "sadness", "confidence": 0.75, "source": "synthetic"}
 {"id": "emo_045", "text": "室友每天晚上打游戏到凌晨，我要崩溃了。", "label": "anger", "confidence": 0.85, "source": "synthetic"}
-{"id": "emo_046", "text": "这个bug改了一天还没找到原因，挫败感很强。", "label": "anxiety", "confidence": 0.80, "source": "synthetic"}
-{"id": "emo_047", "text": "终于把论文初稿写完了，虽然不知道能不能过但先松口气。", "label": "positive", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_046", "text": "这个bug改了一天还没找到原因，挫败感很强。", "label": "anxiety", "confidence": 0.8, "source": "synthetic"}
+{"id": "emo_047", "text": "终于把论文初稿写完了，虽然不知道能不能过但先松口气。", "label": "positive", "confidence": 0.8, "source": "synthetic"}
 {"id": "emo_048", "text": "你好，请问有什么可以帮到你的？", "label": "neutral", "confidence": 0.98, "source": "synthetic"}
-{"id": "emo_049", "text": "本来以为会被裁，结果老板给我升职了，太意外了。", "label": "positive", "confidence": 0.90, "source": "synthetic"}
+{"id": "emo_049", "text": "本来以为会被裁，结果老板给我升职了，太意外了。", "label": "positive", "confidence": 0.9, "source": "synthetic"}
 {"id": "emo_050", "text": "他们说我不行，我要证明给他们看。", "label": "anger", "confidence": 0.75, "source": "synthetic"}
 {"id": "emo_051", "text": "每天醒来都觉得好累，不想面对新的一天。", "label": "sadness", "confidence": 0.85, "source": "synthetic"}
-{"id": "emo_052", "text": "虽然很忙但是很充实，我喜欢现在的工作。", "label": "positive", "confidence": 0.80, "source": "synthetic"}
-{"id": "emo_053", "text": "我没生气，只是觉得这件事处理得不公平。", "label": "anger", "confidence": 0.70, "source": "synthetic", "note": "否认生气但实际在表达不满"}
+{"id": "emo_052", "text": "虽然很忙但是很充实，我喜欢现在的工作。", "label": "positive", "confidence": 0.8, "source": "synthetic"}
+{"id": "emo_053", "text": "我没生气，只是觉得这件事处理得不公平。", "label": "anger", "confidence": 0.7, "source": "synthetic", "note": "否认生气但实际在表达不满"}
 {"id": "emo_054", "text": "又快到年底考核了，今年业绩还差一大截。", "label": "anxiety", "confidence": 0.85, "source": "synthetic"}
-{"id": "emo_055", "text": "最近总是莫名其妙地想哭。", "label": "sadness", "confidence": 0.90, "source": "synthetic"}
+{"id": "emo_055", "text": "最近总是莫名其妙地想哭。", "label": "sadness", "confidence": 0.9, "source": "synthetic"}
+{"text": "週末有個市集活動，你想不想去逛逛？", "label": "neutral", "note": "sampled"}
+{"text": "這張椅子好像有點搖晃，得找時間修一修。", "label": "neutral", "note": "sampled"}
+{"text": "上周的体检报告出来了，各项指标都在正常范围。", "label": "neutral", "note": "sampled"}
+{"text": "下班後要不要一起去吃飯？", "label": "neutral", "note": "sampled"}
+{"text": "我在想，捷運站旁邊有什麼好吃的嗎？等一下辦完事想吃點東西。", "label": "neutral", "note": "sampled"}
+{"text": "這本書蠻厚的，我估計要花一個月才能讀完。", "label": "neutral", "note": "sampled"}
+{"text": "街燈亮了，行人漸漸少了，街道變得安靜。", "label": "neutral", "note": "sampled"}
+{"text": "出差啊，記得帶好生活必需品跟一些藥。", "label": "neutral", "note": "sampled"}
+{"text": "那條路最近在施工，可能會比較塞。", "label": "neutral", "note": "sampled"}
+{"text": "他走出辦公室，看起來有些心不在焉。", "label": "neutral", "note": "sampled"}
+{"text": "我走在街上，看到了一家新開的書店，決定進去看看。", "label": "neutral", "note": "sampled"}
+{"text": "他今天請假了，應該是身體不太舒服。", "label": "neutral", "note": "sampled"}
+{"text": "天氣預報說，明天會下雨，記得帶傘。", "label": "neutral", "note": "sampled"}
+{"text": "公車到了站，車上的人一個個下來，步伐很快。", "label": "neutral", "note": "sampled"}
+{"text": "可以啊，我有空，約幾點。", "label": "neutral", "note": "sampled"}
+{"text": "真的是太開心了，這是一個我們期待已久的時刻！", "label": "positive", "note": "sampled"}
+{"text": "真的很開心能跟你一起完成這次的挑戰，我們太棒了！", "label": "positive", "note": "sampled"}
+{"text": "哇！這真是厲害，恭喜你！今天應該請客了吧！", "label": "positive", "note": "sampled"}
+{"text": "和你一起工作真的很開心，每天都充滿笑聲。", "label": "positive", "note": "sampled"}
+{"text": "這個遊戲我終於過關了，快來看看我的紀錄！", "label": "positive", "note": "sampled"}
+{"text": "今天打球的時候，我居然投進了三分球，超爽的！", "label": "positive", "note": "sampled"}
+{"text": "我的心情就像開心果一樣，歡快無比！", "label": "positive", "note": "sampled"}
+{"text": "听着熟悉的音乐，感觉被温柔地包裹着。", "label": "positive", "note": "sampled"}
+{"text": "哈哈，你剛剛的表情真的超好笑！", "label": "positive", "note": "sampled"}
+{"text": "今天是我最開心的一天，因為終於能和大家一起慶祝這麼特別的時刻，心情真的是無比的愉快。", "label": "positive", "note": "sampled"}
+{"text": "今天晚饭做了番茄鸡蛋面，汤底特别鲜，一口气吃光了。", "label": "positive", "note": "sampled"}
+{"text": "我們今天居然抽到了頭獎，真的是太幸運了！", "label": "positive", "note": "sampled"}
+{"text": "在生命的前23年,我是一个卑微且胆小的人,我会先照顾别人的感受,先考虑大家的情绪,我可以舍弃自己的想法去配合身边的人,可是那时的我却得不到快乐,每夜痛苦的我在这里诉说。在24岁,我努力的自私,然后发现原来我可以如此的快乐,如果你不快乐,请你多为自己活,请记得,我爱你", "label": "positive", "note": "sampled"}
+{"text": "每當我回想起這些開心的時光，心裡就暖暖的！", "label": "positive", "note": "sampled"}
+{"text": "跟朋友合作的项目拿到反馈了，他们说做得不错，我偷偷乐了好久。", "label": "positive", "note": "sampled"}
+{"text": "我提交的申请快两个月了，一点消息都没有，是不是没戏了。", "label": "anxiety", "note": "sampled"}
+{"text": "", "label": "anxiety", "note": "sampled"}
+{"text": "进考场前腿都在发抖，深呼吸也压不住。", "label": "anxiety", "note": "sampled"}
+{"text": "他约我出去，我该穿那件黑的还是白的？真的好烦。", "label": "anxiety", "note": "sampled"}
+{"text": "我昨晚失眠到三点，满脑子都是万一考砸了怎么办。", "label": "anxiety", "note": "sampled"}
+{"text": "我真的不想再笑了 我想大喊 大哭 大声告诉全世界我很累了 我是真的撑不下去了 可是当一个人乐观久了 哪怕她在上吊 别人都会以为她在荡秋千", "label": "sadness", "note": "sampled"}
+{"text": "我好想去死 她还没回微信 过几天又要去上她的课 好想去死啊 太累了 今天她问我要不要一起去宜家 我不知道说什么 她的问题我总是不知道该怎么回答 我想去死", "label": "sadness", "note": "sampled"}
+{"text": "自己是个抑郁症病人，没人爱也不敢爱人，怕耽误别人", "label": "sadness", "note": "sampled"}
+{"text": "感觉生活压的自己喘不过气 感觉体力被一点点的透支 好想逃离这个世界", "label": "sadness", "note": "sampled"}
+{"text": "真的觉得自己做什么都不配 真是没有出息呢 反正也都会孤独下去为什么就不能早点适应死心呢", "label": "sadness", "note": "sampled"}
+{"text": "真的越来越想离开。小时候会想死一死看谁在乎我，不明白死了就回不来了。现在想真的没什么比死更解脱吧...", "label": "sadness", "note": "sampled"}
+{"text": "我失去了父親，我不知道該怎麼辦...", "label": "sadness", "note": "sampled"}
+{"text": "看著他與別人幸福，我只剩下無盡的悲傷。", "label": "sadness", "note": "sampled"}
+{"text": "是我自己把自己过得一团糟", "label": "sadness", "note": "sampled"}
+{"text": "每天难过的偷偷崩溃大哭，和好朋友说她们也只是当我夜来非而已，我真的好累了，我好累了，我连出门看太阳的力气都累的没有了，我好想就这样一觉睡过去别醒来了，就这样好好睡一觉，睡到下辈子……", "label": "sadness", "note": "sampled"}
+{"text": "每天都让人觉得生活无望", "label": "sadness", "note": "sampled"}
+{"text": "我跟自己说多看看这个世界的美好,还有很多人在等我,可是这个世界真的好绝望,我撑不到遇到那些人,我真的是个很差劲的人", "label": "sadness", "note": "sampled"}
+{"text": "不知道我是不是病了,已经两年了,心中始终有一片阴霾稍微一点事情就跑出来遮住我的心,无论我在不在工作在没在笑,那种发自内心完全的快乐和放松都不属于我,稍微被数落一句就泪流满面,时常考虑活着的意义,一边努力调节自己,一边又总是堕入黑暗的深渊,逢场做戏感觉好累,与人相处好累,出门好累。", "label": "sadness", "note": "sampled"}
+{"text": "这个世界对我充满着恶意 没有人会明白理解我 没有人会爱我 我干什么都是错的 我觉得我活着就是错的", "label": "sadness", "note": "sampled"}
+{"text": "我们没有选择出生的权利 好歹还有选择死亡的权利 如果我撑不住了 能不能去死一死 我保证不后悔 只要让我死了就好了 全世界我什么都不想要 只想要死亡", "label": "sadness", "note": "sampled"}
+{"text": "今天开车太快了，本来想一头撞死，可想想生还的几率还挺大，就放弃了，现在躺在床上抽着烟，也不知道该怎么死好，不过我的病情控制两个月最近又有点复发，心情一不好就不想去复查了，想想就这样吧，没什么想说的了，我睡了，晚安", "label": "sadness", "note": "sampled"}
+{"text": "其实是我不好", "label": "sadness", "note": "sampled"}
+{"text": "今天感觉好委屈,我很糟糕。。。。我过得一塌糊涂", "label": "sadness", "note": "sampled"}
+{"text": "這一切就像一場噩夢，原本應該是我們共同努力的未來，結果卻只剩下我一個人孤單的背影，沒有人再能理解我的痛苦，這真的是我所經歷過最沉重的打擊，心裡空蕩蕩的，感覺自己完全被這世界拋棄了。", "label": "sadness", "note": "sampled"}
+{"text": "想自尽的欲望越来越强烈 仅有的理智而来的求生欲像口仙气吊着自己", "label": "sadness", "note": "sampled"}
+{"text": "每當夜深人靜，我的心就像被什麼東西壓著，喘不過氣。", "label": "sadness", "note": "sampled"}
+{"text": "這麼難吃的東西，你怎麼還能吃得下去？", "label": "anger", "note": "sampled"}
+{"text": "你就是那種我根本不想理的人，讓我覺得極其厭惡！", "label": "anger", "note": "sampled"}
+{"text": "為什麼每次都是我最後一個被通知。", "label": "anger", "note": "sampled"}
+{"text": "別再找藉口了，你根本就是在推卸責任！", "label": "anger", "note": "sampled"}
+{"text": "明明只是一點小事，你非得把它搞得這麼難看，真是無聊透頂。", "label": "anger", "note": "sampled"}
+{"text": "真是不知道說什麼好，怎麼可以這麼狠心！", "label": "anger", "note": "sampled"}
+{"text": "你知道我多為你著急，結果你卻這樣做！我為了你付出了那麼多，但你竟然毫不珍惜！這種行為讓我真的很生氣，這樣的無視和不在乎，我不能再容忍！", "label": "anger", "note": "sampled"}
+{"text": "你根本不配出現在這裡，這樣的行為太過分了！", "label": "anger", "note": "sampled"}
+{"text": "真是太誇張了。這種品質根本就是在欺騙消費者。我們應該去投訴。", "label": "anger", "note": "sampled"}
+{"text": "這杯咖啡喝起來太苦了，根本沒法喝。", "label": "anger", "note": "sampled"}
+{"text": "我真的不理解為什麼他還要唱", "label": "anger", "note": "sampled"}
+{"text": "今天去加油站排了好久，結果被人插隊，真是氣死我了！", "label": "anger", "note": "sampled"}
+{"text": "這也太誇張了吧！馬上投訴他！", "label": "anger", "note": "sampled"}
+{"text": "看著你這樣，我真的不想再待在這裡，這種情況讓我感到厭煩！", "label": "anger", "note": "sampled"}
+{"text": "我今天的網路突然斷線，害我一整天工作成果直接消失，真的很火大！", "label": "anger", "note": "sampled"}
+{"text": "那個司機居然在紅燈的時候加速，真是太危險了！", "label": "anger", "note": "sampled"}
+{"text": "怎么能是祸害呢，要相信，你是白菜，他才是猪", "label": "anger", "note": "sampled"}
+{"text": "明明是同事的失误，经理却当着全组面骂我，我气得手都在抖。", "label": "anger", "note": "sampled"}
+{"text": "每次想起你，我就覺得頭疼，真的是讓人厭惡！", "label": "anger", "note": "sampled"}
+{"text": "你怎麼這麼無理，讓我怎麼去理解你？", "label": "anger", "note": "sampled"}
+{"text": "你到底是怎麼想的？每一次都是這樣，根本不會聽別人的意見！", "label": "anger", "note": "sampled"}
+{"text": "我真的是受夠了這種人，完全不想再見到你！", "label": "anger", "note": "sampled"}
+{"text": "那個同事今天又在會議上插嘴，真是氣死我了！", "label": "anger", "note": "sampled"}
+{"text": "你怎麼能這樣對我！我感到很受傷！", "label": "anger", "note": "sampled"}
+{"text": "這樣的行為真的讓我感到噁心，真是不想再接近！", "label": "anger", "note": "sampled"}
+{"text": "我真的受夠了，為什麼每次都是我來收拾爛攤子！", "label": "anger", "note": "sampled"}
+{"text": "沒有人願意站我這裡 只當我是瘋子 都是我在吵 所以我也不管你們的心情了 這樣到底哪裡有問題", "label": "anger", "note": "sampled"}
+{"text": "你又遲到了，我真的很生氣！", "label": "anger", "note": "sampled"}
+{"text": "你答應過的事情，為什麼又做不到？", "label": "anger", "note": "sampled"}

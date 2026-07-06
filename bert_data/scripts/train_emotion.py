@@ -127,6 +127,21 @@ class EmotionDataset(Dataset):
         }
 
 
+# ====== Focal Loss ======
+class FocalLoss(nn.Module):
+    """Focal Loss — 聚焦难分类样本，缓解类别不平衡"""
+    def __init__(self, weight=None, gamma=2.0):
+        super().__init__()
+        self.gamma = gamma
+        self.weight = weight
+
+    def forward(self, logits, labels):
+        ce_loss = nn.functional.cross_entropy(logits, labels, weight=self.weight, reduction='none')
+        pt = torch.exp(-ce_loss)  # 预测概率
+        focal_loss = ((1 - pt) ** self.gamma * ce_loss).mean()
+        return focal_loss
+
+
 # ====== 训练 ======
 class Trainer:
     def __init__(self, cfg):
@@ -160,7 +175,7 @@ class Trainer:
 
         # 模型
         self.model = EmotionBERT(cfg.model_name).to(self.device)
-        self.criterion = nn.CrossEntropyLoss(weight=self.class_weights)
+        self.criterion = FocalLoss(weight=self.class_weights, gamma=2.0)
         self.optimizer = torch.optim.AdamW(
             self.model.parameters(),
             lr=cfg.learning_rate,
