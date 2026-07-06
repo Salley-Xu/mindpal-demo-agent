@@ -5,6 +5,7 @@ bert_emotion_predictor.py — BERT 情绪分类推理封装
 标签体系：neutral, positive, anxiety, stress, sadness, anger, confusion, helplessness
 """
 
+import json
 import logging
 import os
 from typing import Optional
@@ -87,6 +88,15 @@ class BertEmotionPredictor:
         self.model.to(self.device)
         self.model.eval()
 
+        # 加载 Temperature Scaling 参数（可选）
+        self.temperature = 1.0
+        temp_path = os.path.join(model_path, "temperature.json")
+        if os.path.exists(temp_path):
+            with open(temp_path, "r") as f:
+                temp_data = json.load(f)
+            self.temperature = temp_data.get("temperature", 1.0)
+            logger.info(f"Temperature Scaling: T={self.temperature}")
+
     @torch.no_grad()
     def predict(self, text: str) -> tuple[str, float]:
         """
@@ -114,7 +124,9 @@ class BertEmotionPredictor:
         attention_mask = encoding["attention_mask"].to(self.device)
 
         logits = self.model(input_ids=input_ids, attention_mask=attention_mask)
-        probabilities = torch.softmax(logits, dim=-1)
+        # Temperature Scaling
+        scaled_logits = logits / self.temperature
+        probabilities = torch.softmax(scaled_logits, dim=-1)
         confidence, pred_idx = torch.max(probabilities, dim=-1)
 
         label = IDX_TO_EMOTION[int(pred_idx)]
