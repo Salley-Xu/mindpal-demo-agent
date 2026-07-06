@@ -53,7 +53,7 @@ class Config:
     RECOMMEND_RERANK_CANDIDATE_SIZE: int = int(os.getenv("RECOMMEND_RERANK_CANDIDATE_SIZE", "10"))
 
     # BERT 风险预测配置（风险评定已完全基于 BERT 模型）
-    BERT_MODEL_PATH: str = os.getenv("BERT_MODEL_PATH", "bert_data/models/v4_2_multitask_calibrated/best_model")
+    BERT_MODEL_PATH: str = os.getenv("BERT_MODEL_PATH", "bert_data/models/v4_3_coral/best_model")
     BERT_DEVICE: str = os.getenv("BERT_DEVICE", "cpu")
     BERT_BINARY_THRESHOLD: float = float(os.getenv("BERT_BINARY_THRESHOLD", "0.50"))
 
@@ -63,7 +63,24 @@ class Config:
     EMOTION_CONFIDENCE_THRESHOLD: float = float(os.getenv("EMOTION_CONFIDENCE_THRESHOLD", "0.6"))
     # 设为 true 使用 BERT，false 使用 LLM（回退/对比用）
     USE_BERT_EMOTION: bool = os.getenv("USE_BERT_EMOTION", "true").lower() == "true"
-    
+
+    # ============================================================
+    # Memory System v2.0 配置
+    # ============================================================
+    MEMORY_ENABLED: bool = os.getenv("MEMORY_ENABLED", "true").lower() == "true"
+    MEMORY_EMBEDDING_ENABLED: bool = os.getenv("MEMORY_EMBEDDING_ENABLED", "false").lower() == "true"
+    MEMORY_INJECTION_BUDGET_RATIO: float = float(os.getenv("MEMORY_INJECTION_BUDGET_RATIO", "0.15"))
+    MEMORY_MAX_ITEMS_PER_USER: int = int(os.getenv("MEMORY_MAX_ITEMS_PER_USER", "500"))
+    MEMORY_RRF_K: int = int(os.getenv("MEMORY_RRF_K", "60"))
+    MEMORY_DECAY_DAYS_MOOD_EVENT: int = int(os.getenv("MEMORY_DECAY_DAYS_MOOD_EVENT", "90"))
+    MEMORY_DECAY_DAYS_STRESS_SOURCE: int = int(os.getenv("MEMORY_DECAY_DAYS_STRESS_SOURCE", "180"))
+    MEMORY_DECAY_DAYS_RISK_EVENT: int = int(os.getenv("MEMORY_DECAY_DAYS_RISK_EVENT", "30"))
+
+    # Risk memory v2.0 基线配置
+    RISK_BASELINE_HIGH_WINDOW_DAYS: int = int(os.getenv("RISK_BASELINE_HIGH_WINDOW_DAYS", "7"))
+    RISK_BASELINE_MEDIUM_WINDOW_DAYS: int = int(os.getenv("RISK_BASELINE_MEDIUM_WINDOW_DAYS", "14"))
+    RISK_EVENT_DECAY_DAYS: int = int(os.getenv("RISK_EVENT_DECAY_DAYS", "30"))
+
     def validate(self):
         """验证配置"""
         if not self.DEEPSEEK_API_KEY:

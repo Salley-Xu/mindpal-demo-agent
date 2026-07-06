@@ -178,8 +178,130 @@ class DatabaseManager:
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_rec_events_session ON recommendation_events(session_id, created_at)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_session ON recommendation_feedback(session_id, updated_at)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_user ON recommendation_feedback(user_id, updated_at)")
+
+            # ============================================================
+            # Memory System v2.0 新表（Phase 0）
+            # ============================================================
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS memory_items (
+                    id TEXT PRIMARY KEY,
+                    user_id TEXT NOT NULL,
+                    session_id TEXT,
+                    turn_id TEXT,
+                    memory_type TEXT NOT NULL,
+                    content TEXT NOT NULL,
+                    summary TEXT,
+                    source_text TEXT,
+                    emotion TEXT,
+                    emotion_intensity REAL,
+                    risk_level TEXT,
+                    stress_source TEXT,
+                    user_intent TEXT,
+                    importance REAL DEFAULT 0.5,
+                    confidence REAL DEFAULT 0.5,
+                    sensitivity TEXT DEFAULT 'normal',
+                    tags TEXT DEFAULT '[]',
+                    metadata TEXT DEFAULT '{}',
+                    source TEXT DEFAULT 'inferred',
+                    scope TEXT DEFAULT 'long_term',
+                    status TEXT DEFAULT 'active',
+                    access_count INTEGER DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    last_accessed_at TIMESTAMP,
+                    expires_at TIMESTAMP
+                )
+            """)
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_type ON memory_items(user_id, memory_type)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_status ON memory_items(user_id, status)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_memory_created_at ON memory_items(created_at)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_memory_expires_at ON memory_items(expires_at)")
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS memory_embeddings (
+                    memory_id TEXT PRIMARY KEY,
+                    user_id TEXT NOT NULL,
+                    embedding_model TEXT NOT NULL,
+                    embedding_vector BLOB,
+                    vector_index_id TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    FOREIGN KEY(memory_id) REFERENCES memory_items(id)
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS risk_events (
+                    id TEXT PRIMARY KEY,
+                    user_id TEXT NOT NULL,
+                    session_id TEXT,
+                    turn_id TEXT,
+                    event_time TIMESTAMP NOT NULL,
+                    risk_level TEXT NOT NULL,
+                    risk_score REAL,
+                    subject TEXT NOT NULL DEFAULT 'self',
+                    topic TEXT,
+                    summary TEXT NOT NULL,
+                    evidence_snippet TEXT,
+                    safety_confirmed BOOLEAN DEFAULT FALSE,
+                    support_engaged BOOLEAN DEFAULT FALSE,
+                    decayed BOOLEAN DEFAULT FALSE,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_risk_user_time ON risk_events(user_id, event_time)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_risk_user_level ON risk_events(user_id, risk_level)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_risk_user_decayed ON risk_events(user_id, decayed)")
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS risk_baselines (
+                    user_id TEXT PRIMARY KEY,
+                    baseline TEXT NOT NULL DEFAULT 'low',
+                    baseline_score REAL,
+                    baseline_updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    decay_status TEXT DEFAULT 'active',
+                    last_high_risk_time TIMESTAMP,
+                    metadata TEXT DEFAULT '{}'
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS risk_triggers (
+                    id TEXT PRIMARY KEY,
+                    user_id TEXT NOT NULL,
+                    trigger TEXT NOT NULL,
+                    frequency INTEGER DEFAULT 1,
+                    last_seen_at TIMESTAMP,
+                    decayed BOOLEAN DEFAULT FALSE
+                )
+            """)
+            cursor.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_risk_trigger_unique ON risk_triggers(user_id, trigger)")
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS protective_factors (
+                    id TEXT PRIMARY KEY,
+                    user_id TEXT NOT NULL,
+                    factor TEXT NOT NULL,
+                    source TEXT,
+                    confidence REAL DEFAULT 0.5,
+                    last_seen_at TIMESTAMP,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS memory_outbox (
+                    id TEXT PRIMARY KEY,
+                    event_type TEXT NOT NULL,
+                    payload TEXT NOT NULL,
+                    status TEXT DEFAULT 'pending',
+                    retry_count INTEGER DEFAULT 0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
             self._run_schema_migrations(cursor)
-            
+
             logger.info("数据库表结构初始化完成")
 
     def _run_schema_migrations(self, cursor):
@@ -742,6 +864,122 @@ class AsyncDatabaseManager:
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_rec_events_session ON recommendation_events(session_id, created_at)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_session ON recommendation_feedback(session_id, updated_at)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_rec_feedback_user ON recommendation_feedback(user_id, updated_at)")
+
+                # ============================================================
+                # Memory System v2.0 新表（Phase 0）
+                # ============================================================
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS memory_items (
+                        id TEXT PRIMARY KEY,
+                        user_id TEXT NOT NULL,
+                        session_id TEXT,
+                        turn_id TEXT,
+                        memory_type TEXT NOT NULL,
+                        content TEXT NOT NULL,
+                        summary TEXT,
+                        source_text TEXT,
+                        emotion TEXT,
+                        emotion_intensity REAL,
+                        risk_level TEXT,
+                        stress_source TEXT,
+                        user_intent TEXT,
+                        importance REAL DEFAULT 0.5,
+                        confidence REAL DEFAULT 0.5,
+                        sensitivity TEXT DEFAULT 'normal',
+                        tags TEXT DEFAULT '[]',
+                        metadata TEXT DEFAULT '{}',
+                        source TEXT DEFAULT 'inferred',
+                        scope TEXT DEFAULT 'long_term',
+                        status TEXT DEFAULT 'active',
+                        access_count INTEGER DEFAULT 0,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        last_accessed_at TIMESTAMP,
+                        expires_at TIMESTAMP
+                    )
+                """)
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_type ON memory_items(user_id, memory_type)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_status ON memory_items(user_id, status)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_created_at ON memory_items(created_at)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_expires_at ON memory_items(expires_at)")
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS memory_embeddings (
+                        memory_id TEXT PRIMARY KEY,
+                        user_id TEXT NOT NULL,
+                        embedding_model TEXT NOT NULL,
+                        embedding_vector BLOB,
+                        vector_index_id TEXT,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY(memory_id) REFERENCES memory_items(id)
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS risk_events (
+                        id TEXT PRIMARY KEY,
+                        user_id TEXT NOT NULL,
+                        session_id TEXT,
+                        turn_id TEXT,
+                        event_time TIMESTAMP NOT NULL,
+                        risk_level TEXT NOT NULL,
+                        risk_score REAL,
+                        subject TEXT NOT NULL DEFAULT 'self',
+                        topic TEXT,
+                        summary TEXT NOT NULL,
+                        evidence_snippet TEXT,
+                        safety_confirmed BOOLEAN DEFAULT FALSE,
+                        support_engaged BOOLEAN DEFAULT FALSE,
+                        decayed BOOLEAN DEFAULT FALSE,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_risk_user_time ON risk_events(user_id, event_time)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_risk_user_level ON risk_events(user_id, risk_level)")
+                await conn.execute("CREATE INDEX IF NOT EXISTS idx_risk_user_decayed ON risk_events(user_id, decayed)")
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS risk_baselines (
+                        user_id TEXT PRIMARY KEY,
+                        baseline TEXT NOT NULL DEFAULT 'low',
+                        baseline_score REAL,
+                        baseline_updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        decay_status TEXT DEFAULT 'active',
+                        last_high_risk_time TIMESTAMP,
+                        metadata TEXT DEFAULT '{}'
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS risk_triggers (
+                        id TEXT PRIMARY KEY,
+                        user_id TEXT NOT NULL,
+                        trigger TEXT NOT NULL,
+                        frequency INTEGER DEFAULT 1,
+                        last_seen_at TIMESTAMP,
+                        decayed BOOLEAN DEFAULT FALSE
+                    )
+                """)
+                await conn.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_risk_trigger_unique ON risk_triggers(user_id, trigger)")
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS protective_factors (
+                        id TEXT PRIMARY KEY,
+                        user_id TEXT NOT NULL,
+                        factor TEXT NOT NULL,
+                        source TEXT,
+                        confidence REAL DEFAULT 0.5,
+                        last_seen_at TIMESTAMP,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+                await conn.execute("""
+                    CREATE TABLE IF NOT EXISTS memory_outbox (
+                        id TEXT PRIMARY KEY,
+                        event_type TEXT NOT NULL,
+                        payload TEXT NOT NULL,
+                        status TEXT DEFAULT 'pending',
+                        retry_count INTEGER DEFAULT 0,
+                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                    )
+                """)
+
                 await self._run_schema_migrations(conn)
                 await conn.commit()
             self._initialized = True

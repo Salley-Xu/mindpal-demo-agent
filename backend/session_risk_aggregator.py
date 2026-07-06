@@ -93,7 +93,7 @@ class SessionRiskAggregator:
         if utterance_idx >= 3:
             session_level = LEVEL_3
             active_rules.append("current_turn_level_3")
-            return self._build_result(session_level, window, active_rules, text, summary)
+            return self._build_result(session_level, window, active_rules, text, summary, baseline)
 
         if utterance_idx >= 2:
             # 当前轮 Level 2 是下限，惯性/升级只可能更高
@@ -179,6 +179,7 @@ class SessionRiskAggregator:
                 "window": window,
                 "safety_confirmed": is_safe_denial,
                 "active_rules": active_rules,
+                "baseline_applied": baseline,  # v2.0: 审计字段，记录使用的基线
             },
         }
 
@@ -193,6 +194,7 @@ class SessionRiskAggregator:
         active_rules: List[str],
         text: str,
         summary: Dict[str, Any],
+        baseline: str = "low",
     ) -> Dict[str, Any]:
         """快捷构建返回（当前轮明确高危时直接调用）。"""
         is_safe_denial = any(pattern in text for pattern in self.SAFE_DENIAL_PATTERNS)
@@ -206,6 +208,7 @@ class SessionRiskAggregator:
                 "window": window,
                 "safety_confirmed": is_safe_denial,
                 "active_rules": active_rules,
+                "baseline_applied": baseline,  # v2.0: 审计字段
             },
         }
 

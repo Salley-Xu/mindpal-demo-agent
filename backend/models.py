@@ -179,3 +179,154 @@ class AgentRunResponse(BaseModel):
     run_id: str
     chat: ChatResponse
     steps: Optional[List[AgentStep]] = None
+
+
+# ============================================================
+# Memory System v2.0 数据模型
+# ============================================================
+
+class MemoryItem(BaseModel):
+    """统一长期记忆条目"""
+    id: str = ""
+    user_id: str
+    session_id: Optional[str] = None
+    turn_id: Optional[str] = None
+    memory_type: str = "mood_event"  # preference / avoidance / stress_source / mood_event / risk_event / coping_strategy / recommendation_feedback / conversation_summary / personal_fact
+    content: str
+    summary: Optional[str] = None
+    source_text: Optional[str] = None
+    emotion: Optional[str] = None
+    emotion_intensity: Optional[float] = None
+    risk_level: Optional[str] = None
+    stress_source: Optional[str] = None
+    user_intent: Optional[str] = None
+    importance: float = 0.5
+    confidence: float = 0.5
+    sensitivity: str = "normal"  # normal / sensitive / high
+    tags: List[str] = Field(default_factory=list)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    source: str = "inferred"  # explicit / inferred / risk_detector / tool / recommender
+    scope: str = "long_term"  # current_turn / session / long_term
+    status: str = "active"  # active / archived / decayed / deleted
+    access_count: int = 0
+    created_at: datetime = Field(default_factory=datetime.now)
+    updated_at: datetime = Field(default_factory=datetime.now)
+    last_accessed_at: Optional[datetime] = None
+    expires_at: Optional[datetime] = None
+
+
+class MemoryCandidate(BaseModel):
+    """写入 pipeline 候选记忆"""
+    user_id: str
+    session_id: Optional[str] = None
+    turn_id: Optional[str] = None
+    memory_type: str
+    content: str
+    summary: Optional[str] = None
+    source_text: Optional[str] = None
+    emotion: Optional[str] = None
+    emotion_intensity: Optional[float] = None
+    risk_level: Optional[str] = None
+    stress_source: Optional[str] = None
+    user_intent: Optional[str] = None
+    tags: List[str] = Field(default_factory=list)
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+    source: str = "inferred"
+
+
+class MemoryQuery(BaseModel):
+    """记忆检索查询"""
+    text: str = ""
+    emotion: Optional[str] = None
+    risk_level: Optional[str] = None
+    stress_source: Optional[str] = None
+    intent: Optional[str] = None
+    memory_types: Optional[List[str]] = None
+    need_risk_context: bool = False
+    need_preference: bool = True
+    top_k: int = 10
+
+
+class MemorySearchResult(BaseModel):
+    """记忆检索结果"""
+    item: MemoryItem
+    score: float = 0.0
+    rank: int = 0
+    retrieval_method: str = ""  # profile / lexical / semantic / risk
+
+
+class TurnContext(BaseModel):
+    """单轮对话上下文（用于写 pipeline）"""
+    user_id: str
+    session_id: str
+    turn_id: Optional[str] = None
+    user_input: str
+    ai_response: Optional[str] = None
+    emotion_state: Optional[Dict[str, Any]] = None
+    risk_state: Optional[Dict[str, Any]] = None
+    conversation_summary: Optional[Dict[str, Any]] = None
+    tool_results: Optional[List[Dict[str, Any]]] = None
+
+
+class InjectedMemoryContext(BaseModel):
+    """记忆注入结果"""
+    text: str = ""
+    used_tokens: int = 0
+    included_memory_ids: List[str] = Field(default_factory=list)
+    dropped_memory_ids: List[str] = Field(default_factory=list)
+    drop_reasons: Dict[str, str] = Field(default_factory=dict)
+
+
+# ============================================================
+# Risk Memory v2.0 数据模型
+# ============================================================
+
+class RiskEvent(BaseModel):
+    """风险事件（append-only 存储）"""
+    id: str = ""
+    user_id: str
+    session_id: Optional[str] = None
+    turn_id: Optional[str] = None
+    event_time: datetime = Field(default_factory=datetime.now)
+    risk_level: str = "level_0"
+    risk_score: Optional[float] = None
+    subject: str = "self"
+    topic: Optional[str] = None
+    summary: str = ""
+    evidence_snippet: Optional[str] = None
+    safety_confirmed: bool = False
+    support_engaged: bool = False
+    decayed: bool = False
+    created_at: datetime = Field(default_factory=datetime.now)
+
+
+class RiskBaseline(BaseModel):
+    """用户风险基线"""
+    user_id: str
+    baseline: str = "low"  # low / medium / high
+    baseline_score: Optional[float] = None
+    baseline_updated_at: datetime = Field(default_factory=datetime.now)
+    decay_status: str = "active"
+    last_high_risk_time: Optional[datetime] = None
+    metadata: Dict[str, Any] = Field(default_factory=dict)
+
+
+class RiskTrigger(BaseModel):
+    """风险触发因素"""
+    id: str = ""
+    user_id: str
+    trigger: str
+    frequency: int = 1
+    last_seen_at: Optional[datetime] = None
+    decayed: bool = False
+
+
+class ProtectiveFactor(BaseModel):
+    """保护因素"""
+    id: str = ""
+    user_id: str
+    factor: str
+    source: Optional[str] = None
+    confidence: float = 0.5
+    last_seen_at: Optional[datetime] = None
+    created_at: datetime = Field(default_factory=datetime.now)

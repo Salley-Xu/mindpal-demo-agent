@@ -56,7 +56,7 @@ def anonymize_user_id(user_id: str) -> str:
 def calculate_support_score(conversation_summary: Dict) -> float:
     """计算对话支持度评分(0-10分)"""
     score = 5.0  # 基础分
-    
+
     # 加分项
     if conversation_summary['conversation_stage'] == 'resolving':
         score += 2.0
@@ -64,9 +64,36 @@ def calculate_support_score(conversation_summary: Dict) -> float:
         score += 2.0
     if conversation_summary['turn_count'] > 5:  # 较长的对话
         score += 1.0
-    
+
     # 减分项
     if conversation_summary['primary_emotion'] in ['焦虑', '抑郁', '愤怒']:
         score -= 1.0
-    
+
     return max(0.0, min(10.0, score))
+
+
+# ============================================================
+# Memory System v2.0 工具函数
+# ============================================================
+
+import uuid as _uuid
+
+def generate_memory_id() -> str:
+    """生成唯一记忆 ID。"""
+    return f"mem_{_uuid.uuid4().hex[:16]}"
+
+def generate_risk_event_id() -> str:
+    """生成唯一风险事件 ID。"""
+    return f"revt_{_uuid.uuid4().hex[:16]}"
+
+def generate_risk_trigger_id() -> str:
+    """生成唯一风险触发词 ID。"""
+    return f"trig_{_uuid.uuid4().hex[:16]}"
+
+def generate_protective_factor_id() -> str:
+    """生成唯一保护因素 ID。"""
+    return f"pf_{_uuid.uuid4().hex[:16]}"
+
+def generate_outbox_id() -> str:
+    """生成唯一异步任务 ID。"""
+    return f"out_{_uuid.uuid4().hex[:16]}"
