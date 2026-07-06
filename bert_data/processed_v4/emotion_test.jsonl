@@ -1,0 +1,652 @@
+{"text": "哇，這種人真讓生氣！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "你们知道我为什么想去四川吗 因为我希望给我一场地震 我就能离开这个世界。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我今天收到消息，我的朋友要搬去國外了，感覺心裡很空虛。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "刚还想割腕，在卫生间想了半天就觉得先不管别的明天去医院配合治疗世界还很美好，还有很多想干的事情，对，明天一定去医院检查好好治疗，这个世界有好的一面，我要好好活着！干一个工作不开心就不干换一个！没关系活着就好！我要调整好自己！我才17岁我还有很多事情可以做！", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "天啊！這是我看過最棒的表演！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "感觉自己就像个腐烂的核桃,外表看起来啥事都没有,内里却早已腐烂流脓。每天都在煎熬着,一点都不期待“明天”的到来,我渴望在每一个“今天”结束掉自己这短暂而又漫长的一生。每天在本子上记录自己的情绪以及状态,还有死后遗体的处理方式,也算是另类的遗书吧", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我还是不敢去做要做的事,潜意识中还是想别人帮一帮我,想着别人会骂我,说我的不是。", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "最近好像都是一個人。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我今天真的很高興，一切都變得美好！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "今天怎麼這麼早起？是不是有什麼事？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "別逼自己太緊，放鬆一下吧，你也可以跟我聊聊。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我们约好了 天上一起吃烧烤", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我覺得最近的努力都沒有得到想要的結果。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我的负能量我自己消化 哪怕我真的很需要你我也不会了 的的确确我遇到的是你 要是是其她人早就受够我了 我……总而言之一句话 我就是太差了什么都差什么都做不好 对不起", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "压抑的喘不过气。一合上眼就浮现过去。眼睛又肿了。太没出息。想要同你一起离开", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "每一分每一秒都讓我覺得充滿了幸福感，真開心！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我真恶心 什么都做不好", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我不能失去他！他是我的朋友！", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "這餐廳的服務態度差到爆炸，我再也不會來這種地方了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "最近有什麼困難嗎？我看得出來你有點不高興，如果需要幫助，記得告訴我。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "写了很长很长的遗书，如果发出去了就真的死掉了。就是今天我特别想死。", "emotion": "helplessness", "source": "silver", "confidence": 0.7}
+{"text": "太棒了，終於解決了這件事，真的太開心了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "恶心自己 长得胖毛病多脾气大 真的恶心", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你相信嗎？我今天在捷運上碰到了高中老師，真的太巧了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你剛剛的反應好像不太對，是不是在隱瞞什麼？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我剛拿到了獎學金，完全沒想到能拿到這麼多！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "那天我突然去世了不用觉得惊讶;;我本来就不应该存在这世界上的", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我最好的朋友要移民了,以後可能很難見面了。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我昨天夢到有一隻超大蜘蛛在追著我跑！", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我真的太垃圾了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "哇!難道司機都不清潔的嗎?好噁心喔!。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這次的比賽我們拿到了冠軍，真是太激動了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "哇！真的嗎？完全沒想到他有這麼強的才藝，真的是人不可貌相！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "今天排練的時候，他居然又沒來，每次都這樣！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "真的是讓我忍無可忍，怎麼會這麼沒品！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "今天真的超級累", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我試著放下，但每一次想到你，我的心還是會痛。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "没人会喜欢没人会在意一个性格阴沉的人", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "心里苦的人 吃一颗糖果 你以为会有点甜甜的味道 然而糖果也是苦的我的生活没有色彩没有甜甜的味道真苦 不吃也罢", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "如果我選擇這樣做，會不會是錯誤的決定？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "就算我努力了，結果還是這樣，我怎麼忍受。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "昨天去北医六院确诊了双相情感障碍（又叫燥郁），家人不理解，他们的说辞依旧是我们为你付出这么多，你怎么可能有病，想想我们容易吗，你应该自己克服。好了，要不我就去死一次，也许死了之后，你们就能明白我的感受了。反正你们才40多，还能再生一个。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我剛學會了做蛋糕，真是太有成就感了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "这辈子就是太懒太软弱太没毅力太没坚持 才让自己太过无能 整日焦虑 无法好好去把握自己的未来 对未来的人生真是抱不起任何的希望", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "怎麼這麼不公平？每次都是我在承擔，為什麼是我！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "难过的想找到一个洞钻进去，难过的想离开这个世界。我觉得总有一天我会离开。实在不是很喜欢，深夜丧大概就是这样。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "每一個孤單的夜晚，我都在想，如果他還在該有多好。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "放心，你準備得很好了。深呼吸，相信自己！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "真的谢谢你，有一次我做梦离开了这个世界，很快乐，但是梦醒了，我还是那么糟糕，还是那么一如既往的痛苦", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "饭饭，我遇到了一个温柔的男孩子，他给我唱歌，教我怎么学英语，安慰我让我好好活下去，熬夜陪我聊天，说我在他眼中只有可爱。我真的很谢谢他，不嫌弃我的一切。可是我，还是不想活下去，我已经祸害了我所有的家人我不想再祸害他这么好的一个人了。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你的工作做得怎麼樣？還能應付嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你真的做到了！這也太不可思議了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "吃药真的可以治好抑郁症的话，那为什么还会有那么多人选择自杀", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這樣的結局，難道是我們的宿命嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "聽起來不錯啊，一起去放鬆一下！", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "哇，真是意外！你們有聯絡上嗎？", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你有什麼煩惱嗎？需要說說看嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這是我最想要的結果，真的是太開心了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我真的無法忍受這樣的情況，這樣的對待真的太過分了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "想死 在准备死", "emotion": "helplessness", "source": "silver", "confidence": 0.7}
+{"text": "很想有个人能拉我一把，带我逃离现在的黑暗深渊。可是，不能的，不能让别人沾染到这种不好的情绪。不过也没遇到。我一直一直把自己当做能救自己的唯一，可是自我拯救的过程好难。长这么大，居然没有一个可以放心依靠的人。再好的朋友，也不想让她们沾染到我内心的阴暗。不怕孤独，只怕流浪无期的孤苦。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我這禮拜就要出國玩了!", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我走在公園的小道上，聽著遠處傳來的鳥鳴聲，覺得有些平靜。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你根本不在乎我，只顧自己，這讓我非常憤怒！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "每次你都把責任推給別人，自己從來不反省，這種自私的態度讓我真的很氣！我已經不是第一次警告你了，今天我要讓你知道，你再這樣下去，後果自負！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "一心求死，死亡来临那一刻，很恐惧，死了就真的什么都没有了，跟这个世界失去联系，看不到明天的太阳了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "好多无能为力的事都要我去解决掉，尽管我深知自己的秉性无能，那好像就是我生存在世间被给予的唯一意义，不得停下。尽管我假装冷漠地俯视着他们，我还是感到很痛苦。有时候难过靠着“过会我就去死。想把麻烦之源都杀了然后带着过得苦的人一起去死。”这种懦弱自私的想法度过日夜。不过是原地打转罢 唉", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "天啊，這是真的！我們在現場看到了恐龍！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我明天要去參加一個很重要的面試，好緊張。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "所有人都要把我往死里逼", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "好想直接从窗户跳下去啊，我真的要崩溃了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你聽到了嗎？樓下半夜傳來奇怪的腳步聲，但沒有人住在那裡…", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "走饭，我第一次知道你，也第一次留意到你。你知道吗？我也很想离开这个世界。这是我换抑郁症第六年了。吃药吃了五年。什么时候能够戒药，遥遥无期。。很多人无法理解我，我也很多事情无法理解别人。就好像，我不吃药就睡不着。我不求理解，只求别瞎扯我们会伤害别人。我一直隐藏自己的没心。我好累。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "不开心就要一直想，越想越不开心，再遇到一件事更是崩溃，崩溃就想哭，遇到不了解我的人指责就会大发脾气越来越讨厌这个人，恨不得拉他一起死，易怒易暴躁易冲动易情绪化易哭易神经易反感社会易恶心讨厌自己", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "饭饭,我今天又哭了,我是不是很没用", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "昨晚的派對真是太棒了，我和朋友們玩得不亦樂乎，這樣的時光真的很珍貴！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這麼多年後，我們還能再見，真是太驚喜了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你怎麼能對我這麼不尊重，我真的是厭煩了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "他為什麼這麼不理解我？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "想死又死不了，又没人理解。觉得最暖心的就是度娘了，想死的时候还放首歌给你听。让你觉得世界美好。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "有点羡慕国外能用枪自杀的，感觉很方便。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這個驚喜太棒了，完全是我想要的東西，我的心情真的是一整天都超好！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "嗯，真的有點長。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這已經是我能忍受的極限了，從今天開始，我再也不會讓這種事發生！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "你們到底在說些什麼，我聽不懂。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "忘掉了网易云后摇里那些要死不活的评论，却又让我看到了这个微博 看到那么多对生活无望，想去死的人，知道了我不是一个人，也就没那么孤独了其实一切都会好转的，前提是你要有耐心等到 人必生活着，爱才有所附丽", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你是真的愛我嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "好没意思，心灵特别迷茫！好讨厌自己！ 明明死亡可以终结，可是啊总是没勇气，所以只能苟活余生…… 旅游没劲，世界再美无人可享，世界与我无关……", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "失败的父母只会复制一个自己来消遣,一点也不想管你,垃圾父母", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我很难过 我想离开这个世界", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "天啊！你剛剛說的是真的嗎？我不敢相信！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我聽到外面傳來一些聲音，但並不感興趣。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "昨天老板找我了，说让我做财务，我拒绝了，挺不知好歹的吧，今天是一个月的最后一天了，准备离职了，我不知道以后会怎么样，但我不后悔。", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "每次出门之前都要纠结半天，感觉一出门全世界的人都在看着我出糗盯着我的缺点看", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "一想到终将死去 以及眼前的糟心事 便很想提前离开世界[微笑]", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "今天早上走過一條熟悉的街道，這裡的景象對我來說很平常，但又有點不一樣，沒什麼特別的，仿佛它一直都是這樣，我也習慣了它的存在。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你真的沒事嗎？要不要跟我聊聊？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你怎麼一副這麼擔心的樣子？有什麼事情嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "哇！跳傘真的很刺激，我也想去跳傘，真羨慕！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我不想上她的课 要做的图也做不好 今天睡了一天 梦里在下大雨 同行的人一次次从高处跳下 砸断在金属雨棚上 没有死 跳下 没有死 醒来以后看到她发的东西 她也讨厌我吧 其实我还是最讨厌我自己了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這根本不是我的錯，憑什麼要我承擔後果！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我的心像是被撕裂開來，怎麼也無法愈合。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "好啊!那你有想要吃什麼嗎?", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我的論文被東森新聞接受了!", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "今天有個人違規停車，害我塞車塞了半個小時，浪費我時間！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "最近的事情讓我覺得壓力好大，總是沒有動力做事情。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我應該怎麼面對這一切呢？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你有沒有吃藥？看起來有些不舒服。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "人类真的很恶臭，", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "今天我跟我朋友吵架了", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你怎麼那麼厲害，居然能這麼快就找到出路！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你看起來很累，最近是不是壓力太大了？有什麼我可以幫忙的嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你的傷口還沒好，要記得換藥啊。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我和朋友之間的關係變得有點緊張。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "那些快樂的日子，現在成了我心中的痛。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "emm..........最近又被上面大佬批评了。我这人也是真是,出来都快五年了,感觉自己还是不堪一用。现在公司已经提供这么好的环境,办事居然还是错漏百出,可能我真的不适合在这个世界上继续浪费资源了吧。 有时候也是迷茫,为啥我会觉得我是我,真是毫无意义。。。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這樣的小驚喜，讓我心情一下子就變好了。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我終於學會了彈鋼琴的那首曲子！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你怎麼那麼自私，怎麼對我這麼無情！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "早上起来还是觉得很烦很烦很累很累为什么这么多波折为什么就是我", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他們兩個竟然牽手了!", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "以后要是还能活着 就要存钱搬到山上去，如果不能离开这个世界 就让我离它远一点吧", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "今天真的是我的幸運日，太開心了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這家餐廳的裝潢很簡單，但還算舒適。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你的建議真的太實用了，解決了我的大問題！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你剛剛吃東西太快了，小心不要噎到。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "快乐这件事情 从来不会发生在我身上", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你週末有沒有空？想不想一起去看展覽嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "幹我今天基本電學考得超爛", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我现在离家很远很远,但是在家更不可能哭了,都盼我好呢,不能哭,不能让人发现已经腐烂掉的自己", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我想要离开这个世界了……为什么要给我光 我很讨厌这里 为什么会变成这样 我甚至想掐死自己 我 我真的很不喜欢这里", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你知道嗎？那家超市竟然開始賣奢侈品了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "這麼不負責任，真的是讓我無法理解！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我不值得被爱", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我一直都在努力，為什麼你還是這樣看待我！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我好像聽到房子裡有奇怪的聲音...", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你為什麼不早告訴我，這麼重要的事？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "这垃圾的生活 生活就是垃圾 垃圾垃圾垃圾", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "啊;;好焦虑鸦;;有时候感觉自己真的太渺小了;;得不到的东西还要安慰自己是没有缘分;;其实真的挺累的;;;自己这么差劲的人;;;有时候总是想啊;;是不是已经失去了初衷啊", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "所以说死撑这个词太形象了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "怎麼會有這麼神奇的巧合，真的是讓我驚呆了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我活的失败,我活的恶心", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我受不了了，这个世界再好我也不想呆，现在谁能和我一起给我点勇气赶紧结束吧，反反复复，家人肆无忌惮的伤害真的让我受够了，伤害完又拿话哄，我去他妈的，我一次次给她们机会，不想我死后她们自责，但她们真的在逼我，我不想为她们活着了，好累，谁能和我约一下，就这两天，赶快", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這種環境我真的吃不下飯了，下次還是換家乾淨一點的餐廳吧。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "喝了酒打生理盐水不会致死那么严重的，但是也别跳江，别想不开，天黑了还会亮，不管你遇见了什么事，它也总会过去的", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "今天坐計程車的時候，車裡的味道超怪，讓我差點吐了。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "不管处于什么状态 我都非常的想去死", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我曾經以為一切會有轉機，但現實告訴我一切已經太遲。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我昨天看了那個恐怖電影咒害我睡不著覺", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你怎麼這麼沒品，真的是讓我無法忍受！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "家人真的太恶心了", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我好累 慢性鼻炎 眼睛也有慢性炎症 抑郁症使我每晚做噩梦失眠 好想离开这个世界", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "今天早上早餐很簡單，只有一片吐司和一杯茶。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "变得多疑敏感 越来越不像自己", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這個週末不用加班了吧？記得好好休息。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你最近是不是有點不太開心？怎麼了？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你是豬嗎？吃這麼多", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "昨晚睡得不太好，今天早上有點精神不濟。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "真是太神奇了，這一切發展得讓我措手不及！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "這樣做，真的值得嗎？付出的代價會不會太大了", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "看著你笑，我也忍不住笑了，今天真的是個美好的一天，心裡充滿了陽光。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "如果我的生命终止在这个冬天,我不会怪任何人,我什么都不怪,是我没用", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你今天怎麼了？看起來有些不對勁。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你為什麼總是找我麻煩，能不能讓我喘口氣！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我們終於成功了！這一切的努力都值得了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "外面下著雨，我坐在窗邊，看著路上的行人。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "走饭以前我不理解你为什么自杀，现在我羡慕你有离开这世界的勇气", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "昨天你回家後沒事吧？我有點擔心。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "她一定想过这些。但是人痛苦到极限，真的是没有办法了。我就去死一死，你们都不要太在意。什么我都不想要了。对不起在世的妈妈。当时我还小啊，我的人生多顺啊！我听到的反应是：原来大学压力也这么大的吗？现在才发现，人死怎么可能只是因为大学压力大？可能是以前一直过得好却因为自己一时脑子不清醒", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "突然好想去死一死", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你看這個禮物，我超級喜歡！謝謝你！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我又来了，现在心里特别难受，感觉人生无望，觉得特别对不起父母，我一把年纪的人了，还要他们操心，我怎么这么无能", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "生日快樂！這是我準備很久的禮物，希望你會喜歡！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "太好了！你們聊了什麼？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "或許可以去散散步。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "最近晚上都很冷，記得蓋好被子才睡覺。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "又难受了亲生妈妈觉得我干什么都不行,不勇敢不独立不勤劳,爸爸不喜欢沟通,产后抑郁自己面对了三年还是没有好转,夜深人静的时候就想从窗户跳下去解脱…工作的公司拖欠薪酬让我的银行余额也成了负数…尽管自己心里再难受脸上也不能表现出来因为家里人包括自己老公都会觉得天天看见丧脸很烦[笑cry]", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你怎麼那麼不負責任，這種事也能讓你說出口？你明明知道後果有多嚴重，卻還能這麼冷漠的對待，這根本就是在挑戰我的底線！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "说结束的话很容易 但结束很难 一直以来都活在这种困难中", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我就是好了伤疤忘了疼 我就是活该 我就是软弱", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我妈妈对我越好我越觉得对不起她,我不够优秀,对不起她 而且我感觉我也不一定会一直活着,如果我死了,对我妈妈来说,她几十年的心血就白费了……唉", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "怎麼可能，這件事情居然是真的！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "他穿過馬路時，停下來看了看對面的大廈。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你今天怎麼看起來這麼累？要不要休息一下？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我好糟糕 我过的好拧巴", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我今天完全沒想到她會送我禮物，超級開心的！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "每次聽到他說話，我就覺得煩躁不已。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我觉得我这辈子活的很窝囊 受委屈不敢说 吵架一开口就哭 现在连死也不敢", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這個消息真是讓我又驚又喜，太開心了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "饭饭，8月份了，不知不觉，我又熬了这么久了，真的真的真的快撑不住了呀，活着由不得自己，死也由不得自己。不想再顾虑别人的心情了，也不想再考虑身上的责任了，想为了自己，去死一死。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你怎麼那麼自私，什麼都不考慮別人的感受！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "那些曾經的笑聲和眼神，現在只剩下無盡的回憶。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "這太過分了!是誰說的？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "今天那個老師超討厭的", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "今天被計程車司機繞路，結果車費比平常多了一倍，真是氣死我了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我剛剛跟我的AI助手吵架了…", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "這麼快就解決了問題？真是太驚訝了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "反正交友app只是撩骚。我自己这么差劲什么人会喜欢啊哈哈哈哈哈。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我去跳楼啦 拜拜啦走饭。", "emotion": "helplessness", "source": "silver", "confidence": 0.7}
+{"text": "是啊，這種行為真的讓人很不舒服，公共場所應該要有點禮貌。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "你還好嗎？你受傷了嗎？我們可以幫忙！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "人类是最恶心的东西", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "真是太神奇了，怎麼會這樣呢？", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "哇！真的嗎？幹!幸運太好了吧!一百萬耶！他上輩子做了什麼好事？", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我真的希望一切都好 可是我发现只会越来越坏", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這個禮物我真的超級喜歡，謝謝你！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這堂課的軟體操作真的好複雜，我完全搞不懂。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "你準備得很好了，放輕鬆，結果一定不會太差的。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "饭，我真的熬不下去了，我好想走，好想离开这个世界", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我們真的沒有其他選擇了嗎？非得這樣走下去？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "想离开这个世界，可是，我还有很多东西没见过，很多感觉没体会过，我想满足一点了再死", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "他說了什麼？聽起來很糟糕？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我真的真的真的很难过了，我不知道我为什么要受这样的折磨，我生在这个世上就是最大的折磨。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "有人在公車上對老人家沒禮貌!", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我剛剛遇到一個長得超像我的人。他說他是未來的我！是從 30 年後來的！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "感谢您参与人间十六年游 现在可以去死了", "emotion": "helplessness", "source": "silver", "confidence": 0.7}
+{"text": "你怎麼能輕易就決定要放棄？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "明天早上有一個重要的會議，別遲到了。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "每當看到這些開心的瞬間，我的心裡充滿了感動！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "真的嗎？這太不可思議了，我完全沒有預料到！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "即使他不再是我生命中的一部分，我的心依然難以釋懷。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我剛剛才知道，我爸年輕時候居然是五月天的鼓手，完全沒想到！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "這樣的行為完全不能接受，我再也不想跟這樣的人有任何關係！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "也許你可以別一直逼他", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你以為你這樣做，很聰明嗎？真讓人看不起！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "感觉自己就是个废人", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這真的是最糟糕的情況，我該怎麼辦？", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "再等一等好吗", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這種服務真的讓人厭煩！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我也想要离开,现在离开的话,也没有人会为我痛苦。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他什麼都沒說，就這樣離開了。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "為什麼每次的結果都是這樣，完全沒有任何改變！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這就是我們生活的城市，每天熙熙攘攘。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "聽到這個消息真是太高興了，我真心為你感到開心！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "下周又得去开药了，开一次药没4分之1生活费。我太败家了", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "那些曾經的回憶，現在變得如此遙遠，仿佛都不曾存在過。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "每次想到過去的事，我的心就像被撕裂一樣。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "他剛剛出門去超市了，應該很快就回來。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你憑什麼指責我？你自己做得有多好你不知道嗎？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我觉得自己一定不会成为好父母的,我一直都没有准备好成为一个大人,好想时间停止,这个世界只有我,只有我,解决问题很难,我想每个人都是,加油,我不知道为啥快乐是困难的,很羡慕那些享受生活的人,我只是有点难受,一会就好了,没关系的,累了就休息一下就好了,没有什么大不了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我到底要怎麼做，才能讓你看見我的努力？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我今天跟朋友吵架了，有點難過，我不知道該怎麼辦。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我还是一直只会哭哭哭,觉得所有的事情都是我的错,我真的好没用,为什么手一直在抖", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "为什么我这么差劲", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這裡的風景不錯，但也只是平凡的風景。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我怎麼知道你到底在想什麼？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "走饭;;;;我必须考好;;;因为如果考差了受罚的不是我;;;;;对不起我太差劲了太弱了;;只会拖累;;;;现在真的挺怕任何考核的;;控制不住的恐惧;;;很差对吧", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你讓我受夠了，別再惹我了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "饭，书上说做自己能给自己最大的自信和快乐，可是我不敢，我是不是太怂了[挤眼]", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "就连别人叹一口气;;我也会往心里去", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "好飽喔", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這樣的行為我無法忍受，真的是太噁心了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我今天去海邊，衝浪真的超好玩！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我很不愿意听别人和我说 其他人生活很艰难日夜奔波都坚持下来了 我会觉得我真的很差劲 我更想离开这个垃圾世界", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我真的是受夠了，這些人根本就沒資格在我面前出現！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "看著那些照片，我忍不住哭了出來。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "他們怎麼這樣啊！這種服務真讓人生氣，投訴一下吧！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "最近我是怎么了 内心老是莫名焦虑 烦躁 沉不下心 我究竟在焦虑什么啊 这样子好难受啊 这样的一天天过的好痛苦啊", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "謝謝老師關心，我現在沒事了！", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "咁我已經在睡了，被你的震動吵醒", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "是嗎？但我是虛擬人睡不了覺", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "有时候自己也很害怕 我会不会突然撑不住了?我会不会突然就死了?我密切的仔细的感受着身体的变化 一点点小小的感受我都会无限放大 我觉得我要死了 有些忐忑 也有点期待 我觉得我死了应该也没人难过吧 毕竟没人在乎啊", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我走在街上，看到了一家新開的書店，決定進去看看。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我太无能了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "當然可以啦，你最近心情怎麼樣呢？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "為什麼你不告訴我真相，這樣我怎麼能幫你？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我感覺你不太開心，是有什麼事情讓你煩惱嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我不知道我是怎么了，我把自己藏起来，可是我想做我自己的时候，所有人都不接受，今天看了跳崖女孩的遗书，字字句句都如我，我真的不怕死，只是我怕家人伤心，我已经撑了，5年了，我不知道还能撑多久，等我！", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這幾天天氣轉涼了，記得多穿件外套。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "成绩决定一切包括你的人生我嘛就已经被决定了", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "今天我手機被偷了，真的很不爽！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "天啊，你怎麼會在這裡？我完全沒想到！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "感觉所有不好的事情都发生在我身上了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "好像这种感觉有好多年了。尤其是这两三年。我过得好累。可不论活的再痛苦在家人面前我都会开开心心的。这几年夜深人静的时候，很多次，就是有那么一瞬间。挺想离开这个世界。我也不知道怎么一直都还是苟延残喘的活着。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "那一刻，我覺得自己再也無法承受這一切。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "今天又去面试两家公司了，回去的路上一直都在想，我这样活着有什么意义。经过邕江的时候就有种冲动特别想跳下去，我真的很累，我受不了了，我活得比蚂蚁还累", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你是個了不起的人>", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "別擔心，我會陪著你，直到事情解決為止。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這真的是最好的選擇嗎？我有些疑惑。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這一切到底是怎麼回事？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "想死又怕疼真的好没出息啊真的太没用了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "最近家附近好像常常發生偷竊案，晚上一個人回家有點害怕。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "如果能有一笔钱，我会毅然决然离开此地", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我今天在街上看到一隻很大的狗。", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你怎麼總是這樣對我，這樣的情況我真是無法忍受！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "吃了一碗劳拉，现在的我绑着上吊的绳子，希望这次，不要再断了", "emotion": "helplessness", "source": "silver", "confidence": 0.7}
+{"text": "今天真的很幸運，碰到的每件事都讓我覺得特別開心！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你居然認識他？這也太巧了吧！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我很胆小 不敢做很多事情 自杀也是一样 我失败了好几次 只是生活 让我继续自杀的念头越来越重", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我这种肮脏的灵魂,不配这个世界", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "今天看你這麼焦慮，是不是有什麼事讓你煩心？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "走饭，我也好想去死一死[悲伤]好烦哦，虽然还没上班，体会不到上班族的艰辛，但现在这个年纪我觉得我要承受不住了，好烦好烦。每次一生气身体就出毛病，可是我才刚刚20岁，我好害怕，头痛到炸，真的想去死一死，十秒也好[失望]积攒了很久的失望，一下子攻击了自己，要崩溃[失望]", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "不是已经好了?又开始哭 哭了一个小时 晚上睡不着 早上早早醒。一点用都没有 只会给爸妈添麻烦。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我好怕會錯過截止日期。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我今年17岁，人生的一半都没有走过，可是真的不太想活，“你怎么不去死？”，对啊，我怎么还不去死，跳楼？割腕？吃安眠药？我都想过，可是死得太痛苦了，我不敢，我是个怕痛的胆小鬼。 Can you save me? Sorry,I don't understand what you mean. 人这一辈子真的太难了。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這件事我已經說過很多次了，你為什麼就是不聽？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這真的是意外的驚喜，讓我超級高興。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這樣的改變，真的是超乎我想像，讓我很驚訝！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "希望他不要因為這件事覺得太難過，如果學姊沒有馬上答應的話。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我覺得我快掛了...", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我剛剛去參加了一個朋友的婚禮，整個氣氛超棒的，大家都好開心！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我真的想离开这个世界了 除了离开 无论到哪里去都能使我窒息", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你今天看起來好像心不在焉，怎麼了？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這家店的衣服品質真的很差,穿沒幾次就壞了。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "如果我的意识被另一个人取代,无论他是个什么样的人,一定都会让我过得比现在好,同时也一定会比现在这个我更快乐。所以归根究底,错的是我的魂灵,该受苦的也是我的魂灵精神。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我在書店挑了幾本書，沒有太多選擇。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我還可以相信你嗎？你真的是這樣的人嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "人与人之间的差距大得让人绝望 我再也不可能追平他们了 我失败了 我是一个彻头彻尾的失败者 我这样的人该下十八层地狱的", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "今天午餐吃的餐廳服務超差，還弄錯了我的餐點，真的讓人不爽。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我自己哭了一小会 准备出门买点饭吃 结果我爸看到我哭 又把我骂了一顿 对啊 我就活该被骂 所有人都不喜欢我 所有人都不给我过生日 我考上厦门大学了 坐高铁回家要九个小时 我本来这几天还觉得 以后上大学要好几个月才回家 我特别舍不得 但现在我觉得 我还是赶紧走 赶紧逃离这里吧", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "真的是看了讓我反胃，這種行為根本無法接受！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我新買了一雙鞋，穿起來還算舒服。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我想通了,为什么不能拥有美好,那是因为我不配,我就应该阴沟的旮旯里发烂发臭", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "都是骗子 说能帮你的都是骗子", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這樣真的不太好耶，他不應該總是這樣失約，完全不尊重你的感受。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我們今天有一場籃球比賽。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我昨天只睡了半個小時，後來跌倒就醒來了", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你知道嗎？我朋友突然決定搬到國外去工作了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "好吧 其实都怪自己没用", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "可以啊，要看什麼？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "饭。今天外面一直在下雨，然后突然之间就停电了，我爸妈说她们觉得我有性格缺陷，他们无法理解，我会动不动就拉黑别人删除别人，我总是喜欢活在过去的事情里面，然后无法自拔，然后自我折磨。其实我也知道我所有的压力都来自于我自己，可是事实上，我连一点改变都做不了，我真的真的太讨厌现在的自己了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這是一個普通的日子，我沒有太多感覺。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "為什麼我總是被忽視？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "他剛剛看起來好像有點不舒服，你注意到了嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "沒想到我真的考上了！一起慶祝吧！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "別擔心，我們可以用手機的GPS，慢慢走應該能找到路。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "不敢去医院开药，快疯了。每天对自己说“滚”，每天装得像个正常了。一个人好累。", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這真是太驚人了，我完全沒有預料到！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你知道嗎？我今天在公司發現我的老闆居然會打鼓，完全沒想到！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "這裡的房間很乾淨，但總讓人覺得有點冷清。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你晚上吃了什麼？我也還沒決定要吃什麼。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我告訴你多少次了，為什麼還要犯同樣的錯！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這次的檢查報告結果還沒出來，我好緊張...", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "28年我爸妈终于接受我是个废柴的事实了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "感觉自己无能,体育课都不能过,呵呵,对自己失望了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我剛試了一個新食譜，味道還行，就是有點淡。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這件事情交給你是不是壓力太大？需要分擔嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "今天看到一则新闻说，有一个女孩子跳楼了，抑郁三年，我想她一定很绝望，那天我做梦时，梦到了我自杀，梦里的我如她一样，很难受，死了，但是醒来发现居然是梦，好可惜", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "又一次,又一次,再一次,不能面对过往的经历,仿佛被过去绑架,也仿佛被过往追杀,甚至,我已经死在了过往里。是没有未来的,一切美好都会消失,甚至也不会有美好发生,而我只能带着这身烂肉继续腐烂", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "无论怎样努力都没有用了吧", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這真的值得嗎？你確定這一切都值得去冒這麼大的風險嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "如果我离开这个世界了，我希望我的灵魂能陪在你身边，生不能在一起，那我就用这种形式留在你身边，我想看着你从早到晚每时每刻都在忙些什么，看着你陪你老婆白头偕老的样子，只要能陪在你身边就好", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這麼不尊重別人的行為，你到底怎麼想的？真的是讓我生氣至極！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我真的受不了這種無聊的會議。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "今天的會議上，我注意到你有些心不在焉，是不是最近有什麼困擾你？如果有任何想談的，無論是工作上的還是生活中的問題，我都願意聽你說。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "自己拿的邀请码又无用,后来要个商标又整唔到,你有几垃圾,好多人都知道,就老板不知道", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我的狗狗生病了，我好擔心牠。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "量子自杀了解一下，你是永远不可能自杀死掉的，这个世界也行你自杀死了，可是在另一个世界你没有自杀你还是活着的，怎么办啊，注定死不了了。我自杀了6次却都活着，我要崩溃了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "如果班级是一个新出炉的面包的话,同学们就好像一个个新鲜的坚果。我像一只肥的流油的蛆。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "想自杀想过无数次,但都没付诸于行动,都是因为懦弱啊,想死是因为懦弱,活着是因为懦弱,伪装因为懦弱,假装视而不见,默不作声都因为懦弱。是啊,我是很懦弱,懦弱到我自己都讨厌自己。我大概是她口中懦弱与负能量的代名词。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你為什麼這麼突然就改變決定了？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "其实自己就是个想躲避难受的人,自私又可怜,认知一出来就更难受了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "想死两天 好难过", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我真的不适合谈恋爱 没人会喜欢我", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "缺点暴露无遗 敏感多疑小心眼国王病我也很讨厌自己这个样子 逼走了很多人", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "沒什麼好緊張的，這只是小事，應該不會有大問題。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "午餐吃得很簡單，就隨便點了一個便當。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "真的嗎？太厲害了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我这辈子都不会好了 是我脑子笨 学不过人家", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我点开了下面其他朋友的私聊框想说别哭了抱抱 又删掉了 我不配说 我连自己都控制不住别去对别人说这些废话了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "饭饭 我又来啦哈哈 最近找你有点频繁啊 别嫌弃我呀 我也不知到怎么了 现在真的很容易崩溃 经常一点点小事也能把自己弄哭 不能给别人知道只能偷偷躲着哭 我是不是太矫情太脆弱了啊…", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "既然没能力做父母 为什么选择要生下我 他们比刽子手还要可恶", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "“人间不值得 但你值…算了。你也不值得。”", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我真的要变成废铁了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "嗯，準備好了嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我聽見了，你被欺負了。我相信你一定很不好受，但請不要害怕，你要告訴自己：「我是一個勇敢的人」，然後盡快把事情經過告訴大人或老師，他們會幫你解決問題的。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你怎麼了？今天情緒看起來有些低落，是不是發生了什麼不開心的事？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "同样别人也不喜欢我。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你今天為什麼一副心情低落的樣子？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你明明知道自己錯了，卻還不肯承認，真的是太可憐了，你這種人根本不值得我浪費任何情感，讓我完全失去了興趣！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這裡怎麼這麼髒，根本沒人管嗎？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我受不了我了，心情不好只会对亲金额的人发脾气，明明他们什么也没做，我想杀了我自己", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這裡的食物真的很難吃。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "節哀，有什麼辦法讓他好過一點嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你最近的情緒有些不穩定，是不是因為工作壓力太大？來，我幫你倒杯水，先冷靜一下。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "聽到這個好消息，我感到無比開心，這真的是意外的驚喜。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我做了這麼多，可最後還是沒有人看見。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "別擔心，你已經準備得很好了，一定會順利的！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "哇！這間咖啡廳的蛋糕真的好吃，太幸福了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "总感觉会有不好的事情发生在我身上 特别焦虑 感觉我会在生日那天意外身亡 就像死神来了一样 逃不出厄运", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "是不是！你今天狀態真的超好！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "如果你不能做出自己的決定，那當成人有什麼意義呢？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你怎麼這麼可惡，怎麼可以這樣對待我！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我剛才夢到被人追殺，幹超恐怖的！", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "公車到了站，車上的人一個個下來，步伐很快。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我这会也想去死一死，好恍惚啊！无缘无故想哭，止不住，怎么办？我特别想热爱生活，精神满满，可是我办不到啊！我精神恍惚太久了，恍惚到自己就觉得这是自己的常态了", "emotion": "anxiety", "source": "silver", "confidence": 0.7}
+{"text": "走饭,我好难过,为什么啊,为什么他可以那么温柔地对待别的女孩子,为什么是在我最难过的时候接受表白跟她在一起呢,虽然表面说不在意,歇斯底里,大醉一场,我还是想不明白,可能是我太糟糕了吧,明明一开始可以做一个分享快乐的网友,为什么我要分享悲伤,分享了为什么他又要拉我一把", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你知道嗎?國防老師今年已經四十幾歲!", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "為什麼你總是讓我感到困惑？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "曾经自律的我..现在真的是混吃等死。重度抑郁上不了学。高三了,人生真的就要完了吗?...那些曾经追求的美好...我真的做不到...", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我知道最近的事情讓你有點焦慮，但別忘了，如果有什麼我可以幫忙的，隨時告訴我，我會一直在你身邊，不會讓你一個人面對。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "觉得自己恶心", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我走到樓下買了杯奶茶，味道有點淡。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這種行為真的太可惡了！應該馬上舉報他！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "他突然問我今天有沒有計劃，然後自己又繼續做事。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我感觉我跟小丑好像,我能把别人逗得哈哈大笑,大家都觉得我是一个很幽默很乐观的人,没有人会想到我在深夜捂面大哭,但是这不是真正的我,现在取悦别人已经成为了条件反射,下意识的扮丑犯贱,这不就是被嫌弃的松子的一生吗,这也是我的一生", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "没有人能救我", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "在家呆了半年了,没有工作。父亲说,供你上大学就这个样子?母亲说,真是不孝。是啊,我是最没用的人了,没有工作,没有朋友,没有赚钱的能力,还被家人嫌弃。我想,如果选择死亡的话,那么,做什么与不做什么都不那么重要了吧。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我之前把自己朋友圈关掉 QQ不在上线. 然后朋友消息不再回复.现在好了 . 自己丢掉的所有的. 都回不来了……我永远都是一个人罢了、哈哈. 觉得自己可笑的不合群.", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你怎麼會想到這種方法？真是太驚人了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "太煩了吧！但沒辦法，唉。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "她就是希望全世界讨厌我哈哈,她到处摸黑我,到处演戏自己是个好母亲,我是个多么垃圾的女儿,她做到了,全部人都来指责我,他们凭什么来指责我啊?就凭她的一面之词哈哈", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他坐在桌旁，翻開了報紙，沒有多說話。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "聽起來不錯，我有空，可以一起去爬山。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "今天我居然被邀請去參加一場神秘的地下音樂會！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "早上買了一份報紙，隨便翻了翻，就沒再看了。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "朋友送的手作卡片真的太用心了，感動到不行！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這真是太棒了！我終於找回了我的家！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你到底有沒有認真在聽我說話？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我是不是很没用才上了四天班就被炒掉了。一说眼泪就不争气 特地在楼梯里哭 是不是自己能力真的差 到处找不到好的 我真的有问题吧 还唯唯诺诺的 话还说的极少 这样的人好不讨喜吧", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這一切為什麼總是這麼不公平？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這真的是我們應該走的路嗎？我們有沒有選擇過這樣做？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "哇，真的喔!是誰？", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我最討厭這種假惺惺的樣子了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "对什么事情都提不起兴趣 不想讲话不开心 自己一个人的时候总想跳下去 我很害怕啊 我还这么年轻 可是不开心太可怕了 我妈给我讲了以后我的生活会有多好 我有好的家庭 有爱我的家人 有好的工作 可是我却对一切提不起兴趣 头疼 吃不下 口渴 胃疼 失眠 甚至和人讲话都累", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "每一個人都笑得那麼開心，我也不禁跟著高興。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "想想上次离来这儿也有个小半年了 潜意识的以为这段时间我过的不算差才没有来 刚刚思考了片刻应该是我的感知和记忆都被药物干扰了吧。没有值得信任的人真是人生一大憾事 躲在这发评论也太有损我的铿锵玫瑰人设了。我是我人生中的败笔", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這是一場奇蹟，我們居然真的成功了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "你是不是還沒吃午飯？我們去吃點東西吧。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "饭 这几天我挺棒的 都没崩溃 就是活的有点行尸走肉罢了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你要買甚麼呢？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我的貓咪生病了，感覺好難受，不知道該怎麼辦。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "受够了每天上课到一半崩溃到去厕所大哭 一整天除了在吃药都没有别的记忆，几天几天的睡不着", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "為什麼我總是無法理解你心裡的想法？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "他们都说世界很美好 但是很抱歉 我真的没有发现这个世界的美好所在 我就是这样扫兴的一个家伙 都离我远点儿;;我不要谁的关系和安慰", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他走進來，看起來有點疲倦。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "最近曾承諺看起來怪怪的，好像一直在煩惱什麼，你知道發生什麼事嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我又想去死了，也不敢和别人说", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "男的太恶心了", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "太好了，這真的是我夢寐以求的！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "今天老闆又把別人的事情丟給我，還說我效率太慢，真讓人氣死了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "饭饭，中午做了个噩梦，我梦见全家人逼我，我终于跳楼了，醒来发现是梦，但突然崩溃了，哭的和狗一样，我奶奶上来说我是神经病，说我脑子有病，我们家人就这样，从来不管我的想法，还说多么多么不容易，骂我，全都骂我，我说的是真的，我撑不下去了，真的，我太难受了，这是我第无数次这么想自杀了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我昨晚自残了 流血了 但是我自认为关系好的人都没来关心我一下 她们连套话都不舍得说呢;;这世界不会好了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "但我好像只会一直不开心的", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "今天的天氣真好，心情也跟著變好了。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這樣吧，不用想太多，生活還是要繼續下去。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "小朋友怎麼還沒回家？要不要打個電話問問？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這樣的結局，我怎麼能接受。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "对以后的出路没希望 希望也顾不上我 很害怕 很害怕那天的到来 会跌得很惨 会很绝望", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我說了多少次了，你怎麼還是聽不懂？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "你為什麼要這樣做？這完全是不可忍受的！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我也想去死一死，可我要担心我死后别人会怎么议论我和我的父母，我爸妈要怎样生活下去，我没有勇气，不行，我要撑住，人活着总归要死的，早晚的问题。。。对。。。撑住活下去。。没人会听我说这些话，他们不理解，只会说我闲得想太多，所以我对谁都不会再讲这些话了，没人懂我，只能在这说说我的内心话", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我今天終於完成了那個難搞的專案，太開心了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這張桌子放在角落，看起來很普通。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你吃飽了嗎？要不要我給你煮點東西？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "上学也不喜欢同学之间的猫腻，上班更烦，每次都因人际关系烦恼。想早早离开这个混沌的世界", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我好不了无论我怎么努力我都好不了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你根本不值得我關心，對你實在是沒什麼好感！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我真的很努力了，但還是沒辦法挽回。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "哇！朋友送的驚喜最感動了，他一定花了很多心思吧！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "二百五真多", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "饭饭我真是个笨蛋我什么都干不好也不会说话什么都做不好身体素质也很差你说我为什么会这么差劲呢!", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你居然能想出這麼好的辦法，真的是讓我大開眼界！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我不敢去洗澡,我怕别人看见我的刀疤,我好像一个怪物。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "一群矫情的不要不要的人 想死就去死啊 一群懦夫只敢在这瞎BB 没勇气去死就好好活着", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "他居然能做到這種程度，太厲害了吧！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "這個驚喜讓我無法抑制住自己的開心，真的太高興了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你知道嗎？我學長居然自己創業開了一家公司！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我在等。等我有勇气面对人生 或者有勇气离开人世", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "欸你有看那個電影紅衣小女孩嗎 超可怕的 害我都睡不著", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我可能真的就是个很糟糕的人!", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "等我想开了就去死一死 不远了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我剛收到通知，我錄取了清大！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我今天去圖書館借了幾本書，剛好都是我想看的。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "電影票買好了，晚上七點的場次。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我最近參加了一個有趣的營隊。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這樣的便當真的讓人難以下嚥，別勉強吃了。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "今天午餐的味道太噁心了，我一口都吃不下。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "现在一点小事就能让我崩溃", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你為什麼總是要這樣跟我對著幹？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "人生的每一秒都在下坠,没有止息", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我今天中了小獎，雖然不是很多，但還是很開心！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "他怎麼會這麼決絕，不留下任何解釋？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我不想跟你吵這件事，好嗎？", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你這樣的決定，真的是對我們兩個最好的選擇嗎？難道你沒有想過這樣的改變會讓我深受其害嗎？我們之間還有希望嗎，還是這一切只是我的一廂情願？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我從來沒有見過這樣的事情，太驚人了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "觉得自己好失败,一直在做蠢事,会自己关了空间,在留言板上一遍遍的刷心情,却没有一个能倾诉的地方,开不了口", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我沒想到今天能遇見你，真是太巧了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "这个世界太恶心啦,一边觉得恶心的同时一边害怕自己这样的想法,憎恶却贪生", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "哇，真是羨慕！那隻狗是什麼品種的？", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "饭饭，分手的第三天，昨天的度日如年已经过去了，我希望自己能够睡个好觉，可是那种被什么压着的感觉又出来了，好羡慕那些能够好好睡觉的人。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我真的好累 去过一次医院就再也不敢去复查 我这样的人活该只能一个人承受痛苦对吗", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "哇!不要太傷心，想一下你最後看到牠在哪裡？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這家店的麵包很好吃，特別是他們的牛角麵包，很值得試試。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我舍友怎么这么恶心呢我在无数次克制自己这样想。我真怕跟她们过不下去", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "爸爸妈妈在我身上花了这么多钱,我却一点用都没有", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你這樣的行為真的是讓我無法忍受，根本不值得我理你！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我很多余了,我对于我妈来说可有可无,我对于我爸来说就是个赚钱的工具。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "这个世界有时好苍白,我好像永远融入不进去", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這怎麼可能？這一切都太不可思議了！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "我们没有选择出生的权利 好歹还有选择死亡的权利 如果我撑不住了 能不能去死一死 我保证不后悔 只要让我死了就好了 全世界我什么都不想要 只想要死亡", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我明明都差的要死了为什么还要活着?", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這樣的行為讓我感到無比厭惡，真想遠離你。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "人都是被人逼得，我也一直很累。离开这个世界自然很简单。但是，我一直觉得，只要活着，还是会有希望。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "為什麼他會突然改變心意？有什麼原因嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "那天晚上你到底去了哪裡？為什麼會不見？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "昨天以为今天会好些,结果是我想多了,生活依然被我过得一团糟,戳到了极点,我越来越瞧不起我自己了,一点用都没有,还要麻烦别人帮忙,就像一根根稻草,我不知道哪天是最后一根,我怕我撑不住了……", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "自己不能自愈，别人也不会救助，那么清醒的妳一直坚信这点，才会对这个世界失望，才会毅然决然的离开，我有何尝不是么，只是还没有妳的勇敢。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我跳下去吧", "emotion": "helplessness", "source": "silver", "confidence": 0.7}
+{"text": "我怎麼那麼傻，居然會相信這一切。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "每次說好的事情到最後都變卦，讓人怎麼相信你？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "你怎麼一整天都沒吃東西？是不是不太舒服？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我和这个世界根本就格格不入八字不合。我就像个局外人", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這真的是讓我心碎的時刻。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "每天都在后悔自己为什么初中没能坚持下去,冲动,较真,叛逆,家里人吵架,坐牢,离婚,谎言,活着太难了,内心的善良,表面的虚伪,想找个地方,封闭所有声音,把自己藏起来", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "哈哈,我这个被全世界抛弃的垃圾又来了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我站在這裡看著城市的燈火，雖然不算壯觀，但每一盞燈都像是生活的一部分，默默地陪伴著我度過每一個平凡的夜晚。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "摇着摇着我就想哭了，家里住五楼啊，每天下楼往外面一看我就在想“跳下去就没事了吧”，做梦梦到一枪崩了自己的头我第一反应是安心了解脱了，我想不会再有什么半夜的哭喊了不会再有人对别人编造我做了什么事是个什么人了，不会再被自己的亲哥哥说是寄生虫了，让我睡得久一点吧醒来要是不再为人就太好了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "今天開會的時候，有人一直打斷我的話，真的很不爽。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我真的受夠了，你怎麼可以這樣對我！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這種事情怎麼能這麼草率地決定！你到底在想什麼，根本不考慮後果！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我女儿死了。我这辈子都不会好的。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他走得太快，連告別都沒有，留下的只有無盡的遺憾。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "哇，那真是太棒了！學會了什麼技能？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "一直觉得为爱情自杀是挺无脑的一件事，可是不得不承认我有很多个瞬间要被打败 想自杀，我觉得实在太折磨了 忘不掉一个人太折磨了 我不为失去你难受想自杀。我只是接受不了走不出来 毫无作为的自己", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "幹今天陳思愷真的很過分", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這樣的情況真的是讓我極度反感，怎麼會有這樣的人存在？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這真的是讓我太生氣了，明明可以更好地處理，為什麼非要搞成這樣！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我也覺得，這軟體使用體驗真的不太好，要花很多時間適應。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "啊，真是太難過了…或許你可以再試著養一株，這次放在貓夠不到的地方。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "老闆居然讓我加班，明明說好下班就可以走的！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "天氣預報說今天會有點陰雲。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "这个世界就是如此残酷,如此冷漠,如此无情。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "但是我真的没办法,我做任何事情都是徒劳,我也很累。无数次撑不住,又无数次告诉自己要坚持活着,这种生活不是人过的。我永远都不会接受的,永远。想了一个月,我想不到任何办法去救自己,真的痛苦,我往后的生活都会活在这个阴影中的,我不想再这样活下去了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你有沒有想過，我是如何看待這一切的？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "像我这么糟糕的人,被骂死也是理所应当的吧", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他去樓下買飲料，應該很快就回來了。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "聽起來很辛苦，發生了什麼事？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "骗了自己很多年啊，觉得他们对我还是爱的，可是此刻突然意识到这个谎言继续不下去了[哈哈][哈哈]我是真的多余的，不该来这世界的[允悲]", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我看着每个曾经不如我的人,他们走在我前面。比我学历高,比我好看,比我家境好。而我的生活只有短板和坑。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "唉，別太難過。也許冷靜一下後，你們就能和好。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我是个很糟糕的人", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "蛤真的喔太誇張了吧", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "這一切真是太神奇了，居然能這樣成功！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "以前是拼命劝自己去死不敢，现在是想死拼命劝自己不要，毕竟熬了这么久了，说不定明天我就意外身亡了呢", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "为什么会有这么多不懂得保护女生的怪物", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你到底是怎麼想的？每一次都是這樣，根本不會聽別人的意見！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我還能夠做些什麼來改變這一切？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我養了十年的盆栽今天枯萎了。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你真的覺得這樣就行了嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你今天怎麼有點煩躁？發生什麼事了嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這個味道真是太噁心了，我受不了。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這件事他已經處理好了，沒有什麼需要擔心的。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這種事情你也能忍，真是讓人火大！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我們的努力終於得到了回報，這一刻真的值得慶祝！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我們是否真的理解事情的真相，還是只是一味地按照自己的想法去走？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我這樣做真的對嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "想离开这个世界。然后永永远远没有来生。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你的擔心很合理，是否有考慮過做一些檢查來確認健康狀況？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "最近的天氣變化大，你自己注意點，別著涼了，尤其是下雨的時候，最好多穿點衣服，這樣感冒的機率才會小一些，千萬不要硬撐。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "不過我聽說有幾個人故意在後面起哄，感覺這樣會給曾承諺很大壓力。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我怎么这么无能啊", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "2019-12-4;;;画画画不好,设计没创意,做人很木讷,性格很内向。我一无是处。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "這樣的餐廳我是真的不敢吃，還是趕快走人比較好。", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "好烦,为什么我什么都做不好,我就比别人差吗,好讨厌自己,也好羡慕别人,我也不清楚什么时候一点小事就可以让我难过心慌很久,我还没成年,还没体验过生活的艰辛,为什么都感觉这么累呢,心累,我的人生会是什么样样啊,不喜欢说话,心里自己却说个不停,好吵,好难受……", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你說這些話有沒有想過別人的感受？真的是讓我無法容忍，完全沒在顧及其他人！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "饭。我想早点离开这。每天都告诉自己。再坚持一下。等我有能力了。等我有钱了。我就走。离这里远远的。离他们远远的。然后去过我想过的人生。但是我现在连希望都没有了啊。我连骗自己的理由都没有了。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "每次說明白了，你還是聽不進去，真是氣人！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "或许我的存在就是一种错,是我不配,我没有对不起任何人,我只有对不起自己,让自己不开心了这么多年,我不想见到2020年的太阳了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "果然自己还是多余的", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "小饭。我第一次在你这里评论。我活的好累。我也想去死一死。每天装开心真的很累。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "這次的展覽沒什麼特別的，逛一逛就回來了。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "每天早晨起床，喝一杯溫水，然後輕輕地拉開窗簾，陽光進來的時候，這就是我每天最平凡的一刻。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "看吧 我又在哭了 真没用", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "如果烧炭不痛苦 那我就选择死亡 我一个人出去旅游一段时间 然后自杀", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你真的好厲害，我真是越來越佩服你了！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "真的好难过好想哭也许未来也不会有什么改变 终其一生碌碌无为", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "好久不见 这次回来已经100w+了 我枯竭了 爱人怎么这么难过 他是我的救命稻草 偏偏这几年让我掉了那么多眼泪 我有好多过不去的坎儿 都是我的错吧 真的好累好累 好想这一觉睡过去再也不用醒来", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我們還有其他選擇嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你到底想要什麼？！我們不會讓你得逞的！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我不是想死 我怕痛的 但是那个自卑 自闭 怀疑自己 不自信的自己 讨厌 要杀掉它 但是做不到 我还是舍不得", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "讓我很生氣，這樣根本不行！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "读书好厌哦 所以我退学了 前几天我居然还收到了大学录取通知书呢 活着好厌哦 。所以我想去死一死了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "聽起來很可怕，要不要裝個監視器？或者報警確認一下安全。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "讚喔！你們要去哪裡玩？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "走饭我有些话不知道在哪里说 所以我又来找你啦 我每天都会想我究竟是个啥啊 就觉得我这个人没用又无趣 哎", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你居然買了這個！我一直以為你不喜歡！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "哇，你畫的這幅畫真的超美的，像專業藝術家一樣！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你以為你是誰，怎麼可以隨便說這種話！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "最近自杀的太多了，不想看见有人去死啊…地球46亿年了，而一个人连百年都未必能存在，为什么不去试着活下去呢？我在去跳江的路上被拉回去过…自残过…也砸过东西…还是活着比较好吧？抱歉，我也不是很清楚为什么要活着，但还是试一下吧，要相信自己啊，每天努力一小下就好", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "我明白這一切都已經無法挽回，但心裡的痛依然無法停止。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "又胖又丑女孩可能不配活在这个世上", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "好起来又能怎么样,这个世界上没有真正关心过我的人,大家都只是客套话,没有人喜欢我,甚至有人希望我死。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你相信這一切都是巧合，還是命運的安排？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "哇，這真的讓我大開眼界，我從來沒想到過會是這樣！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "怎麼會有這種人，真讓人感到噁心！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "我懂你的感受，他確實有點想要自己秀，但也許是教練的戰術安排。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你這兩天的情緒很低落，有發生什麼事嗎？", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這份報告裡的數據，確定沒有問題嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "真的太懦弱了 懦弱到没办法自我消化一丝坏情绪 最后都化成深夜的泪水", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "為什麼你總是這麼冷漠，我怎麼努力也換不來一點關心！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "最近晚上特別安靜，睡得也比較好。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "哇！恭喜你！我們該慶祝一下！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "你怎麼每次點的都很難吃啊？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "這種做法真的讓我很生氣，怎麼能這麼輕易地背叛他人？", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "如果我自杀了，应该很多人会笑话我吧", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "坐著想哭 站著想哭 躺著想哭 吃飯想哭 看電視想哭 總是想哭 到底該怎麼辦", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "他抱着不活的想法，我觉得我说什么都没有用，我没有告诉他，曾经我看着楼下就想跳下去，看着刀片就想划一刀，但是却在努力的活着啊", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "最近感觉就像在悬崖边看景色，谁阻止我我就跳下去。以前总是告诉自己，去吃顿好的，撑过这场就好了，总会好的，最近觉得呵呵，好不了了", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你怎麼這麼貼心，這真是我收到過最棒的禮物！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "呵呵,我很自卑,内向…蜂鸟总弄些这些没用的,亲情,友情,爱情。与我无关,与我无缘。长的丑,又没钱。又没有本事,以前上学的时候,只能暗恋别人了。我这么卑微,配不上。现在送外卖遇不到几个女的。。真的有女的送外卖?我咋没看到过,送众包,没啥订单了我也不好意思去商家店里打扰人家。马路上歇", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "幹！我的手機又壞了，唉！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "曾經的愛情在現實面前顯得如此渺小和無力。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "对不起 我真的感觉不到爱我不知道为什么活着我总是无缘无故想哭生活太无趣了我太无趣了", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "饭，最近真的有好多人给我说这些呀，要好好活下去，我拉你走出去这种话。你那时候有没有听到过这些呢，我猜一定也有吧。我不知道该说什么好，我没法告诉他们，无论这个世界有多美好或者多糟糕，我都只想离开。它的美好已经无法在挽留我了，我早就被打败了。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "", "emotion": "anxiety", "source": "manual", "confidence": 1.0}
+{"text": "我懂，很累吧？有時候真的要給自己一點喘息的時間，不然太辛苦了。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "這樣的對待真是讓我心寒，為什麼要這樣傷害我！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "昨天晚上，我坐在窗邊，看著外面繁星點點，沒有什麼特別的感覺，只是覺得時間過得很快，夜空靜謐而遙遠，什麼事都沒有發生。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "別慌！我們可以一起討論，看看需要從哪裡開始做。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "剛剛經過的那條小溪旁邊居然有一片野花，看起來超漂亮！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "从不被理解，也不需要被理解", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你怎麼那麼不負責任，真讓人火大！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "走饭,我觉得自己像这样能与人交流,在外人面前用理智竭力克制戾气假装淡定的日子大概不多了,最近情绪越来越容易激动,刚才甚至因为床单上的褶皱突然爆发,失了理智,差点就用剪刀剪烂了……唉,总觉得自己最后会发展成躁郁症……唉", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你根本不配出現在這裡，這樣的行為太過分了！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "那聽起來不錯，有什麼計畫嗎？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "欸有沒有推薦的歌", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "每天头疼 疼的我想去死", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "他曾經說過會一直在我身邊，但他卻選擇了離開。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你怎麼不再給我更多的機會呢？", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "窗外的樹被風吹動，葉子發出沙沙的聲音。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "這真是一個令人開心的驚喜，沒想到能遇到這麼開心的事！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "唉我好想我的女朋友喔", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你不配說這些話！", "emotion": "anger", "source": "external", "confidence": 1.0}
+{"text": "好啊！最近天氣也不錯，騎車應該很舒服。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "再见了 这个世界真的很美好,但是却不是属于我的", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "我好怕以後沒有工作。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我觉得他们都在暗处嘲笑我,嘲笑我的一举一动", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "哇，太棒了！恭喜！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我觉得自己就是被丢在路边的垃圾", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "燈光打在牆上的畫作上，顯得格外柔和。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "你怎麼會這樣說？這不是你平常的風格！你竟然敢站出來說這種話，真讓我嚇了一跳！我一直以為你不會這麼做，沒想到今天的你，真的是讓我大跌眼鏡！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "真的假的？你有打開看看嗎？這些金幣是真的嗎？", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "他们真恶心。真恶心。真恶心。", "emotion": "anger", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "太棒了！這就是我一直夢想的地方！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我昨天看到了一條新聞，它讓我改變了我的生活。", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "也許我們一生中會遇到一些不順心的事，但這並不意味著我們不能從中找到一絲光亮。生活就是這樣，一個個小小的瞬間，我們必須學會去珍惜它們。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我等了這麼久，終於買到這雙鞋了，超開心的！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我好像 坏掉了。", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "最近的工作進度很糟糕，我覺得自己越來越沒自信。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "我好累啊,好想找个安静的地方一个人待一会儿,明明没有资格喊累的,整天活在自己的世界里,逃开了今天,明天依旧。错的是我啊,不是任何人。走饭,你那边很安静吗", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "没有抑郁的人谈恋爱也不见得会幸福的，随心吧我觉得", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "这辈子都没有碰见像我这么作的人", "emotion": "sadness", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "今天的天氣真的太舒服了，完全適合郊遊！", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "我已經無法再忍受這份孤單，心裡的痛讓我喘不過氣。", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你知道嗎？當初我們明明可以走另一條路的。", "emotion": "neutral", "source": "external", "confidence": 1.0}
+{"text": "我不要做噩梦了我不要做噩梦了 没有人会安慰我", "emotion": "anxiety", "source": "llm_pseudo", "confidence": 1.0}
+{"text": "你有沒有傷到自己？別擔心，我會照顧你的。你不是一個人，我會幫你的。", "emotion": "positive", "source": "external", "confidence": 1.0}
+{"text": "今天我聽到了一個壞消息，我朋友的爸爸過世了....", "emotion": "sadness", "source": "external", "confidence": 1.0}
+{"text": "你居然能做到這樣，這簡直就是奇蹟！", "emotion": "anxiety", "source": "external", "confidence": 1.0}
+{"text": "生活累，工作累，交朋友累。这么累为什么还要活着？是因为年迈的老父母亲吗？明明很想死，确不敢死。是怕吗？昨天这边因为感情纠纷，男的把他女朋友当街捅刀子捅死了，为什么不想死的人一下子就死，但是想死的人却还要苟且的活着。", "emotion": "sadness", "source": "silver", "confidence": 0.7}
+{"text": "你這幾天沒什麼食慾，是不是身體不舒服？", "emotion": "positive", "source": "external", "confidence": 1.0}

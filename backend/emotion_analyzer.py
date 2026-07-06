@@ -10,6 +10,32 @@ from config import config
 
 logger = logging.getLogger(__name__)
 
+# BERT 情绪模型（延迟加载）
+_bert_predictor = None
+_emotion_to_chinese = {}
+
+def _get_bert_predictor():
+    """延迟加载 BERT 情绪预测器"""
+    global _bert_predictor, _emotion_to_chinese
+    if _bert_predictor is not None:
+        return _bert_predictor
+    if not config.USE_BERT_EMOTION:
+        logger.info("BERT 情绪分析未启用（USE_BERT_EMOTION=false），使用 LLM")
+        return None
+    try:
+        from bert_emotion_predictor import BertEmotionPredictor, EMOTION_TO_CHINESE as _etc
+        _emotion_to_chinese.update(_etc)
+        _bert_predictor = BertEmotionPredictor(
+            model_path=config.EMOTION_MODEL_PATH,
+            device=config.EMOTION_DEVICE,
+            confidence_threshold=config.EMOTION_CONFIDENCE_THRESHOLD,
+        )
+        logger.info(f"BERT 情绪模型加载完成: {config.EMOTION_MODEL_PATH}")
+    except Exception as e:
+        logger.warning(f"BERT 情绪模型加载失败，回退到 LLM: {e}")
+        return None
+    return _bert_predictor
+
 class EmotionAnalyzer:
     """情绪分析器"""
     
@@ -74,22 +100,44 @@ class EmotionAnalyzer:
             self._cache_lru.remove(cache_key)
         self._cache_lru.append(cache_key)
     
-    async def analyze_with_context_async(self, text: str, 
+    async def analyze_with_context_async(self, text: str,
                             conversation_summary: Optional[Dict] = None) -> Tuple[str, str, float]:
         try:
             cache_key = self._generate_cache_key(text, conversation_summary)
             cached_result = self._check_cache(cache_key)
             if cached_result:
                 return cached_result
-            current_emotion = await self._analyze_base_emotion_async(text)
-            if conversation_summary and conversation_summary.get('turn_count', 0) > 0:
+
+            # 使用 BERT 进行基础情绪分析（替代 LLM）
+            predictor = _get_bert_predictor()
+            if predictor is not None:
+                # BERT 返回英文标签 + 置信度
+                bert_label, bert_confidence = predictor.predict(text)
+                current_emotion = _emotion_to_chinese.get(bert_label, "中性")
+                confidence = bert_confidence
+            else:
+                # 回退到 LLM
+                current_emotion = await self._analyze_base_emotion_async(text)
+                confidence = self._calculate_confidence(text, current_emotion)
+
+            # LLM 深层情绪分析：仅 BERT 置信度低或有多轮上下文时触发
+            need_context = (
+                conversation_summary
+                and conversation_summary.get('turn_count', 0) > 0
+                and (
+                    not predictor  # 没 BERT 时全量走 LLM
+                    or confidence < config.EMOTION_CONFIDENCE_THRESHOLD  # BERT 低置信度
+                )
+            )
+            if need_context:
                 context_emotion = await self._analyze_context_emotion_async(text, current_emotion, conversation_summary)
             else:
                 context_emotion = current_emotion
-            confidence = self._calculate_confidence(text, current_emotion)
+
             result = (current_emotion, context_emotion, confidence)
             self._update_cache(cache_key, result)
-            logger.info(f"情绪分析(异步): 当前={current_emotion}, 深层={context_emotion}, 置信度={confidence}")
+            source = "bert" if predictor else "llm"
+            logger.info(f"情绪分析({source}): 当前={current_emotion}, 深层={context_emotion}, 置信度={confidence}")
             return result
         except Exception as e:
             logger.error(f"情绪分析失败(异步): {e}")

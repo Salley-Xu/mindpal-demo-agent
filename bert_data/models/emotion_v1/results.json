@@ -1,0 +1,75 @@
+{
+  "config": {
+    "output_dir": "bert_data\\models\\emotion_v1"
+  },
+  "best_epoch": 2,
+  "test_metrics": {
+    "loss": 0.4351,
+    "accuracy": 0.8777,
+    "macro_f1": 0.8582,
+    "per_class": {
+      "neutral": {
+        "precision": 0.8839,
+        "recall": 0.8919,
+        "f1": 0.8879
+      },
+      "positive": {
+        "precision": 0.8473,
+        "recall": 0.9487,
+        "f1": 0.8952
+      },
+      "anxiety": {
+        "precision": 0.875,
+        "recall": 0.6269,
+        "f1": 0.7304
+      },
+      "sadness": {
+        "precision": 0.9254,
+        "recall": 0.8755,
+        "f1": 0.8998
+      },
+      "anger": {
+        "precision": 0.8189,
+        "recall": 0.9455,
+        "f1": 0.8776
+      }
+    },
+    "confusion_matrix": [
+      [
+        99,
+        7,
+        1,
+        1,
+        3
+      ],
+      [
+        3,
+        111,
+        2,
+        1,
+        0
+      ],
+      [
+        2,
+        5,
+        42,
+        14,
+        4
+      ],
+      [
+        4,
+        7,
+        3,
+        211,
+        16
+      ],
+      [
+        4,
+        1,
+        0,
+        1,
+        104
+      ]
+    ]
+  }
+}

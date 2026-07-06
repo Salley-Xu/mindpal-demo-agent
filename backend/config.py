@@ -56,6 +56,13 @@ class Config:
     BERT_MODEL_PATH: str = os.getenv("BERT_MODEL_PATH", "bert_data/models/v4_2_multitask_calibrated/best_model")
     BERT_DEVICE: str = os.getenv("BERT_DEVICE", "cpu")
     BERT_BINARY_THRESHOLD: float = float(os.getenv("BERT_BINARY_THRESHOLD", "0.50"))
+
+    # BERT 情绪分类配置
+    EMOTION_MODEL_PATH: str = os.getenv("EMOTION_MODEL_PATH", "bert_data/models/emotion_v1/best_model")
+    EMOTION_DEVICE: str = os.getenv("EMOTION_DEVICE", "cpu")
+    EMOTION_CONFIDENCE_THRESHOLD: float = float(os.getenv("EMOTION_CONFIDENCE_THRESHOLD", "0.6"))
+    # 设为 true 使用 BERT，false 使用 LLM（回退/对比用）
+    USE_BERT_EMOTION: bool = os.getenv("USE_BERT_EMOTION", "true").lower() == "true"
     
     def validate(self):
         """验证配置"""
