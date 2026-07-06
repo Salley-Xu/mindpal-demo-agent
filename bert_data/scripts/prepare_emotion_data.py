@@ -250,6 +250,22 @@ def main():
                 })
         print(f"\n  从外部数据集加载 {len(external)} 条")
 
+    # 5. 增强标注数据（焦虑关键词匹配、LLM 合成等）
+    for fname in ["emotion_anxiety_aug.jsonl", "emotion_llm_anxiety.jsonl"]:
+        augment_path = processed_dir / fname
+        if augment_path.exists():
+            augment = load_jsonl(augment_path)
+            for r in augment:
+                label = normalize_emotion(r.get("emotion", ""))
+                if label:
+                    all_records.append({
+                        "text": r["text"],
+                        "emotion": label,
+                        "source": "augmented",
+                        "confidence": r.get("confidence", 0.8),
+                    })
+            print(f"\n  从增强数据加载 {len(augment)} 条")
+
     print(f"\n总计: {len(all_records)} 条情绪数据")
 
     # 打印整体分布

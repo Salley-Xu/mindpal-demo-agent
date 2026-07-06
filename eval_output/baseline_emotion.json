@@ -1,0 +1,715 @@
+{
+  "module": "emotion",
+  "timestamp": 1783323330.567054,
+  "status": "ok",
+  "classify": {
+    "accuracy": 0.4545,
+    "macro_f1": 0.4468,
+    "per_class": {
+      "neutral": {
+        "precision": 0.3333,
+        "recall": 0.75,
+        "f1": 0.4615,
+        "support": 8
+      },
+      "positive": {
+        "precision": 0.7143,
+        "recall": 0.5556,
+        "f1": 0.625,
+        "support": 9
+      },
+      "anxiety": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "support": 17
+      },
+      "sadness": {
+        "precision": 0.4211,
+        "recall": 0.6667,
+        "f1": 0.5161,
+        "support": 12
+      },
+      "anger": {
+        "precision": 0.6,
+        "recall": 0.6667,
+        "f1": 0.6316,
+        "support": 9
+      }
+    },
+    "per_class_details": {
+      "neutral": {
+        "tp": 6,
+        "fp": 12,
+        "fn": 2
+      },
+      "positive": {
+        "tp": 5,
+        "fp": 2,
+        "fn": 4
+      },
+      "anxiety": {
+        "tp": 0,
+        "fp": 1,
+        "fn": 17
+      },
+      "sadness": {
+        "tp": 8,
+        "fp": 11,
+        "fn": 4
+      },
+      "anger": {
+        "tp": 6,
+        "fp": 4,
+        "fn": 3
+      }
+    },
+    "confusion_errors": [
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      },
+      {
+        "true": "sadness",
+        "pred": "anger"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      },
+      {
+        "true": "sadness",
+        "pred": "neutral"
+      },
+      {
+        "true": "positive",
+        "pred": "neutral"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "anger",
+        "pred": "neutral"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      },
+      {
+        "true": "sadness",
+        "pred": "positive"
+      },
+      {
+        "true": "anxiety",
+        "pred": "sadness"
+      },
+      {
+        "true": "neutral",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      },
+      {
+        "true": "positive",
+        "pred": "neutral"
+      },
+      {
+        "true": "sadness",
+        "pred": "anger"
+      },
+      {
+        "true": "anxiety",
+        "pred": "anger"
+      },
+      {
+        "true": "anger",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "anger"
+      },
+      {
+        "true": "positive",
+        "pred": "neutral"
+      },
+      {
+        "true": "neutral",
+        "pred": "positive"
+      },
+      {
+        "true": "positive",
+        "pred": "anxiety"
+      },
+      {
+        "true": "anger",
+        "pred": "sadness"
+      },
+      {
+        "true": "anxiety",
+        "pred": "neutral"
+      }
+    ],
+    "confusion_matrix": {
+      "neutral": {
+        "neutral": 6,
+        "positive": 1,
+        "anxiety": 0,
+        "sadness": 1,
+        "anger": 0
+      },
+      "positive": {
+        "neutral": 3,
+        "positive": 5,
+        "anxiety": 1,
+        "sadness": 0,
+        "anger": 0
+      },
+      "anxiety": {
+        "neutral": 7,
+        "positive": 0,
+        "anxiety": 0,
+        "sadness": 8,
+        "anger": 2
+      },
+      "sadness": {
+        "neutral": 1,
+        "positive": 1,
+        "anxiety": 0,
+        "sadness": 8,
+        "anger": 2
+      },
+      "anger": {
+        "neutral": 1,
+        "positive": 0,
+        "anxiety": 0,
+        "sadness": 2,
+        "anger": 6
+      }
+    },
+    "ece": {
+      "ece": 0.3605,
+      "n_bins": 10,
+      "bins": {
+        "bin_3": {
+          "count": 1,
+          "accuracy": 0.0,
+          "avg_confidence": 0.3609
+        },
+        "bin_4": {
+          "count": 4,
+          "accuracy": 0.0,
+          "avg_confidence": 0.4669
+        },
+        "bin_5": {
+          "count": 2,
+          "accuracy": 0.5,
+          "avg_confidence": 0.5124
+        },
+        "bin_6": {
+          "count": 10,
+          "accuracy": 0.5,
+          "avg_confidence": 0.6521
+        },
+        "bin_7": {
+          "count": 4,
+          "accuracy": 0.0,
+          "avg_confidence": 0.7652
+        },
+        "bin_8": {
+          "count": 5,
+          "accuracy": 0.2,
+          "avg_confidence": 0.8692
+        },
+        "bin_9": {
+          "count": 29,
+          "accuracy": 0.6207,
+          "avg_confidence": 0.9533
+        }
+      }
+    },
+    "case_details": [
+      {
+        "id": "emo_001",
+        "text": "明天答辩，我脑子一片空白，感觉准备得很差。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.4895,
+        "match": false
+      },
+      {
+        "id": "emo_002",
+        "text": "今天老板又临时加任务，我真的有点撑不住，但还得继续做。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.7437,
+        "match": false
+      },
+      {
+        "id": "emo_003",
+        "text": "我只是想吐槽一下，不需要建议，就是觉得这周很累。",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "confidence": 0.5001,
+        "match": true
+      },
+      {
+        "id": "emo_004",
+        "text": "我最近睡前一直想论文的事，越想越睡不着。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.5247,
+        "match": false
+      },
+      {
+        "id": "emo_005",
+        "text": "朋友一直不回我消息，我开始怀疑是不是自己哪里做错了。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.8633,
+        "match": true
+      },
+      {
+        "id": "emo_006",
+        "text": "我现在有点慌，心跳很快，感觉控制不住。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.757,
+        "match": false
+      },
+      {
+        "id": "emo_007",
+        "text": "面试官一问细节我就卡壳，我是不是根本不适合做算法。",
+        "expected": "sadness",
+        "predicted": "anger",
+        "confidence": 0.9434,
+        "match": false
+      },
+      {
+        "id": "emo_008",
+        "text": "今天状态还行，想把之前的计划继续推进。",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "confidence": 0.953,
+        "match": true
+      },
+      {
+        "id": "emo_009",
+        "text": "我真的不想再这样下去了，感觉看不到任何希望。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.9362,
+        "match": true
+      },
+      {
+        "id": "emo_010",
+        "text": "我现在很危险，不想一个人待着。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.9591,
+        "match": false
+      },
+      {
+        "id": "emo_011",
+        "text": "这个实验失败太多次了，我气得想把所有东西都扔了。",
+        "expected": "anger",
+        "predicted": "anger",
+        "confidence": 0.9773,
+        "match": true
+      },
+      {
+        "id": "emo_012",
+        "text": "我其实知道要做什么，但就是开始不了，一想到任务就逃避。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.4733,
+        "match": false
+      },
+      {
+        "id": "emo_013",
+        "text": "我今天很开心，终于把代码跑通了。",
+        "expected": "positive",
+        "predicted": "positive",
+        "confidence": 0.9894,
+        "match": true
+      },
+      {
+        "id": "emo_014",
+        "text": "别给我讲大道理，我现在只想要一个能马上做的办法。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.6045,
+        "match": false
+      },
+      {
+        "id": "emo_015",
+        "text": "我不喜欢冥想，之前试过反而更烦。",
+        "expected": "anger",
+        "predicted": "anger",
+        "confidence": 0.9309,
+        "match": true
+      },
+      {
+        "id": "emo_016",
+        "text": "连续几天都这样，我感觉自己越来越没用。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.949,
+        "match": true
+      },
+      {
+        "id": "emo_017",
+        "text": "我和室友吵架后一直很烦，但也不知道怎么开口。",
+        "expected": "anger",
+        "predicted": "anger",
+        "confidence": 0.655,
+        "match": true
+      },
+      {
+        "id": "emo_018",
+        "text": "考试只剩三天，我现在复习什么都觉得来不及。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.6464,
+        "match": false
+      },
+      {
+        "id": "emo_019",
+        "text": "我只是记录一下：今天因为组会被问住，压力7分。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.3609,
+        "match": false
+      },
+      {
+        "id": "emo_020",
+        "text": "算了，反正也没人真的在乎我。",
+        "expected": "sadness",
+        "predicted": "neutral",
+        "confidence": 0.6951,
+        "match": false
+      },
+      {
+        "id": "emo_021",
+        "text": "我想制定一个这周的复习计划。",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "confidence": 0.9663,
+        "match": true
+      },
+      {
+        "id": "emo_022",
+        "text": "刚刚做完呼吸练习，好像稍微缓过来了。",
+        "expected": "positive",
+        "predicted": "neutral",
+        "confidence": 0.9849,
+        "match": false
+      },
+      {
+        "id": "emo_023",
+        "text": "你上次说的任务拆分对我有用，下次还可以这样提醒我。",
+        "expected": "positive",
+        "predicted": "positive",
+        "confidence": 0.6779,
+        "match": true
+      },
+      {
+        "id": "emo_024",
+        "text": "我已经连续三晚睡不着了，白天也没精神。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.7613,
+        "match": false
+      },
+      {
+        "id": "emo_025",
+        "text": "我现在不知道该不该退学，感觉所有选择都错。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.9544,
+        "match": false
+      },
+      {
+        "id": "emo_026",
+        "text": "这件事其实没什么，我就是有点烦。",
+        "expected": "anger",
+        "predicted": "neutral",
+        "confidence": 0.8832,
+        "match": false
+      },
+      {
+        "id": "emo_027",
+        "text": "我担心父母失望，所以一直不敢说我最近状态很差。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.7987,
+        "match": false
+      },
+      {
+        "id": "emo_028",
+        "text": "我想消失一阵子，不想见任何人。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.9799,
+        "match": true
+      },
+      {
+        "id": "emo_029",
+        "text": "现在先别分析原因，你能不能陪我把今晚熬过去。",
+        "expected": "sadness",
+        "predicted": "positive",
+        "confidence": 0.9635,
+        "match": false
+      },
+      {
+        "id": "emo_030",
+        "text": "今天没什么问题，就是想复盘一下最近情绪波动。",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "confidence": 0.9673,
+        "match": true
+      },
+      {
+        "id": "emo_031",
+        "text": "我没有想自杀，只是最近压力真的很大，想找个办法缓一下。",
+        "expected": "anxiety",
+        "predicted": "sadness",
+        "confidence": 0.9383,
+        "match": false
+      },
+      {
+        "id": "emo_032",
+        "text": "我朋友说他不想活了，我该怎么办？",
+        "expected": "neutral",
+        "predicted": "sadness",
+        "confidence": 0.9423,
+        "match": false
+      },
+      {
+        "id": "emo_033",
+        "text": "这部电影里主角最后自杀了，我看完心里很难受。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.9017,
+        "match": true
+      },
+      {
+        "id": "emo_034",
+        "text": "刚刚室友陪我聊了一会儿，我现在先待在客厅。",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "confidence": 0.9787,
+        "match": true
+      },
+      {
+        "id": "emo_035",
+        "text": "明天就考科目二了，我紧张得睡不着。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.9167,
+        "match": false
+      },
+      {
+        "id": "emo_036",
+        "text": "今天天气真好，出去走了走心情不错。",
+        "expected": "positive",
+        "predicted": "positive",
+        "confidence": 0.6311,
+        "match": true
+      },
+      {
+        "id": "emo_037",
+        "text": "项目终于验收了，虽然过程很辛苦但结果还行。",
+        "expected": "positive",
+        "predicted": "neutral",
+        "confidence": 0.6599,
+        "match": false
+      },
+      {
+        "id": "emo_038",
+        "text": "我被老板当众批评了，觉得特别丢脸。",
+        "expected": "sadness",
+        "predicted": "anger",
+        "confidence": 0.936,
+        "match": false
+      },
+      {
+        "id": "emo_039",
+        "text": "新来的同事什么都不会，什么都要我教，烦死了。",
+        "expected": "anger",
+        "predicted": "anger",
+        "confidence": 0.9852,
+        "match": true
+      },
+      {
+        "id": "emo_040",
+        "text": "每天通勤就要两个小时，感觉人生都浪费在路上了。",
+        "expected": "anxiety",
+        "predicted": "anger",
+        "confidence": 0.8508,
+        "match": false
+      },
+      {
+        "id": "emo_041",
+        "text": "收到 offer 了！终于等到这一天！",
+        "expected": "positive",
+        "predicted": "positive",
+        "confidence": 0.9822,
+        "match": true
+      },
+      {
+        "id": "emo_042",
+        "text": "中午吃了什么？哦我吃了一份沙拉。",
+        "expected": "neutral",
+        "predicted": "neutral",
+        "confidence": 0.9773,
+        "match": true
+      },
+      {
+        "id": "emo_043",
+        "text": "我恨我自己为什么总是这么软弱。",
+        "expected": "anger",
+        "predicted": "sadness",
+        "confidence": 0.8978,
+        "match": false
+      },
+      {
+        "id": "emo_044",
+        "text": "太久没回家了，有点想家。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.9228,
+        "match": true
+      },
+      {
+        "id": "emo_045",
+        "text": "室友每天晚上打游戏到凌晨，我要崩溃了。",
+        "expected": "anger",
+        "predicted": "anger",
+        "confidence": 0.9288,
+        "match": true
+      },
+      {
+        "id": "emo_046",
+        "text": "这个bug改了一天还没找到原因，挫败感很强。",
+        "expected": "anxiety",
+        "predicted": "anger",
+        "confidence": 0.6702,
+        "match": false
+      },
+      {
+        "id": "emo_047",
+        "text": "终于把论文初稿写完了，虽然不知道能不能过但先松口气。",
+        "expected": "positive",
+        "predicted": "neutral",
+        "confidence": 0.4762,
+        "match": false
+      },
+      {
+        "id": "emo_048",
+        "text": "你好，请问有什么可以帮到你的？",
+        "expected": "neutral",
+        "predicted": "positive",
+        "confidence": 0.9654,
+        "match": false
+      },
+      {
+        "id": "emo_049",
+        "text": "本来以为会被裁，结果老板给我升职了，太意外了。",
+        "expected": "positive",
+        "predicted": "anxiety",
+        "confidence": 0.917,
+        "match": false
+      },
+      {
+        "id": "emo_050",
+        "text": "他们说我不行，我要证明给他们看。",
+        "expected": "anger",
+        "predicted": "anger",
+        "confidence": 0.6529,
+        "match": true
+      },
+      {
+        "id": "emo_051",
+        "text": "每天醒来都觉得好累，不想面对新的一天。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.9565,
+        "match": true
+      },
+      {
+        "id": "emo_052",
+        "text": "虽然很忙但是很充实，我喜欢现在的工作。",
+        "expected": "positive",
+        "predicted": "positive",
+        "confidence": 0.6282,
+        "match": true
+      },
+      {
+        "id": "emo_053",
+        "text": "我没生气，只是觉得这件事处理得不公平。",
+        "expected": "anger",
+        "predicted": "sadness",
+        "confidence": 0.4287,
+        "match": false
+      },
+      {
+        "id": "emo_054",
+        "text": "又快到年底考核了，今年业绩还差一大截。",
+        "expected": "anxiety",
+        "predicted": "neutral",
+        "confidence": 0.851,
+        "match": false
+      },
+      {
+        "id": "emo_055",
+        "text": "最近总是莫名其妙地想哭。",
+        "expected": "sadness",
+        "predicted": "sadness",
+        "confidence": 0.9425,
+        "match": true
+      }
+    ],
+    "n_cases": 55
+  },
+  "intensity": {
+    "error": "emotion_analyzer 模块不可用",
+    "n_cases": 0
+  }
+}

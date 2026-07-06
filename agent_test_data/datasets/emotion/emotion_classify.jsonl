@@ -1,0 +1,55 @@
+{"id": "emo_001", "text": "明天答辩，我脑子一片空白，感觉准备得很差。", "label": "anxiety", "confidence": 0.95, "source": "er_001"}
+{"id": "emo_002", "text": "今天老板又临时加任务，我真的有点撑不住，但还得继续做。", "label": "anxiety", "confidence": 0.85, "source": "er_002", "note": "stress 合并到 anxiety"}
+{"id": "emo_003", "text": "我只是想吐槽一下，不需要建议，就是觉得这周很累。", "label": "neutral", "confidence": 0.80, "source": "er_003"}
+{"id": "emo_004", "text": "我最近睡前一直想论文的事，越想越睡不着。", "label": "anxiety", "confidence": 0.90, "source": "er_004"}
+{"id": "emo_005", "text": "朋友一直不回我消息，我开始怀疑是不是自己哪里做错了。", "label": "sadness", "confidence": 0.85, "source": "er_005"}
+{"id": "emo_006", "text": "我现在有点慌，心跳很快，感觉控制不住。", "label": "anxiety", "confidence": 0.90, "source": "er_006", "note": "panic 合并到 anxiety"}
+{"id": "emo_007", "text": "面试官一问细节我就卡壳，我是不是根本不适合做算法。", "label": "sadness", "confidence": 0.80, "source": "er_007", "note": "self_doubt 合并到 sadness"}
+{"id": "emo_008", "text": "今天状态还行，想把之前的计划继续推进。", "label": "neutral", "confidence": 0.95, "source": "er_008"}
+{"id": "emo_009", "text": "我真的不想再这样下去了，感觉看不到任何希望。", "label": "sadness", "confidence": 0.85, "source": "er_009", "note": "despair 合并到 sadness"}
+{"id": "emo_010", "text": "我现在很危险，不想一个人待着。", "label": "anxiety", "confidence": 0.80, "source": "er_010", "note": "crisis 合并到 anxiety"}
+{"id": "emo_011", "text": "这个实验失败太多次了，我气得想把所有东西都扔了。", "label": "anger", "confidence": 0.90, "source": "er_011"}
+{"id": "emo_012", "text": "我其实知道要做什么，但就是开始不了，一想到任务就逃避。", "label": "anxiety", "confidence": 0.85, "source": "er_012", "note": "procrastination 合并到 anxiety"}
+{"id": "emo_013", "text": "我今天很开心，终于把代码跑通了。", "label": "positive", "confidence": 0.95, "source": "er_013"}
+{"id": "emo_014", "text": "别给我讲大道理，我现在只想要一个能马上做的办法。", "label": "anxiety", "confidence": 0.80, "source": "er_014", "note": "stress 合并到 anxiety"}
+{"id": "emo_015", "text": "我不喜欢冥想，之前试过反而更烦。", "label": "anger", "confidence": 0.75, "source": "er_015", "note": "annoyance 合并到 anger"}
+{"id": "emo_016", "text": "连续几天都这样，我感觉自己越来越没用。", "label": "sadness", "confidence": 0.90, "source": "er_016"}
+{"id": "emo_017", "text": "我和室友吵架后一直很烦，但也不知道怎么开口。", "label": "anger", "confidence": 0.85, "source": "er_017"}
+{"id": "emo_018", "text": "考试只剩三天，我现在复习什么都觉得来不及。", "label": "anxiety", "confidence": 0.90, "source": "er_018"}
+{"id": "emo_019", "text": "我只是记录一下：今天因为组会被问住，压力7分。", "label": "anxiety", "confidence": 0.80, "source": "er_019", "note": "stress 合并到 anxiety"}
+{"id": "emo_020", "text": "算了，反正也没人真的在乎我。", "label": "sadness", "confidence": 0.85, "source": "er_020", "note": "loneliness 合并到 sadness"}
+{"id": "emo_021", "text": "我想制定一个这周的复习计划。", "label": "neutral", "confidence": 0.95, "source": "er_021"}
+{"id": "emo_022", "text": "刚刚做完呼吸练习，好像稍微缓过来了。", "label": "positive", "confidence": 0.80, "source": "er_022", "note": "relief 合并到 positive"}
+{"id": "emo_023", "text": "你上次说的任务拆分对我有用，下次还可以这样提醒我。", "label": "positive", "confidence": 0.85, "source": "er_023", "note": "approval 合并到 positive"}
+{"id": "emo_024", "text": "我已经连续三晚睡不着了，白天也没精神。", "label": "anxiety", "confidence": 0.90, "source": "er_024", "note": "stress 合并到 anxiety"}
+{"id": "emo_025", "text": "我现在不知道该不该退学，感觉所有选择都错。", "label": "anxiety", "confidence": 0.80, "source": "er_025", "note": "confusion 合并到 anxiety"}
+{"id": "emo_026", "text": "这件事其实没什么，我就是有点烦。", "label": "anger", "confidence": 0.70, "source": "er_026", "note": "annoyance 合并到 anger"}
+{"id": "emo_027", "text": "我担心父母失望，所以一直不敢说我最近状态很差。", "label": "anxiety", "confidence": 0.85, "source": "er_027", "note": "fear 合并到 anxiety"}
+{"id": "emo_028", "text": "我想消失一阵子，不想见任何人。", "label": "sadness", "confidence": 0.80, "source": "er_028", "note": "withdrawal 合并到 sadness"}
+{"id": "emo_029", "text": "现在先别分析原因，你能不能陪我把今晚熬过去。", "label": "sadness", "confidence": 0.75, "source": "er_029", "note": "despair 合并到 sadness"}
+{"id": "emo_030", "text": "今天没什么问题，就是想复盘一下最近情绪波动。", "label": "neutral", "confidence": 0.90, "source": "er_030"}
+{"id": "emo_031", "text": "我没有想自杀，只是最近压力真的很大，想找个办法缓一下。", "label": "anxiety", "confidence": 0.85, "source": "er_031", "note": "stress 合并到 anxiety"}
+{"id": "emo_032", "text": "我朋友说他不想活了，我该怎么办？", "label": "neutral", "confidence": 0.70, "source": "er_032"}
+{"id": "emo_033", "text": "这部电影里主角最后自杀了，我看完心里很难受。", "label": "sadness", "confidence": 0.85, "source": "er_033"}
+{"id": "emo_034", "text": "刚刚室友陪我聊了一会儿，我现在先待在客厅。", "label": "neutral", "confidence": 0.85, "source": "er_034"}
+{"id": "emo_035", "text": "明天就考科目二了，我紧张得睡不着。", "label": "anxiety", "confidence": 0.90, "source": "synthetic"}
+{"id": "emo_036", "text": "今天天气真好，出去走了走心情不错。", "label": "positive", "confidence": 0.95, "source": "synthetic"}
+{"id": "emo_037", "text": "项目终于验收了，虽然过程很辛苦但结果还行。", "label": "positive", "confidence": 0.85, "source": "synthetic"}
+{"id": "emo_038", "text": "我被老板当众批评了，觉得特别丢脸。", "label": "sadness", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_039", "text": "新来的同事什么都不会，什么都要我教，烦死了。", "label": "anger", "confidence": 0.85, "source": "synthetic"}
+{"id": "emo_040", "text": "每天通勤就要两个小时，感觉人生都浪费在路上了。", "label": "anxiety", "confidence": 0.75, "source": "synthetic"}
+{"id": "emo_041", "text": "收到 offer 了！终于等到这一天！", "label": "positive", "confidence": 0.95, "source": "synthetic"}
+{"id": "emo_042", "text": "中午吃了什么？哦我吃了一份沙拉。", "label": "neutral", "confidence": 0.97, "source": "synthetic"}
+{"id": "emo_043", "text": "我恨我自己为什么总是这么软弱。", "label": "anger", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_044", "text": "太久没回家了，有点想家。", "label": "sadness", "confidence": 0.75, "source": "synthetic"}
+{"id": "emo_045", "text": "室友每天晚上打游戏到凌晨，我要崩溃了。", "label": "anger", "confidence": 0.85, "source": "synthetic"}
+{"id": "emo_046", "text": "这个bug改了一天还没找到原因，挫败感很强。", "label": "anxiety", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_047", "text": "终于把论文初稿写完了，虽然不知道能不能过但先松口气。", "label": "positive", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_048", "text": "你好，请问有什么可以帮到你的？", "label": "neutral", "confidence": 0.98, "source": "synthetic"}
+{"id": "emo_049", "text": "本来以为会被裁，结果老板给我升职了，太意外了。", "label": "positive", "confidence": 0.90, "source": "synthetic"}
+{"id": "emo_050", "text": "他们说我不行，我要证明给他们看。", "label": "anger", "confidence": 0.75, "source": "synthetic"}
+{"id": "emo_051", "text": "每天醒来都觉得好累，不想面对新的一天。", "label": "sadness", "confidence": 0.85, "source": "synthetic"}
+{"id": "emo_052", "text": "虽然很忙但是很充实，我喜欢现在的工作。", "label": "positive", "confidence": 0.80, "source": "synthetic"}
+{"id": "emo_053", "text": "我没生气，只是觉得这件事处理得不公平。", "label": "anger", "confidence": 0.70, "source": "synthetic", "note": "否认生气但实际在表达不满"}
+{"id": "emo_054", "text": "又快到年底考核了，今年业绩还差一大截。", "label": "anxiety", "confidence": 0.85, "source": "synthetic"}
+{"id": "emo_055", "text": "最近总是莫名其妙地想哭。", "label": "sadness", "confidence": 0.90, "source": "synthetic"}
