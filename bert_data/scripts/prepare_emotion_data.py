@@ -251,7 +251,7 @@ def main():
         print(f"\n  从外部数据集加载 {len(external)} 条")
 
     # 5. 增强标注数据（焦虑关键词匹配、LLM 合成等）
-    for fname in ["emotion_anxiety_aug.jsonl", "emotion_llm_anxiety.jsonl", "emotion_anger_aug.jsonl"]:
+    for fname in ["emotion_anxiety_aug.jsonl", "emotion_llm_anxiety.jsonl", "emotion_anger_aug.jsonl", "emotion_synth_v2.jsonl"]:
         augment_path = processed_dir / fname
         if augment_path.exists():
             augment = load_jsonl(augment_path)
