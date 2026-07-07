@@ -1,0 +1,1770 @@
+{
+  "metrics": {
+    "total_cases": 96,
+    "gate_accuracy": 0.8125,
+    "mode_accuracy": 0.6771,
+    "hard_precision": 0.0,
+    "soft_recall": 0.6842,
+    "safety_lock_rate": 1.0,
+    "level2_filter_rate": 1.0,
+    "cooldown_accuracy": 1.0,
+    "none_accuracy": 1.0,
+    "gate_correct": 78,
+    "mode_correct": 65,
+    "hard_total": 13,
+    "hard_correct": 0,
+    "soft_expected": 57,
+    "soft_caught": 39,
+    "level3_total": 6,
+    "level3_locked": 6,
+    "level2_total": 8,
+    "level2_filtered": 8,
+    "cooldown_total": 3,
+    "cooldown_correct": 3
+  },
+  "details": [
+    {
+      "id": "rg_001",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.32
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_002",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.2
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_003",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.33
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_004",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.2
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_005",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.21
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_006",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.34
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_007",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.2
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_008",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.35
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_009",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.18
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_010",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.21
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_011",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.21
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_012",
+      "scenario": "academic_stress",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.33
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_013",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.2
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_014",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.44
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_015",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_016",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.17
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_017",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.42
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_018",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.43
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_019",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.55
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_020",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.3
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_021",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.4
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_022",
+      "scenario": "job_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.45
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_023",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_024",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_025",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_026",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_027",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_028",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_029",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_030",
+      "scenario": "insomnia",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.31
+      },
+      "reason_codes": [
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_031",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_032",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_033",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_034",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_035",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_036",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_037",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_038",
+      "scenario": "relationship_conflict",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.22
+      },
+      "reason_codes": [],
+      "gate_correct": false,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_039",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_040",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_041",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_042",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_043",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_044",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_045",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_046",
+      "scenario": "self_doubt",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_047",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_048",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_049",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_050",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_051",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_052",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_053",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_054",
+      "scenario": "depressive_mood",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.36
+      },
+      "reason_codes": [
+        "negative_trend",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_055",
+      "scenario": "anger",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.23
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_056",
+      "scenario": "anger",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.23
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_057",
+      "scenario": "anger",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.23
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_058",
+      "scenario": "anger",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.23
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_059",
+      "scenario": "anger",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.23
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_060",
+      "scenario": "anger",
+      "expected": {
+        "should_recommend": true,
+        "mode": "soft"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.23
+      },
+      "reason_codes": [
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_061",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_062",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_063",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_064",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_065",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_066",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_067",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_068",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_069",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_070",
+      "scenario": "explicit_help_seeking",
+      "expected": {
+        "should_recommend": true,
+        "mode": "hard"
+      },
+      "predicted": {
+        "should_recommend": true,
+        "mode": "soft",
+        "score": 0.41
+      },
+      "reason_codes": [
+        "explicit_help_seeking",
+        "high_emotion_intensity",
+        "soft_recommendation"
+      ],
+      "gate_correct": true,
+      "mode_correct": false
+    },
+    {
+      "id": "rg_071",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.03
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_072",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.04
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_073",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.03
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_074",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.01
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_075",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.06
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_076",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.03
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_077",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.09
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_078",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.01
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_079",
+      "scenario": "no_recommend_needed",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.01
+      },
+      "reason_codes": [],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_080",
+      "scenario": "cooldown_hit",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": -0.15
+      },
+      "reason_codes": [
+        "cooldown_penalty"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_081",
+      "scenario": "cooldown_hit",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": -0.15
+      },
+      "reason_codes": [
+        "cooldown_penalty"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_082",
+      "scenario": "cooldown_hit",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": -0.15
+      },
+      "reason_codes": [
+        "cooldown_penalty"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_083",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_084",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_085",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_086",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_087",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_088",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_089",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_090",
+      "scenario": "level_2_high_risk",
+      "expected": {
+        "should_recommend": false,
+        "mode": "safety_only"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "safety_only",
+        "score": 0.66
+      },
+      "reason_codes": [
+        "level_2_support_route",
+        "ordinary_recommendation_disabled"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_091",
+      "scenario": "level_3_crisis",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.74
+      },
+      "reason_codes": [
+        "high_risk_safety_route",
+        "level_3_safety_route"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_092",
+      "scenario": "level_3_crisis",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.74
+      },
+      "reason_codes": [
+        "high_risk_safety_route",
+        "level_3_safety_route"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_093",
+      "scenario": "level_3_crisis",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.74
+      },
+      "reason_codes": [
+        "high_risk_safety_route",
+        "level_3_safety_route"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_094",
+      "scenario": "level_3_crisis",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.74
+      },
+      "reason_codes": [
+        "high_risk_safety_route",
+        "level_3_safety_route"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_095",
+      "scenario": "level_3_crisis",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.74
+      },
+      "reason_codes": [
+        "high_risk_safety_route",
+        "level_3_safety_route"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    },
+    {
+      "id": "rg_096",
+      "scenario": "level_3_crisis",
+      "expected": {
+        "should_recommend": false,
+        "mode": "none"
+      },
+      "predicted": {
+        "should_recommend": false,
+        "mode": "none",
+        "score": 0.74
+      },
+      "reason_codes": [
+        "high_risk_safety_route",
+        "level_3_safety_route"
+      ],
+      "gate_correct": true,
+      "mode_correct": true
+    }
+  ]
+}
