@@ -245,23 +245,57 @@ def test_calculate_match_scores_empty_items():
 
 
 # ============================================================
-# _adjust_score_with_profile
+# _calc_profile_boost / _calc_duration_match
 # ============================================================
 
-def test_adjust_score_with_profile_type_match():
+def test_profile_boost_type_match():
     """类型匹配应加分"""
     item = _make_item(type="audio")
-    profile = {"preferred_types": ["audio", "video"], "preferred_categories": [],
-               "preferred_difficulty": "beginner"}
-    adjusted = content_recommender._adjust_score_with_profile(0.5, item, profile)
-    assert adjusted > 0.5
+    boost = content_recommender._calc_profile_boost(
+        item, {"preferred_types": ["audio", "video"]}
+    )
+    assert 0.14 <= boost <= 0.16
 
 
-def test_adjust_score_with_profile_no_profile():
-    """无画像不改分"""
+def test_profile_boost_empty_profile():
+    """空画像无加分"""
     item = _make_item()
-    adjusted = content_recommender._adjust_score_with_profile(0.5, item, {})
-    assert adjusted == 0.5
+    boost = content_recommender._calc_profile_boost(item, {})
+    assert boost == 0.0
+
+
+def test_profile_boost_high_risk_advanced_penalty():
+    """高风险+高级降权"""
+    item = _make_item(difficulty="advanced")
+    boost = content_recommender._calc_profile_boost(
+        item, {"risk_level": "high", "preferred_difficulty": "beginner"}
+    )
+    assert boost >= -0.10
+
+
+def test_duration_match_in_range():
+    """时长在偏好范围内"""
+    item = _make_item(duration_minutes=10)
+    score = content_recommender._calc_duration_match(
+        item, {"preferred_duration_range": {"min": 5, "max": 15}}
+    )
+    assert score == 0.1
+
+
+def test_duration_match_out_of_range():
+    """时长超出偏好范围"""
+    item = _make_item(duration_minutes=30)
+    score = content_recommender._calc_duration_match(
+        item, {"preferred_duration_range": {"min": 5, "max": 15}}
+    )
+    assert score == -0.05
+
+
+def test_duration_match_no_preference():
+    """无时长偏好返回 0"""
+    item = _make_item(duration_minutes=10)
+    score = content_recommender._calc_duration_match(item, {})
+    assert score == 0.0
 
 
 # ============================================================

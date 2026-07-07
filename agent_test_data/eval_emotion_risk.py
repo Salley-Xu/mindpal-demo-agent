@@ -383,13 +383,25 @@ def _binary_classification_metrics(y_true: List[bool], y_probs: List[float]) -> 
     return metrics
 
 
-def evaluate_risk_boundary(predictor, rows: List[Dict]) -> Dict:
-    """边界案例评测（按 tag 分组统计）"""
+def evaluate_risk_boundary(evaluator, rows: List[Dict]) -> Dict:
+    """边界案例评测（按 tag 分组统计）
+
+    使用 risk_evaluator.evaluate() 完整管线，
+    包含 _analyze_context() 的硬规则覆盖。
+    """
+    from risk_levels import normalize_risk_level
+
     pred_results = []
     for row in rows:
         try:
-            pred_results.append(predictor.predict(row["text"]))
-        except Exception:
+            result = evaluator.evaluate(
+                text=row["text"],
+                emotion_state={"emotion_type": "neutral", "emotion_intensity": 0.5},
+                conversation_summary={"turn_count": 1},
+            )
+            pred_results.append({"level": result["level"]})
+        except Exception as e:
+            logger.warning(f"边界评测失败 {row.get('id')}: {e}")
             pred_results.append({"level": "level_0"})
 
     # 整体统计
@@ -671,10 +683,16 @@ def run_risk_eval(
         f"提升={abl['fusion_improvement']:+.4f}"
     )
 
-    # 边界评测
+    # 创建完整评估器（含 context 硬规则覆盖）
+    # 注入共享 predictor 避免重复加载 BERT 模型
+    from risk_evaluator import RiskEvaluator
+    risk_ev = RiskEvaluator()
+    risk_ev._predictor = predictor
+
+    # 边界评测（使用完整 evaluate() 管线）
     try:
         bd_rows = load_dataset("risk_boundary", data_dir, case_limit=case_limit)
-        results["boundary"] = evaluate_risk_boundary(predictor, bd_rows)
+        results["boundary"] = evaluate_risk_boundary(risk_ev, bd_rows)
         bd = results["boundary"]
         logger.info(
             f"边界案例: accuracy={bd['overall']['accuracy']:.4f}  "
@@ -685,7 +703,8 @@ def run_risk_eval(
         logger.info("边界案例数据集未找到，跳过")
         results["boundary"] = {"skipped": True}
 
-    # 多轮会话聚合
+    # 多轮会话聚合（使用完整 evaluate() 管线）
+    # 已通过 sc_evaluator._predictor = predictor 注入共享模型
     try:
         mt_rows = load_dataset("risk_multiturn", data_dir, case_limit=case_limit)
         results["multiturn"] = evaluate_risk_multiturn(predictor, mt_rows)

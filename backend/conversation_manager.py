@@ -554,18 +554,24 @@ class ConversationManager:
         session_id: str,
         recommend_type: str,
         item_ids: Optional[List[str]] = None,
+        trace_data: Optional[Dict[str, Any]] = None,
     ):
         session = self.get_or_create_session(user_id, session_id)
         session.setdefault("recommendation_events", [])
         turn_number = len(session["history"])
-        session["recommendation_events"].append(
-            {
-                "turn_number": turn_number,
-                "recommend_type": recommend_type,
-                "item_ids": item_ids or [],
-                "timestamp": datetime.now().isoformat(),
-            }
-        )
+        event = {
+            "turn_number": turn_number,
+            "recommend_type": recommend_type,
+            "item_ids": item_ids or [],
+            "timestamp": datetime.now().isoformat(),
+        }
+        if trace_data:
+            event["gate_score"] = trace_data.get("gate_score")
+            event["gate_threshold"] = trace_data.get("gate_threshold")
+            event["reason_codes"] = trace_data.get("reason_codes", [])
+            event["cooldown_remaining"] = trace_data.get("cooldown_remaining")
+            event["safety_overridden"] = trace_data.get("safety_overridden", False)
+        session["recommendation_events"].append(event)
         session["recommendation_events"] = session["recommendation_events"][-5:]
         key = f"{user_id}_{session_id}"
         if self.use_persistence and key in self.session_db_ids:
@@ -577,6 +583,7 @@ class ConversationManager:
                     turn_number=turn_number,
                     recommend_type=recommend_type,
                     item_ids=item_ids or [],
+                    trace_data=trace_data,
                 )
 
             self._schedule_persistence(_persist())
@@ -647,6 +654,7 @@ class ConversationManager:
                 'accepted_recommendations': [],
                 'rejected_recommendations': [],
                 'recent_recommendation_turns': [],
+                'recent_recommendation_item_ids': [],
                 'compressed_context': ''
             }
         emotions = [h['detected_emotion'] for h in session['history'][-5:]]
@@ -676,6 +684,12 @@ class ConversationManager:
             for event in session.get("recommendation_events", [])[-3:]
             if event.get("turn_number") is not None
         ]
+        # 收集最近推荐过的内容 ID，用于去重惩罚（展平并去重）
+        recent_recommendation_item_ids = list(dict.fromkeys(
+            item_id
+            for event in session.get("recommendation_events", [])[-5:]
+            for item_id in (event.get("item_ids") or [])
+        ))
         compressed_context = ''
         if key in self.context_cache:
             compressed_context = self.context_cache[key]['compressed_context']
@@ -694,6 +708,7 @@ class ConversationManager:
             'accepted_recommendations': session.get('accepted_recommendations', []),
             'rejected_recommendations': session.get('rejected_recommendations', []),
             'recent_recommendation_turns': recent_recommendation_turns,
+            'recent_recommendation_item_ids': recent_recommendation_item_ids,
             'compressed_context': compressed_context
         }
 

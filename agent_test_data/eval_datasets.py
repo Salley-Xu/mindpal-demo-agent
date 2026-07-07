@@ -42,6 +42,11 @@ SCHEMAS: Dict[str, Dict] = {
         "turn_required": ["text", "turn_level", "session_level"],
         "valid_levels": {"level_0", "level_1", "level_2", "level_3"},
     },
+    "recommend_gate": {
+        "required": ["id", "user_input", "emotion_state", "risk_state", "expected"],
+        "optional": ["conversation_summary", "user_profile", "tags", "scenario", "difficulty", "note"],
+        "valid_modes": {"soft", "hard", "none", "safety_only"},
+    },
 }
 
 
@@ -70,7 +75,13 @@ def validate_row(row: Dict, schema: Dict, name: str, line_no: int):
     """校验单行数据"""
     row_id = row.get("id", f"line_{line_no}")
 
+    # 如果缺少 id 字段，自动补一个
+    if "id" not in row:
+        row["id"] = f"auto_{name}_{line_no:04d}"
+
     for field in schema.get("required", []):
+        if field == "id":
+            continue  # 已自动补全
         if field not in row:
             raise ValueError(
                 f"[{name}] 第 {line_no} 行 (id={row_id}) 缺少必需字段 '{field}'"

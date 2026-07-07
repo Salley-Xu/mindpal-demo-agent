@@ -5,6 +5,7 @@
     "type": "article",
     "category": "academic",
     "description": "针对大学生常见的学业压力问题，提供具体的应对策略和心理调适方法。",
+    "content": "将任务拆成可执行的小步，先处理最紧急的一件，再安排复盘和休息时间。",
     "url": "/articles/academic_stress_management.html",
     "duration_minutes": null,
     "tags": [
@@ -19,8 +20,20 @@
       "压力",
       "困惑"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.88,
+    "source": "mindpal_editorial",
+    "actionability": 0.82,
+    "retrieval_metadata": null,
     "difficulty": "beginner",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -29,6 +42,7 @@
     "type": "audio",
     "category": "relaxation",
     "description": "专门为缓解焦虑设计的冥想音频，适合睡前或压力大时聆听。",
+    "content": "跟随音频进行呼吸放松和身体扫描，帮助快速降低紧张感。",
     "url": "/audios/10min_relaxation.mp3",
     "duration_minutes": 10,
     "tags": [
@@ -43,8 +57,20 @@
       "失眠",
       "紧张"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.84,
+    "source": "mindpal_editorial",
+    "actionability": 0.7,
+    "retrieval_metadata": null,
     "difficulty": "beginner",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -53,6 +79,7 @@
     "type": "exercise",
     "category": "self_reflection",
     "description": "通过记录情绪日记，提高情绪觉察能力，了解自己的情绪模式。",
+    "content": "记录情绪触发事件、当时想法、身体感受和你想采取的下一步。",
     "url": null,
     "duration_minutes": null,
     "tags": [
@@ -67,8 +94,20 @@
       "情绪压抑",
       "自我怀疑"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.72,
+    "source": "mindpal_editorial",
+    "actionability": 0.68,
+    "retrieval_metadata": null,
     "difficulty": "beginner",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -77,6 +116,7 @@
     "type": "article",
     "category": "relationship",
     "description": "学习有效的沟通方法，改善与朋友、家人和恋人的关系。",
+    "content": "尝试使用感受-需求-请求的表达框架，减少冲突中的指责感。",
     "url": "/articles/communication_skills.html",
     "duration_minutes": null,
     "tags": [
@@ -91,8 +131,20 @@
       "被误解",
       "社交焦虑"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.76,
+    "source": "mindpal_editorial",
+    "actionability": 0.73,
+    "retrieval_metadata": null,
     "difficulty": "intermediate",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -101,6 +153,7 @@
     "type": "audio",
     "category": "mindfulness",
     "description": "简短的正念呼吸练习，帮助你在紧张时刻快速平静下来。",
+    "content": "进行 3 到 5 分钟的呼吸计数，把注意力带回当下。",
     "url": "/audios/mindful_breathing.mp3",
     "duration_minutes": 5,
     "tags": [
@@ -115,8 +168,20 @@
       "注意力分散",
       "过度思考"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.9,
+    "source": "mindpal_editorial",
+    "actionability": 0.9,
+    "retrieval_metadata": null,
     "difficulty": "beginner",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -125,6 +190,7 @@
     "type": "tool",
     "category": "cognitive_restructuring",
     "description": "识别并挑战负面思维模式，建立更健康的思考方式。",
+    "content": "写下自动化想法、证据支持与反证，并重写更平衡的新想法。",
     "url": "/tools/cognitive_restructuring.pdf",
     "duration_minutes": null,
     "tags": [
@@ -139,8 +205,20 @@
       "自我怀疑",
       "负面思维"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.78,
+    "source": "mindpal_editorial",
+    "actionability": 0.86,
+    "retrieval_metadata": null,
     "difficulty": "intermediate",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -149,6 +227,7 @@
     "type": "article",
     "category": "future",
     "description": "针对大学生常见的职业迷茫问题，提供实用的规划方法和心态调整建议。",
+    "content": "把未来规划拆成探索、验证和行动三步，先验证最小方向而不是一次定终身。",
     "url": "/articles/career_confusion.html",
     "duration_minutes": null,
     "tags": [
@@ -163,8 +242,20 @@
       "焦虑",
       "压力"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.8,
+    "source": "mindpal_editorial",
+    "actionability": 0.74,
+    "retrieval_metadata": null,
     "difficulty": "intermediate",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   },
   {
@@ -173,6 +264,7 @@
     "type": "audio",
     "category": "sleep",
     "description": "针对失眠问题的肌肉放松训练，帮助你更容易入睡。",
+    "content": "依次放松肩颈、手臂、腿部与呼吸，帮助身体进入睡眠准备状态。",
     "url": "/audios/progressive_relaxation.mp3",
     "duration_minutes": 15,
     "tags": [
@@ -187,8 +279,720 @@
       "压力",
       "身体紧张"
     ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.77,
+    "source": "mindpal_editorial",
+    "actionability": 0.83,
+    "retrieval_metadata": null,
     "difficulty": "beginner",
-    "created_at": "2026-01-30T21:59:46.463314",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_004",
+    "title": "走出抑郁低谷：日常情绪管理指南",
+    "type": "article",
+    "category": "mood_management",
+    "description": "针对持续性情绪低落，提供温和可操作的日常管理策略，帮助逐步恢复内在平衡。",
+    "content": "每天给自己三个小目标：一次外出、一件完成的小事、一次对自己说「这样就很好」。逐步积累正向体验。",
+    "url": "/articles/mood_management_guide.html",
+    "duration_minutes": null,
+    "tags": [
+      "抑郁",
+      "情绪管理",
+      "日常习惯",
+      "自我关怀"
+    ],
+    "emotion_tags": [
+      "抑郁",
+      "情绪低落",
+      "自我怀疑",
+      "疲惫"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.82,
+    "source": "mindpal_editorial",
+    "actionability": 0.76,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "audio_004",
+    "title": "温暖自我关怀冥想（12分钟）",
+    "type": "audio",
+    "category": "mood_management",
+    "description": "以温和友善的态度引导你关注自己的内心，适合情绪低落或自我批评强烈时练习。",
+    "content": "将手放在心上，对自己说：愿我平安，愿我快乐，愿我轻松。让温暖的感觉从掌心蔓延到全身。",
+    "url": "/audios/self_compassion.mp3",
+    "duration_minutes": 12,
+    "tags": [
+      "自我关怀",
+      "冥想",
+      "温和",
+      "接纳"
+    ],
+    "emotion_tags": [
+      "抑郁",
+      "焦虑",
+      "自我怀疑",
+      "疲惫"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.8,
+    "source": "mindpal_editorial",
+    "actionability": 0.65,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "exercise_002",
+    "title": "每日三件好事：积极心理练习",
+    "type": "exercise",
+    "category": "self_reflection",
+    "description": "基于积极心理学的研究，通过记录每天的三件好事来改善情绪状态。",
+    "content": "每天睡前写下今天发生的三件好事（可大可小），并写下它们为什么会发生。坚持21天。",
+    "url": null,
+    "duration_minutes": null,
+    "tags": [
+      "积极心理",
+      "感恩",
+      "日记",
+      "正向思维"
+    ],
+    "emotion_tags": [
+      "抑郁",
+      "情绪低落",
+      "自我怀疑",
+      "困惑"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.75,
+    "source": "mindpal_editorial",
+    "actionability": 0.9,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_005",
+    "title": "愤怒管理：识别情绪触发器与健康表达",
+    "type": "article",
+    "category": "anger_management",
+    "description": "帮助你理解愤怒背后的需求，学会在情绪爆发前识别信号，并以不伤害关系的方式表达。",
+    "content": "愤怒来临时先做三次深呼吸，问自己：我真正需要的是什么？然后用「我感到…因为…我需要…」的句式表达。",
+    "url": "/articles/anger_management.html",
+    "duration_minutes": null,
+    "tags": [
+      "愤怒",
+      "情绪管理",
+      "沟通",
+      "冲突解决"
+    ],
+    "emotion_tags": [
+      "愤怒",
+      "人际矛盾",
+      "压力",
+      "烦躁"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.78,
+    "source": "mindpal_editorial",
+    "actionability": 0.72,
+    "retrieval_metadata": null,
+    "difficulty": "intermediate",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "audio_005",
+    "title": "3分钟快速冷静呼吸练习",
+    "type": "audio",
+    "category": "emotional_regulation",
+    "description": "极简的呼吸冷静练习，适合愤怒或极度焦虑时快速平复情绪。",
+    "content": "吸气4秒→屏息4秒→呼气6秒。重复5轮，专注于呼吸的节奏，让身体慢慢放松下来。",
+    "url": "/audios/quick_calm_breathing.mp3",
+    "duration_minutes": 3,
+    "tags": [
+      "呼吸",
+      "冷静",
+      "情绪调节",
+      "快速放松"
+    ],
+    "emotion_tags": [
+      "愤怒",
+      "焦虑",
+      "紧张",
+      "烦躁"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.88,
+    "source": "mindpal_editorial",
+    "actionability": 0.92,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_006",
+    "title": "在不确定中找到方向：决策焦虑应对指南",
+    "type": "article",
+    "category": "decision_making",
+    "description": "面对人生选择和不确定的未来时，提供一套可操作的决策框架来减轻焦虑。",
+    "content": "列出每个选项的利弊，想象每个选择后1年的自己是什么状态，然后问自己：哪个选择更接近我想要的生活。",
+    "url": "/articles/decision_anxiety.html",
+    "duration_minutes": null,
+    "tags": [
+      "决策",
+      "不确定",
+      "焦虑",
+      "选择困难"
+    ],
+    "emotion_tags": [
+      "不确定",
+      "困惑",
+      "焦虑",
+      "未来迷茫"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.8,
+    "source": "mindpal_editorial",
+    "actionability": 0.74,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "tool_002",
+    "title": "决策平衡单：可视化选择分析工具",
+    "type": "tool",
+    "category": "decision_making",
+    "description": "通过多维度打分矩阵，将模糊的决策困境转化为可视化的比较数据。",
+    "content": "列出你的选项，定义5-8个评估维度（如收入、成长、幸福感等），每个维度按1-10打分，加权求和后比较。",
+    "url": "/tools/decision_balance.html",
+    "duration_minutes": null,
+    "tags": [
+      "决策工具",
+      "分析",
+      "规划",
+      "理性思考"
+    ],
+    "emotion_tags": [
+      "不确定",
+      "困惑",
+      "未来迷茫",
+      "焦虑"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.76,
+    "source": "mindpal_editorial",
+    "actionability": 0.85,
+    "retrieval_metadata": null,
+    "difficulty": "intermediate",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_007",
+    "title": "打破自我怀疑：建立健康的自我评价体系",
+    "type": "article",
+    "category": "self_esteem",
+    "description": "识别内在批评者的声音，学习用更客观友善的视角看待自己的价值。",
+    "content": "当自我怀疑出现时，写下三个证据证明你「不够好」，再写下三个反例。你往往会发现反例更真实。",
+    "url": "/articles/overcome_self_doubt.html",
+    "duration_minutes": null,
+    "tags": [
+      "自我怀疑",
+      "自信",
+      "自尊",
+      "自我接纳"
+    ],
+    "emotion_tags": [
+      "自我怀疑",
+      "抑郁",
+      "困惑",
+      "焦虑"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.8,
+    "source": "mindpal_editorial",
+    "actionability": 0.7,
+    "retrieval_metadata": null,
+    "difficulty": "intermediate",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "audio_006",
+    "title": "自我肯定与内在力量冥想（10分钟）",
+    "type": "audio",
+    "category": "self_esteem",
+    "description": "通过积极肯定的引导语，帮助你建立内在的安全感和自我价值感。",
+    "content": "深呼吸，对自己说：我足够好，我有自己的独特价值，我值得被尊重和爱。让这些话语渗透到内心。",
+    "url": "/audios/self_affirmation.mp3",
+    "duration_minutes": 10,
+    "tags": [
+      "自我肯定",
+      "冥想",
+      "自信",
+      "内在力量"
+    ],
+    "emotion_tags": [
+      "自我怀疑",
+      "焦虑",
+      "压力",
+      "抑郁"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.82,
+    "source": "mindpal_editorial",
+    "actionability": 0.68,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_008",
+    "title": "连接的力量：如何应对孤独感",
+    "type": "article",
+    "category": "social_skills",
+    "description": "孤独是人类的共通体验，本文提供从自我连接开始，逐步建立社交联系的方法。",
+    "content": "从每周一次与一位朋友简短聊天开始，参与一个兴趣小组，尝试在安全的环境中分享真实的感受。",
+    "url": "/articles/dealing_with_loneliness.html",
+    "duration_minutes": null,
+    "tags": [
+      "孤独",
+      "社交",
+      "连接",
+      "人际关系"
+    ],
+    "emotion_tags": [
+      "孤独",
+      "人际矛盾",
+      "困惑",
+      "社交焦虑"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.76,
+    "source": "mindpal_editorial",
+    "actionability": 0.71,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "exercise_003",
+    "title": "社交连接计划：从日常小事开始",
+    "type": "exercise",
+    "category": "relationship",
+    "description": "通过结构化的小练习，逐步建立和维护有意义的社交联系。",
+    "content": "本周目标：给一个老朋友发条消息；参加一个集体活动；对一位陌生人微笑或打招呼。记录每次的感受。",
+    "url": null,
+    "duration_minutes": null,
+    "tags": [
+      "社交",
+      "连接",
+      "人际关系",
+      "小步骤"
+    ],
+    "emotion_tags": [
+      "孤独",
+      "人际矛盾",
+      "社交焦虑"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.7,
+    "source": "mindpal_editorial",
+    "actionability": 0.82,
+    "retrieval_metadata": null,
+    "difficulty": "intermediate",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_009",
+    "title": "睡眠卫生指南：科学改善睡眠质量",
+    "type": "article",
+    "category": "sleep",
+    "description": "基于睡眠科学的实用建议，帮助你建立健康的睡眠习惯。",
+    "content": "固定作息时间，睡前1小时远离屏幕，保持卧室凉爽黑暗，避免午后摄入咖啡因，睡前不做剧烈运动。",
+    "url": "/articles/sleep_hygiene.html",
+    "duration_minutes": null,
+    "tags": [
+      "睡眠",
+      "失眠",
+      "作息",
+      "健康习惯"
+    ],
+    "emotion_tags": [
+      "失眠",
+      "焦虑",
+      "压力",
+      "疲惫"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.78,
+    "source": "mindpal_editorial",
+    "actionability": 0.8,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_010",
+    "title": "深层认知重构：改变自动化思维模式",
+    "type": "article",
+    "category": "cognitive_restructuring",
+    "description": "面向有一定心理学基础的读者，深入探讨如何识别并重建深层的核心信念。",
+    "content": "追踪反复出现的负性思维主题，识别其背后的核心信念（如「我不够好」），收集长期反证，逐步建立替代信念。",
+    "url": "/articles/deep_cognitive_restructuring.html",
+    "duration_minutes": null,
+    "tags": [
+      "认知重构",
+      "核心信念",
+      "CBT",
+      "高级心理技巧"
+    ],
+    "emotion_tags": [
+      "焦虑",
+      "抑郁",
+      "自我怀疑",
+      "负面思维"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.72,
+    "source": "mindpal_editorial",
+    "actionability": 0.62,
+    "retrieval_metadata": null,
+    "difficulty": "advanced",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "tool_003",
+    "title": "情绪急救箱：危机应对计划模板",
+    "type": "tool",
+    "category": "crisis_management",
+    "description": "当情绪快失控时有一份具体的行动计划，帮助你在风暴中锚定自己。",
+    "content": "写下：1)我的预警信号 2)立即可以做的3件安抚小事 3)可以联系的人 4)让我感到安全的地方 5)专业求助热线。",
+    "url": "/tools/emotional_first_aid.html",
+    "duration_minutes": null,
+    "tags": [
+      "危机应对",
+      "情绪急救",
+      "安全计划",
+      "自我照顾"
+    ],
+    "emotion_tags": [
+      "焦虑",
+      "抑郁",
+      "压力",
+      "愤怒"
+    ],
+    "risk_levels": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "contraindications": [],
+    "recommend_type": "soft",
+    "priority": 0.85,
+    "source": "mindpal_editorial",
+    "actionability": 0.88,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "audio_007",
+    "title": "5-4-3-2-1 接地练习：应急情绪稳定（5分钟）",
+    "type": "audio",
+    "category": "emotional_regulation",
+    "description": "经典的 grounding 技术，通过调动五种感官快速回到当下，适合情绪即将失控时使用。",
+    "content": "说出你看到的5样东西、摸到的4样东西、听到的3种声音、闻到的2种气味、尝到的1种味道。重复直到平静。",
+    "url": "/audios/grounding_54321.mp3",
+    "duration_minutes": 5,
+    "tags": [
+      "接地",
+      "情绪稳定",
+      "焦虑急救",
+      "正念"
+    ],
+    "emotion_tags": [
+      "焦虑",
+      "愤怒",
+      "紧张",
+      "恐慌"
+    ],
+    "risk_levels": [
+      "low",
+      "medium",
+      "high"
+    ],
+    "contraindications": [],
+    "recommend_type": "hard",
+    "priority": 0.9,
+    "source": "mindpal_editorial",
+    "actionability": 0.95,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_011",
+    "title": "正念入门：在日常生活中培养觉察力",
+    "type": "article",
+    "category": "mindfulness",
+    "description": "不需要盘腿打坐，在日常活动中即可练习的正念方法。",
+    "content": "选择一件每天必做的事（刷牙、走路、喝水），做的时候全神贯注于感官体验。每次偏离就温和地拉回来。",
+    "url": "/articles/mindfulness_basics.html",
+    "duration_minutes": null,
+    "tags": [
+      "正念",
+      "觉察",
+      "活在当下",
+      "冥想入门"
+    ],
+    "emotion_tags": [
+      "焦虑",
+      "压力",
+      "困惑",
+      "注意力分散"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.77,
+    "source": "mindpal_editorial",
+    "actionability": 0.73,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "video_001",
+    "title": "身体扫描放松练习（引导视频）",
+    "type": "video",
+    "category": "relaxation",
+    "description": "15分钟全身放松引导，从头到脚逐步释放紧绷，适合压力大或入睡前。",
+    "content": "从头顶开始，逐步将注意力移到额头、面部、颈部、肩膀……每个部位停留3个呼吸，感受放松的感觉。",
+    "url": "/videos/body_scan.mp4",
+    "duration_minutes": 15,
+    "tags": [
+      "身体扫描",
+      "放松",
+      "减压",
+      "入睡"
+    ],
+    "emotion_tags": [
+      "焦虑",
+      "压力",
+      "失眠",
+      "紧张"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.8,
+    "source": "mindpal_editorial",
+    "actionability": 0.85,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_012",
+    "title": "建立情绪韧性：心理健康的长期养护",
+    "type": "article",
+    "category": "stress_management",
+    "description": "情绪韧性是应对生活挑战的心理免疫力，本文提供系统化的培养方案。",
+    "content": "从四个维度养护：身体（睡眠/运动/饮食）、情绪（允许感受/自我关怀）、社交（支持网络）、意义（价值感/目标）。",
+    "url": "/articles/emotional_resilience.html",
+    "duration_minutes": null,
+    "tags": [
+      "韧性",
+      "心理健康",
+      "长期养护",
+      "自我成长"
+    ],
+    "emotion_tags": [
+      "压力",
+      "焦虑",
+      "疲惫",
+      "职业倦怠"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "soft",
+    "priority": 0.73,
+    "source": "mindpal_editorial",
+    "actionability": 0.68,
+    "retrieval_metadata": null,
+    "difficulty": "intermediate",
+    "created_at": "2026-07-06T22:02:01.536748",
+    "popularity": 0
+  },
+  {
+    "id": "article_013",
+    "title": "考前心理调适：应对考试焦虑的实用策略",
+    "type": "article",
+    "category": "academic",
+    "description": "针对备考和考试期间的高焦虑状态，提供考前、考中、考后的全流程应对方法。",
+    "content": "考前：制定复习计划留出缓冲。考中：紧张时做4-7-8呼吸。考后：不对答案，给自己一个放松活动。",
+    "url": "/articles/exam_anxiety.html",
+    "duration_minutes": null,
+    "tags": [
+      "考试焦虑",
+      "考前准备",
+      "学习方法",
+      "心理调适"
+    ],
+    "emotion_tags": [
+      "学业压力",
+      "焦虑",
+      "紧张",
+      "压力"
+    ],
+    "risk_levels": [
+      "low",
+      "medium"
+    ],
+    "contraindications": [
+      "high_risk_crisis"
+    ],
+    "recommend_type": "hard",
+    "priority": 0.83,
+    "source": "mindpal_editorial",
+    "actionability": 0.78,
+    "retrieval_metadata": null,
+    "difficulty": "beginner",
+    "created_at": "2026-07-06T22:02:01.536748",
     "popularity": 0
   }
 ]

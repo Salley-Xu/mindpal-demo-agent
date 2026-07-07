@@ -69,16 +69,17 @@ def rule_match(text: str) -> bool:
 
 
 # ============================================================
-# 模型架构（与 train_v4_2.py 一致）
+# 模型架构
 # ============================================================
+
 class MultiTaskBERT(nn.Module):
-    """多任务 BERT 模型：共享 backbone + 4分类头 + 二分类头"""
+    """多任务 BERT（v4.2）：共享 backbone + 4分类头 + 二分类头"""
 
     def __init__(self, model_name: str = "hfl/chinese-macbert-base"):
         super().__init__()
         self.bert = AutoModel.from_pretrained(model_name)
         self.dropout = nn.Dropout(0.1)
-        hidden = self.bert.config.hidden_size  # 768
+        hidden = self.bert.config.hidden_size
         self.classifier_4 = nn.Linear(hidden, 4)
         self.classifier_2 = nn.Linear(hidden, 2)
 
@@ -87,6 +88,59 @@ class MultiTaskBERT(nn.Module):
         pooled = outputs.pooler_output
         pooled = self.dropout(pooled)
         return self.classifier_4(pooled), self.classifier_2(pooled)
+
+
+class CoralBERT(nn.Module):
+    """CORAL 有序回归（v4.3）：共享 backbone + 3 CORAL logits"""
+
+    def __init__(self, model_name: str = "hfl/chinese-macbert-base"):
+        super().__init__()
+        self.bert = AutoModel.from_pretrained(model_name)
+        self.dropout = nn.Dropout(0.1)
+        hidden = self.bert.config.hidden_size
+        self.coral_output = nn.Linear(hidden, 3)
+
+    def forward(self, input_ids, attention_mask):
+        outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
+        pooled = outputs.pooler_output
+        pooled = self.dropout(pooled)
+        return self.coral_output(pooled)
+
+
+def _level_to_coral(label_4: int) -> list:
+    return [1.0 if label_4 > k else 0.0 for k in range(3)]
+
+
+def _coral_to_level(coral_probs: list, threshold: float = 0.50) -> str:
+    level = 0
+    for i in range(3):
+        if coral_probs[i] >= threshold:
+            level = i + 1
+        else:
+            break
+    return [LEVEL_0, LEVEL_1, LEVEL_2, LEVEL_3][level]
+
+
+def _load_model(model_path: Path, device: torch.device):
+    """
+    自动检测 checkpoint 架构并加载对应模型。
+
+    - 如果 state_dict 含 "coral_output.weight" → CoralBERT (v4.3)
+    - 否则 → MultiTaskBERT (v4.2)
+    """
+    state_dict = torch.load(str(model_path / "model_state.pt"), map_location="cpu", weights_only=True)
+
+    if "coral_output.weight" in state_dict:
+        model = CoralBERT()
+        logger.info("  检测到 CORAL 架构 → CoralBERT (v4.3)")
+    else:
+        model = MultiTaskBERT()
+        logger.info("  检测到 4分类+二分类 架构 → MultiTaskBERT (v4.2)")
+
+    model.load_state_dict(state_dict)
+    model.to(device)
+    model.eval()
+    return model
 
 
 # ============================================================
@@ -123,17 +177,14 @@ class BertRiskPredictor:
         self.tokenizer = AutoTokenizer.from_pretrained(str(self.model_path))
         logger.info("  Tokenizer 加载完成: %s", self.tokenizer.__class__.__name__)
 
-        # 加载模型
-        self.model = MultiTaskBERT("hfl/chinese-macbert-base")
+        # 加载模型（自动检测 v4.2 / v4.3 架构）
         state_dict_path = self.model_path / "model_state.pt"
         if not state_dict_path.exists():
             raise FileNotFoundError(f"模型权重不存在: {state_dict_path}")
-        self.model.load_state_dict(
-            torch.load(str(state_dict_path), map_location=self.device, weights_only=True)
-        )
-        self.model.to(self.device)
-        self.model.eval()
-        logger.info("  模型加载完成: %s (%.1f MB)", state_dict_path.name, state_dict_path.stat().st_size / 1e6)
+        self.model = _load_model(self.model_path, self.device)
+        self._is_coral = isinstance(self.model, CoralBERT)
+        logger.info("  模型加载完成: %s (%.1f MB, coral=%s)",
+                     state_dict_path.name, state_dict_path.stat().st_size / 1e6, self._is_coral)
 
     def predict(self, text: str) -> Dict:
         """
@@ -158,7 +209,7 @@ class BertRiskPredictor:
                 "rule_matched": True,
             }
 
-        # BERT 推理
+        # BERT 推理（自动适配 CoralBERT / MultiTaskBERT 架构）
         try:
             enc = self.tokenizer(
                 text,
@@ -170,11 +221,39 @@ class BertRiskPredictor:
             enc = {k: v.to(self.device) for k, v in enc.items()}
 
             with torch.no_grad():
-                logits_4, logits_2 = self.model(enc["input_ids"], enc["attention_mask"])
+                outputs = self.model(enc["input_ids"], enc["attention_mask"])
 
-            pred_4 = int(torch.argmax(logits_4, dim=-1).cpu().item())
-            probs_4 = torch.softmax(logits_4, dim=-1).cpu().squeeze().tolist()
-            binary_prob = float(torch.softmax(logits_2, dim=-1)[0, 1].cpu().item())
+            if self._is_coral:
+                # CoralBERT (v4.3): 单输出 [batch, 3] CORAL logits
+                coral_probs = torch.sigmoid(outputs).cpu().squeeze().tolist()
+                if isinstance(coral_probs[0], list):
+                    coral_probs = coral_probs[0]
+                level = _coral_to_level(coral_probs, threshold=0.28)
+                pred_4 = [LEVEL_0, LEVEL_1, LEVEL_2, LEVEL_3].index(level)
+                binary_prob = coral_probs[1] if len(coral_probs) > 1 else 0.0
+                return {
+                    "level": level,
+                    "level_4_prediction": pred_4,
+                    "binary_probability": round(binary_prob, 4),
+                    "class_probabilities": [round(p, 4) for p in coral_probs + [0.0]],
+                    "fusion_source": "model_4class",
+                    "rule_matched": False,
+                }
+            else:
+                # MultiTaskBERT (v4.2): 双输出 (4分类, 二分类)
+                logits_4, logits_2 = outputs
+                pred_4 = int(torch.argmax(logits_4, dim=-1).cpu().item())
+                probs_4 = torch.softmax(logits_4, dim=-1).cpu().squeeze().tolist()
+                binary_prob = float(torch.softmax(logits_2, dim=-1)[0, 1].cpu().item())
+                level_map = {0: LEVEL_0, 1: LEVEL_1, 2: LEVEL_2, 3: LEVEL_3}
+                return {
+                    "level": level_map.get(pred_4, LEVEL_0),
+                    "level_4_prediction": pred_4,
+                    "binary_probability": round(binary_prob, 4),
+                    "class_probabilities": [round(p, 4) for p in probs_4],
+                    "fusion_source": "model_4class",
+                    "rule_matched": False,
+                }
         except Exception as e:
             logger.error("BERT 推理失败，回退到 LEVEL_0: %s", e)
             return {
@@ -185,28 +264,6 @@ class BertRiskPredictor:
                 "fusion_source": "inference_error",
                 "rule_matched": False,
             }
-
-        # 二级融合：binary 升级
-        if binary_prob > self.binary_threshold and pred_4 < 2:
-            return {
-                "level": LEVEL_2,
-                "level_4_prediction": pred_4,
-                "binary_probability": round(binary_prob, 4),
-                "class_probabilities": [round(p, 4) for p in probs_4],
-                "fusion_source": "binary_upgrade",
-                "rule_matched": False,
-            }
-
-        # 默认：4 分类结果
-        level_map = {0: LEVEL_0, 1: LEVEL_1, 2: LEVEL_2, 3: LEVEL_3}
-        return {
-            "level": level_map.get(pred_4, LEVEL_0),
-            "level_4_prediction": pred_4,
-            "binary_probability": round(binary_prob, 4),
-            "class_probabilities": [round(p, 4) for p in probs_4],
-            "fusion_source": "model_4class",
-            "rule_matched": False,
-        }
 
     def predict_level(self, text: str) -> str:
         """快捷方法：只返回归一化风险等级字符串。"""

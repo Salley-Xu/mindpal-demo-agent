@@ -1,5 +1,6 @@
 from typing import Any, Dict, List, Optional
 
+from config import config
 from risk_levels import (
     LEVEL_0,
     LEVEL_1,
@@ -16,15 +17,16 @@ class RecommendGate:
 
     def __init__(self):
         # 归一化后的权重总和为 1，便于解释分数区间并稳定阈值语义。
+        # 权重与阈值从 config 读取，可通过 .env 覆盖调参。
         self.weights = {
-            "emotion_intensity": 0.30,
-            "risk_score": 0.23,
-            "intent_score": 0.23,
-            "trend_score": 0.14,
-            "preference_score": 0.10,
+            "emotion_intensity": config.RECOMMEND_GATE_EMOTION_WEIGHT,
+            "risk_score": config.RECOMMEND_GATE_RISK_WEIGHT,
+            "intent_score": config.RECOMMEND_GATE_INTENT_WEIGHT,
+            "trend_score": config.RECOMMEND_GATE_TREND_WEIGHT,
+            "preference_score": config.RECOMMEND_GATE_PREFERENCE_WEIGHT,
         }
-        self.hard_threshold = 0.58
-        self.soft_threshold = 0.22
+        self.hard_threshold = config.RECOMMEND_GATE_HARD_THRESHOLD
+        self.soft_threshold = config.RECOMMEND_GATE_SOFT_THRESHOLD
 
     def decide(
         self,
@@ -59,6 +61,11 @@ class RecommendGate:
         trend_score = 0.35 if negative_trend else 0.0
         preference_score = self._calculate_preference_score(emotion_state, user_profile, conversation_summary)
         cooldown_penalty, cooldown_remaining = self._calculate_cooldown_penalty(conversation_summary)
+
+        # 检查是否有内容被重复推荐（跨轮次去重）
+        recent_item_ids = conversation_summary.get("recent_recommendation_item_ids", []) or []
+        if recent_item_ids:
+            reason_codes.append("has_recent_recommendations")
 
         recommend_score = (
             self.weights["emotion_intensity"] * emotion_intensity

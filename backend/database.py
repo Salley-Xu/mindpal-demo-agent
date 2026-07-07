@@ -312,6 +312,12 @@ class DatabaseManager:
         self._ensure_column_exists(cursor, "mood_events", "user_intent", "TEXT")
         self._ensure_column_exists(cursor, "mood_events", "event_summary", "TEXT")
         self._ensure_column_exists(cursor, "mood_events", "risk_level", "TEXT DEFAULT 'low'")
+        # 推荐追踪字段（v4.4）
+        self._ensure_column_exists(cursor, "recommendation_events", "gate_score", "REAL")
+        self._ensure_column_exists(cursor, "recommendation_events", "gate_threshold", "REAL")
+        self._ensure_column_exists(cursor, "recommendation_events", "reason_codes", "TEXT DEFAULT '[]'")
+        self._ensure_column_exists(cursor, "recommendation_events", "cooldown_remaining", "INTEGER DEFAULT 0")
+        self._ensure_column_exists(cursor, "recommendation_events", "safety_overridden", "INTEGER DEFAULT 0")
 
     def _ensure_column_exists(self, cursor, table_name: str, column_name: str, definition: str):
         cursor.execute(f"PRAGMA table_info({table_name})")
@@ -687,21 +693,43 @@ class DatabaseManager:
         turn_number: int,
         recommend_type: str,
         item_ids: Optional[List[str]] = None,
+        trace_data: Optional[Dict[str, Any]] = None,
     ):
         with self.get_connection() as conn:
             cursor = conn.cursor()
-            cursor.execute(
-                """
-                INSERT INTO recommendation_events (session_id, turn_number, recommend_type, item_ids)
-                VALUES (?, ?, ?, ?)
-                """,
-                (
-                    session_db_id,
-                    turn_number,
-                    recommend_type,
-                    json.dumps(item_ids or [], ensure_ascii=False),
-                ),
-            )
+            if trace_data:
+                cursor.execute(
+                    """
+                    INSERT INTO recommendation_events
+                        (session_id, turn_number, recommend_type, item_ids,
+                         gate_score, gate_threshold, reason_codes, cooldown_remaining, safety_overridden)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        session_db_id,
+                        turn_number,
+                        recommend_type,
+                        json.dumps(item_ids or [], ensure_ascii=False),
+                        trace_data.get("gate_score"),
+                        trace_data.get("gate_threshold"),
+                        json.dumps(trace_data.get("reason_codes", []), ensure_ascii=False),
+                        trace_data.get("cooldown_remaining"),
+                        1 if trace_data.get("safety_overridden") else 0,
+                    ),
+                )
+            else:
+                cursor.execute(
+                    """
+                    INSERT INTO recommendation_events (session_id, turn_number, recommend_type, item_ids)
+                    VALUES (?, ?, ?, ?)
+                    """,
+                    (
+                        session_db_id,
+                        turn_number,
+                        recommend_type,
+                        json.dumps(item_ids or [], ensure_ascii=False),
+                    ),
+                )
 
     def upsert_recommendation_feedback(
         self,
@@ -991,6 +1019,12 @@ class AsyncDatabaseManager:
         await self._ensure_column_exists(conn, "mood_events", "user_intent", "TEXT")
         await self._ensure_column_exists(conn, "mood_events", "event_summary", "TEXT")
         await self._ensure_column_exists(conn, "mood_events", "risk_level", "TEXT DEFAULT 'low'")
+        # 推荐追踪字段（v4.4）
+        await self._ensure_column_exists(conn, "recommendation_events", "gate_score", "REAL")
+        await self._ensure_column_exists(conn, "recommendation_events", "gate_threshold", "REAL")
+        await self._ensure_column_exists(conn, "recommendation_events", "reason_codes", "TEXT DEFAULT '[]'")
+        await self._ensure_column_exists(conn, "recommendation_events", "cooldown_remaining", "INTEGER DEFAULT 0")
+        await self._ensure_column_exists(conn, "recommendation_events", "safety_overridden", "INTEGER DEFAULT 0")
 
     async def _ensure_column_exists(self, conn, table_name: str, column_name: str, definition: str):
         cursor = await conn.execute(f"PRAGMA table_info({table_name})")
@@ -1348,21 +1382,44 @@ class AsyncDatabaseManager:
         turn_number: int,
         recommend_type: str,
         item_ids: Optional[List[str]] = None,
+        trace_data: Optional[Dict[str, Any]] = None,
     ):
         await self._ensure_initialized()
         async with aiosqlite.connect(self.db_path) as conn:
-            await conn.execute(
-                """
-                INSERT INTO recommendation_events (session_id, turn_number, recommend_type, item_ids)
-                VALUES (?, ?, ?, ?)
-                """,
-                (
-                    session_db_id,
-                    turn_number,
-                    recommend_type,
-                    json.dumps(item_ids or [], ensure_ascii=False),
-                ),
-            )
+            if trace_data:
+                await conn.execute(
+                    """
+                    INSERT INTO recommendation_events
+                        (session_id, turn_number, recommend_type, item_ids,
+                         gate_score, gate_threshold, reason_codes, cooldown_remaining, safety_overridden)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """,
+                    (
+                        session_db_id,
+                        turn_number,
+                        recommend_type,
+                        json.dumps(item_ids or [], ensure_ascii=False),
+                        trace_data.get("gate_score"),
+                        trace_data.get("gate_threshold"),
+                        json.dumps(trace_data.get("reason_codes", []), ensure_ascii=False),
+                        trace_data.get("cooldown_remaining"),
+                        1 if trace_data.get("safety_overridden") else 0,
+                    ),
+                )
+            else:
+                await conn.execute(
+                    """
+                    INSERT INTO recommendation_events (session_id, turn_number, recommend_type, item_ids)
+                    VALUES (?, ?, ?, ?)
+                    """,
+                    (
+                        session_db_id,
+                        turn_number,
+                        recommend_type,
+                        json.dumps(item_ids or [], ensure_ascii=False),
+                    ),
+                )
+            await conn.commit()
             await conn.commit()
 
     async def upsert_recommendation_feedback(

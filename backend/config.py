@@ -51,6 +51,17 @@ class Config:
     # 推荐配置（规则 + 画像 + 可选 AI rerank）
     ENABLE_RECOMMEND_AI_RERANK: bool = os.getenv("ENABLE_RECOMMEND_AI_RERANK", "true").lower() == "true"
     RECOMMEND_RERANK_CANDIDATE_SIZE: int = int(os.getenv("RECOMMEND_RERANK_CANDIDATE_SIZE", "10"))
+    # RecommendGate 加权因子与阈值（可通过 .env 覆盖调参）
+    RECOMMEND_GATE_EMOTION_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_EMOTION_WEIGHT", "0.30"))
+    RECOMMEND_GATE_RISK_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_RISK_WEIGHT", "0.23"))
+    RECOMMEND_GATE_INTENT_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_INTENT_WEIGHT", "0.23"))
+    RECOMMEND_GATE_TREND_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_TREND_WEIGHT", "0.14"))
+    RECOMMEND_GATE_PREFERENCE_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_PREFERENCE_WEIGHT", "0.10"))
+    RECOMMEND_GATE_HARD_THRESHOLD: float = float(os.getenv("RECOMMEND_GATE_HARD_THRESHOLD", "0.58"))
+    RECOMMEND_GATE_SOFT_THRESHOLD: float = float(os.getenv("RECOMMEND_GATE_SOFT_THRESHOLD", "0.22"))
+
+    # RecommendationTrace 配置
+    RECOMMEND_TRACE_ENABLED: bool = os.getenv("RECOMMEND_TRACE_ENABLED", "true").lower() == "true"
 
     # BERT 风险预测配置（风险评定已完全基于 BERT 模型）
     BERT_MODEL_PATH: str = os.getenv("BERT_MODEL_PATH", "bert_data/models/v4_3_coral/best_model")

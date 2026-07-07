@@ -201,12 +201,13 @@ class ContentRecommender:
         user_profile: Dict[str, Any],
         limit: int,
     ) -> List[ContentItem]:
-        """对召回候选做规则个性化重排。"""
+        """对召回候选做规则个性化重排。
+
+        各维度子分均为 0-1 归一化值，通过加权公式合成 final_score。
+        """
         scored_items = []
-        
-        # 提取关键词
         keywords = self._extract_keywords(user_input)
-        
+
         recent_risk_levels = conversation_summary.get("recent_risk_levels", []) or []
         current_risk_level = (
             recent_risk_levels[-1]
@@ -215,82 +216,49 @@ class ContentRecommender:
         )
         current_risk_band = risk_level_band(current_risk_level)
         recent_recommendation_turns = conversation_summary.get("recent_recommendation_turns", []) or []
+        recent_item_ids = conversation_summary.get("recent_recommendation_item_ids", []) or []
 
         for candidate in candidates:
             item = candidate["item"]
             if not self._is_item_allowed_for_risk(item, current_risk_level):
                 continue
+
+            # ---- 归一化子分 ----
             retrieval_score = self._normalize_retrieval_score(candidate.get("retrieval_score", 0.0))
-            emotion_match_score = 0.0
-            risk_match_score = 0.0
-            actionability_score = item.actionability
-            repetition_penalty = 0.0
-            score = 0.0
-            
-            # 1. 情绪匹配（权重最高）
-            if current_emotion in item.emotion_tags:
-                score += 3.0
-                emotion_match_score = 1.0
-            for emotion_tag in item.emotion_tags:
-                if emotion_tag in self.emotion_weights:
-                    if current_emotion in self.emotion_weights[emotion_tag]:
-                        score += 2.0
-                        emotion_match_score = max(emotion_match_score, 0.8)
-            
-            # 2. 关键词匹配
-            for keyword in keywords:
-                if keyword in item.title.lower() or keyword in ' '.join(item.tags).lower():
-                    score += 2.0
-            
-            # 3. 关切点匹配
-            key_concerns = conversation_summary.get('key_concerns', [])
-            for concern in key_concerns:
-                if concern in item.tags or concern in item.category:
-                    score += 1.5
-            
-            # 4. 对话阶段匹配（难度适配）
-            stage = conversation_summary.get('conversation_stage', 'initial')
-            depth = self.stage_depth_mapping.get(stage, 'beginner')
-            if isinstance(depth, list):
-                if item.difficulty in depth:
-                    score += 1.0
-            elif item.difficulty == depth:
-                score += 1.0
-            
-            # 5. 热度加权
-            score += item.popularity * 0.01
+            emotion_match_score = self._calc_emotion_match(item, current_emotion)
+            keyword_match_score = self._calc_keyword_match(item, keywords)
+            concern_match_score = self._calc_concern_match(item, conversation_summary)
+            stage_match_score = self._calc_stage_match(item, conversation_summary)
+            risk_match_score = self._calc_risk_match(item, current_risk_band)
+            repetition_penalty = 0.4 if recent_recommendation_turns else 0.0
 
-            # 6. 画像偏好加权
-            score = self._adjust_score_with_profile(score, item, user_profile)
-
-            # 7. 风险适配与禁用条件
-            if current_risk_band in item.risk_levels:
-                risk_match_score = 1.0
-            elif current_risk_band == "high" and "high_risk_crisis" in item.contraindications:
-                risk_match_score = -1.0
-                score -= 4.0
-            else:
-                risk_match_score = 0.2
-
-            # 8. 近期刚推荐过时，整体降权
-            if recent_recommendation_turns:
-                repetition_penalty = 0.4
-                score -= 0.8
-
-            # 9. 推荐形式与优先级
-            score += item.priority
-            score += item.actionability * 0.5
-
-            final_score = (
-                0.35 * retrieval_score
-                + 0.20 * emotion_match_score
-                + 0.15 * risk_match_score
-                + 0.15 * self._preference_match_score(item, user_profile)
-                + 0.10 * actionability_score
-                - 0.05 * repetition_penalty
-                + score * 0.02
+            # 画像偏好（_preference_match_score 0-1 + profile_boost 0-0.4 + duration_match -0.05-0.1，上限 1.0）
+            preference_score = min(
+                self._preference_match_score(item, user_profile)
+                + self._calc_profile_boost(item, user_profile)
+                + self._calc_duration_match(item, user_profile),
+                1.0,
             )
-            
+
+            # 内容去重：过去 N 轮推荐过同样内容 => 额外惩罚
+            dedup_penalty = 0.6 if item.id in recent_item_ids else 0.0
+
+            # ---- 加权合成 ----
+            final_score = (
+                0.25 * retrieval_score
+                + 0.18 * emotion_match_score
+                + 0.12 * keyword_match_score
+                + 0.10 * concern_match_score
+                + 0.07 * stage_match_score
+                + 0.10 * risk_match_score
+                + 0.10 * preference_score
+                + 0.10 * item.actionability
+                - 0.05 * repetition_penalty
+                - 0.03 * dedup_penalty
+                + 0.02 * min(item.popularity * 0.01, 0.1)
+                + 0.02 * item.priority
+            )
+
             if final_score > 0:
                 enriched_item = item.model_copy(
                     update={
@@ -304,10 +272,74 @@ class ContentRecommender:
                     }
                 )
                 scored_items.append((final_score, enriched_item))
-        
-        # 按分数排序
+
         scored_items.sort(key=lambda x: x[0], reverse=True)
         return [item for score, item in scored_items[:limit]]
+
+    # ---- 归一化子分辅助方法 ----
+
+    def _calc_emotion_match(self, item: ContentItem, current_emotion: str) -> float:
+        """情绪匹配子分：精确匹配 1.0，权重映射匹配 0.8，无匹配 0.0"""
+        if current_emotion in item.emotion_tags:
+            return 1.0
+        for et in item.emotion_tags:
+            if et in self.emotion_weights and current_emotion in self.emotion_weights[et]:
+                return 0.8
+        return 0.0
+
+    def _calc_keyword_match(self, item: ContentItem, keywords: List[str]) -> float:
+        """关键词匹配子分：每命中关键词 +0.33，上限 1.0"""
+        if not keywords:
+            return 0.0
+        matches = sum(
+            1 for kw in keywords
+            if kw in item.title.lower() or kw in " ".join(item.tags).lower()
+        )
+        return min(matches * 0.33, 1.0)
+
+    def _calc_concern_match(self, item: ContentItem, conversation_summary: Dict[str, Any]) -> float:
+        """关切点匹配子分：任意关切点命中 tag/category 得 1.0"""
+        concerns = conversation_summary.get("key_concerns", [])
+        for concern in concerns:
+            if concern in item.tags or concern in item.category:
+                return 1.0
+        return 0.0
+
+    def _calc_stage_match(self, item: ContentItem, conversation_summary: Dict[str, Any]) -> float:
+        """对话阶段匹配子分：难度与阶段适配得 1.0"""
+        stage = conversation_summary.get("conversation_stage", "initial")
+        depth = self.stage_depth_mapping.get(stage, "beginner")
+        if isinstance(depth, list):
+            return 1.0 if item.difficulty in depth else 0.0
+        return 1.0 if item.difficulty == depth else 0.0
+
+    def _calc_risk_match(self, item: ContentItem, current_risk_band: str) -> float:
+        """风险匹配子分：适配得 1.0，禁忌得 -1.0，默认 0.2"""
+        if current_risk_band in item.risk_levels:
+            return 1.0
+        if current_risk_band == "high" and "high_risk_crisis" in item.contraindications:
+            return -1.0
+        return 0.2
+
+    def _calc_profile_boost(self, item: ContentItem, user_profile: Dict[str, Any]) -> float:
+        """画像额外加分（类型/类别/难度偏好），上限 0.4"""
+        boost = 0.0
+        preferred_types = user_profile.get("preferred_types", []) or []
+        preferred_categories = user_profile.get("preferred_categories", []) or []
+        preferred_difficulty = user_profile.get("preferred_difficulty", "beginner")
+
+        if preferred_types and item.type in preferred_types:
+            boost += 0.15
+        if preferred_categories and item.category in preferred_categories:
+            boost += 0.15
+        if item.difficulty and item.difficulty == preferred_difficulty:
+            boost += 0.10
+
+        risk_band = risk_level_band(user_profile.get("risk_level", "low"))
+        if risk_band == "high" and item.difficulty == "advanced":
+            boost -= 0.10
+
+        return max(boost, 0.0)
 
     def _is_item_allowed_for_risk(self, item: ContentItem, risk_level: str) -> bool:
         canonical_level = normalize_risk_level(risk_level)
@@ -534,34 +566,40 @@ class ContentRecommender:
                            user_input: str,
                            current_emotion: str,
                            conversation_summary: Dict[str, Any]) -> str:
-        """生成推荐理由"""
+        """生成推荐理由（优先引用 retrieval_metadata.final_score）"""
         if not recommended_items:
             return "暂时没有找到特别匹配的内容。"
-        
-        # 根据推荐内容类型生成理由
-        content_types = [item.type for item in recommended_items]
+
         stage = conversation_summary.get('conversation_stage', 'initial')
-        
+
         rationale_templates = {
             "initial": "根据你提到的内容，这些资源可能对你有帮助：",
             "exploring": "在探索阶段，这些内容可以帮助你更深入地理解自己：",
             "deepening": "这些专业资源可以帮助你进一步分析问题：",
             "resolving": "这些实用工具和策略可以帮助你采取行动："
         }
-        
+
         base_rationale = rationale_templates.get(stage, "根据你的情况推荐以下内容：")
-        
-        # 添加具体理由
+
+        # 收集具体理由（基于分数 + 情绪/关切点匹配）
         specific_reasons = []
-        for item in recommended_items[:2]:  # 只取前两个详细说明
-            if current_emotion in item.emotion_tags:
+        for item in recommended_items[:2]:
+            final_score = None
+            if item.retrieval_metadata and "final_score" in item.retrieval_metadata:
+                final_score = item.retrieval_metadata["final_score"]
+
+            # 优先用分数说明匹配度
+            if final_score is not None and final_score >= 0.3:
+                score_pct = min(int(final_score * 100), 99)
+                specific_reasons.append(f"《{item.title}》匹配度达 {score_pct}%")
+            elif current_emotion in item.emotion_tags:
                 specific_reasons.append(f"《{item.title}》特别适合处理{current_emotion}状态")
             elif any(tag in item.tags for tag in conversation_summary.get('key_concerns', [])):
                 specific_reasons.append(f"《{item.title}》与你关注的方面相关")
-        
+
         if specific_reasons:
             return f"{base_rationale} {'；'.join(specific_reasons)}"
-        
+
         return base_rationale
     
     def _calculate_match_scores(self,
@@ -570,54 +608,33 @@ class ContentRecommender:
                                current_emotion: str,
                                conversation_summary: Dict[str, Any],
                                user_profile: Dict[str, Any]) -> Dict[str, float]:
-        """计算匹配度分数"""
+        """计算匹配度分数（优先使用 retrieval_metadata.final_score）"""
         scores = {}
-        
+
         for item in recommended_items:
+            # 优先使用 _rank_candidates 产出的 final_score
+            final_score = item.retrieval_metadata.get("final_score") if item.retrieval_metadata else None
+            if final_score is not None:
+                # 归一化到 0-1 范围显示
+                scores[item.id] = min(max(final_score, 0.0), 1.0)
+                continue
+
+            # 兜底：对于没有 metadata 的 item 做轻量重算
             item_score = 0.0
-            
-            # 情绪匹配度
             if current_emotion in item.emotion_tags:
                 item_score += 0.4
-            
-            # 关切点匹配度
             key_concerns = conversation_summary.get('key_concerns', [])
             for concern in key_concerns:
                 if concern in item.tags or concern in item.category:
                     item_score += 0.3
                     break
-            
-            # 对话阶段适配度
             stage = conversation_summary.get('conversation_stage', 'initial')
             depth = self.stage_depth_mapping.get(stage, 'beginner')
             if item.difficulty == depth or (isinstance(depth, list) and item.difficulty in depth):
                 item_score += 0.2
-            
-            # 内容热度
             item_score += min(item.popularity * 0.01, 0.1)
-
-            # 个性化匹配度（用户画像维度，最高 0.2）
-            personalization_score = 0.0
-            preferred_types = user_profile.get("preferred_types", []) or []
-            preferred_categories = user_profile.get("preferred_categories", []) or []
-            preferred_difficulty = user_profile.get("preferred_difficulty", "beginner")
-
-            if preferred_types and item.type in preferred_types:
-                personalization_score += 0.1
-            if preferred_categories and item.category in preferred_categories:
-                personalization_score += 0.1
-            if item.difficulty and item.difficulty == preferred_difficulty:
-                personalization_score += 0.05
-
-            # 风险等级对某些内容的总体降/升权（这里保持简单：高风险时，过高难度内容略微降权）
-            risk_level = risk_level_band(user_profile.get("risk_level", "low"))
-            if risk_level == "high" and item.difficulty == "advanced":
-                personalization_score -= 0.05
-
-            item_score += max(min(personalization_score, 0.2), -0.1)
-            
             scores[item.id] = min(item_score, 1.0)
-        
+
         return scores
 
     def _normalize_user_profile(self, user_profile: Dict[str, Any]) -> Dict[str, Any]:
@@ -632,53 +649,21 @@ class ContentRecommender:
             profile["preferred_duration_range"] = None
         return profile
 
-    def _adjust_score_with_profile(
-        self, score: float, item: ContentItem, user_profile: Dict[str, Any]
-    ) -> float:
-        """根据用户画像对规则分数进行微调"""
-        adjusted = score
-        preferred_types = user_profile.get("preferred_types", []) or []
-        preferred_categories = user_profile.get("preferred_categories", []) or []
-        preferred_difficulty = user_profile.get("preferred_difficulty", "beginner")
-        preferred_duration_range = user_profile.get("preferred_duration_range")
-        risk_level = risk_level_band(user_profile.get("risk_level", "low"))
-
-        # 类型偏好
-        if preferred_types and item.type in preferred_types:
-            adjusted += 0.8
-
-        # 主题/类别偏好
-        if preferred_categories and item.category in preferred_categories:
-            adjusted += 0.8
-
-        # 难度偏好
-        if item.difficulty:
-            if item.difficulty == preferred_difficulty:
-                adjusted += 0.5
-            # 高风险用户，过高难度内容略微降权
-            if risk_level == "high" and item.difficulty == "advanced":
-                adjusted -= 0.5
-
-        # 时长偏好（如有配置）
-        if preferred_duration_range and item.duration_minutes is not None:
+    def _calc_duration_match(self, item: ContentItem, user_profile: Dict[str, Any]) -> float:
+        """时长偏好匹配：范围内 +0.1，范围外 -0.05，无配置 0"""
+        duration_range = user_profile.get("preferred_duration_range")
+        if duration_range and item.duration_minutes is not None:
             try:
-                min_dur = preferred_duration_range.get("min")
-                max_dur = preferred_duration_range.get("max")
-                if min_dur is not None and item.duration_minutes < min_dur:
-                    adjusted -= 0.2
-                if max_dur is not None and item.duration_minutes > max_dur:
-                    adjusted -= 0.2
-                if (
-                    min_dur is not None
-                    and max_dur is not None
-                    and min_dur <= item.duration_minutes <= max_dur
-                ):
-                    adjusted += 0.3
+                min_dur = duration_range.get("min")
+                max_dur = duration_range.get("max")
+                if min_dur is not None and max_dur is not None and min_dur <= item.duration_minutes <= max_dur:
+                    return 0.1
+                if (min_dur is not None and item.duration_minutes < min_dur) or \
+                   (max_dur is not None and item.duration_minutes > max_dur):
+                    return -0.05
             except Exception:
-                # 偏好结构异常时不影响主流程
                 pass
-
-        return adjusted
+        return 0.0
 
 # 全局推荐器实例
 content_recommender = ContentRecommender()

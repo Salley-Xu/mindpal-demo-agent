@@ -17,6 +17,7 @@ from risk_evaluator import risk_evaluator
 from risk_memory import RiskMemoryReader, RiskMemoryWriter
 from recommend_gate import recommend_gate
 from output_safety_checker import output_safety_checker
+from recommendation_trace import TraceEvent, write_trace
 from models import (
     AgentRunRequest,
     AgentRunResponse,
@@ -254,13 +255,62 @@ class AgentOrchestrator:
                 historical_high_risk_count=historical_high_risk_count,
                 risk_baseline=risk_baseline,
             )
+            # ── Trace: 开始计时 ──
+            _trace_start = datetime.now(timezone.utc)
+
             recommendation_decision = recommend_gate.decide(
                 emotion_state=preliminary_emotion_state,
                 risk_state=urgent_issue,
                 conversation_summary=conversation_summary,
                 user_profile=user_profile,
             )
-            
+
+            # ── Trace: 门控阶段 ──
+            _risk_level_for_trace = str(urgent_issue.get("level", "level_0")) if urgent_issue else "level_0"
+            _recommend_trace = TraceEvent(
+                request_id=getattr(request, "request_id", ""),
+                user_id=request.user_id,
+                session_id=request.session_id,
+                turn_id=conversation_summary.get("turn_count", 0),
+                gate_inputs={
+                    "emotion_intensity": float(preliminary_emotion_state.get("emotion_intensity", 0) or 0),
+                    "risk_score": {"level_0": 0.0, "level_1": 0.4, "level_2": 0.75, "level_3": 1.0}.get(
+                        _risk_level_for_trace, 0.0
+                    ),
+                    "intent_score": {"sharing": 0.0, "seeking_relief": 0.45, "planning": 0.55, "seeking_help": 0.75}.get(
+                        preliminary_emotion_state.get("user_intent", "sharing"), 0.0
+                    ),
+                    "trend_score": 0.35 if preliminary_emotion_state.get("negative_trend") else 0.0,
+                    "preference_score": 0.0,
+                },
+                emotion_state={
+                    "current_emotion": preliminary_emotion_state.get("current_emotion", ""),
+                    "emotion_intensity": preliminary_emotion_state.get("emotion_intensity", 0),
+                    "user_intent": preliminary_emotion_state.get("user_intent", ""),
+                    "negative_trend": preliminary_emotion_state.get("negative_trend", False),
+                },
+                risk_state={
+                    "level": str(urgent_issue.get("level", "level_0")) if urgent_issue else "level_0",
+                    "risk_score": urgent_issue.get("risk_score", 0) if urgent_issue else 0,
+                },
+                conversation_summary={
+                    "turn_count": conversation_summary.get("turn_count", 0),
+                    "stage": conversation_summary.get("conversation_stage", "initial"),
+                    "risk_expressions": conversation_summary.get("risk_expressions", False),
+                },
+                user_profile={
+                    "risk_level": user_profile.get("risk_level", "low"),
+                    "preferred_types": user_profile.get("preferred_types", [])[:3],
+                },
+                gate_output={
+                    "should_recommend": recommendation_decision.get("should_recommend", False),
+                    "recommend_type": recommendation_decision.get("recommend_type", "none"),
+                    "score": recommendation_decision.get("score", 0.0),
+                    "threshold": recommendation_decision.get("threshold", 0.0),
+                    "reason_codes": recommendation_decision.get("reason_codes", []),
+                    "cooldown_remaining": recommendation_decision.get("cooldown_remaining", 0),
+                },
+            )
             steps.append(AgentStep(
                 name="Initialization",
                 description="Loaded session and performed risk assessment",
@@ -456,6 +506,17 @@ class AgentOrchestrator:
                     user_profile=user_profile,
                     limit=2,
                 )
+            # ── Trace: 推荐结果阶段 ──
+            has_rerank = getattr(content_recommender, "enable_ai_rerank", False)
+            _recommend_trace.recommendation_ids = [item.id for item in (final_recommendations or [])]
+            _recommend_trace.recommendation_scores = [
+                float(item.retrieval_metadata.get("final_score", 0)) if item.retrieval_metadata and hasattr(item, "retrieval_metadata") else 0.0
+                for item in (final_recommendations or [])
+            ]
+            _recommend_trace.rerank_used = has_rerank
+            _recommend_trace.rerank_success = has_rerank
+            _recommend_trace.candidate_count = len(final_recommendations) if final_recommendations else 0
+
             safety_check_started = datetime.now(timezone.utc)
             safety_review = output_safety_checker.review(
                 response_text=final_response_text,
@@ -482,13 +543,36 @@ class AgentOrchestrator:
                 )
             )
 
+            # ── Trace: 安全与持久化阶段 ──
+            _recommend_trace.safety_overridden = bool(safety_review.get("triggered_rules", False))
+            _recommend_trace.safety_before = {
+                "should_recommend": recommendation_decision.get("should_recommend", False) if recommendation_decision else False,
+            }
+            _recommend_trace.safety_after = {
+                "should_recommend": recommendation_decision.get("should_recommend", False) if recommendation_decision else False,
+            }
+            _recommend_trace.persisted = bool(
+                final_recommendations and recommendation_decision and recommendation_decision.get("should_recommend")
+            )
+
             if final_recommendations and recommendation_decision and recommendation_decision.get("should_recommend"):
                 conversation_manager.mark_recommendation(
                     request.user_id,
                     request.session_id,
                     recommendation_decision.get("recommend_type", "soft"),
                     [item.id for item in final_recommendations],
+                    trace_data={
+                        "gate_score": recommendation_decision.get("score"),
+                        "gate_threshold": recommendation_decision.get("threshold"),
+                        "reason_codes": recommendation_decision.get("reason_codes", []),
+                        "cooldown_remaining": recommendation_decision.get("cooldown_remaining", 0),
+                        "safety_overridden": bool(safety_review.get("triggered_rules", False)),
+                    },
                 )
+
+            # ── Trace: 最终写入 ──
+            _recommend_trace.latency_ms = int((datetime.now(timezone.utc) - _trace_start).total_seconds() * 1000)
+            write_trace(_recommend_trace)
 
             # v6.0: 写入长期风险记忆
             try:
