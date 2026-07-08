@@ -96,6 +96,35 @@ class RiskEvaluator:
 
         # 拼接 escalation_reasons（BERT 来源 + 会话聚合规则）
         escalation_reasons = [f"bert_{bert_result['fusion_source']}"]
+
+        # ================================================================
+        # 边界安全后处理：用上下文分析结果覆盖 level
+        # 修复评测报告 "边界安全 acc=0.409" 问题——之前检测正确但未生效
+        # ================================================================
+        _LEVELS = [LEVEL_0, LEVEL_1, LEVEL_2, LEVEL_3]
+        verb_level = utterance_level  # BERT 原始单轮预测（未聚合前）
+
+        # 规则 A: 讨论语境（电影/新闻/书）且非规则兜底命中 → Level 0
+        if context.get("is_discussion_context") and not bert_result.get("rule_matched"):
+            level = LEVEL_0
+            escalation_reasons.append("context:discussion_floor_0")
+
+        # 规则 B: 第三方语境且非求助意图 → Level 0
+        elif context.get("is_third_party_risk") and not context.get("is_help_request"):
+            level = LEVEL_0
+            escalation_reasons.append("context:third_party_floor_0")
+
+        # 规则 C: 安全否认 → 在不低于 BERT 原始等级的前提下降一级
+        elif context.get("is_safe_denial"):
+            cur_idx = risk_level_index(level)
+            utt_idx = risk_level_index(verb_level)
+            if cur_idx > utt_idx and cur_idx > 0:
+                lowered = _LEVELS[cur_idx - 1]
+                if risk_level_index(lowered) >= utt_idx:
+                    level = lowered
+                    escalation_reasons.append("context:safe_denial_deescalate")
+
+        level_idx = risk_level_index(level)
         raw_level_map = {0: LEVEL_0, 1: LEVEL_1, 2: LEVEL_2, 3: LEVEL_3}
         raw_4 = raw_level_map.get(bert_result["level_4_prediction"], LEVEL_0)
         if raw_4 != utterance_level:

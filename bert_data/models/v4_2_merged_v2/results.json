@@ -1,0 +1,59 @@
+{
+  "config": {
+    "model": "MultiTaskBERT",
+    "train_data": "train_merged.jsonl (SOS-1K + synth_conversational)",
+    "binary_threshold": 0.6200000000000003,
+    "num_rules": 20
+  },
+  "best_epoch": 8,
+  "test": {
+    "accuracy": 0.496,
+    "macro_f1": 0.49601484027713527,
+    "per_class_f1": {
+      "level_0": 0.36065573770491804,
+      "level_1": 0.5714285714285714,
+      "level_2": 0.5135135135135135,
+      "level_3": 0.5384615384615384
+    },
+    "per_class_precision": {
+      "level_0": 0.4230769230769231,
+      "level_1": 0.5806451612903226,
+      "level_2": 0.5277777777777778,
+      "level_3": 0.4375
+    },
+    "per_class_recall": {
+      "level_0": 0.3142857142857143,
+      "level_1": 0.5625,
+      "level_2": 0.5,
+      "level_3": 0.7
+    },
+    "confusion_matrix": [
+      [
+        11,
+        8,
+        9,
+        7
+      ],
+      [
+        7,
+        18,
+        5,
+        2
+      ],
+      [
+        7,
+        3,
+        19,
+        9
+      ],
+      [
+        1,
+        2,
+        3,
+        14
+      ]
+    ],
+    "t2_to_p0": 7,
+    "binary_threshold": 0.6200000000000003
+  }
+}
