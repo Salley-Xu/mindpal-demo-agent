@@ -42,3 +42,10 @@ Thumbs.db
 bert_data/models/**/model.safetensors
 bert_data/models/**/model_state.pt
 bert_data/models/**/pytorch_model.bin
+
+# Personal files (not for commit)
+自我介绍.md
+
+# Screenshots / media (not for commit)
+hyw.png
+服务器.png

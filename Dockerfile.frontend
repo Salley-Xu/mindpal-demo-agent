@@ -1,0 +1,41 @@
+# ============================================================
+# MindPal Pro Frontend — Dockerfile
+# Streamlit 前端，轻量构建（不需要 torch/transformers）
+# ============================================================
+
+FROM python:3.12-slim
+
+# 创建非 root 用户
+RUN groupadd -r mindpal && useradd -r -g mindpal -d /app -s /sbin/nologin mindpal
+
+WORKDIR /app
+
+# 只安装前端需要的依赖（避免 torch/transformers 等重型包）
+RUN pip install --no-cache-dir \
+    streamlit>=1.0.0 \
+    requests>=2.25.0 \
+    python-dotenv>=0.19.0
+
+# 复制前端代码
+COPY frontend/ frontend/
+
+# 设置 /app 归属权（Streamlit 需要写 .streamlit/ 目录）
+RUN mkdir -p /app/.streamlit && \
+    chown -R mindpal:mindpal /app
+
+# 禁用 Streamlit 文件监视器（容器内不需要）
+ENV PYTHONUNBUFFERED=1 \
+    STREAMLIT_SERVER_PORT=8501 \
+    STREAMLIT_SERVER_ADDRESS=0.0.0.0 \
+    STREAMLIT_SERVER_HEADLESS=true \
+    STREAMLIT_SERVER_FILE_WATCHER_TYPE=none
+
+EXPOSE 8501
+
+USER mindpal
+
+# 健康检查
+HEALTHCHECK --interval=30s --timeout=5s --start-period=15s --retries=3 \
+    CMD python -c "import urllib.request; exit(0 if urllib.request.urlopen('http://localhost:8501/_stcore/health').status == 200 else 1)"
+
+CMD ["streamlit", "run", "frontend/frontend.py", "--server.port=8501", "--server.address=0.0.0.0"]

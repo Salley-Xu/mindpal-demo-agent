@@ -118,7 +118,7 @@ class EmotionAnalyzer:
             else:
                 # 回退到 LLM
                 current_emotion = await self._analyze_base_emotion_async(text)
-                confidence = self._calculate_confidence(text, current_emotion)
+                confidence = self._estimate_llm_confidence(text, current_emotion)
 
             # LLM 深层情绪分析：仅 BERT 置信度低或有多轮上下文时触发
             need_context = (
@@ -233,21 +233,40 @@ class EmotionAnalyzer:
         logger.debug(f"深层情绪分析(异步): {base_emotion} -> {context_emotion}")
         return context_emotion
     
-    def _calculate_confidence(self, text: str, emotion: str) -> float:
-        """计算置信度"""
-        base_confidence = 0.85
-        
-        # 根据文本长度调整置信度
+    def _estimate_llm_confidence(self, text: str, emotion: str) -> float:
+        """
+        估算 LLM 情绪分析的置信度（启发式，非校准值）
+
+        该函数仅在 BERT 不可用时作为回退路径使用。与 BERT 的 softmax 概率
+        不同，LLM 没有内在的不确定性度量，因此返回一个保守的启发式估计：
+
+        - 基准 0.65（反映无校准的 LLM 单次分类的保守预期）
+        - 文本极短（<10 字）→ -0.15（信息量不足）
+        - 文本较长（>100 字）→ +0.08（更多信号）
+        - 中性情绪 → -0.08（"中性"是默认兜底，不确定性更高）
+        - 情绪标签不在已知列表中 → -0.10（LLM 可能输出了非预期格式）
+
+        注意：该值不是校准概率，下游消费方（如 RecommendGate）应将其视为
+        弱信号，而非可靠的置信度度量。
+        """
+        known_emotions = {
+            "学业压力", "焦虑", "抑郁", "愤怒", "压力", "人际矛盾",
+            "困惑", "不确定", "中性", "快乐", "平静", "放松", "其他",
+        }
+        base_confidence = 0.65
+
         if len(text) < 10:
-            base_confidence -= 0.2
+            base_confidence -= 0.15
         elif len(text) > 100:
-            base_confidence += 0.1
-        
-        # 中性情绪置信度较低
+            base_confidence += 0.08
+
         if emotion == '中性':
-            base_confidence -= 0.1
-        
-        return max(0.5, min(1.0, base_confidence))
+            base_confidence -= 0.08
+
+        if emotion not in known_emotions:
+            base_confidence -= 0.10
+
+        return round(max(0.35, min(0.90, base_confidence)), 4)
 
     def _normalize_emotion_type(self, emotion: str) -> str:
         mapping = {

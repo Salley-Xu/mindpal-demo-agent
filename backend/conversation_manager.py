@@ -282,7 +282,8 @@ class ConversationManager:
                     session_db_id, turn_number, user_input, emotion,
                     context_emotion or emotion, confidence, ai_response
                 )
-                await adb_manager.add_emotion_event(session_db_id, emotion, user_input[:50])
+                # 情绪时间线已内化到 conversation_history.detected_emotion，
+                # 不再写入独立的 emotion_timeline 表。
                 await adb_manager.create_or_update_session(
                     user_id, session_id, 
                     session['conversation_stage'], 

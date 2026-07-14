@@ -1,4 +1,5 @@
 # frontend.py - 上下文感知对话版
+import os
 import streamlit as st
 import requests
 import time
@@ -288,7 +289,7 @@ st.caption("上下文感知的心理对话伙伴")
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "api_base" not in st.session_state:
-    st.session_state.api_base = "http://localhost:8000"
+    st.session_state.api_base = os.getenv("API_BASE_URL", "http://localhost:8000")
 if "session_id" not in st.session_state:
     # 生成唯一的会话ID
     st.session_state.session_id = f"session_{int(time.time())}_{uuid.uuid4().hex[:8]}"

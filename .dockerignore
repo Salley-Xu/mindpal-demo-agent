@@ -1,0 +1,43 @@
+# ============================================================
+# .dockerignore — 减少构建上下文大小，避免泄露敏感信息
+# ============================================================
+# 注意：仅排除确定不需要的文件。BERT 模型权重（.bin/.safetensors）
+# 需要包含在镜像中，不能在此排除。
+
+# ---- 敏感信息 ----
+.env
+.env.*
+**/.env
+**/.env.*
+
+# ---- 版本控制 ----
+.git/
+.gitignore
+.gitattributes
+
+# ---- IDE / 编辑器 ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- Python 缓存 ----
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.egg-info/
+
+# ---- 开发/测试文件（运行时不需要） ----
+tests/
+docs/
+eval_output/
+reports/
+agent_test_data/
+third_party/
+
+# ---- 系统文件 ----
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,73 @@
+# ============================================================
+# MindPal Pro — Docker Compose
+# 双容器部署：backend（FastAPI）+ frontend（Streamlit）
+# 支持 NVIDIA GPU 加速 BERT 推理
+# ============================================================
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mindpal-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # 持久化数据（SQLite sessions.db + content_db.json）
+      - mindpal_data:/app/backend/data
+      # 持久化日志
+      - mindpal_logs:/app/backend/logs
+      # .env 运行时注入（不打包进镜像）
+      # config.py 通过 load_dotenv() 自动读取 /app/.env
+      - ./backend/.env:/app/.env:ro
+    environment:
+      # 覆盖 .env 中的相对路径（容器内 WORKDIR 是 /app，不是 backend/）
+      - SESSION_DB_PATH=backend/data/sessions.db
+      - CONTENT_DB_FILE=backend/data/content_db.json
+      - LOG_DIR=backend/logs
+      # GPU 加速（使用宿主机 NVIDIA GPU）
+      - BERT_DEVICE=cuda
+      - EMOTION_DEVICE=cuda
+      - NVIDIA_VISIBLE_DEVICES=all
+    restart: unless-stopped
+    stop_grace_period: 30s
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; exit(0 if urllib.request.urlopen('http://localhost:8000/health').status == 200 else 1)"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    # GPU 资源配置
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: mindpal-frontend
+    ports:
+      - "8501:8501"
+    environment:
+      # 通过 Docker 内部 DNS 连接后端容器
+      - API_BASE_URL=http://backend:8000
+      - STREAMLIT_SERVER_PORT=8501
+      - STREAMLIT_SERVER_ADDRESS=0.0.0.0
+      - STREAMLIT_SERVER_HEADLESS=true
+      - STREAMLIT_SERVER_FILE_WATCHER_TYPE=none
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+    stop_grace_period: 10s
+
+volumes:
+  mindpal_data:
+    driver: local
+  mindpal_logs:
+    driver: local

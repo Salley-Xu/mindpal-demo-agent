@@ -107,19 +107,12 @@ class DatabaseManager:
                 )
             """)
             
-            # 情绪时间线表
-            cursor.execute("""
-                CREATE TABLE IF NOT EXISTS emotion_timeline (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    session_id INTEGER NOT NULL,
-                    emotion TEXT NOT NULL,
-                    text_snippet TEXT,
-                    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                    FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
-                )
-            """)
-            
             # 用户画像表
+            # ── 情绪存储职责 ──────────────────────────────────────────
+            # conversation_history:  每轮 detected_emotion / context_emotion / confidence
+            # mood_events:           跨会话丰富情绪事件（含 emotion_type / intensity 等）
+            # 注意：不再使用独立的 emotion_timeline 表——历史情绪查询走 conversation_history，
+            #       跨会话分析走 mood_events。
             cursor.execute("""
                 CREATE TABLE IF NOT EXISTS user_profile (
                     user_id TEXT PRIMARY KEY,
@@ -171,7 +164,6 @@ class DatabaseManager:
             # 创建索引
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_session_lookup ON sessions(user_id, session_id)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_history_session ON conversation_history(session_id)")
-            cursor.execute("CREATE INDEX IF NOT EXISTS idx_emotion_session ON emotion_timeline(session_id)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_last_active ON sessions(last_active)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_profile ON user_profile(user_id)")
             cursor.execute("CREATE INDEX IF NOT EXISTS idx_mood_events_user ON mood_events(user_id, created_at)")
@@ -371,15 +363,8 @@ class DatabaseManager:
             """, (session_db_id, turn_number, user_input, detected_emotion,
                   context_emotion, confidence, ai_response))
     
-    def add_emotion_event(self, session_db_id: int, emotion: str, 
-                         text_snippet: str):
-        """添加情绪事件"""
-        with self.get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.execute("""
-                INSERT INTO emotion_timeline (session_id, emotion, text_snippet)
-                VALUES (?, ?, ?)
-            """, (session_db_id, emotion, text_snippet[:50]))
+    # 情绪时间线已合并到 conversation_history.detected_emotion，不再使用独立的 emotion_timeline 表。
+    # 跨会话丰富情绪事件走 mood_events。
     
     def get_session_data(self, user_id: str, session_id: str) -> Optional[Dict[str, Any]]:
         """获取会话完整数据"""
@@ -423,12 +408,12 @@ class DatabaseManager:
                 for row in history_rows
             ]
             
-            # 获取情绪时间线
+            # 获取情绪时间线（从 conversation_history 构建，替代已移除的 emotion_timeline 表）
             cursor.execute("""
-                SELECT emotion, text_snippet, timestamp
-                FROM emotion_timeline
+                SELECT detected_emotion AS emotion, user_input AS text_snippet, timestamp
+                FROM conversation_history
                 WHERE session_id = ?
-                ORDER BY timestamp ASC
+                ORDER BY turn_number ASC
             """, (session_db_id,))
             
             emotion_rows = cursor.fetchall()
@@ -562,22 +547,22 @@ class DatabaseManager:
             
             row = cursor.fetchone()
             
-            # 获取情绪分布
+            # 获取情绪分布（从 conversation_history 查询，替代已移除的 emotion_timeline 表）
             if user_id:
                 cursor.execute("""
-                    SELECT emotion, COUNT(*) as count
-                    FROM emotion_timeline et
-                    JOIN sessions s ON et.session_id = s.id
+                    SELECT ch.detected_emotion AS emotion, COUNT(*) as count
+                    FROM conversation_history ch
+                    JOIN sessions s ON ch.session_id = s.id
                     WHERE s.user_id = ?
-                    GROUP BY emotion
+                    GROUP BY ch.detected_emotion
                     ORDER BY count DESC
                     LIMIT 5
                 """, (user_id,))
             else:
                 cursor.execute("""
-                    SELECT emotion, COUNT(*) as count
-                    FROM emotion_timeline
-                    GROUP BY emotion
+                    SELECT detected_emotion AS emotion, COUNT(*) as count
+                    FROM conversation_history
+                    GROUP BY detected_emotion
                     ORDER BY count DESC
                     LIMIT 5
                 """)
@@ -831,16 +816,6 @@ class AsyncDatabaseManager:
                     )
                 """)
                 await conn.execute("""
-                    CREATE TABLE IF NOT EXISTS emotion_timeline (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        session_id INTEGER NOT NULL,
-                        emotion TEXT NOT NULL,
-                        text_snippet TEXT,
-                        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE
-                    )
-                """)
-                await conn.execute("""
                     CREATE TABLE IF NOT EXISTS user_profile (
                         user_id TEXT PRIMARY KEY,
                         risk_level TEXT DEFAULT 'normal',
@@ -885,7 +860,6 @@ class AsyncDatabaseManager:
                 """)
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_session_lookup ON sessions(user_id, session_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_history_session ON conversation_history(session_id)")
-                await conn.execute("CREATE INDEX IF NOT EXISTS idx_emotion_session ON emotion_timeline(session_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_last_active ON sessions(last_active)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_user_profile ON user_profile(user_id)")
                 await conn.execute("CREATE INDEX IF NOT EXISTS idx_mood_events_user ON mood_events(user_id, created_at)")
@@ -1074,14 +1048,8 @@ class AsyncDatabaseManager:
                   context_emotion, confidence, ai_response))
             await conn.commit()
 
-    async def add_emotion_event(self, session_db_id: int, emotion: str, text_snippet: str):
-        await self._ensure_initialized()
-        async with aiosqlite.connect(self.db_path) as conn:
-            await conn.execute("""
-                INSERT INTO emotion_timeline (session_id, emotion, text_snippet)
-                VALUES (?, ?, ?)
-            """, (session_db_id, emotion, text_snippet[:50]))
-            await conn.commit()
+    # 情绪时间线已合并到 conversation_history.detected_emotion，不再使用独立的 emotion_timeline 表。
+    # 跨会话丰富情绪事件走 mood_events。
 
     async def get_session_data(self, user_id: str, session_id: str) -> Optional[Dict[str, Any]]:
         await self._ensure_initialized()
@@ -1118,10 +1086,10 @@ class AsyncDatabaseManager:
                 for r in history_rows
             ]
             cursor = await conn.execute("""
-                SELECT emotion, text_snippet, timestamp
-                FROM emotion_timeline
+                SELECT detected_emotion AS emotion, user_input AS text_snippet, timestamp
+                FROM conversation_history
                 WHERE session_id = ?
-                ORDER BY timestamp ASC
+                ORDER BY turn_number ASC
             """, (session_db_id,))
             emotion_rows = await cursor.fetchall()
             emotion_timeline = [
@@ -1208,19 +1176,19 @@ class AsyncDatabaseManager:
             row = await cursor.fetchone()
             if user_id:
                 emo_cur = await conn.execute("""
-                    SELECT emotion, COUNT(*) as count
-                    FROM emotion_timeline et
-                    JOIN sessions s ON et.session_id = s.id
+                    SELECT ch.detected_emotion AS emotion, COUNT(*) as count
+                    FROM conversation_history ch
+                    JOIN sessions s ON ch.session_id = s.id
                     WHERE s.user_id = ?
-                    GROUP BY emotion
+                    GROUP BY ch.detected_emotion
                     ORDER BY count DESC
                     LIMIT 5
                 """, (user_id,))
             else:
                 emo_cur = await conn.execute("""
-                    SELECT emotion, COUNT(*) as count
-                    FROM emotion_timeline
-                    GROUP BY emotion
+                    SELECT detected_emotion AS emotion, COUNT(*) as count
+                    FROM conversation_history
+                    GROUP BY detected_emotion
                     ORDER BY count DESC
                     LIMIT 5
                 """)
