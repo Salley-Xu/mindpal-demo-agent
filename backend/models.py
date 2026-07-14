@@ -235,6 +235,8 @@ class MemoryCandidate(BaseModel):
     risk_level: Optional[str] = None
     stress_source: Optional[str] = None
     user_intent: Optional[str] = None
+    importance: float = 0.5
+    confidence: float = 0.5
     tags: List[str] = Field(default_factory=list)
     metadata: Dict[str, Any] = Field(default_factory=dict)
     source: str = "inferred"

@@ -1,8 +1,10 @@
 """
-MemoryStore — 统一记忆存储接口（Phase 0：基础 CRUD）
+MemoryStore — 统一记忆存储接口（Phase 2：惰性建表 + access_count 追踪）
 
 提供 MemoryItem 的持久化读写，基于 SQLite memory_items 表。
-Phase 0 只做基础 CRUD，Phase 3 起接入混合检索。
+Phase 0: 基础 CRUD
+Phase 2: + 惰性建表(:memory: 支持) + access_count/recency 追踪
+Phase 3: 接入混合检索
 """
 
 import json
@@ -13,7 +15,7 @@ from typing import Any, Dict, List, Optional
 import aiosqlite
 
 from config import config
-from models import MemoryItem, MemoryCandidate, MemoryQuery, MemorySearchResult
+from models import MemoryItem, MemoryQuery, MemorySearchResult
 from utils import generate_memory_id
 
 logger = logging.getLogger(__name__)
@@ -24,15 +26,78 @@ class MemoryStore:
 
     def __init__(self, db_path: Optional[str] = None):
         self.db_path = db_path or config.SESSION_DB_PATH
+        self._conn: Optional[aiosqlite.Connection] = None
 
     # ---------------------------------------------------------------
-    # 连接管理
+    # 连接管理 + 惰性建表
     # ---------------------------------------------------------------
 
-    async def _connect(self) -> aiosqlite.Connection:
+    async def _get_conn(self) -> aiosqlite.Connection:
+        """获取连接，:memory: 模式下复用连接以保持数据。"""
+        if self.db_path == ':memory:' and self._conn is not None:
+            return self._conn
         conn = await aiosqlite.connect(self.db_path)
         conn.row_factory = aiosqlite.Row
+        await conn.execute("PRAGMA busy_timeout = 5000")
+        await self._ensure_tables(conn)
+        if self.db_path == ':memory:':
+            self._conn = conn
         return conn
+
+    @staticmethod
+    async def _ensure_tables(conn: aiosqlite.Connection):
+        """确保 memory_items 表存在。"""
+        await conn.execute("""
+            CREATE TABLE IF NOT EXISTS memory_items (
+                id TEXT PRIMARY KEY,
+                user_id TEXT NOT NULL,
+                session_id TEXT,
+                turn_id TEXT,
+                memory_type TEXT NOT NULL,
+                content TEXT NOT NULL,
+                summary TEXT,
+                source_text TEXT,
+                emotion TEXT,
+                emotion_intensity REAL,
+                risk_level TEXT,
+                stress_source TEXT,
+                user_intent TEXT,
+                importance REAL DEFAULT 0.5,
+                confidence REAL DEFAULT 0.5,
+                sensitivity TEXT DEFAULT 'normal',
+                tags TEXT DEFAULT '[]',
+                metadata TEXT DEFAULT '{}',
+                source TEXT DEFAULT 'inferred',
+                scope TEXT DEFAULT 'long_term',
+                status TEXT DEFAULT 'active',
+                access_count INTEGER DEFAULT 0,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                last_accessed_at TIMESTAMP,
+                expires_at TIMESTAMP
+            )
+        """)
+        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_type ON memory_items(user_id, memory_type)")
+        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_status ON memory_items(user_id, status)")
+        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_created_at ON memory_items(created_at)")
+        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_expires_at ON memory_items(expires_at)")
+        await conn.commit()
+
+    async def close(self):
+        """关闭持久连接（:memory: 模式用）。"""
+        if self._conn:
+            await self._conn.close()
+            self._conn = None
+
+    @staticmethod
+    async def _touch(conn: aiosqlite.Connection, memory_id: str):
+        """更新访问计数和最后访问时间。"""
+        now = datetime.now(timezone.utc).isoformat()
+        await conn.execute(
+            "UPDATE memory_items SET access_count = access_count + 1, last_accessed_at = ? WHERE id = ?",
+            (now, memory_id),
+        )
+        await conn.commit()
 
     # ---------------------------------------------------------------
     # 写入
@@ -43,8 +108,43 @@ class MemoryStore:
         if not item.id:
             item.id = generate_memory_id()
         now = datetime.now(timezone.utc).isoformat()
+        conn = await self._get_conn()
+        await conn.execute(
+            """
+            INSERT INTO memory_items (
+                id, user_id, session_id, turn_id, memory_type,
+                content, summary, source_text,
+                emotion, emotion_intensity, risk_level, stress_source, user_intent,
+                importance, confidence, sensitivity,
+                tags, metadata, source, scope, status,
+                access_count, created_at, updated_at, last_accessed_at, expires_at
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                item.id, item.user_id, item.session_id, item.turn_id, item.memory_type,
+                item.content, item.summary, item.source_text,
+                item.emotion, item.emotion_intensity, item.risk_level, item.stress_source, item.user_intent,
+                item.importance, item.confidence, item.sensitivity,
+                json.dumps(item.tags, ensure_ascii=False),
+                json.dumps(item.metadata, ensure_ascii=False),
+                item.source, item.scope, item.status,
+                item.access_count,
+                now, now, now,
+                item.expires_at.isoformat() if item.expires_at else None,
+            ),
+        )
+        await conn.commit()
+        return item.id
 
-        async with aiosqlite.connect(self.db_path) as conn:
+    async def batch_write(self, items: List[MemoryItem]) -> List[str]:
+        """事务写入多条记忆。"""
+        ids = []
+        conn = await self._get_conn()
+        now = datetime.now(timezone.utc).isoformat()
+        for item in items:
+            if not item.id:
+                item.id = generate_memory_id()
+            ids.append(item.id)
             await conn.execute(
                 """
                 INSERT INTO memory_items (
@@ -69,60 +169,29 @@ class MemoryStore:
                     item.expires_at.isoformat() if item.expires_at else None,
                 ),
             )
-            await conn.commit()
-        return item.id
-
-    async def batch_write(self, items: List[MemoryItem]) -> List[str]:
-        """事务写入多条记忆。"""
-        ids = []
-        async with aiosqlite.connect(self.db_path) as conn:
-            now = datetime.now(timezone.utc).isoformat()
-            for item in items:
-                if not item.id:
-                    item.id = generate_memory_id()
-                ids.append(item.id)
-                await conn.execute(
-                    """
-                    INSERT INTO memory_items (
-                        id, user_id, session_id, turn_id, memory_type,
-                        content, summary, source_text,
-                        emotion, emotion_intensity, risk_level, stress_source, user_intent,
-                        importance, confidence, sensitivity,
-                        tags, metadata, source, scope, status,
-                        access_count, created_at, updated_at, last_accessed_at, expires_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                    """,
-                    (
-                        item.id, item.user_id, item.session_id, item.turn_id, item.memory_type,
-                        item.content, item.summary, item.source_text,
-                        item.emotion, item.emotion_intensity, item.risk_level, item.stress_source, item.user_intent,
-                        item.importance, item.confidence, item.sensitivity,
-                        json.dumps(item.tags, ensure_ascii=False),
-                        json.dumps(item.metadata, ensure_ascii=False),
-                        item.source, item.scope, item.status,
-                        item.access_count,
-                        now, now, now,
-                        item.expires_at.isoformat() if item.expires_at else None,
-                    ),
-                )
-            await conn.commit()
+        await conn.commit()
         return ids
 
     # ---------------------------------------------------------------
-    # 读取
+    # 读取（含 access_count 追踪）
     # ---------------------------------------------------------------
 
     async def get(self, memory_id: str) -> Optional[MemoryItem]:
-        """按 ID 获取单条记忆。"""
-        async with aiosqlite.connect(self.db_path) as conn:
-            conn.row_factory = aiosqlite.Row
-            cursor = await conn.execute(
-                "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
-            )
-            row = await cursor.fetchone()
-            if not row:
-                return None
-            return self._row_to_item(row)
+        """按 ID 获取单条记忆（自动更新 access_count）。"""
+        conn = await self._get_conn()
+        cursor = await conn.execute(
+            "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
+        )
+        row = await cursor.fetchone()
+        if not row:
+            return None
+        await self._touch(conn, memory_id)
+        # 重新读取以获取更新后的 access_count
+        cursor = await conn.execute(
+            "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
+        )
+        row = await cursor.fetchone()
+        return self._row_to_item(row)
 
     async def get_active_items(
         self,
@@ -131,67 +200,75 @@ class MemoryStore:
         limit: int = 100,
     ) -> List[MemoryItem]:
         """获取用户 active 状态的记忆条目。"""
-        async with aiosqlite.connect(self.db_path) as conn:
-            conn.row_factory = aiosqlite.Row
-            if memory_types:
-                placeholders = ",".join("?" for _ in memory_types)
-                cursor = await conn.execute(
-                    f"""
-                    SELECT * FROM memory_items
-                    WHERE user_id = ? AND status = 'active' AND memory_type IN ({placeholders})
-                    ORDER BY importance DESC, created_at DESC
-                    LIMIT ?
-                    """,
-                    (user_id, *memory_types, limit),
-                )
-            else:
-                cursor = await conn.execute(
-                    """
-                    SELECT * FROM memory_items
-                    WHERE user_id = ? AND status = 'active'
-                    ORDER BY importance DESC, created_at DESC
-                    LIMIT ?
-                    """,
-                    (user_id, limit),
-                )
-            rows = await cursor.fetchall()
-            return [self._row_to_item(r) for r in rows]
+        conn = await self._get_conn()
+        if memory_types:
+            placeholders = ",".join("?" for _ in memory_types)
+            cursor = await conn.execute(
+                f"""
+                SELECT * FROM memory_items
+                WHERE user_id = ? AND status = 'active' AND memory_type IN ({placeholders})
+                ORDER BY importance DESC, created_at DESC
+                LIMIT ?
+                """,
+                (user_id, *memory_types, limit),
+            )
+        else:
+            cursor = await conn.execute(
+                """
+                SELECT * FROM memory_items
+                WHERE user_id = ? AND status = 'active'
+                ORDER BY importance DESC, created_at DESC
+                LIMIT ?
+                """,
+                (user_id, limit),
+            )
+        rows = await cursor.fetchall()
+        return [self._row_to_item(r) for r in rows]
 
     async def search(
         self, query: MemoryQuery, limit: int = 20
     ) -> List[MemorySearchResult]:
         """
-        基础搜索（Phase 0：按 user_id + memory_type 过滤 + 关键词粗略匹配）。
-        Phase 3 起将使用 MemoryRetriever 多路召回替换此方法。
+        基础搜索（Phase 2：按 user_id + memory_type + status 过滤）。
+        Phase 3 起将使用 MemoryRetriever 多路召回替换。
         """
-        async with aiosqlite.connect(self.db_path) as conn:
-            conn.row_factory = aiosqlite.Row
-            conditions = ["user_id = ?", "status = 'active'"]
-            params: List[Any] = [query.text]
+        conn = await self._get_conn()
+        conditions = ["user_id = ?", "status = 'active'"]
+        params: List[Any] = [query.text]
 
-            if query.memory_types:
-                placeholders = ",".join("?" for _ in query.memory_types)
-                conditions.append(f"memory_type IN ({placeholders})")
-                params.extend(query.memory_types)
+        if query.memory_types:
+            placeholders = ",".join("?" for _ in query.memory_types)
+            conditions.append(f"memory_type IN ({placeholders})")
+            params.extend(query.memory_types)
 
-            if query.risk_level:
-                conditions.append("risk_level = ?")
-                params.append(query.risk_level)
+        if query.risk_level:
+            conditions.append("risk_level = ?")
+            params.append(query.risk_level)
 
-            sql = f"""
-                SELECT * FROM memory_items
-                WHERE {' AND '.join(conditions)}
-                ORDER BY importance DESC, created_at DESC
-                LIMIT ?
-            """
-            params.append(limit)
-            cursor = await conn.execute(sql, params)
-            rows = await cursor.fetchall()
-            items = [self._row_to_item(r) for r in rows]
-            return [
-                MemorySearchResult(item=item, score=0.5, rank=i, retrieval_method="basic")
-                for i, item in enumerate(items)
-            ]
+        sql = f"""
+            SELECT * FROM memory_items
+            WHERE {' AND '.join(conditions)}
+            ORDER BY importance DESC, created_at DESC
+            LIMIT ?
+        """
+        params.append(limit)
+        cursor = await conn.execute(sql, params)
+        rows = await cursor.fetchall()
+        items = [self._row_to_item(r) for r in rows]
+
+        # 批量更新 access_count
+        now = datetime.now(timezone.utc).isoformat()
+        for item in items:
+            await conn.execute(
+                "UPDATE memory_items SET access_count = access_count + 1, last_accessed_at = ? WHERE id = ?",
+                (now, item.id),
+            )
+        await conn.commit()
+
+        return [
+            MemorySearchResult(item=item, score=0.5, rank=i, retrieval_method="basic")
+            for i, item in enumerate(items)
+        ]
 
     # ---------------------------------------------------------------
     # 更新
@@ -203,31 +280,31 @@ class MemoryStore:
         patch["updated_at"] = now
         set_clauses = ", ".join(f"{k} = ?" for k in patch)
         values = list(patch.values()) + [memory_id]
-        async with aiosqlite.connect(self.db_path) as conn:
-            await conn.execute(
-                f"UPDATE memory_items SET {set_clauses} WHERE id = ?", values
-            )
-            await conn.commit()
+        conn = await self._get_conn()
+        await conn.execute(
+            f"UPDATE memory_items SET {set_clauses} WHERE id = ?", values
+        )
+        await conn.commit()
 
     async def archive(self, memory_id: str, reason: str = "") -> None:
         """归档记忆（设置 status='archived'）。"""
-        async with aiosqlite.connect(self.db_path) as conn:
-            now = datetime.now(timezone.utc).isoformat()
-            await conn.execute(
-                "UPDATE memory_items SET status = 'archived', updated_at = ?, metadata = json_set(COALESCE(metadata, '{}'), '$.archive_reason', ?) WHERE id = ?",
-                (now, reason, memory_id),
-            )
-            await conn.commit()
+        now = datetime.now(timezone.utc).isoformat()
+        conn = await self._get_conn()
+        await conn.execute(
+            "UPDATE memory_items SET status = 'archived', updated_at = ?, metadata = json_set(COALESCE(metadata, '{}'), '$.archive_reason', ?) WHERE id = ?",
+            (now, reason, memory_id),
+        )
+        await conn.commit()
 
     async def delete(self, memory_id: str) -> None:
         """软删除（设置 status='deleted'）。"""
-        async with aiosqlite.connect(self.db_path) as conn:
-            now = datetime.now(timezone.utc).isoformat()
-            await conn.execute(
-                "UPDATE memory_items SET status = 'deleted', updated_at = ? WHERE id = ?",
-                (now, memory_id),
-            )
-            await conn.commit()
+        now = datetime.now(timezone.utc).isoformat()
+        conn = await self._get_conn()
+        await conn.execute(
+            "UPDATE memory_items SET status = 'deleted', updated_at = ? WHERE id = ?",
+            (now, memory_id),
+        )
+        await conn.commit()
 
     # ---------------------------------------------------------------
     # 辅助

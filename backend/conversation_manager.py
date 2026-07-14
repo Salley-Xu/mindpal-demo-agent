@@ -6,6 +6,7 @@ from database import db_manager, adb_manager
 from config import config
 import asyncio
 from risk_levels import LEVEL_0, is_non_low_risk, normalize_risk_level
+from config import config as app_config
 
 logger = logging.getLogger(__name__)
 
@@ -311,7 +312,39 @@ class ConversationManager:
                 self._schedule_persistence(_persist())
             except Exception:
                 raise
-        
+
+        # Phase 2: MemoryWriter — 将重要信号写入 memory_items
+        if app_config.MEMORY_ENABLED:
+            try:
+                from memory_writer import memory_writer as _mw
+                from models import TurnContext as _TurnContext
+
+                _turn_context = _TurnContext(
+                    user_id=user_id,
+                    session_id=session_id,
+                    user_input=user_input,
+                    ai_response=ai_response,
+                    emotion_state=emotion_state,
+                    risk_state=risk_state,
+                    conversation_summary={
+                        "stress_sources": [
+                            h.get("stress_source")
+                            for h in session.get("history", [])[-6:]
+                            if h.get("stress_source")
+                        ],
+                        "recent_intents": [
+                            h.get("user_intent")
+                            for h in session.get("history", [])[-6:]
+                            if h.get("user_intent")
+                        ],
+                    },
+                )
+                self._schedule_persistence(
+                    _mw.process_turn(_turn_context)
+                )
+            except Exception as e:
+                logger.warning("MemoryWriter 写入失败（非致命）: %s", e)
+
         return session
     
     def _analyze_conversation_stage(self, session: Dict):
