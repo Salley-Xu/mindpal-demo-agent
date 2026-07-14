@@ -824,13 +824,28 @@ class AgentOrchestrator:
             strategy_guidance=strategy_guidance
         )
 
-        relevant_memory_context = await self._build_relevant_memory_context(
-            text=text,
-            user_id=user_id,
-            summary=summary,
-            emotion_state=emotion_state,
-            user_profile=user_profile,
-        )
+        # Phase 3a: 使用 MemoryContextBuilder（含 BM25 检索 + token budget 注入）
+        try:
+            from memory_context_builder import memory_context_builder as _mcb
+            _memory_ctx = await _mcb.build(
+                user_id=user_id,
+                user_input=text,
+                emotion_state=emotion_state,
+                risk_state=urgent_issue,
+                conversation_summary=summary,
+            )
+            relevant_memory_context = f"（记忆注入: {_memory_ctx.used_tokens}/{int(config.MAX_CONTEXT_TOKENS * config.MEMORY_INJECTION_BUDGET_RATIO)} tokens, {len(_memory_ctx.included_memory_ids)} 条注入）\n"
+            if _memory_ctx.text:
+                relevant_memory_context += _memory_ctx.text
+        except Exception as e:
+            logger.warning("MemoryContextBuilder 失败，回退旧路径: %s", e)
+            relevant_memory_context = await self._build_relevant_memory_context(
+                text=text,
+                user_id=user_id,
+                summary=summary,
+                emotion_state=emotion_state,
+                user_profile=user_profile,
+            )
 
         prompt_sections = [
             ("会话摘要", self._format_session_summary_for_prompt(summary)),
