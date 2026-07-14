@@ -34,17 +34,44 @@ class ContentDatabase:
                         item = ContentItem(**item_data)
                         self.content_items[item.id] = item
                 logger.info(f"已加载 {len(self.content_items)} 个内容项")
+                # v4.6: 合并新增内容
+                self._load_v46_content()
             else:
                 # 初始化示例数据
                 self._initialize_sample_content()
+                self._load_v46_content()
                 logger.info("已初始化示例内容数据库")
         except json.JSONDecodeError as e:
             logger.error(f"内容数据库JSON格式错误: {e}")
             logger.info("重新初始化内容数据库...")
             self._initialize_sample_content()
+            self._load_v46_content()
         except Exception as e:
             logger.error(f"加载内容数据库失败: {e}")
             self._initialize_sample_content()
+            self._load_v46_content()
+
+    def _load_v46_content(self):
+        """加载 v4.6 新增内容（content_v46.json），合并到现有内容库。"""
+        v46_path = os.path.join(os.path.dirname(self.data_file), "content_v46.json")
+        if not os.path.exists(v46_path):
+            return
+        try:
+            with open(v46_path, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            for item_data in data:
+                item_data = self._upgrade_item_schema(item_data)
+                if 'created_at' in item_data and isinstance(item_data['created_at'], str):
+                    try:
+                        item_data['created_at'] = datetime.fromisoformat(item_data['created_at'])
+                    except:
+                        item_data['created_at'] = datetime.now()
+                if item_data['id'] not in self.content_items:
+                    item = ContentItem(**item_data)
+                    self.content_items[item.id] = item
+            logger.info(f"v4.6 已合并 {len(data)} 条新增内容")
+        except Exception as e:
+            logger.warning(f"加载 v4.6 内容失败: {e}")
 
     def _upgrade_item_schema(self, item_data: Dict) -> Dict:
         """为旧版内容库补充新 schema 默认字段。"""

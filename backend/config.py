@@ -51,6 +51,9 @@ class Config:
     # 推荐配置（规则 + 画像 + 可选 AI rerank）
     ENABLE_RECOMMEND_AI_RERANK: bool = os.getenv("ENABLE_RECOMMEND_AI_RERANK", "true").lower() == "true"
     RECOMMEND_RERANK_CANDIDATE_SIZE: int = int(os.getenv("RECOMMEND_RERANK_CANDIDATE_SIZE", "10"))
+    # Dense Retrieval（v4.6，默认关闭）
+    ENABLE_DENSE_RETRIEVAL: bool = os.getenv("ENABLE_DENSE_RETRIEVAL", "false").lower() == "true"
+    DENSE_RETRIEVER_DEVICE: str = os.getenv("DENSE_RETRIEVER_DEVICE", "cpu")
     # RecommendGate 加权因子与阈值（可通过 .env 覆盖调参）
     RECOMMEND_GATE_EMOTION_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_EMOTION_WEIGHT", "0.30"))
     RECOMMEND_GATE_RISK_WEIGHT: float = float(os.getenv("RECOMMEND_GATE_RISK_WEIGHT", "0.23"))

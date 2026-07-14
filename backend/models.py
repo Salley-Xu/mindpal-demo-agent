@@ -90,6 +90,12 @@ class ContentItem(BaseModel):
     difficulty: Optional[str] = None  # beginner, intermediate, advanced
     created_at: datetime = datetime.now()
     popularity: int = 0  # 热度
+    # v4.6: 标签体系增强（为后续 v4.7/v5.0 做准备）
+    therapeutic_goal: List[str] = Field(default_factory=list)
+    user_effort: Optional[str] = None       # low / medium / high
+    time_to_effect: Optional[str] = None    # immediate / short_term / long_term
+    interaction_style: Optional[str] = None # read / listen / write / practice
+    suitable_stage: Optional[str] = None    # early_conversation / repeated_issue / action_planning
 
 
 class ContentRecommendRequest(BaseModel):
