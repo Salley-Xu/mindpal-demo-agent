@@ -18,6 +18,7 @@ from risk_memory import RiskMemoryReader, RiskMemoryWriter
 from recommend_gate import recommend_gate
 from output_safety_checker import output_safety_checker
 from recommendation_trace import TraceEvent, write_trace
+from rejection_detector import detect_rejection
 from models import (
     AgentRunRequest,
     AgentRunResponse,
@@ -479,6 +480,12 @@ class AgentOrchestrator:
             updated_conversation_summary = await conversation_manager.get_conversation_summary_async(
                 request.user_id, request.session_id
             )
+
+            # v4.5: 拒绝推荐检测（影响下一轮门控决策）
+            rejection = detect_rejection(request.text, _recommend_trace.recommendation_ids)
+            if rejection["has_rejected"]:
+                updated_conversation_summary["has_rejected_recommendation"] = True
+                _recommend_trace.gate_inputs["has_rejected_recommendation"] = 1
 
             # 4.1 Urgent Case Logging
             if urgent_issue and is_non_low_risk(urgent_issue.get("level")):

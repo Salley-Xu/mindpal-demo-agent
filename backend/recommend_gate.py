@@ -13,10 +13,16 @@ from risk_levels import (
 
 
 class RecommendGate:
-    """推荐门控：决定当前轮是否推荐，以及采用软推荐还是硬推荐。"""
+    """推荐门控：决定当前轮是否推荐，以及采用软推荐还是硬推荐。
+
+    v4.5 校准变更:
+    - soft_threshold 从 0.22 降至 0.20
+    - 新增 help_intent_hard_threshold: seeking_help 时更低硬门槛
+    - 冷却惩罚区分 hard/soft，值可配置
+    - preference_score 检测 has_rejected_recommendation
+    """
 
     def __init__(self):
-        # 归一化后的权重总和为 1，便于解释分数区间并稳定阈值语义。
         # 权重与阈值从 config 读取，可通过 .env 覆盖调参。
         self.weights = {
             "emotion_intensity": config.RECOMMEND_GATE_EMOTION_WEIGHT,
@@ -26,7 +32,13 @@ class RecommendGate:
             "preference_score": config.RECOMMEND_GATE_PREFERENCE_WEIGHT,
         }
         self.hard_threshold = config.RECOMMEND_GATE_HARD_THRESHOLD
+        self.help_intent_hard_threshold = config.RECOMMEND_GATE_HELP_INTENT_HARD_THRESHOLD
         self.soft_threshold = config.RECOMMEND_GATE_SOFT_THRESHOLD
+        # 冷却惩罚（按推荐类型区分，值可配置）
+        self._cooldown_soft_d1 = config.RECOMMEND_GATE_COOLDOWN_SOFT_D1
+        self._cooldown_soft_d2 = config.RECOMMEND_GATE_COOLDOWN_SOFT_D2
+        self._cooldown_hard_d1 = config.RECOMMEND_GATE_COOLDOWN_HARD_D1
+        self._cooldown_hard_d2 = config.RECOMMEND_GATE_COOLDOWN_HARD_D2
 
     def decide(
         self,
@@ -62,7 +74,11 @@ class RecommendGate:
         preference_score = self._calculate_preference_score(emotion_state, user_profile, conversation_summary)
         cooldown_penalty, cooldown_remaining = self._calculate_cooldown_penalty(conversation_summary)
 
-        # 检查是否有内容被重复推荐（跨轮次去重）
+        # 检查拒绝推荐信号
+        if conversation_summary.get("has_rejected_recommendation"):
+            reason_codes.append("user_rejected_recommendation")
+
+        # 检查跨轮次去重
         recent_item_ids = conversation_summary.get("recent_recommendation_item_ids", []) or []
         if recent_item_ids:
             reason_codes.append("has_recent_recommendations")
@@ -110,6 +126,7 @@ class RecommendGate:
         should_recommend = False
         threshold = self.soft_threshold
 
+        # v4.5: 通用硬阈值条件 + 求助意图专用低阈值
         if recommend_score >= self.hard_threshold and not is_high_support_risk(risk_level) and (
             user_intent in {"seeking_help", "planning"} or emotion_intensity >= 0.8 or negative_trend
         ):
@@ -117,6 +134,15 @@ class RecommendGate:
             recommend_type = "hard"
             threshold = self.hard_threshold
             reason_codes.append("hard_recommendation")
+        elif (user_intent == "seeking_help"
+              and recommend_score >= self.help_intent_hard_threshold
+              and not is_high_support_risk(risk_level)):
+            # v4.5 新增: seeking_help 二级硬阈值（默认 0.38）
+            should_recommend = True
+            recommend_type = "hard"
+            threshold = self.help_intent_hard_threshold
+            reason_codes.append("hard_recommendation")
+            reason_codes.append("help_intent_hard")
         elif recommend_score >= self.soft_threshold:
             should_recommend = True
             recommend_type = "soft"
@@ -147,13 +173,26 @@ class RecommendGate:
         if stress_source and stress_source in main_sources:
             score += 0.35
 
+        # 基于 content_id 的拒绝（通过 /content/feedback API）
         rejected = set(conversation_summary.get("rejected_recommendations", []) or [])
         if rejected:
             score -= 0.25
 
+        # v4.5: 基于对话文本的拒绝检测（用户说"不用了""不需要"等）
+        if conversation_summary.get("has_rejected_recommendation"):
+            score -= 0.25
+
         return max(-0.3, min(score, 1.0))
 
-    def _calculate_cooldown_penalty(self, conversation_summary: Dict[str, Any]) -> tuple[float, int]:
+    def _calculate_cooldown_penalty(
+        self,
+        conversation_summary: Dict[str, Any],
+        recommend_type: str = "soft",
+    ) -> tuple[float, int]:
+        """冷却惩罚，按推荐类型区分 hard/soft。
+
+        冷却系数从 config 读取，可 .env 覆盖。
+        """
         recent_turns = conversation_summary.get("recent_recommendation_turns", []) or []
         current_turn = int(conversation_summary.get("turn_count", 0) or 0)
         if not recent_turns:
@@ -161,10 +200,18 @@ class RecommendGate:
 
         last_turn = max(int(turn) for turn in recent_turns if isinstance(turn, (int, float)))
         distance = current_turn - last_turn
+
+        if recommend_type == "hard":
+            d1 = self._cooldown_hard_d1
+            d2 = self._cooldown_hard_d2
+        else:
+            d1 = self._cooldown_soft_d1
+            d2 = self._cooldown_soft_d2
+
         if distance <= 1:
-            return 0.35, max(0, 2 - distance)
+            return d1, max(0, 2 - distance)
         if distance == 2:
-            return 0.18, 0
+            return d2, 0
         return 0.0, 0
 
 

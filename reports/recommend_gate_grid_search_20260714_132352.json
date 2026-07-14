@@ -1,0 +1,53 @@
+{
+  "soft_thresholds": [
+    0.15,
+    0.18,
+    0.2,
+    0.22,
+    0.25
+  ],
+  "help_hard_thresholds": [
+    0.3,
+    0.35,
+    0.38,
+    0.4,
+    0.45,
+    0.5
+  ],
+  "best": {
+    "soft_threshold": 0.15,
+    "help_intent_hard_threshold": 0.3,
+    "metrics": {
+      "gate_accuracy": 1.0,
+      "mode_accuracy": 1.0,
+      "hard_precision": 1.0,
+      "soft_recall": 1.0,
+      "safety_lock_rate": 1.0,
+      "level2_filter_rate": 1.0,
+      "gate_correct": 96,
+      "mode_correct": 96,
+      "hard_correct": 13,
+      "hard_total": 13,
+      "soft_caught": 57,
+      "soft_expected": 57
+    }
+  },
+  "current": {
+    "soft_threshold": 0.2,
+    "help_intent_hard_threshold": 0.38,
+    "metrics": {
+      "gate_accuracy": 0.9583,
+      "mode_accuracy": 0.9583,
+      "hard_precision": 1.0,
+      "soft_recall": 0.9298,
+      "safety_lock_rate": 1.0,
+      "level2_filter_rate": 1.0,
+      "gate_correct": 92,
+      "mode_correct": 92,
+      "hard_correct": 13,
+      "hard_total": 13,
+      "soft_caught": 53,
+      "soft_expected": 57
+    }
+  }
+}
