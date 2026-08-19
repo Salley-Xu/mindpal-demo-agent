@@ -1,0 +1,1936 @@
+{
+  "meta": {
+    "date": "2026-08-19 00:52:00",
+    "predictor": "llm",
+    "n": 150,
+    "use_context": false,
+    "dataset": "data\\intent\\intent_seed_stratified_150.jsonl",
+    "avg_latency_ms": 3726.11,
+    "llm_call_rate": 1.0
+  },
+  "metrics": {
+    "n": 150,
+    "macro_f1": 0.6965,
+    "macro_precision": 0.6718,
+    "macro_recall": 0.7934,
+    "micro_f1": 0.6834,
+    "exact_match": 0.3333,
+    "hamming_loss": 0.1007,
+    "avg_pred_labels": 1.813,
+    "per_class": {
+      "casual_chat": {
+        "precision": 0.4118,
+        "recall": 0.9333,
+        "f1": 0.5714,
+        "tp": 14,
+        "fp": 20,
+        "fn": 1
+      },
+      "emotional_expression": {
+        "precision": 0.5897,
+        "recall": 0.8519,
+        "f1": 0.697,
+        "tp": 23,
+        "fp": 16,
+        "fn": 4
+      },
+      "explicit_help_request": {
+        "precision": 0.6538,
+        "recall": 0.8947,
+        "f1": 0.7556,
+        "tp": 17,
+        "fp": 9,
+        "fn": 2
+      },
+      "information_request": {
+        "precision": 0.4894,
+        "recall": 0.8214,
+        "f1": 0.6133,
+        "tp": 23,
+        "fp": 24,
+        "fn": 5
+      },
+      "resource_request": {
+        "precision": 1.0,
+        "recall": 0.5333,
+        "f1": 0.6957,
+        "tp": 8,
+        "fp": 0,
+        "fn": 7
+      },
+      "feedback": {
+        "precision": 0.8696,
+        "recall": 0.8,
+        "f1": 0.8333,
+        "tp": 20,
+        "fp": 3,
+        "fn": 5
+      },
+      "follow_up": {
+        "precision": 0.48,
+        "recall": 0.5455,
+        "f1": 0.5106,
+        "tp": 12,
+        "fp": 13,
+        "fn": 10
+      },
+      "memory_reference": {
+        "precision": 0.4737,
+        "recall": 1.0,
+        "f1": 0.6429,
+        "tp": 18,
+        "fp": 20,
+        "fn": 0
+      },
+      "high_risk_expression": {
+        "precision": 0.9375,
+        "recall": 0.7895,
+        "f1": 0.8571,
+        "tp": 15,
+        "fp": 1,
+        "fn": 4
+      },
+      "meta_question": {
+        "precision": 0.8125,
+        "recall": 0.7647,
+        "f1": 0.7879,
+        "tp": 13,
+        "fp": 3,
+        "fn": 4
+      }
+    },
+    "avg_latency_ms": 3726.11,
+    "total_seconds": 558.92,
+    "llm_call_rate": 1.0,
+    "invalid_json": 0
+  },
+  "details": [
+    {
+      "id": "iseed_c_048",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_022",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.7,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_034",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_047",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_006",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_016",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_009",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_040",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_020",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_031",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_030",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_033",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_023",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_c_050",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_045",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.7,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_070",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_056",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_009",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_123",
+      "true": [
+        "follow_up",
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "follow_up",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_052",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_035",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_055",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "emotional_expression",
+        "follow_up",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_022",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "high_risk_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_040",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_024",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "conf": 0.7,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_048",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_029",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_061",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression",
+        "feedback",
+        "follow_up",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_058",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "emotional_expression"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_039",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "follow_up"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_024",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_028",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_003",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_034",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "information_request",
+        "explicit_help_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_029",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "information_request",
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_006",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_042",
+      "true": [
+        "meta_question",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "follow_up",
+        "meta_question",
+        "information_request"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_032",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_013",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_053",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_089",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_054",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_011",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_060",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_029",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_i_030",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 1.0,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_i_009",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_049",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_i_044",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 1.0,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_018",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_098",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 1.0,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_034",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_063",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_014",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_062",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat",
+        "information_request"
+      ],
+      "conf": 0.6,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_004",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "follow_up",
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_116",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "follow_up",
+        "information_request",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_i_002",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_034",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "high_risk_expression"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_050",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_019",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "resource_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_011",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_028",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_005",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request",
+        "explicit_help_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_022",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_097",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "memory_reference",
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_e_066",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "emotional_expression",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_057",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_049",
+      "true": [
+        "feedback",
+        "resource_request"
+      ],
+      "pred": [
+        "feedback",
+        "follow_up"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_002",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "resource_request",
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_058",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_047",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request",
+        "resource_request",
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_031",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_043",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request",
+        "resource_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_r_038",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_009",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat",
+        "feedback"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_057",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "memory_reference",
+        "emotional_expression",
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_020",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "meta_question",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_017",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_040",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "casual_chat"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_063",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression",
+        "memory_reference"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_046",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "follow_up",
+        "information_request"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_086",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_016",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_012",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_008",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_003",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback",
+        "memory_reference"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_007",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_029",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_f_048",
+      "true": [
+        "feedback",
+        "follow_up"
+      ],
+      "pred": [
+        "memory_reference",
+        "information_request"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_087",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_088",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "information_request",
+        "follow_up",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_021",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_001",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "information_request",
+        "follow_up",
+        "memory_reference"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_045",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_019",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "follow_up",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_012",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "follow_up",
+        "information_request",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_081",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "feedback",
+        "emotional_expression",
+        "follow_up"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_119",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "memory_reference",
+        "meta_question",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_091",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_037",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "memory_reference",
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_011",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "follow_up",
+        "memory_reference",
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_004",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "follow_up",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_092",
+      "true": [
+        "memory_reference",
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "memory_reference",
+        "meta_question"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_fu_051",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "follow_up",
+        "information_request",
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_023",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference",
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_030",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_027",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "memory_reference",
+        "emotional_expression",
+        "follow_up",
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_051",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_048",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_066",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_034",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference",
+        "casual_chat"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_030",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "memory_reference",
+        "feedback",
+        "casual_chat"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_040",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference"
+      ],
+      "conf": 1.0,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_046",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_032",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "memory_reference",
+        "follow_up"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_035",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "memory_reference",
+        "follow_up",
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_003",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_m_036",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_024",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "memory_reference",
+        "emotional_expression",
+        "follow_up"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_044",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "high_risk_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_014",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_053",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_047",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_054",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_041",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "high_risk_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_038",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression",
+        "high_risk_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_h_058",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_043",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_093",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_059",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_029",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_026",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hr_013",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_065",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_040",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_050",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "meta_question",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_016",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "information_request",
+        "meta_question"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_050",
+      "true": [
+        "meta_question",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat",
+        "feedback"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_005",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat",
+        "meta_question"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_068",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_049",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question"
+      ],
+      "conf": 0.95,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_021",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_ml_046",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_008",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question",
+        "casual_chat"
+      ],
+      "conf": 0.8,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_010",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question",
+        "information_request"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_hn_093",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_025",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "meta_question"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_037",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression",
+        "meta_question",
+        "casual_chat"
+      ],
+      "conf": 0.85,
+      "source": "llm"
+    },
+    {
+      "id": "iseed_mq_034",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "information_request",
+        "meta_question"
+      ],
+      "conf": 0.9,
+      "source": "llm"
+    }
+  ]
+}

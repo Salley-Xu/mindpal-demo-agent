@@ -1,0 +1,9260 @@
+{
+  "meta": {
+    "date": "2026-08-19 00:32:54",
+    "predictor": "legacy_rule",
+    "n": 806,
+    "use_context": false,
+    "dataset": "data\\intent\\intent_seed_v1.jsonl",
+    "avg_latency_ms": 0.0,
+    "llm_call_rate": 0.0
+  },
+  "metrics": {
+    "n": 806,
+    "macro_f1": 0.1425,
+    "macro_precision": 0.1674,
+    "macro_recall": 0.1948,
+    "micro_f1": 0.2066,
+    "exact_match": 0.1303,
+    "hamming_loss": 0.1867,
+    "avg_pred_labels": 1.04,
+    "per_class": {
+      "casual_chat": {
+        "precision": 0.1256,
+        "recall": 0.9398,
+        "f1": 0.2216,
+        "tp": 78,
+        "fp": 543,
+        "fn": 5
+      },
+      "emotional_expression": {
+        "precision": 0.5909,
+        "recall": 0.4452,
+        "f1": 0.5078,
+        "tp": 65,
+        "fp": 45,
+        "fn": 81
+      },
+      "explicit_help_request": {
+        "precision": 0.52,
+        "recall": 0.3861,
+        "f1": 0.4432,
+        "tp": 39,
+        "fp": 36,
+        "fn": 62
+      },
+      "information_request": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 200
+      },
+      "resource_request": {
+        "precision": 0.4375,
+        "recall": 0.1772,
+        "f1": 0.2523,
+        "tp": 14,
+        "fp": 18,
+        "fn": 65
+      },
+      "feedback": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 95
+      },
+      "follow_up": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 100
+      },
+      "memory_reference": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 101
+      },
+      "high_risk_expression": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 87
+      },
+      "meta_question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 67
+      }
+    },
+    "avg_latency_ms": 0.0,
+    "total_seconds": 0.0,
+    "llm_call_rate": 0.0,
+    "invalid_json": 0
+  },
+  "details": [
+    {
+      "id": "iseed_c_001",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_002",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_003",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_004",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_005",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_006",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_007",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_008",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_009",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_010",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_011",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_012",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_013",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_014",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_015",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_016",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_017",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_018",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_019",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_020",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_021",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_022",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_023",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_024",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_025",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_026",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_027",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_028",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_029",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_030",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_031",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_032",
+      "true": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_033",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_034",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_035",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_036",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_037",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_038",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_039",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_040",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_041",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_042",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_043",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_044",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_045",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_046",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_047",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_048",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_049",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_050",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_051",
+      "true": [
+        "casual_chat",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_052",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_053",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_054",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_c_055",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_001",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_002",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_003",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_004",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_005",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_006",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_007",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_008",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_009",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_010",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_011",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_012",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_013",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_014",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_015",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_016",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_017",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_018",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_019",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_020",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_021",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_022",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_023",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_024",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_025",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_026",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_027",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_028",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_029",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_030",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_031",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_032",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_033",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_034",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_035",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_036",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_037",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_038",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_039",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_040",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_041",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_042",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_043",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_044",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_045",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_046",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_047",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_048",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_049",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_050",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_051",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_052",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_053",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_054",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_055",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_056",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_057",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_058",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_059",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_060",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_061",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_062",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_063",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_064",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_065",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_066",
+      "true": [
+        "emotional_expression",
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_067",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_068",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_069",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_e_070",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_001",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_002",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_003",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_004",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_005",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_006",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_007",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_008",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_009",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_010",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_011",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_012",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_013",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_014",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_015",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_016",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_017",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_018",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_019",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_020",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_021",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_022",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_023",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_024",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_025",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_026",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_027",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_028",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_029",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_030",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_031",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_032",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_033",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_034",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_035",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_036",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_037",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_038",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_039",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_040",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_041",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_042",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_043",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_044",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_045",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_046",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_047",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_048",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_049",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_050",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_051",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_052",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_053",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_054",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_055",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_056",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_057",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_058",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_059",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_060",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_061",
+      "true": [
+        "explicit_help_request",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_062",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_h_063",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_001",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_002",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_003",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_004",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_005",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_006",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_007",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_008",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_009",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_010",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_011",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_012",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_013",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_014",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_015",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_016",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_017",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_018",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_019",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_020",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_021",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_022",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_023",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_024",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_025",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_026",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_027",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_028",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_029",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_030",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_031",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_032",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_033",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_034",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_035",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_036",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_037",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_038",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_039",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_040",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_041",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_042",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_043",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_044",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_045",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_046",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_047",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_048",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_049",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_050",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_051",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_052",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_053",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_054",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_055",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_056",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_057",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_058",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_059",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_i_060",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_001",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_002",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_003",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_004",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_005",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_006",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_007",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_008",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_009",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_010",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_011",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_012",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_013",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_014",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_015",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_016",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_017",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_018",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_019",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_020",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_021",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_022",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_023",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_024",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_025",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_026",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_027",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_028",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_029",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_030",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_031",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_032",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_033",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_034",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_035",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_036",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_037",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_038",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_039",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_040",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_041",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_042",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_043",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_044",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_045",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_046",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_047",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_048",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_049",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_050",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_051",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_052",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_053",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_054",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_055",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_056",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_057",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_058",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_059",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_r_060",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_001",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_002",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_003",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_004",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_005",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_006",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_007",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_008",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_009",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_010",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_011",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_012",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_013",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_014",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_015",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_016",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_017",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_018",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_019",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_020",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_021",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_022",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_023",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_024",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_025",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_026",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_027",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_028",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_029",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_030",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_031",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_032",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_033",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_034",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_035",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_036",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_037",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_038",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_039",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_040",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_041",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_042",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_043",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_044",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_045",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_046",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_047",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_048",
+      "true": [
+        "feedback",
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_049",
+      "true": [
+        "feedback",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_050",
+      "true": [
+        "feedback",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_051",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_052",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_053",
+      "true": [
+        "feedback",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_054",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_f_055",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_001",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_002",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_003",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_004",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_005",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_006",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_007",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_008",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_009",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_010",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_011",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_012",
+      "true": [
+        "follow_up",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_013",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_014",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_015",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_016",
+      "true": [
+        "follow_up",
+        "memory_reference"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_017",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_018",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_019",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_020",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_021",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_022",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_023",
+      "true": [
+        "follow_up",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_024",
+      "true": [
+        "follow_up",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_025",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_026",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_027",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_028",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_029",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_030",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_031",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_032",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_033",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_034",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_035",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_036",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_037",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_038",
+      "true": [
+        "follow_up",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_039",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_040",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_041",
+      "true": [
+        "follow_up",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_042",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_043",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_044",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_045",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_046",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_047",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_048",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_049",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_050",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_051",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_052",
+      "true": [
+        "follow_up",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_053",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_054",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_fu_055",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_001",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_002",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_003",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_004",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_005",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_006",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_007",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_008",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_009",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_010",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_011",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_012",
+      "true": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_013",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_014",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_015",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_016",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_017",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_018",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_019",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_020",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_021",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_022",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_023",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_024",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_025",
+      "true": [
+        "memory_reference",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_026",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_027",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_028",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_029",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_030",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_031",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_032",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_033",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_034",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_035",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_036",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_037",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_038",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_039",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_040",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_041",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_042",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_043",
+      "true": [
+        "memory_reference",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_044",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_045",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_046",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_047",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_048",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_049",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_050",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_051",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_052",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_053",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_054",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_m_055",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_001",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_002",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_003",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_004",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_005",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_006",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_007",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_008",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_009",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_010",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_011",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_012",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_013",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_014",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_015",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_016",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_017",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_018",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_019",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_020",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_021",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_022",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_023",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_024",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_025",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_026",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_027",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_028",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_029",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_030",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_031",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_032",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_033",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_034",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_035",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_036",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_037",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_038",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_039",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_040",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_041",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_042",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_043",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_044",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_045",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_046",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_047",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_048",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_049",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_050",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_051",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_052",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_053",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_054",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_055",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_056",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_057",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_058",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_059",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hr_060",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_001",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_002",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_003",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_004",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_005",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_006",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_007",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_008",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_009",
+      "true": [
+        "information_request",
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_010",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_011",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_012",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_013",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_014",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_015",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_016",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_017",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_018",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_019",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_020",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_021",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_022",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_023",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_024",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_025",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_026",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_027",
+      "true": [
+        "emotional_expression",
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_028",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_029",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_030",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_031",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_032",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_033",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_034",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_035",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_036",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_037",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_038",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_039",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_040",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_041",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_042",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_043",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_044",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_045",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_046",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_047",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_048",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_049",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_050",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_001",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_002",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_003",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_004",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_005",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_006",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_007",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_008",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_009",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_010",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_011",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_012",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_013",
+      "true": [
+        "meta_question",
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_014",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_015",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_016",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_017",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_018",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_019",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_020",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_021",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_022",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_023",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_024",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_025",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_026",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_027",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_028",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_029",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_030",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_031",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_032",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_033",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_034",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_035",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_036",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_037",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_038",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_039",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_040",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_041",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_042",
+      "true": [
+        "meta_question",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_043",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_044",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_045",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_046",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_047",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_048",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_049",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_mq_050",
+      "true": [
+        "meta_question",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_001",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_002",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_003",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_004",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_005",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_006",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_007",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_008",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_009",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_010",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_011",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_012",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_013",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_014",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_015",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_016",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_017",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_018",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_019",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_020",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_021",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_022",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_023",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_024",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_025",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_026",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_027",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_028",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_029",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_030",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_031",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_032",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_033",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_034",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_035",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_036",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_037",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_038",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_039",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_040",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_041",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_042",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_043",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_044",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_045",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_046",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_047",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_048",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_049",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_050",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_051",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_052",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_053",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_054",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_055",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_056",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_057",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_058",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_059",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_060",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_061",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_062",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_063",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_064",
+      "true": [
+        "emotional_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_065",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_066",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_067",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_068",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_069",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_070",
+      "true": [
+        "high_risk_expression",
+        "memory_reference"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_071",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_072",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_073",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_074",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_075",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_076",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_077",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_078",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_079",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_080",
+      "true": [
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_081",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_082",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_083",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_084",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_085",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_086",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_087",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_088",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_089",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_090",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_091",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_092",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_093",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_094",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_095",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_096",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_097",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_098",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_099",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_100",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_101",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_102",
+      "true": [
+        "resource_request",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_103",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_104",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_105",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_106",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_107",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_108",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_109",
+      "true": [
+        "follow_up",
+        "emotional_expression",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_110",
+      "true": [
+        "memory_reference",
+        "feedback",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_111",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_112",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_113",
+      "true": [
+        "memory_reference",
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_114",
+      "true": [
+        "resource_request",
+        "feedback",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_115",
+      "true": [
+        "memory_reference",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_116",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_117",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_118",
+      "true": [
+        "memory_reference",
+        "feedback",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_119",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_120",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_121",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_122",
+      "true": [
+        "memory_reference",
+        "feedback",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_ml_123",
+      "true": [
+        "follow_up",
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_051",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_052",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_053",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_054",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_055",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_056",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_057",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_058",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_059",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_060",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_061",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_062",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_063",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_064",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_065",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_066",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_067",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_068",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_069",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_070",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_071",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_072",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_073",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_074",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_075",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_076",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_077",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_078",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_079",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_080",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_081",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_082",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_083",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_084",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_085",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_086",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_087",
+      "true": [
+        "memory_reference",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_088",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_089",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_090",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_091",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_092",
+      "true": [
+        "memory_reference",
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_093",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_094",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_095",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_096",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_097",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_098",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_099",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "iseed_hn_100",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    }
+  ]
+}

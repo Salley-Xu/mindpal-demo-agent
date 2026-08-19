@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "date": "2026-08-19 13:26:40",
+    "model": "models/intent/best_model",
+    "n_in_domain": 120,
+    "n_ood": 105
+  },
+  "threshold_scan": [
+    {
+      "threshold": 0.2,
+      "ood_recall": 0.0,
+      "ood_precision": 0.0,
+      "in_domain_false_reject": 0.0,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.25,
+      "ood_recall": 0.019,
+      "ood_precision": 1.0,
+      "in_domain_false_reject": 0.0,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.3,
+      "ood_recall": 0.019,
+      "ood_precision": 0.5,
+      "in_domain_false_reject": 0.0167,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.35,
+      "ood_recall": 0.0762,
+      "ood_precision": 0.6667,
+      "in_domain_false_reject": 0.0333,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.4,
+      "ood_recall": 0.1429,
+      "ood_precision": 0.7143,
+      "in_domain_false_reject": 0.05,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.45,
+      "ood_recall": 0.2381,
+      "ood_precision": 0.7143,
+      "in_domain_false_reject": 0.0833,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.5,
+      "ood_recall": 0.3333,
+      "ood_precision": 0.7292,
+      "in_domain_false_reject": 0.1083,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.55,
+      "ood_recall": 0.4095,
+      "ood_precision": 0.6825,
+      "in_domain_false_reject": 0.1667,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    },
+    {
+      "threshold": 0.6,
+      "ood_recall": 0.4571,
+      "ood_precision": 0.6486,
+      "in_domain_false_reject": 0.2167,
+      "auroc": 0.6572,
+      "n_in_domain": 120,
+      "n_ood": 105
+    }
+  ],
+  "recommended": {
+    "threshold": 0.6,
+    "ood_recall": 0.4571,
+    "ood_precision": 0.6486,
+    "in_domain_false_reject": 0.2167,
+    "auroc": 0.6572,
+    "n_in_domain": 120,
+    "n_ood": 105
+  }
+}

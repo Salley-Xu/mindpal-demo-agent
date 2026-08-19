@@ -1,0 +1,4215 @@
+{
+  "meta": {
+    "date": "2026-08-19 00:33:02",
+    "predictor": "legacy_rule",
+    "n": 362,
+    "use_context": false,
+    "dataset": "D:\\project\\project\\mindpal_demo\\agent_version\\data\\intent\\intent_seed_v1.jsonl",
+    "avg_latency_ms": 0.0,
+    "llm_call_rate": 0.0
+  },
+  "metrics": {
+    "n": 362,
+    "macro_f1": 0.1381,
+    "macro_precision": 0.1637,
+    "macro_recall": 0.1947,
+    "micro_f1": 0.228,
+    "exact_match": 0.1215,
+    "hamming_loss": 0.1815,
+    "avg_pred_labels": 1.066,
+    "per_class": {
+      "casual_chat": {
+        "precision": 0.1077,
+        "recall": 0.9032,
+        "f1": 0.1924,
+        "tp": 28,
+        "fp": 232,
+        "fn": 3
+      },
+      "emotional_expression": {
+        "precision": 0.6875,
+        "recall": 0.3607,
+        "f1": 0.4731,
+        "tp": 44,
+        "fp": 20,
+        "fn": 78
+      },
+      "explicit_help_request": {
+        "precision": 0.3421,
+        "recall": 0.4333,
+        "f1": 0.3824,
+        "tp": 13,
+        "fp": 25,
+        "fn": 17
+      },
+      "information_request": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 39
+      },
+      "resource_request": {
+        "precision": 0.5,
+        "recall": 0.25,
+        "f1": 0.3333,
+        "tp": 12,
+        "fp": 12,
+        "fn": 36
+      },
+      "feedback": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 39
+      },
+      "follow_up": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 23
+      },
+      "memory_reference": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 46
+      },
+      "high_risk_expression": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 66
+      },
+      "meta_question": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "tp": 0,
+        "fp": 0,
+        "fn": 21
+      }
+    },
+    "avg_latency_ms": 0.0,
+    "total_seconds": 0.0,
+    "llm_call_rate": 0.0,
+    "invalid_json": 0
+  },
+  "details": [
+    {
+      "id": "agent_0001",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0002",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0003",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0004",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0005",
+      "true": [
+        "casual_chat",
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0006",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0007",
+      "true": [
+        "feedback",
+        "resource_request",
+        "follow_up"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0008",
+      "true": [
+        "casual_chat",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0009",
+      "true": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0010",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0101",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0102",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0103",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0104",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0105",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0106",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0107",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0108",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0109",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0110",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0111",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0112",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0113",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0114",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0115",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0116",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0201",
+      "true": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0202",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0203",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0204",
+      "true": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0205",
+      "true": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0206",
+      "true": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0207",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0208",
+      "true": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0209",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0210",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0301",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0302",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0303",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0304",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0305",
+      "true": [
+        "information_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0306",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0307",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0308",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0401",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0402",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0403",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0404",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0405",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0406",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0407",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0408",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0409",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0410",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0501",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0502",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0503",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0504",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0505",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0506",
+      "true": [
+        "resource_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0507",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0508",
+      "true": [
+        "resource_request",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0509",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0510",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0601",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0602",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0603",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0604",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0605",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0606",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0701",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0702",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0703",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0704",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0705",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0706",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0707",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0708",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0801",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0802",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0803",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0804",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0805",
+      "true": [
+        "information_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0806",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0901",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0902",
+      "true": [
+        "resource_request",
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0903",
+      "true": [
+        "information_request",
+        "emotional_expression",
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0904",
+      "true": [
+        "explicit_help_request",
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0905",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0906",
+      "true": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0907",
+      "true": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_0908",
+      "true": [
+        "casual_chat",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1001",
+      "true": [
+        "emotional_expression",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1002",
+      "true": [
+        "emotional_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1003",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1004",
+      "true": [
+        "casual_chat",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1005",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1006",
+      "true": [
+        "feedback",
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1007",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_1008",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2001",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2002",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2003",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2004",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2005",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2006",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2007",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2008",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2009",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2010",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2011",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2012",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2013",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2014",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2015",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2016",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2017",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2018",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2019",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2020",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2021",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2022",
+      "true": [
+        "high_risk_expression",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2023",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2101",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2102",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2103",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2104",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2105",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2106",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2107",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2108",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2109",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2110",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2111",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2112",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2113",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2114",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2115",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2116",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2117",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2118",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2119",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2120",
+      "true": [
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2201",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2202",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2203",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2204",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2205",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2206",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2207",
+      "true": [
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2208",
+      "true": [
+        "high_risk_expression",
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2301",
+      "true": [
+        "memory_reference",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2302",
+      "true": [
+        "memory_reference",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2303",
+      "true": [
+        "memory_reference",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2304",
+      "true": [
+        "memory_reference",
+        "high_risk_expression",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2305",
+      "true": [
+        "memory_reference",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2306",
+      "true": [
+        "memory_reference",
+        "high_risk_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2401",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2402",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2403",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2404",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2405",
+      "true": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2406",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2407",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2408",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2409",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2410",
+      "true": [
+        "casual_chat",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2411",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2412",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2501",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2502",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2503",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2504",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2505",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2506",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2507",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2508",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2509",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2510",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2511",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2512",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2513",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2514",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2515",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2516",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2517",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2518",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2519",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2520",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2521",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2522",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2523",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2524",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2525",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2526",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2527",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2528",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2529",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2530",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2531",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2532",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2601",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2602",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2603",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2604",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2605",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2606",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2607",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2608",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2609",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2610",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2611",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2612",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2613",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2614",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2615",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2616",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2617",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2618",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2701",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2702",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2703",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2704",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2705",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2706",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2707",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2708",
+      "true": [
+        "follow_up",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2709",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2710",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2711",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2712",
+      "true": [
+        "follow_up",
+        "feedback"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2713",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2714",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2715",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2716",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2717",
+      "true": [
+        "follow_up",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2718",
+      "true": [
+        "follow_up",
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2719",
+      "true": [
+        "follow_up",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2720",
+      "true": [
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2801",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2802",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2803",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2804",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2805",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2806",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2807",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2808",
+      "true": [
+        "meta_question",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2809",
+      "true": [
+        "meta_question",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2810",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2811",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2812",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2813",
+      "true": [
+        "meta_question",
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2814",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2815",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2816",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2817",
+      "true": [
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2818",
+      "true": [
+        "meta_question",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2901",
+      "true": [],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2902",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2903",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2904",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2905",
+      "true": [],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2906",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2907",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2908",
+      "true": [
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2909",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2910",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2911",
+      "true": [],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2912",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2913",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2914",
+      "true": [
+        "feedback",
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2915",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2916",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2917",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2918",
+      "true": [
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2919",
+      "true": [
+        "casual_chat",
+        "meta_question"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_2920",
+      "true": [
+        "casual_chat",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3001",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3002",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3003",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3004",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3005",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3006",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3007",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3008",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3009",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3010",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3101",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3102",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3103",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3104",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3105",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3106",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3107",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3108",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3109",
+      "true": [
+        "resource_request",
+        "information_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3110",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3111",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3112",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3113",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3114",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3115",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3201",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3202",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3203",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3204",
+      "true": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3205",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3206",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3207",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3208",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3209",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3210",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3211",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3212",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3301",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3302",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3303",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3304",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3305",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3306",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3307",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3308",
+      "true": [
+        "casual_chat"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3309",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3310",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "emotional_expression"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3311",
+      "true": [
+        "explicit_help_request"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3312",
+      "true": [
+        "explicit_help_request",
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3401",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3402",
+      "true": [
+        "memory_reference",
+        "feedback"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3403",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3404",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3405",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3406",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3407",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3408",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3409",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3410",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3411",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3412",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3413",
+      "true": [
+        "memory_reference",
+        "follow_up"
+      ],
+      "pred": [
+        "explicit_help_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3414",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3415",
+      "true": [
+        "memory_reference"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3416",
+      "true": [
+        "memory_reference",
+        "emotional_expression"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3501",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3502",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3503",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3504",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3505",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3506",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3507",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3508",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3509",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3510",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3511",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3512",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3513",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3514",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3515",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3516",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3517",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3518",
+      "true": [
+        "resource_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3601",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "casual_chat"
+      ],
+      "conf": 0.5,
+      "source": "rule"
+    },
+    {
+      "id": "agent_3602",
+      "true": [
+        "information_request"
+      ],
+      "pred": [
+        "explicit_help_request",
+        "resource_request"
+      ],
+      "conf": 0.9,
+      "source": "rule"
+    }
+  ]
+}

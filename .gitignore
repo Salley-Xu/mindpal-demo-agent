@@ -42,6 +42,13 @@ Thumbs.db
 bert_data/models/**/model.safetensors
 bert_data/models/**/model_state.pt
 bert_data/models/**/pytorch_model.bin
+models/**/model_state.pt
+models/**/*.bin
+models/**/*.safetensors
+
+# Knowledge base source PDFs & rebuildable indexes
+backend/data/knowledge_source/
+backend/data/knowledge_faiss/
 
 # Personal files (not for commit)
 自我介绍.md
