@@ -20,6 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from data.intent.intent_schema import INTENT_LABELS  # noqa: E402
+from evaluation.intent.context_builder import build_context_input  # noqa: E402
 from evaluation.intent.predictors import IntentPredictor  # noqa: E402
 
 
@@ -73,7 +74,13 @@ class SmallModelPredictor(IntentPredictor):
 
     @torch.no_grad()
     def predict(self, text: str, context: Optional[List[dict]] = None) -> dict:
-        enc = self.tokenizer(text, truncation=True, padding="max_length",
+        # context 可以是 (conversation_turns, context_turns) 或仅当前文本
+        if context and isinstance(context, tuple):
+            conv, ctx_turns = context
+            input_text = build_context_input(conv, ctx_turns)
+        else:
+            input_text = text
+        enc = self.tokenizer(input_text, truncation=True, padding="max_length",
                              max_length=128, return_tensors="pt")
         input_ids = enc["input_ids"].to(self.device)
         attn = enc["attention_mask"].to(self.device)

@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "date": "2026-08-19 14:27:06",
+    "model": "hfl/chinese-macbert-base",
+    "epochs": 5,
+    "lr": 2e-05,
+    "device": "cpu",
+    "train": 595,
+    "dev": 127,
+    "test": 128,
+    "elapsed_s": 615.0,
+    "best_dev_macro_f1": 0.7119
+  },
+  "dev_metrics": {
+    "macro_f1": 0.7119
+  },
+  "test_metrics": {
+    "n": 128,
+    "macro_f1": 0.6985,
+    "macro_precision": 0.9862,
+    "macro_recall": 0.5762,
+    "micro_f1": 0.7413,
+    "exact_match": 0.5156,
+    "hamming_loss": 0.0578,
+    "avg_pred_labels": 0.859,
+    "per_class": {
+      "casual_chat": {
+        "precision": 1.0,
+        "recall": 0.3636,
+        "f1": 0.5333,
+        "tp": 4,
+        "fp": 0,
+        "fn": 7
+      },
+      "emotional_expression": {
+        "precision": 1.0,
+        "recall": 0.25,
+        "f1": 0.4,
+        "tp": 6,
+        "fp": 0,
+        "fn": 18
+      },
+      "explicit_help_request": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6667,
+        "tp": 6,
+        "fp": 0,
+        "fn": 6
+      },
+      "information_request": {
+        "precision": 0.8621,
+        "recall": 0.7812,
+        "f1": 0.8197,
+        "tp": 25,
+        "fp": 4,
+        "fn": 7
+      },
+      "resource_request": {
+        "precision": 1.0,
+        "recall": 0.6667,
+        "f1": 0.8,
+        "tp": 8,
+        "fp": 0,
+        "fn": 4
+      },
+      "feedback": {
+        "precision": 1.0,
+        "recall": 0.5,
+        "f1": 0.6667,
+        "tp": 8,
+        "fp": 0,
+        "fn": 8
+      },
+      "follow_up": {
+        "precision": 1.0,
+        "recall": 0.9565,
+        "f1": 0.9778,
+        "tp": 22,
+        "fp": 0,
+        "fn": 1
+      },
+      "memory_reference": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571,
+        "tp": 15,
+        "fp": 0,
+        "fn": 5
+      },
+      "high_risk_expression": {
+        "precision": 1.0,
+        "recall": 0.2667,
+        "f1": 0.4211,
+        "tp": 4,
+        "fp": 0,
+        "fn": 11
+      },
+      "meta_question": {
+        "precision": 1.0,
+        "recall": 0.7273,
+        "f1": 0.8421,
+        "tp": 8,
+        "fp": 0,
+        "fn": 3
+      }
+    }
+  }
+}

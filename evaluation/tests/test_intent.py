@@ -102,6 +102,39 @@ def test_ood_metrics_direction():
     assert m["in_domain_false_reject"] == 0.0
 
 
+def test_context_builder():
+    from evaluation.intent.context_builder import build_context_input
+    conv = [{"role": "user", "content": "我最近失眠。"},
+            {"role": "assistant", "content": "可以试试放松练习。"},
+            {"role": "user", "content": "第二个具体怎么做？"}]
+    assert build_context_input(conv, 0) == "第二个具体怎么做？"
+    out1 = build_context_input(conv, 1)
+    assert "可以试试放松练习" in out1 and "第二个具体怎么做" in out1
+    out2 = build_context_input(conv, 2)
+    assert "我最近失眠" in out2
+    # 无历史退化为当前
+    assert build_context_input([{"role": "user", "content": "今天不错"}], 1) == "今天不错"
+
+
+def test_uncertainty_detector():
+    from evaluation.intent.open_set import MaxScoreOpenSet, open_set_decision
+    assert open_set_decision({"a": 0.1, "b": 0.05}, 0.35) is True
+    assert open_set_decision({"a": 0.9}, 0.35) is False
+    assert open_set_decision({}, 0.35) is True
+    os_ = MaxScoreOpenSet(threshold=0.4)
+    assert os_.is_open_set({"a": 0.2}) is True
+
+
+def test_ood_metrics():
+    from evaluation.intent.open_set import ood_metrics
+    in_s = [0.8, 0.9, 0.7]
+    ood_s = [0.2, 0.1]
+    m = ood_metrics(in_s, ood_s, threshold=0.5)
+    assert m["ood_recall"] == 1.0
+    assert m["in_domain_false_reject"] == 0.0
+    assert 0.5 < m["auroc"] <= 1.0
+
+
 def test_hybrid_gate_logic():
     """Hybrid 门控：低置信/空分 → 触发 fallback；高置信 → 直接 classifier。"""
     from evaluation.intent.hybrid import HybridIntentPredictor

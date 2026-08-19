@@ -1,0 +1,755 @@
+{
+  "meta": {
+    "date": "2026-08-19 15:20:20",
+    "n": 535
+  },
+  "results": {
+    "A_legacy": {
+      "n": 535,
+      "macro_f1": 0.1166,
+      "macro_precision": 0.1723,
+      "macro_recall": 0.1671,
+      "micro_f1": 0.1577,
+      "exact_match": 0.0972,
+      "hamming_loss": 0.2097,
+      "avg_pred_labels": 1.032,
+      "per_class": {
+        "casual_chat": {
+          "precision": 0.0968,
+          "recall": 0.9545,
+          "f1": 0.1757,
+          "tp": 42,
+          "fp": 392,
+          "fn": 2
+        },
+        "emotional_expression": {
+          "precision": 0.5714,
+          "recall": 0.2254,
+          "f1": 0.3232,
+          "tp": 32,
+          "fp": 24,
+          "fn": 110
+        },
+        "explicit_help_request": {
+          "precision": 0.4667,
+          "recall": 0.253,
+          "f1": 0.3281,
+          "tp": 21,
+          "fp": 24,
+          "fn": 62
+        },
+        "information_request": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 138
+        },
+        "resource_request": {
+          "precision": 0.5882,
+          "recall": 0.2381,
+          "f1": 0.339,
+          "tp": 10,
+          "fp": 7,
+          "fn": 32
+        },
+        "feedback": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 89
+        },
+        "follow_up": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 95
+        },
+        "memory_reference": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 63
+        },
+        "high_risk_expression": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 63
+        },
+        "meta_question": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "tp": 0,
+          "fp": 0,
+          "fn": 21
+        }
+      },
+      "avg_latency_ms": 0.0,
+      "llm_call_rate": 0.0
+    },
+    "C_small_current": {
+      "n": 535,
+      "macro_f1": 0.8182,
+      "macro_precision": 0.9456,
+      "macro_recall": 0.7277,
+      "micro_f1": 0.8157,
+      "exact_match": 0.6187,
+      "hamming_loss": 0.0473,
+      "avg_pred_labels": 1.108,
+      "per_class": {
+        "casual_chat": {
+          "precision": 0.9429,
+          "recall": 0.75,
+          "f1": 0.8354,
+          "tp": 33,
+          "fp": 2,
+          "fn": 11
+        },
+        "emotional_expression": {
+          "precision": 0.9022,
+          "recall": 0.5845,
+          "f1": 0.7094,
+          "tp": 83,
+          "fp": 9,
+          "fn": 59
+        },
+        "explicit_help_request": {
+          "precision": 0.9605,
+          "recall": 0.8795,
+          "f1": 0.9182,
+          "tp": 73,
+          "fp": 3,
+          "fn": 10
+        },
+        "information_request": {
+          "precision": 0.9815,
+          "recall": 0.7681,
+          "f1": 0.8618,
+          "tp": 106,
+          "fp": 2,
+          "fn": 32
+        },
+        "resource_request": {
+          "precision": 1.0,
+          "recall": 0.7619,
+          "f1": 0.8649,
+          "tp": 32,
+          "fp": 0,
+          "fn": 10
+        },
+        "feedback": {
+          "precision": 0.9836,
+          "recall": 0.6742,
+          "f1": 0.8,
+          "tp": 60,
+          "fp": 1,
+          "fn": 29
+        },
+        "follow_up": {
+          "precision": 0.9538,
+          "recall": 0.6526,
+          "f1": 0.775,
+          "tp": 62,
+          "fp": 3,
+          "fn": 33
+        },
+        "memory_reference": {
+          "precision": 0.9538,
+          "recall": 0.9841,
+          "f1": 0.9688,
+          "tp": 62,
+          "fp": 3,
+          "fn": 1
+        },
+        "high_risk_expression": {
+          "precision": 0.7778,
+          "recall": 0.5556,
+          "f1": 0.6481,
+          "tp": 35,
+          "fp": 10,
+          "fn": 28
+        },
+        "meta_question": {
+          "precision": 1.0,
+          "recall": 0.6667,
+          "f1": 0.8,
+          "tp": 14,
+          "fp": 0,
+          "fn": 7
+        }
+      },
+      "avg_latency_ms": 75.18,
+      "llm_call_rate": 0.0
+    },
+    "D_calibrated": {
+      "n": 535,
+      "macro_f1": 0.8427,
+      "macro_precision": 0.8882,
+      "macro_recall": 0.8219,
+      "micro_f1": 0.8312,
+      "exact_match": 0.671,
+      "hamming_loss": 0.0465,
+      "avg_pred_labels": 1.299,
+      "per_class": {
+        "casual_chat": {
+          "precision": 0.6721,
+          "recall": 0.9318,
+          "f1": 0.781,
+          "tp": 41,
+          "fp": 20,
+          "fn": 3
+        },
+        "emotional_expression": {
+          "precision": 0.9146,
+          "recall": 0.5282,
+          "f1": 0.6696,
+          "tp": 75,
+          "fp": 7,
+          "fn": 67
+        },
+        "explicit_help_request": {
+          "precision": 0.9036,
+          "recall": 0.9036,
+          "f1": 0.9036,
+          "tp": 75,
+          "fp": 8,
+          "fn": 8
+        },
+        "information_request": {
+          "precision": 0.8767,
+          "recall": 0.9275,
+          "f1": 0.9014,
+          "tp": 128,
+          "fp": 18,
+          "fn": 10
+        },
+        "resource_request": {
+          "precision": 1.0,
+          "recall": 0.9048,
+          "f1": 0.95,
+          "tp": 38,
+          "fp": 0,
+          "fn": 4
+        },
+        "feedback": {
+          "precision": 0.9848,
+          "recall": 0.7303,
+          "f1": 0.8387,
+          "tp": 65,
+          "fp": 1,
+          "fn": 24
+        },
+        "follow_up": {
+          "precision": 0.9552,
+          "recall": 0.6737,
+          "f1": 0.7901,
+          "tp": 64,
+          "fp": 3,
+          "fn": 31
+        },
+        "memory_reference": {
+          "precision": 0.8873,
+          "recall": 1.0,
+          "f1": 0.9403,
+          "tp": 63,
+          "fp": 8,
+          "fn": 0
+        },
+        "high_risk_expression": {
+          "precision": 0.7377,
+          "recall": 0.7143,
+          "f1": 0.7258,
+          "tp": 45,
+          "fp": 16,
+          "fn": 18
+        },
+        "meta_question": {
+          "precision": 0.95,
+          "recall": 0.9048,
+          "f1": 0.9268,
+          "tp": 19,
+          "fp": 1,
+          "fn": 2
+        }
+      },
+      "avg_latency_ms": 75.81,
+      "llm_call_rate": 0.0
+    },
+    "E_context": {
+      "n": 535,
+      "macro_f1": 0.8438,
+      "macro_precision": 0.8772,
+      "macro_recall": 0.8322,
+      "micro_f1": 0.8351,
+      "exact_match": 0.6972,
+      "hamming_loss": 0.046,
+      "avg_pred_labels": 1.331,
+      "per_class": {
+        "casual_chat": {
+          "precision": 0.82,
+          "recall": 0.9318,
+          "f1": 0.8723,
+          "tp": 41,
+          "fp": 9,
+          "fn": 3
+        },
+        "emotional_expression": {
+          "precision": 0.932,
+          "recall": 0.6761,
+          "f1": 0.7837,
+          "tp": 96,
+          "fp": 7,
+          "fn": 46
+        },
+        "explicit_help_request": {
+          "precision": 0.9067,
+          "recall": 0.8193,
+          "f1": 0.8608,
+          "tp": 68,
+          "fp": 7,
+          "fn": 15
+        },
+        "information_request": {
+          "precision": 0.916,
+          "recall": 0.8696,
+          "f1": 0.8922,
+          "tp": 120,
+          "fp": 11,
+          "fn": 18
+        },
+        "resource_request": {
+          "precision": 0.975,
+          "recall": 0.9286,
+          "f1": 0.9512,
+          "tp": 39,
+          "fp": 1,
+          "fn": 3
+        },
+        "feedback": {
+          "precision": 0.9,
+          "recall": 0.809,
+          "f1": 0.8521,
+          "tp": 72,
+          "fp": 8,
+          "fn": 17
+        },
+        "follow_up": {
+          "precision": 0.9636,
+          "recall": 0.5579,
+          "f1": 0.7067,
+          "tp": 53,
+          "fp": 2,
+          "fn": 42
+        },
+        "memory_reference": {
+          "precision": 0.6742,
+          "recall": 0.9524,
+          "f1": 0.7895,
+          "tp": 60,
+          "fp": 29,
+          "fn": 3
+        },
+        "high_risk_expression": {
+          "precision": 0.8209,
+          "recall": 0.873,
+          "f1": 0.8462,
+          "tp": 55,
+          "fp": 12,
+          "fn": 8
+        },
+        "meta_question": {
+          "precision": 0.8636,
+          "recall": 0.9048,
+          "f1": 0.8837,
+          "tp": 19,
+          "fp": 3,
+          "fn": 2
+        }
+      },
+      "avg_latency_ms": 76.8,
+      "llm_call_rate": 0.0
+    },
+    "E_slices": {
+      "single_label": {
+        "n": 304,
+        "macro_f1": 0.9083,
+        "macro_precision": 0.8924,
+        "macro_recall": 0.9356,
+        "micro_f1": 0.9238,
+        "exact_match": 0.8849,
+        "hamming_loss": 0.0155,
+        "avg_pred_labels": 1.03,
+        "per_class": {
+          "casual_chat": {
+            "precision": 0.82,
+            "recall": 0.9318,
+            "f1": 0.8723,
+            "tp": 41,
+            "fp": 9,
+            "fn": 3
+          },
+          "emotional_expression": {
+            "precision": 1.0,
+            "recall": 0.7907,
+            "f1": 0.8831,
+            "tp": 34,
+            "fp": 0,
+            "fn": 9
+          },
+          "explicit_help_request": {
+            "precision": 0.9677,
+            "recall": 1.0,
+            "f1": 0.9836,
+            "tp": 30,
+            "fp": 1,
+            "fn": 0
+          },
+          "information_request": {
+            "precision": 0.9138,
+            "recall": 1.0,
+            "f1": 0.955,
+            "tp": 53,
+            "fp": 5,
+            "fn": 0
+          },
+          "resource_request": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 25,
+            "fp": 0,
+            "fn": 0
+          },
+          "feedback": {
+            "precision": 1.0,
+            "recall": 0.9545,
+            "f1": 0.9767,
+            "tp": 21,
+            "fp": 0,
+            "fn": 1
+          },
+          "follow_up": {
+            "precision": 0.6667,
+            "recall": 1.0,
+            "f1": 0.8,
+            "tp": 4,
+            "fp": 2,
+            "fn": 0
+          },
+          "memory_reference": {
+            "precision": 0.6667,
+            "recall": 0.7692,
+            "f1": 0.7143,
+            "tp": 10,
+            "fp": 5,
+            "fn": 3
+          },
+          "high_risk_expression": {
+            "precision": 0.8889,
+            "recall": 0.96,
+            "f1": 0.9231,
+            "tp": 48,
+            "fp": 6,
+            "fn": 2
+          },
+          "meta_question": {
+            "precision": 1.0,
+            "recall": 0.95,
+            "f1": 0.9744,
+            "tp": 19,
+            "fp": 0,
+            "fn": 1
+          }
+        }
+      },
+      "multi_label": {
+        "n": 231,
+        "macro_f1": 0.6099,
+        "macro_precision": 0.6692,
+        "macro_recall": 0.5793,
+        "micro_f1": 0.7726,
+        "exact_match": 0.4502,
+        "hamming_loss": 0.0861,
+        "avg_pred_labels": 1.727,
+        "per_class": {
+          "casual_chat": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "emotional_expression": {
+            "precision": 0.8986,
+            "recall": 0.6263,
+            "f1": 0.7381,
+            "tp": 62,
+            "fp": 7,
+            "fn": 37
+          },
+          "explicit_help_request": {
+            "precision": 0.8636,
+            "recall": 0.717,
+            "f1": 0.7835,
+            "tp": 38,
+            "fp": 6,
+            "fn": 15
+          },
+          "information_request": {
+            "precision": 0.9178,
+            "recall": 0.7882,
+            "f1": 0.8481,
+            "tp": 67,
+            "fp": 6,
+            "fn": 18
+          },
+          "resource_request": {
+            "precision": 0.9333,
+            "recall": 0.8235,
+            "f1": 0.875,
+            "tp": 14,
+            "fp": 1,
+            "fn": 3
+          },
+          "feedback": {
+            "precision": 0.8644,
+            "recall": 0.7612,
+            "f1": 0.8095,
+            "tp": 51,
+            "fp": 8,
+            "fn": 16
+          },
+          "follow_up": {
+            "precision": 1.0,
+            "recall": 0.5385,
+            "f1": 0.7,
+            "tp": 49,
+            "fp": 0,
+            "fn": 42
+          },
+          "memory_reference": {
+            "precision": 0.6757,
+            "recall": 1.0,
+            "f1": 0.8065,
+            "tp": 50,
+            "fp": 24,
+            "fn": 0
+          },
+          "high_risk_expression": {
+            "precision": 0.5385,
+            "recall": 0.5385,
+            "f1": 0.5385,
+            "tp": 7,
+            "fp": 6,
+            "fn": 6
+          },
+          "meta_question": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 3,
+            "fn": 1
+          }
+        }
+      },
+      "context_aware": {
+        "n": 100,
+        "macro_f1": 0.3773,
+        "macro_precision": 0.4244,
+        "macro_recall": 0.3627,
+        "micro_f1": 0.7791,
+        "exact_match": 0.55,
+        "hamming_loss": 0.076,
+        "avg_pred_labels": 1.58,
+        "per_class": {
+          "casual_chat": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "emotional_expression": {
+            "precision": 0.8571,
+            "recall": 0.375,
+            "f1": 0.5217,
+            "tp": 6,
+            "fp": 1,
+            "fn": 10
+          },
+          "explicit_help_request": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 9
+          },
+          "information_request": {
+            "precision": 0.8158,
+            "recall": 0.9688,
+            "f1": 0.8857,
+            "tp": 31,
+            "fp": 7,
+            "fn": 1
+          },
+          "resource_request": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "feedback": {
+            "precision": 0.95,
+            "recall": 0.6333,
+            "f1": 0.76,
+            "tp": 19,
+            "fp": 1,
+            "fn": 11
+          },
+          "follow_up": {
+            "precision": 0.9636,
+            "recall": 0.7571,
+            "f1": 0.848,
+            "tp": 53,
+            "fp": 2,
+            "fn": 17
+          },
+          "memory_reference": {
+            "precision": 0.6579,
+            "recall": 0.8929,
+            "f1": 0.7576,
+            "tp": 25,
+            "fp": 13,
+            "fn": 3
+          },
+          "high_risk_expression": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "meta_question": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 1
+          }
+        }
+      },
+      "implicit_high_risk": null,
+      "hard_negative": {
+        "n": 27,
+        "macro_f1": 0.2804,
+        "macro_precision": 0.29,
+        "macro_recall": 0.275,
+        "micro_f1": 0.9091,
+        "exact_match": 0.8148,
+        "hamming_loss": 0.0185,
+        "avg_pred_labels": 1.037,
+        "per_class": {
+          "casual_chat": {
+            "precision": 0.9,
+            "recall": 1.0,
+            "f1": 0.9474,
+            "tp": 9,
+            "fp": 1,
+            "fn": 0
+          },
+          "emotional_expression": {
+            "precision": 1.0,
+            "recall": 0.75,
+            "f1": 0.8571,
+            "tp": 6,
+            "fp": 0,
+            "fn": 2
+          },
+          "explicit_help_request": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "information_request": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "tp": 10,
+            "fp": 0,
+            "fn": 0
+          },
+          "resource_request": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "feedback": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "follow_up": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          },
+          "memory_reference": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0
+          },
+          "high_risk_expression": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 1,
+            "fn": 0
+          },
+          "meta_question": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1": 0.0,
+            "tp": 0,
+            "fp": 0,
+            "fn": 0
+          }
+        }
+      }
+    }
+  }
+}

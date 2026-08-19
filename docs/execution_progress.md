@@ -185,3 +185,49 @@ Phase 0 收尾 / Benchmark 冻结前校正。**目标不是开发新功能，而
 | 6 | HF 联网超时 / CUDA 内核不兼容 | `HF_HUB_OFFLINE=1` + `--device cpu` |
 
 ---
+
+## 2026-08-19 · Phase 1.5 总结（Intent 收尾：Context-aware + 独立测试 + Uncertainty，PASS）
+
+### 1. 当前任务
+
+Phase 1 Core 通过后的冻结前收尾：解决 context、泛化、独立评测、uncertainty 定义问题。**6 个 Task 完成，Intent Layer 正式冻结（PASS，有条件）**。
+
+### 2. 已完成内容
+
+| Task | 交付物 | 关键结果 |
+|---|---|---|
+| 1.5.1 Context-aware | `context_builder.py` + 3 变体训练 | ctx1(+1turn) 最优，follow_up 域内 0.79→**0.978** |
+| 1.5.2 定向扩充 | context 44 + 隐式高危 101 | 数据 951 条，high_risk 87→188 |
+| 1.5.3 独立测试 | `intent_test_independent_v1.jsonl` | **535 条**冻结（全新场景） |
+| 1.5.4 Uncertainty | `run_uncertainty.py` | max_score 最优（Recall 0.754） |
+| 1.5.5 统一评测 | `run_unified.py` | 最终模型 Macro **0.844**，high_risk R **0.873** |
+| 1.5.6 Error+Freeze | 5 份 docs | **Freeze = PASS（有条件）** |
+
+**最终模型**：`models/intent/phase1_5_final_model/`（ctx1 + 8 epochs + 隐式高危数据）。独立测试 Macro 0.844、Micro 0.835、Exact 0.697、high_risk Recall 0.873、follow_up 0.707。Benchmark v1.1 Macro 0.757（vs 基线 0.138）。
+
+### 3. 卡住的问题 / 已知限制
+
+| 问题 | 状态 |
+|---|---|
+| high_risk Recall 0.873 < 目标 0.93/0.95 | 已改善（0.71→0.87），需第三方+极隐式样本（P0） |
+| multi-label 联合预测弱（Macro 0.61） | 需组合样本 + label correlation |
+| 上下文对全新场景泛化弱 | 短上下文已支持，Runtime 按需启用 |
+| Embedding Leakage 审计 | TODO |
+| 完整数据扩充（2500-3500） | 部分完成 |
+
+### 4. 下一步计划
+
+1. **Phase 2：AgentState** —— 接入冻结的 `IntentResult`（`predict_intent(current, prev≤1)`），建立统一状态
+2. Phase 1.5 遗留（可并行/后续）：high_risk 极隐式样本、multi-label 组合、embedding 审计
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | seed 仅 2 条有 conversation 上下文 → context 实验无信号 | 先做上下文增强（98+44 条）再训练 |
+| 2 | `build_context_input` 对 Pydantic IntentTurn 调 `.get()` 报错 | 兼容 dict/对象双格式 |
+| 3 | context 模型在全新独立场景泛化 < 当前模型 | 诚实记录：ctx 域内强、独立场景弱 |
+| 4 | 隐式高危训练数据不足 → high_risk Recall 0.71 | 补 101 条隐式高危 → 0.87 |
+| 5 | 后台训练输出被缓冲看不到进度 | 用模型目录/报告时间戳判断进度 |
+| 6 | 独立测试 context 案例用 tuple 传 conv 报 Pydantic 错 | t() 内 tuple→dict 转换 |
+

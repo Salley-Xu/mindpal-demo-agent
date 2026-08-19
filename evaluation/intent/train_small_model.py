@@ -33,6 +33,7 @@ from torch.utils.data import DataLoader, Dataset  # noqa: E402
 from transformers import AutoTokenizer, get_linear_schedule_with_warmup  # noqa: E402
 
 from data.intent.intent_schema import INTENT_LABELS, IntentData  # noqa: E402
+from evaluation.intent.context_builder import build_context_input  # noqa: E402
 from evaluation.intent.metrics import intent_metrics  # noqa: E402
 from evaluation.intent.small_model import IntentClassifier, SmallModelPredictor  # noqa: E402
 
@@ -40,10 +41,11 @@ LABEL2ID = {lab: i for i, lab in enumerate(INTENT_LABELS)}
 
 
 class IntentDataset(Dataset):
-    def __init__(self, items: list, tokenizer, max_length: int = 128):
+    def __init__(self, items: list, tokenizer, max_length: int = 128, context_turns: int = 0):
         self.examples = []
         for d in items:
-            enc = tokenizer(d.text, truncation=True, padding="max_length",
+            input_text = build_context_input(d.conversation, context_turns)
+            enc = tokenizer(input_text, truncation=True, padding="max_length",
                             max_length=max_length, return_tensors="pt")
             target = torch.zeros(len(INTENT_LABELS))
             for lab in d.labels:
@@ -71,6 +73,7 @@ def main():
     parser.add_argument("--device", default="cpu", help="cpu（默认，规避本机 CUDA 内核不兼容）")
     parser.add_argument("--data-suffix", default="v1", help="数据文件后缀（train/dev/test_<suffix>）")
     parser.add_argument("--out-model", default="best_model", help="模型输出子目录名")
+    parser.add_argument("--context-turns", type=int, default=0, help="上下文轮数 0/1/2")
     args = parser.parse_args()
 
     data_dir = PROJECT_ROOT / "data" / "intent"
@@ -78,11 +81,11 @@ def main():
     train_items = load_items(data_dir / f"intent_train_{sfx}.jsonl")
     dev_items = load_items(data_dir / f"intent_dev_{sfx}.jsonl")
     test_items = load_items(data_dir / f"intent_test_{sfx}.jsonl")
-    print(f"[INFO] train={len(train_items)} dev={len(dev_items)} test={len(test_items)}")
+    print(f"[INFO] train={len(train_items)} dev={len(dev_items)} test={len(test_items)} context_turns={args.context_turns}")
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
-    train_ds = IntentDataset(train_items, tokenizer, args.max_length)
-    dev_ds = IntentDataset(dev_items, tokenizer, args.max_length)
+    train_ds = IntentDataset(train_items, tokenizer, args.max_length, args.context_turns)
+    dev_ds = IntentDataset(dev_items, tokenizer, args.max_length, args.context_turns)
     train_loader = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
 
     device = torch.device(args.device)
@@ -109,7 +112,7 @@ def main():
             scheduler.step()
             total_loss += loss.item()
         # dev 评估
-        dev_metrics = evaluate(model, dev_items, device, tokenizer, args.max_length)
+        dev_metrics = evaluate(model, dev_items, device, tokenizer, args.max_length, args.context_turns)
         print(f"  epoch {epoch+1}/{args.epochs} loss={total_loss/len(train_loader):.4f} "
               f"dev_macroF1={dev_metrics['macro_f1']} dev_exact={dev_metrics['exact_match']}")
         if dev_metrics["macro_f1"] > best_dev_f1:
@@ -123,7 +126,8 @@ def main():
 
     # 用训练保存的模型在 test 上评测（不是默认 best_model）
     predictor = SmallModelPredictor(model_dir=str(PROJECT_ROOT / "models" / "intent" / args.out_model))
-    test_preds = [predictor.predict(d.text) for d in test_items]
+    test_preds = [predictor.predict(d.text, (d.conversation, args.context_turns) if args.context_turns else None)
+                  for d in test_items]
     test_true = [[l.value for l in d.labels] for d in test_items]
     test_metrics = intent_metrics(test_true, [p["labels"] for p in test_preds], INTENT_LABELS)
 
@@ -131,7 +135,7 @@ def main():
     reports_dir = PROJECT_ROOT / "evaluation" / "intent" / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    base = f"classifier_baseline_{ts}"
+    base = f"classifier_baseline_ctx{args.context_turns}_{ts}"
     payload = {
         "meta": {"date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                  "model": args.model_name, "epochs": args.epochs, "lr": args.lr,
@@ -151,9 +155,9 @@ def main():
     print(f"  test 每标签: { {k: v['f1'] for k, v in test_metrics['per_class'].items()} }")
 
 
-def evaluate(model, items, device, tokenizer, max_length):
+def evaluate(model, items, device, tokenizer, max_length, context_turns: int = 0):
     model.eval()
-    ds = IntentDataset(items, tokenizer, max_length)
+    ds = IntentDataset(items, tokenizer, max_length, context_turns)
     loader = DataLoader(ds, batch_size=32)
     y_true, y_pred = [], []
     with torch.no_grad():

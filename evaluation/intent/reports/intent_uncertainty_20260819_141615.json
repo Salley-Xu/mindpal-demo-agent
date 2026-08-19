@@ -1,0 +1,277 @@
+{
+  "meta": {
+    "date": "2026-08-19 14:16:15",
+    "model": "models/intent/best_model",
+    "n_in": 120,
+    "n_unc": 65
+  },
+  "strategies": {
+    "max_score": {
+      "scan": [
+        {
+          "threshold": 0.1,
+          "uncertain_recall": 0.0,
+          "in_domain_false_reject": 0.0
+        },
+        {
+          "threshold": 0.15,
+          "uncertain_recall": 0.0154,
+          "in_domain_false_reject": 0.0
+        },
+        {
+          "threshold": 0.2,
+          "uncertain_recall": 0.0462,
+          "in_domain_false_reject": 0.0
+        },
+        {
+          "threshold": 0.25,
+          "uncertain_recall": 0.0769,
+          "in_domain_false_reject": 0.0
+        },
+        {
+          "threshold": 0.3,
+          "uncertain_recall": 0.1077,
+          "in_domain_false_reject": 0.0167
+        },
+        {
+          "threshold": 0.35,
+          "uncertain_recall": 0.2615,
+          "in_domain_false_reject": 0.0333
+        },
+        {
+          "threshold": 0.4,
+          "uncertain_recall": 0.4615,
+          "in_domain_false_reject": 0.05
+        },
+        {
+          "threshold": 0.45,
+          "uncertain_recall": 0.6615,
+          "in_domain_false_reject": 0.0833
+        },
+        {
+          "threshold": 0.5,
+          "uncertain_recall": 0.7538,
+          "in_domain_false_reject": 0.1083
+        },
+        {
+          "threshold": 0.55,
+          "uncertain_recall": 0.8,
+          "in_domain_false_reject": 0.1667
+        },
+        {
+          "threshold": 0.6,
+          "uncertain_recall": 0.8769,
+          "in_domain_false_reject": 0.2167
+        },
+        {
+          "threshold": 0.65,
+          "uncertain_recall": 0.9077,
+          "in_domain_false_reject": 0.275
+        },
+        {
+          "threshold": 0.7,
+          "uncertain_recall": 0.9231,
+          "in_domain_false_reject": 0.3333
+        },
+        {
+          "threshold": 0.75,
+          "uncertain_recall": 0.9692,
+          "in_domain_false_reject": 0.45
+        },
+        {
+          "threshold": 0.8,
+          "uncertain_recall": 0.9846,
+          "in_domain_false_reject": 0.575
+        },
+        {
+          "threshold": 0.85,
+          "uncertain_recall": 0.9846,
+          "in_domain_false_reject": 0.7667
+        }
+      ],
+      "best": {
+        "threshold": 0.5,
+        "uncertain_recall": 0.7538,
+        "in_domain_false_reject": 0.1083
+      }
+    },
+    "entropy": {
+      "scan": [
+        {
+          "threshold": 0.1,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.15,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.2,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.25,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.3,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.35,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.4,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.45,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.5,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.55,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.6,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.65,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.7,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.75,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 0.9333
+        },
+        {
+          "threshold": 0.8,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 0.8583
+        },
+        {
+          "threshold": 0.85,
+          "uncertain_recall": 0.9846,
+          "in_domain_false_reject": 0.6917
+        }
+      ],
+      "best": {
+        "threshold": 0.85,
+        "uncertain_recall": 0.9846,
+        "in_domain_false_reject": 0.6917
+      }
+    },
+    "margin": {
+      "scan": [
+        {
+          "threshold": 0.1,
+          "uncertain_recall": 0.2615,
+          "in_domain_false_reject": 0.1417
+        },
+        {
+          "threshold": 0.15,
+          "uncertain_recall": 0.4,
+          "in_domain_false_reject": 0.175
+        },
+        {
+          "threshold": 0.2,
+          "uncertain_recall": 0.4923,
+          "in_domain_false_reject": 0.225
+        },
+        {
+          "threshold": 0.25,
+          "uncertain_recall": 0.6615,
+          "in_domain_false_reject": 0.2583
+        },
+        {
+          "threshold": 0.3,
+          "uncertain_recall": 0.7538,
+          "in_domain_false_reject": 0.3417
+        },
+        {
+          "threshold": 0.35,
+          "uncertain_recall": 0.8308,
+          "in_domain_false_reject": 0.4167
+        },
+        {
+          "threshold": 0.4,
+          "uncertain_recall": 0.8769,
+          "in_domain_false_reject": 0.4667
+        },
+        {
+          "threshold": 0.45,
+          "uncertain_recall": 0.9077,
+          "in_domain_false_reject": 0.5083
+        },
+        {
+          "threshold": 0.5,
+          "uncertain_recall": 0.9231,
+          "in_domain_false_reject": 0.5667
+        },
+        {
+          "threshold": 0.55,
+          "uncertain_recall": 0.9538,
+          "in_domain_false_reject": 0.625
+        },
+        {
+          "threshold": 0.6,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 0.65
+        },
+        {
+          "threshold": 0.65,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 0.7417
+        },
+        {
+          "threshold": 0.7,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 0.875
+        },
+        {
+          "threshold": 0.75,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 0.9417
+        },
+        {
+          "threshold": 0.8,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        },
+        {
+          "threshold": 0.85,
+          "uncertain_recall": 1.0,
+          "in_domain_false_reject": 1.0
+        }
+      ],
+      "best": {
+        "threshold": 0.3,
+        "uncertain_recall": 0.7538,
+        "in_domain_false_reject": 0.3417
+      }
+    }
+  }
+}
