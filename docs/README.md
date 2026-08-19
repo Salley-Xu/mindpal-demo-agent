@@ -37,6 +37,16 @@
 |---|---|
 | [phase0_final_review.md](phase0_final_review.md) | Benchmark v1.1 **冻结 PASS**；Risk 根因 = Raw BERT（情况 B） |
 | [phase1_5_final_review.md](phase1_5_final_review.md) | **Intent Layer 正式冻结 PASS（有条件）**（含 Phase 1 汇总） |
+| [phase2_final_review.md](phase2_final_review.md) | **AgentState v1 冻结 PASS**（Transition Acc 1.0） |
+
+## 4.5 AgentState 模块（Phase 2）
+
+| 文档 | 说明 |
+|---|---|
+| [agent_state_source_audit.md](agent_state_source_audit.md) | 状态来源审计（33 字段 + 语义冲突） |
+| [agent_state_schema_v1.md](agent_state_schema_v1.md) | **AgentState Schema v1**（12 子状态，State≠Action） |
+| [agent_state_update_rules.md](agent_state_update_rules.md) | 字段级更新规则（REPLACE/ACCUMULATE/ROLLING_WINDOW） |
+| [phase2_state_evaluation.md](phase2_state_evaluation.md) | State 一致性评测（Transition Acc 1.0 / Session 100%） |
 
 ## 5. Intent 模块（Phase 1 / 1.5）
 

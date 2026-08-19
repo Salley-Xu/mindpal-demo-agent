@@ -231,3 +231,46 @@ Phase 1 Core 通过后的冻结前收尾：解决 context、泛化、独立评�
 | 5 | 后台训练输出被缓冲看不到进度 | 用模型目录/报告时间戳判断进度 |
 | 6 | 独立测试 context 案例用 tuple 传 conv 报 Pydantic 错 | t() 内 tuple→dict 转换 |
 
+
+## 2026-08-19 · Phase 2 总结（AgentState：统一状态层，PASS）
+
+### 1. 当前任务
+
+把分散在 orchestrator/conversation_manager/perception/profile 的状态信号统一收敛到 AgentState v1，为 Phase 3 Policy 建立唯一结构化输入。**10 个 Task 完成，AgentState v1 冻结（PASS）**。
+
+### 2. 已完成内容
+
+| Task | 交付物 | 关键结果 |
+|---|---|---|
+| 2.1 Source Audit | `docs/agent_state_source_audit.md` | 33 字段审计 + 语义冲突记录 |
+| 2.2 Schema v1 | `backend/state/schema.py` + `docs/agent_state_schema_v1.md` | 12 子状态，State≠Action |
+| 2.3 Builder+Adapters | `builder.py` + `adapters.py` | 确定性转换 + DerivedState |
+| 2.4 Updater | `updater.py` + `docs/agent_state_update_rules.md` | REPLACE/ACCUMULATE/ROLLING_WINDOW |
+| 2.5 Persistence | `persistence.py` | latest state 存储 |
+| 2.6 Shadow 集成 | orchestrator 钩子（行为保持） | 冒烟通过 |
+| 2.7 Debug/Trace | `debug.py` | to_debug_dict + shadow trace |
+| 2.8 测试 | `test_agent_state.py`（15 项） | ALL PASS |
+| 2.9 一致性评测 | `evaluation/state/` | **Transition Acc 1.0 / Session 100%** |
+| 2.10 Final Review | `docs/phase2_final_review.md` | **AgentState v1 冻结 PASS** |
+
+### 3. 卡住的问题
+
+| 问题 | 状态 |
+|---|---|
+| 既有 bug：orchestrator `content_recommender` 未 import（仅 LLM 失败路径 NameError） | 记录，不在本阶段修复（行为保持） |
+| Shadow 默认不开 Intent（避免加载 400MB 模型拖慢生产） | 可配置开启 |
+
+### 4. 下一步计划
+
+1. **Phase 3：Agent Policy**（消费 AgentState → ActionPlan，Hybrid Policy）
+2. 可选：把 Intent Service 接入 orchestrator 作为正式感知源（当前 shadow use_intent=True 可开）
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | backend 非包，`from backend.state` 导入失败 | 改 flat import（`from state.x`，与 backend 一致） |
+| 2 | state 生成器 expected 情绪用英文、builder 产中文 → 不匹配 | 生成器映射为中文 |
+| 3 | risk_trend/stress 未传 inputs → 3 case 不完全匹配 | 补传后 Transition Acc 1.0 |
+| 4 | orchestrator 加钩子要绝对行为保持 | try/except 包裹 + 不碰生产变量 |
+

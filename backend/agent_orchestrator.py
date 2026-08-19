@@ -267,6 +267,25 @@ class AgentOrchestrator:
                 user_profile=user_profile,
             )
 
+            # ── Shadow Mode（Phase 2）：旁路构建 AgentState，不影响生产决策 ──
+            try:
+                from state.shadow import shadow_runner
+                shadow_runner.run(
+                    user_id=request.user_id,
+                    session_id=request.session_id,
+                    request_text=request.text,
+                    turn_index=conversation_summary.get("turn_count", 0),
+                    emotion_state=preliminary_emotion_state,
+                    urgent_issue=urgent_issue,
+                    conversation_summary=conversation_summary,
+                    user_profile=user_profile,
+                    risk_baseline=risk_baseline,
+                    historical_high_risk_count=historical_high_risk_count,
+                    trace_id=run_id,
+                )
+            except Exception:
+                pass  # Shadow 绝不干扰生产逻辑
+
             # ── Trace: 门控阶段 ──
             _risk_level_for_trace = str(urgent_issue.get("level", "level_0")) if urgent_issue else "level_0"
             _recommend_trace = TraceEvent(
