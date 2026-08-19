@@ -40,6 +40,7 @@ from agent_tools import (
     KnowledgeBaseQuery
 )
 from agent_prompts import STRATEGY_PROMPTS, SYSTEM_PROMPT_TEMPLATE
+from knowledge_store import knowledge_store, KnowledgeQuery as KBQuery
 from risk_levels import (
     LEVEL_0,
     LEVEL_2,
@@ -786,6 +787,48 @@ class AgentOrchestrator:
             "match_scores": scores
         }
 
+    async def _inject_knowledge_context(
+        self,
+        user_input: str,
+        emotion_state: Optional[Dict[str, Any]] = None,
+        risk_level: str = "low",
+    ) -> str:
+        """根据用户输入 + 情绪 + 风险等级，检索相关知识并构建注入文本"""
+        try:
+            if not knowledge_store.is_loaded:
+                knowledge_store.load_corpus()
+
+            if not knowledge_store.is_loaded:
+                return ""
+
+            # 构建查询
+            emotion = emotion_state.get("current_emotion", "") if emotion_state else ""
+            query_text = f"{user_input} {emotion}".strip()
+            if not query_text:
+                return ""
+
+            # 检索知识
+            result = knowledge_store.search(KBQuery(
+                query=query_text,
+                top_k=3,
+            ))
+            if not result.chunks:
+                return ""
+
+            # 构建注入文本
+            lines = ["下面是一些与当前情境相关的心理学专业知识（参考来源已标注）："]
+            for c in result.chunks:
+                ref = c.metadata.get("source_reference", "")
+                ref_str = f" —— {ref}" if ref else ""
+                content_preview = c.content[:200].replace("\n", " ").strip()
+                lines.append(f"- [{c.title}]{ref_str}\n  {content_preview}...")
+            lines.append("（注意：这些知识供你参考，请根据用户具体情况进行适配，不要直接复述内容。）")
+
+            return "\n\n" + "\n\n".join(lines)
+        except Exception as e:
+            logger.warning(f"知识注入失败: {e}")
+            return ""
+
     async def _build_initial_messages(
         self,
         text: str,
@@ -855,6 +898,19 @@ class AgentOrchestrator:
             ("当前情绪状态", self._format_emotion_state_for_prompt(emotion_state)),
             ("当前风险状态", self._format_risk_state_for_prompt(urgent_issue)),
         ]
+
+        # Phase 3b: 知识库注入（专业知识增强 RAG）
+        try:
+            _knowledge_ctx = await self._inject_knowledge_context(
+                user_input=text,
+                emotion_state=emotion_state,
+                risk_level=urgent_issue.get("level", "low"),
+            )
+            if _knowledge_ctx:
+                prompt_sections.append(("专业知识参考", _knowledge_ctx))
+        except Exception as e:
+            logger.debug(f"知识注入跳过: {e}")
+
         for section_title, section_content in prompt_sections:
             system_prompt += f"\n\n【{section_title}】\n{section_content}"
 

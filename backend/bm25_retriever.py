@@ -66,15 +66,30 @@ class BM25Retriever:
         return " ".join(parts)
 
     def _tokenize(self, text: str) -> List[str]:
-        chunks = re.findall(r"[\u4e00-\u9fa5]{1,4}|[a-zA-Z0-9_]+", (text or "").lower())
+        """\u4e2d\u6587 BM25 \u5206\u8bcd\uff1a2-gram \u6ed1\u52a8\u7a97\u53e3 + \u82f1\u6587/\u6570\u5b57\u4fdd\u7559
+
+        \u4e2d\u6587\u90e8\u5206\u751f\u6210\u6240\u6709\u76f8\u90bb\u5b57\u7b26\u7684\u53cc\u5b57\u7ec4\u5408\uff08\u6ed1\u7a97 2-gram\uff09\uff0c
+        \u89e3\u51b3\u56fa\u5b9a 4 \u5b57\u5206\u5757\u5bfc\u81f4\u8de8\u5757 bigram \u4e22\u5931\u7684\u95ee\u9898\u3002
+        """
+        text = (text or "").lower()
         tokens: List[str] = []
-        for chunk in chunks:
-            if re.fullmatch(r"[\u4e00-\u9fa5]{2,4}", chunk):
-                tokens.append(chunk)
-                if len(chunk) >= 3:
-                    tokens.extend(chunk[i : i + 2] for i in range(len(chunk) - 1))
-            else:
-                tokens.append(chunk)
+
+        # \u5206\u79bb\u4e2d\u6587\u5e8f\u5217\u548c\u975e\u4e2d\u6587\uff08\u82f1\u6587/\u6570\u5b57\uff09
+        chinese_blocks = re.findall(r"[\u4e00-\u9fa5]+", text)
+        non_chinese = re.findall(r"[a-zA-Z0-9_]+", text)
+
+        # \u4e2d\u6587\uff1a\u751f\u6210\u5168\u91cf\u6ed1\u7a97 2-gram
+        for block in chinese_blocks:
+            if len(block) >= 2:
+                # \u5168\u90e8\u76f8\u90bb 2-gram
+                tokens.extend(block[i:i+2] for i in range(len(block) - 1))
+            # \u4fdd\u7559\u5355\u5b57\uff08\u5bf9\u77ed\u5173\u952e\u8bcd\u5982"\u6211" "\u4f60" \u6709\u7528\uff09
+            if len(block) == 1:
+                tokens.append(block)
+
+        # \u975e\u4e2d\u6587\uff1a\u539f\u6837\u4fdd\u7559
+        tokens.extend(non_chinese)
+
         return tokens
 
     def _document_frequencies(self, doc_tokens: List[List[str]]) -> Dict[str, int]:

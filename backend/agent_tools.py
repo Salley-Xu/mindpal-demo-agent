@@ -8,6 +8,7 @@ from risk_levels import LEVEL_0
 from content_db import content_db
 from content_recommender import content_recommender
 from database import db_manager, adb_manager
+from knowledge_store import knowledge_store, KnowledgeQuery
 
 logger = logging.getLogger(__name__)
 
@@ -80,27 +81,70 @@ class ToolError(Exception):
 
 
 class KnowledgeBaseTool:
-    """简单基于 content_db 的知识库检索工具"""
+    """双通道知识库检索：专业知识库（knowledge_store）+ 推荐内容库（content_db）"""
 
     @staticmethod
     async def search(query: KnowledgeBaseQuery) -> KnowledgeBaseResult:
         try:
-            items = content_db.search_content(query.query, limit=query.limit)
             docs: List[KnowledgeBaseDocument] = []
-            for item in items:
-                docs.append(
-                    KnowledgeBaseDocument(
-                        id=item.id,
-                        title=item.title,
-                        snippet=item.description[:120],
-                        metadata={
-                            "type": item.type,
-                            "category": item.category,
-                            "tags": item.tags,
-                        },
+
+            # ── 通道1: 专业知识库检索（RAG 增强）──
+            if knowledge_store.is_loaded:
+                try:
+                    kb_query = KnowledgeQuery(
+                        query=query.query,
+                        top_k=query.limit,
                     )
-                )
-            return KnowledgeBaseResult(documents=docs)
+                    kb_result = knowledge_store.search(kb_query)
+                    for chunk in kb_result.chunks:
+                        docs.append(KnowledgeBaseDocument(
+                            id=chunk.id,
+                            title=f"[知识] {chunk.title}",
+                            snippet=chunk.content[:200],
+                            metadata={
+                                "source": "knowledge_base",
+                                "category": chunk.metadata.get("category", ""),
+                                "relevance_score": chunk.score,
+                                "reference": chunk.metadata.get("source_reference", ""),
+                            }
+                        ))
+                except Exception as e:
+                    logger.warning(f"知识库检索失败（降级）: {e}")
+
+            # ── 通道2: 内容库检索（原有逻辑）──
+            try:
+                content_items = content_db.search_content(query.query, limit=query.limit)
+                for item in content_items:
+                    # 避免与知识库结果完全重复
+                    if item.id not in [d.id for d in docs]:
+                        docs.append(KnowledgeBaseDocument(
+                            id=item.id,
+                            title=item.title,
+                            snippet=item.description[:120],
+                            metadata={
+                                "source": "content_library",
+                                "type": item.type,
+                                "category": item.category,
+                                "tags": item.tags,
+                            },
+                        ))
+            except Exception as e:
+                logger.warning(f"内容库检索失败（降级）: {e}")
+
+            # 双通道 RRF 融合排序（按来源交替展示）
+            kb_docs = [d for d in docs if d.metadata.get("source") == "knowledge_base"]
+            cl_docs = [d for d in docs if d.metadata.get("source") == "content_library"]
+            fused = []
+            ki, ci = 0, 0
+            while ki < len(kb_docs) or ci < len(cl_docs):
+                if ki < len(kb_docs):
+                    fused.append(kb_docs[ki])
+                    ki += 1
+                if ci < len(cl_docs):
+                    fused.append(cl_docs[ci])
+                    ci += 1
+
+            return KnowledgeBaseResult(documents=fused[:query.limit])
         except Exception as e:
             logger.error(f"KnowledgeBaseTool.search 失败: {e}", exc_info=True)
             raise ToolError(str(e))
@@ -321,7 +365,7 @@ TOOL_DEFINITIONS = [
         "type": "function",
         "function": {
             "name": "search_knowledge_base",
-            "description": "搜索心理学知识库，获取相关文章或建议",
+            "description": "搜索专业知识库和内容库，获取心理学技术知识、CBT方法、危机干预协议、减压策略等",
             "parameters": {
                 "type": "object",
                 "properties": {

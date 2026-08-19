@@ -1,0 +1,31 @@
+[
+  {
+    "id": "kb_cbt_technique_657f0d13",
+    "title": "结构化客户反应技巧",
+    "summary": "在CBT中，当客户提供过多信息时，治疗师可通过提供指导来结构化其回答，以高效获取关键信息，适用于初始评估和治疗会话。",
+    "content": "## 核心概念\n结构化客户反应是一种临床技巧，帮助治疗师在客户提供过多信息时，通过设定回答框架来高效获取所需信息。该技巧源自Judith Beck的《认知行为疗法：基础与进阶》第三版。\n\n## 操作方法\n- **初始评估场景**：治疗师可以事先说明回答范围。例如：“对于接下来的几个问题，我只需要你回答‘不’、‘是’或‘我不确定’。”\n- **治疗会话场景**：治疗师可以限制回答长度。例如：“你能用一两句话告诉我……吗？”具体例子：“你能用一两句话告诉我，你觉得本周和父亲沟通会遇到什么障碍吗？”\n\n## 步骤\n1. 识别客户正在提供大量无关或冗余信息。\n2. 温和地打断并给出简短的回答指导。\n3. 明确限定回答方式（如选项或长度）。\n4. 继续提问，聚焦关键信息。\n\n## 注意事项\n- 语气要温和，避免让客户感到被否定。\n- 适用于需要快速收集信息的场合，但不应在客户情绪激动时生硬打断。\n- 在创伤或需要细致叙述的情境中谨慎使用。",
+    "source_reference": "Beck Institute (2024). Clinical Tip: Structuring Responses. Cognitive Behavior Therapy: Basics and Beyond (3rd ed.).",
+    "category": "cbt_technique",
+    "tags": [
+      "结构化反应",
+      "structuring responses",
+      "CBT技术",
+      "cbt techniques",
+      "临床技巧",
+      "初始评估",
+      "initial evaluation",
+      "治疗会话"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于CBT初始评估和治疗会话中，当客户提供无关或过多信息时，帮助治疗师高效聚焦关键内容。",
+    "contraindications": "不适用于需要客户详细叙述的创伤暴露、叙事疗法或情绪宣泄情境。",
+    "dialogue_example": "治疗师：对于接下来的几个问题，我只需要你回答“不”、“是”或“我不确定”。\n客户：好的。\n治疗师：你上周有没有按计划完成家庭作业？\n客户：有，但我觉得……\n治疗师：（温和地）请只用“是”或“不”回答。\n客户：是。",
+    "language": "zh",
+    "source_file": "beck_institute_newsletter.pdf",
+    "created_at": "2026-07-20T15:25:40.616805"
+  }
+]

@@ -1,0 +1,64 @@
+[
+  {
+    "id": "kb_medication_knowledge_250d19e8",
+    "title": "育龄女性丙戊酸使用禁忌",
+    "summary": "根据WHO mhGAP-IG增补，育龄女性应避免使用丙戊酸（sodium valproate）因为高出生缺陷和发育障碍风险，首选拉莫三嗪或左乙拉西坦作为单药治疗。已使用者需有效避孕并了解风险。",
+    "content": "### 核心建议\n- **禁用**：在育龄女性中不应使用丙戊酸（sodium valproate），因其在子宫内暴露会导致高风险的出生缺陷和发育障碍。\n- **首选替代**：对于全身性发作和局灶性发作，应提供拉莫三嗪（lamotrigine）或左乙拉西坦（levetiracetam）作为一线单药治疗。\n\n### 已使用者管理\n- **避孕**：当前使用丙戊酸的育龄女性应被建议在整个治疗期间不间断地使用有效避孕措施（如激素避孕、宫内节育器等），并强调一旦怀孕需紧急咨询医生。\n- **风险告知**：必须提供与怀孕期间使用丙戊酸相关的风险信息，并转诊进行计划生育咨询。\n- **个体化评估**：在选择避孕方法时需评估个体情况，并与患者讨论以促进参与和依从。\n\n### 适用模块\n本增补适用于mhGAP-IG中所有提及丙戊酸的模块，包括：\n- 抑郁模块（DEP）第26页\n- 精神病模块（PSY）第38-43页\n- 癫痫模块（EPI）第63-66页\n\n### 特殊情形\n- **计划怀孕**：若女性计划怀孕，应由癫痫/双相障碍管理培训过的人员考虑替代治疗方案。女性应被告知计划怀孕时咨询医生，并在怀孕后紧急就医。",
+    "source_reference": "WHO (2023). mhGAP-IG 2.0 Addendum on the use of valproic acid (sodium valproate) in women and girls of childbearing potential.",
+    "category": "medication_knowledge",
+    "tags": [
+      "丙戊酸",
+      "valproic acid",
+      "育龄女性",
+      "药物安全",
+      "mhGAP",
+      "抗癫痫药",
+      "出生缺陷",
+      "避孕"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于mhGAP干预指南中涉及丙戊酸使用的场景，特别是育龄女性癫痫、双相障碍等疾病治疗。",
+    "contraindications": "本条目为药物安全知识，无直接禁忌场景。",
+    "dialogue_example": "用户：我今年25岁，癫痫，正在服用丙戊酸，但计划怀孕，该怎么办？\n助手：根据WHO最新指南，育龄女性应避免使用丙戊酸，因为高出生缺陷风险。建议您尽快咨询医生，考虑换用拉莫三嗪或左乙拉西坦等更安全的药物。同时，在换药前需使用有效避孕措施，并告知医生您的怀孕计划。",
+    "language": "zh",
+    "source_file": "who_mhgap_v4.pdf",
+    "created_at": "2026-07-20T15:25:54.495435"
+  },
+  {
+    "id": "kb_medication_knowledge_4f08b407",
+    "title": "孕前丙戊酸用药转换与咨询",
+    "summary": "孕前应尽可能换用其他合适药物；若无法换药，需对孕妇进行丙戊酸对胎儿风险的知情告知和咨询，支持其做出知情决策。专科医生应定期评估丙戊酸是否为最优治疗。",
+    "content": "### 核心概念\n\n丙戊酸（sodium valproate）是一种抗癫痫和心境稳定药物，但孕期使用可能增加胎儿畸形和发育不良风险。因此，临床管理强调在孕前进行药物调整和风险告知。\n\n### 操作步骤\n\n1. **孕前评估与转换**：在受孕前，应尽一切努力将治疗切换至合适的替代药物。\n2. **无法切换时的处理**：如果无法切换，妇女应接受关于丙戊酸对未出生胎儿风险的进一步咨询，以支持其做出知情决策。\n3. **定期审查**：专科医生应定期审查丙戊酸是否为该患者最合适的治疗。\n\n### 注意事项\n\n- 决策需基于个人情况，权衡治疗获益与胎儿风险。\n- 咨询应包含详细的胎儿风险信息，并记录患者的知情同意。\n- 审查频率建议至少每年一次。",
+    "source_reference": "世界卫生组织 (WHO). 丙戊酸用药指南. 参见：https://www.who.int/news-room/fact-sheets/detail/family-planning-contraception",
+    "category": "medication_knowledge",
+    "tags": [
+      "丙戊酸",
+      "valproic acid",
+      "孕前咨询",
+      "preconception counselling",
+      "药物转换",
+      "medication switching",
+      "知情决策",
+      "informed decision-making",
+      "胎儿风险",
+      "fetal risk"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于计划怀孕的育龄女性患者，正在使用丙戊酸治疗癫痫或双相障碍等情况。",
+    "contraindications": "不适用于已经怀孕或紧急需要处理急性精神症状的情况。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_mhgap_v4.pdf",
+    "created_at": "2026-07-20T15:25:54.495449"
+  }
+]

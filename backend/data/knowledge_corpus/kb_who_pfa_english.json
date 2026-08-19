@@ -1,0 +1,1683 @@
+[
+  {
+    "id": "kb_crisis_intervention_6f76e165",
+    "title": "心理急救 (Psychological First Aid)",
+    "summary": "心理急救（PFA）是向遭受严重危机事件的人提供人性化、支持和实际帮助的方法，尊重其尊严、文化和能力，涵盖社会和心理支持。世界卫生组织mhGAP指南推荐将PFA作为心理疏泄的替代方案。",
+    "content": "## 核心概念\n心理急救（Psychological First Aid, PFA）是一种在危机事件发生后为受影响的个体提供即时支持的方法，旨在减轻初期痛苦、恢复即时应变能力，并促进适应性应对。PFA强调人性化、支持性和实用性，尊重受助者的尊严、文化背景和个人能力。它既包括社会支持（如实际帮助、信息提供），也包括心理支持（如倾听、安抚）。\n\n## 适用场景\n- 重大灾难（如地震、洪水、冲突）\n- 事故现场（如交通事故、火灾）\n- 暴力事件（如袭击、暴力死亡）\n- 任何导致严重心理应激的事件\n\n## 操作方法框架\n虽然文本未给出具体步骤，但PFA通常包含以下要素：\n1. 安全评估：确保现场对帮助者和受助者安全。\n2. 建立联系：以尊重、共情的方式接近受助者。\n3. 提供实际帮助：满足基本需求（水、食物、医疗）、信息或物品。\n4. 倾听但不强迫交谈：允许受助者表达，不施加压力。\n5. 安抚和鼓励：提供情绪验证和希望。\n6. 链接支持：将受助者与家人、朋友或专业服务连接。\n\n## 关键区别\n心理急救与心理疏泄（Psychological Debriefing）概念不同。2009年WHO mhGAP指南评估证据后，明确推荐PFA而非心理疏泄用于近期暴露于创伤事件后严重痛苦的人群。\n\n## 推荐机构\n- 机构间常设委员会（IASC）\n- 环球计划（Sphere Project）\n- 世界卫生组织（WHO）mhGAP计划",
+    "source_reference": "World Health Organization (2009). mhGAP Guidelines Development Group. Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "Psychological First Aid",
+      "PFA",
+      "危机干预",
+      "心理支持",
+      "社会支持",
+      "心理疏泄",
+      "灾难心理",
+      "mhGAP",
+      "世界卫生组织"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于严重危机事件发生后立即提供支持，如灾难、事故、暴力事件等场景。",
+    "contraindications": "不适用于需要紧急医疗救治或长期心理治疗的情况。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954088"
+  },
+  {
+    "id": "kb_psych_concept_9039607e",
+    "title": "危机事件对人们的影响",
+    "summary": "战争、自然灾害、事故、人际暴力等危机事件会对个人、家庭或整个社区造成影响，人们可能表现出从轻微到严重的多种反应，包括恐惧、焦虑、麻木、困惑等，反应程度取决于多种因素。",
+    "content": "不同种类的 distressing events 发生，如战争、自然灾害、事故、火灾和人际暴力（如性暴力）。个人、家庭或整个社区都可能受到影响。人们可能失去家园或亲人，与家庭和社区分离，或目睹暴力、破坏或死亡。虽然每个人都受到这些事件的影响，但每个人可能有的反应和感受范围很广。许多人可能感到不知所措、困惑或对正在发生的事情非常不确定。他们可能感到非常恐惧或焦虑，或者麻木和疏离。有些人可能有轻微的反应，而另一些人可能有更严重的反应。一个人的反应取决于许多因素，包括：\n- 事件的性质和严重程度\n- 个人的经历和背景\n- 可获得的社会支持\n- 其他因素（原文未列出全部）",
+    "source_reference": "世界卫生组织 (WHO). 心理急救：现场工作者指南. Chapter 1.1.",
+    "category": "psych_concept",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "危机事件",
+      "crisis events",
+      "创伤反应",
+      "trauma response",
+      "PFA",
+      "灾难",
+      "disaster"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机事件后的心理急救培训，帮助工作者理解受影响人群的常见反应。",
+    "contraindications": "无特定禁忌，但需注意个体差异。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954106"
+  },
+  {
+    "id": "kb_crisis_intervention_02d646f2",
+    "title": "心理急救（PFA）的定义与核心原则",
+    "summary": "心理急救是对遭受痛苦的人提供人性化支持性回应，包括提供实际关怀、评估需求、倾听、安慰、连接社会支持等，且不是专业心理咨询或心理疏导。",
+    "content": "根据Sphere（2011）和IASC（2007），心理急救（PFA）是一种对遭受痛苦的人提供人性化、支持性回应的方式。PFA涉及以下主题：\n- 提供实际关怀和支持，但不侵扰；\n- 评估需求与关切；\n- 帮助人们解决基本需求（如食物、水、信息）；\n- 倾听但不强迫交谈；\n- 安慰并帮助保持平静；\n- 帮助人们连接信息、服务和社会支持；\n- 保护人们免受进一步伤害。\n\n同样重要的是理解PFA不是什么：\n- 不是只有专业人员才能做的事情；\n- 不是专业心理咨询；\n- 不是“心理疏导”（psychological debriefing），因为它不一定涉及对痛苦事件的详细讨论；\n- 不是要求人们分析发生了什么或按时间顺序整理事件；\n- 尽管PFA包括倾听故事，但不是强迫人们说出感受。\n\n此外，PFA需要特别关注脆弱人群，包括儿童、老年人、有精神或身体残疾的人，以及可能被边缘化或遭受暴力的人群。评估个体时需考虑事件性质、以往经历、社会支持、身体健康、精神健康史、文化背景、年龄等因素，因为每个人都有其优势和应对能力。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "危机干预",
+      "社会支持",
+      "倾听",
+      "基本需求",
+      "脆弱人群"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "在自然灾害、冲突或其他危机事件后，为受灾者提供即时心理社会支持时适用。",
+    "contraindications": "不适用于需要长期心理治疗的精神障碍患者，但可作为初步支持。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954113"
+  },
+  {
+    "id": "kb_psych_concept_ea0bd291",
+    "title": "影响危机后应对能力的因素",
+    "summary": "危机后应对能力受事件性质、以往经历、社会支持、身体健康、精神健康史、文化背景和年龄等因素影响，某些脆弱人群需额外帮助。",
+    "content": "人们在危机后的应对能力受多种因素影响，包括：\n- 他们所经历事件的性质和严重程度；\n- 以往痛苦经历的经验；\n- 生活中来自他人的支持；\n- 身体健康状况；\n- 个人和家族精神健康问题史；\n- 文化背景和传统；\n- 年龄（例如不同年龄段儿童反应不同）。\n\n每个人都有其帮助应对生活挑战的力量和能力。然而，有些人在危机情境中特别脆弱，可能需要额外帮助，包括因年龄（儿童、老人）、精神或身体残疾、或属于可能被边缘化或遭受暴力的群体的人。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers.",
+    "category": "psych_concept",
+    "tags": [
+      "应对能力",
+      "coping ability",
+      "脆弱性",
+      "社会支持",
+      "文化背景",
+      "年龄",
+      "危机"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "用于评估危机后个体的脆弱性和需求，为提供针对性支持提供参考。",
+    "contraindications": "无特定禁忌。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954118"
+  },
+  {
+    "id": "kb_crisis_intervention_16b5fccc",
+    "title": "心理急救（PFA）核心概念",
+    "summary": "心理急救（PFA）是替代无效心理疏导的危机干预方法，通过提供安全感、连接、冷静和希望，以及社交、身体和情感支持，促进长期恢复。适用于近期经历严重危机事件的成人和儿童，但避免强迫，并需识别需要更高级支持的人群。",
+    "content": "# 心理急救（PFA）核心概念\n\n## 背景\n心理社会干预中的“心理疏导”（psychological debriefing）被发现是无效的。作为替代，心理急救（Psychological First Aid, PFA）被推荐用于危机现场。\n\n## PFA的核心要素\nPFA包含有助于人们长期恢复的因素（根据多项研究和众多危机救助者的共识）：\n- **感到安全**：与其他人连接、冷静和充满希望；\n- **获得支持**：能够获得社交、身体和情感支持；\n- **自我效能**：感到自己有能力帮助自己，作为个人和社区。\n\n## 适用对象\nPFA适用于近期暴露于严重危机事件且感到痛苦的人，包括成人和儿童。但并非所有经历危机事件的人都需要或想要PFA。不要强迫帮助，但要让自己容易被需要支持的人找到。\n\n## 不适用情况（需要更高级支持）\n以下人群需要优先获得医疗或其他救助以挽救生命：\n- 有严重生命威胁的伤害，需要紧急医疗护理；\n- 情绪极度紊乱，无法照顾自己或孩子；\n- 可能伤害自己；\n- 可能伤害他人。\n\n## 注意事项\n- 了解自己的局限，在必要时寻求帮助（如医疗人员、同事、当地权威、社区和宗教领袖）。\n- PFA不是一次性干预，而是一种现场支持方法。",
+    "source_reference": "Hobfoll, et al. (2007); Bisson & Lewis (2009). 引自世界卫生组织. Psychological first aid: Guide for field workers.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "Psychological First Aid",
+      "PFA",
+      "危机干预",
+      "crisis intervention",
+      "心理疏导",
+      "psychological debriefing",
+      "安全",
+      "连接",
+      "自我效能"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于近期经历严重危机事件（如自然灾害、暴力冲突等）并表现出痛苦的成人和儿童，在当事人自愿接受帮助时提供心理支持。",
+    "contraindications": "不适用于有生命危险需要紧急医疗救助的人、无法照顾自己或他人的人、有自伤或伤人风险的人。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954123"
+  },
+  {
+    "id": "kb_crisis_intervention_adba9304",
+    "title": "心理急救（PFA）定义与时机",
+    "summary": "心理急救（PFA）是针对危机事件后近期受影响人群的心理支持方法，通常在事件发生期间或之后立即提供，但也可在几天或几周后，取决于事件的持续时间和严重程度。",
+    "content": "## 核心概念\n心理急救（Psychological First Aid, PFA）是一种在危机事件后立即或短期内为受影响者提供的心理支持方法。它适用于那些刚刚经历或目睹危机事件的人，旨在减轻初始痛苦，并促进短期和长期的功能恢复。\n\n## 适用时机\n- PFA 主要针对在危机事件中遭受严重痛苦的人，通常在事件发生期间或结束后的第一时间提供。\n- 但在某些情况下，PFA 也可在事件发生后几天或几周内提供，具体取决于事件的持续时间和严重程度。\n- 所有年龄段的人均可接受 PFA，包括儿童和成人。\n\n## 关键原则\n- 尊重安全、尊严和权利（见相关条目）。\n- 根据个人文化背景调整做法。\n- 了解并配合其他应急响应措施。\n- 提供者需要注意自我照顾。",
+    "source_reference": "世界卫生组织 (无日期). Psychological first aid: Guide for field workers. 第5-6页。",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "Psychological First Aid",
+      "PFA",
+      "危机干预",
+      "crisis intervention",
+      "心理支持",
+      "创伤后应激"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机事件后近期内（数小时至数周）遭受心理痛苦的个体，在安全、隐私的环境中提供。",
+    "contraindications": "不适用于需要紧急医疗救助或长期心理治疗的情况，也不应在仍有直接危险的环境中提供。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954128"
+  },
+  {
+    "id": "kb_crisis_intervention_74e62449",
+    "title": "PFA提供地点与环境",
+    "summary": "PFA可在社区环境如事故现场、健康中心、避难所、学校等地提供，理想情况下需确保隐私，尤其对于性暴力等事件，隐私和保密至关重要。",
+    "content": "## 提供地点\nPFA 可以在任何安全的环境中提供，通常是在社区场所，例如：\n- 事故现场\n- 健康中心、避难所或营地\n- 学校\n- 食品或其他援助分发点\n\n## 环境要求\n- **安全性**：确保该地点对提供者和受助者都是安全的，避免增加进一步风险。\n- **隐私性**：理想情况下，应尽可能提供一定的隐私空间，以便进行适当的交谈。\n- **特殊考虑**：对于遭受性暴力等特定类型危机事件的受害者，隐私是绝对必要的，以保护其尊严和保密性。\n- **文化适应性**：环境布置应考虑受助者的文化习惯和社交规范。",
+    "source_reference": "世界卫生组织 (无日期). Psychological first aid: Guide for field workers. 第5-6页。",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "PFA",
+      "提供地点",
+      "社区环境",
+      "隐私",
+      "安全",
+      "性暴力",
+      "cultural adaptation"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于在危机事件现场或后续安置点提供即时心理支持时，选择安全且尽可能私密的场所。",
+    "contraindications": "在仍有安全威胁或无法确保基本隐私（尤其针对性暴力受害者）的环境中，不宜提供PFA。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954133"
+  },
+  {
+    "id": "kb_crisis_intervention_190b2136",
+    "title": "负责任帮助的四项原则",
+    "summary": "负责任帮助涉及尊重安全、尊严和权利，适应文化，注意其他应急措施，以及照顾好自己。这四项原则指导PFA提供者以负责任的方式行动。",
+    "content": "## 核心概念\n在提供心理急救（PFA）时，必须遵循负责任帮助的四项原则，以确保行动符合伦理并减少潜在伤害。\n\n## 四项原则\n### 2.1 尊重安全、尊严和权利\n- **安全**：避免因自身行动使人面临进一步风险；尽最大努力确保所帮助的成人和儿童免受身心伤害。\n- **尊严**：以尊重的态度对待他人，并考虑其文化和社会规范。\n- **权利**：确保人们能够公平地获得帮助，不歧视；帮助人们维护自身权利并获取现有支持；只以对方最佳利益为出发点行动。\n\n### 2.2 适应文化\n- 根据受助者的文化背景调整沟通方式、行为举止和支持策略。\n\n### 2.3 注意其他应急响应措施\n- 了解并协调正在进行的其他救援行动，避免重复或冲突。\n\n### 2.4 照顾好自己\n- 提供者需关注自身心理健康，避免替代性创伤，必要时寻求支持。",
+    "source_reference": "世界卫生组织 (无日期). Psychological first aid: Guide for field workers. 第7-8页。",
+    "category": "crisis_intervention",
+    "tags": [
+      "负责任帮助",
+      "安全",
+      "尊严",
+      "权利",
+      "文化适应",
+      "自我保护",
+      "PFA",
+      "伦理原则",
+      "responsible helping"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于所有提供PFA的场景，作为行动的基本伦理准则。",
+    "contraindications": "无直接禁忌，但当提供者自身处于极度疲劳或创伤状态时，应先自我照顾。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954137"
+  },
+  {
+    "id": "kb_crisis_intervention_0e3dc028",
+    "title": "心理急救伦理原则",
+    "summary": "心理急救提供者应遵守的伦理指南，包括诚实守信、尊重自主权、保护隐私、消除偏见，并避免造成进一步伤害。",
+    "content": "在心理急救中，提供者必须始终遵循以下伦理原则，无论对象的年龄、性别或种族背景如何。这些原则旨在避免对受助者造成进一步伤害，提供最佳照护，并仅以受助者的最佳利益行事。\n\n**伦理该做（Do's）：**\n- 保持诚实和值得信赖（Be honest and trustworthy）。\n- 尊重人们自己做决定的权利（Respect people’s right to make their own decisions）。\n- 认识并搁置自己的偏见和成见（Be aware of and set aside your own biases and prejudices）。\n- 尊重隐私并在适当情况下对受助者的故事保密（Respect privacy and keep the person’s story confidential, if this is appropriate）。\n- 行为适当，考虑受助者的文化、年龄和性别（Behave appropriately by considering the person’s culture, age and gender）。\n- 向人们明确说明，即使现在拒绝帮助，未来仍可寻求帮助（Make it clear to people that even if they refuse help now, they can still access help in the future）。\n\n**伦理不该（Don'ts）：**\n- 不要利用帮助者的关系（Don’t exploit your relationship as a helper）。\n- 不要向受助者索要金钱或好处作为帮助的交换（Don’t ask the person for any money or favour for helping them）。\n- 不要做出虚假承诺或提供虚假信息（Don’t make false promises or give false information）。\n- 不要夸大自己的技能（Don’t exaggerate your skills）。\n- 不要强迫帮助他人，不要侵扰或强行（Don’t force help on people, and don’t be intrusive or pushy）。\n- 不要强迫人们讲述他们的故事（Don’t pressure people to tell you their story）。\n- 不要将受助者的故事分享给他人（Don’t share the person’s story with others）。\n- 不要因他人的行为或感受而评判他们（Don’t judge the person for their actions or feelings）。\n\n这些原则应结合当地文化背景理解，并且如果为有行为准则的机构工作或志愿，必须始终遵守该准则。",
+    "source_reference": "Sphere Project (2011). Sphere Protection Chapter. In: Psychological first aid: Guide for field workers. World Health Organization.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "伦理",
+      "ethics",
+      "危机干预",
+      "crisis intervention",
+      "助人原则",
+      "该做不该做"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于所有危机事件中的心理急救提供者，无论受助者的年龄、性别或文化背景。",
+    "contraindications": "无特定禁忌，但需要根据具体机构的行为准则和文化背景适当调整。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954144"
+  },
+  {
+    "id": "kb_cultural_adaptation_9792c172",
+    "title": "心理急救中的文化适应",
+    "summary": "在心理急救中，提供者需根据受助者的文化背景调整帮助方式，包括了解文化差异、避免偏见、尊重文化习俗。",
+    "content": "危机事件往往涉及不同文化背景的人群，包括少数群体或边缘化人群。文化决定了我们如何与他人相处，以及什么可以说、什么可以做。例如，在某些文化中，人们不习惯与家庭以外的人分享感受；或者只有女性才能与女性交谈；或者某些着装方式非常重要。\n\n作为帮助者，必须意识到自己的文化背景和信念，以便搁置个人偏见。以最适当且令受助者舒适的方式提供帮助：\n- 了解受助者的文化规范：如性别角色、沟通方式、隐私观念。\n- 调整自己的行为：例如，在与不同性别或年龄的人交流时，注意非语言信号和空间距离。\n- 避免文化强加：不要假设自己的文化方式适用于所有人。\n- 尊重当地习俗：如问候方式、饮食禁忌、宗教仪式等。\n\n通过文化适应，可以建立信任，提高心理急救的有效性，并避免无意中造成冒犯或二次创伤。",
+    "source_reference": "Sphere Project (2011). Sphere Protection Chapter. In: Psychological first aid: Guide for field workers. World Health Organization.",
+    "category": "cultural_adaptation",
+    "tags": [
+      "文化适应",
+      "cultural adaptation",
+      "心理急救",
+      "psychological first aid",
+      "多元文化",
+      "multicultural",
+      "危机干预",
+      "crisis intervention",
+      "文化敏感",
+      "cultural sensitivity"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于跨文化或多元文化背景下的心理急救场景，特别是当帮助者与受助者文化背景不同时。",
+    "contraindications": "不适用于忽视文化差异、强加个人价值观的情况。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954148"
+  },
+  {
+    "id": "kb_cultural_adaptation_e1e37e79",
+    "title": "PFA跨文化适应考量",
+    "summary": "提供心理急救（PFA）时需考虑当地社会文化规范，包括着装、语言、性别年龄权力、触摸行为、信仰宗教等方面的适应性调整。",
+    "content": "## 心理急救（PFA）的跨文化适应指南\n\n在提供PFA时，必须根据当地社会文化规范进行调整。以下关键问题可供参考：\n\n### 着装\n- 是否需要以特定方式着装以示尊重？\n- 受灾人群是否需要特定衣物以维护尊严和习俗？\n\n### 语言\n- 该文化中惯常的问候方式是什么？\n- 他们使用什么语言？\n\n### 性别、年龄与权力\n- 受灾女性是否只能由女性援助者接触？\n- 我可以接触哪些人？（例如，家庭或社区的负责人）\n\n### 触摸与行为\n- 关于触摸他人有哪些常见习俗？是否允许握某人的手或触碰其肩膀？\n- 在对待老人、儿童、女性及其他人群时，是否有特别需要考虑的行为？\n\n### 信仰与宗教\n- 受灾人群中有哪些不同的民族和宗教群体？\n- 哪些信仰或实践对受灾人群很重要？\n- 他们可能如何理解或解释所发生的事件？\n\n来源：世界卫生组织（WHO）的《心理急救：现场工作者指南》。",
+    "source_reference": "世界卫生组织 (2013). 心理急救：现场工作者指南. 世界卫生组织.",
+    "category": "cultural_adaptation",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "跨文化适应",
+      "cultural adaptation",
+      "尊重",
+      "尊重习俗",
+      "性别敏感",
+      "文化考量"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于在多元文化背景下实施心理急救的现场工作者，特别是面对不同民族、宗教或社会习俗的受灾人群时。",
+    "contraindications": "若当地文化规范与基本人权冲突（如性别歧视），应优先保障人的安全与尊严。",
+    "dialogue_example": "助手：我可以握你的手吗？/ 受灾者：（点头）/ 助手：我理解你经历了艰难时刻，我在这里陪你。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954153"
+  },
+  {
+    "id": "kb_crisis_intervention_10a6b326",
+    "title": "了解其他应急响应措施",
+    "summary": "PFA是大型人道主义应急响应的一部分，现场工作者需了解其他可用服务（如医疗、住所、食品分发、家庭追踪等），以便为受灾者提供准确信息。",
+    "content": "## 心理急救（PFA）与其他应急响应措施的协调\n\nPFA是应对大规模人道主义紧急情况的更广泛响应的一部分（IASC, 2007）。当数百或数千人受影响时，会同时开展不同类型的应急响应措施，例如：\n- 搜救行动\n- 紧急医疗救护\n- 住所提供\n- 食品分发\n- 家庭追踪和儿童保护活动\n\n对援助工作者和志愿者而言，往往很难确切了解哪些服务在何处可用。这在大规模灾难以及那些尚未具备完善医疗和其他服务基础设施的地方尤其如此。\n\n**行动建议**：尽可能了解已有的服务和支持，以便向受助者分享信息，并告知他们如何获得实际帮助。",
+    "source_reference": "IASC (2007). IASC Guidelines on Mental Health and Psychosocial Support in Emergency Settings. IASC.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "应急响应",
+      "emergency response",
+      "协调",
+      "协调服务",
+      "信息提供",
+      "人道主义援助"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于参与大规模灾难或人道主义紧急情况响应的现场工作者，需要协调多种服务以满足受灾者需求。",
+    "contraindications": "当出现直接生命威胁时，应优先进行医疗急救，而非先考虑服务协调。",
+    "dialogue_example": "受灾者：我需要药品和帐篷。/ 助手：医疗站在东边200米，那边有医生。食物发放点在西边，你需要我带你过去吗？",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954156"
+  },
+  {
+    "id": "kb_crisis_intervention_b74a12d6",
+    "title": "负责任帮助的PFA原则",
+    "summary": "在危机中提供心理急救（PFA）时，应遵循关键原则：跟随权威部门、了解应急响应与可用资源、不干扰搜救与医疗人员、明确自身角色与限制。建议通过组织行动，避免单独行动。",
+    "content": "### 核心概念\n心理急救（Psychological First Aid, PFA）是一套在危机事件后为受困者提供支持和安慰的初步干预方法。提供PFA时，必须遵循负责任帮助的原则，以确保自身安全、协调效率及有效链接资源。\n\n### 具体原则（原文引用）\n- **跟随权威部门指导**：follow the direction of relevant authorities managing the crisis\n- **了解应急响应与资源**：learn what emergency responses are being organized and what resources are available to help people, if any\n- **不干扰救援与医疗人员**：don’t get in the way of search-and-rescue or emergency medical personnel\n- **明确角色与限制**：know your role and the limits of your role\n\n### 额外建议\n- **通过组织行动**：It is not necessary to have a “psychosocial” background in order to offer PFA. However, if you want to help in crisis settings, we recommend that you work through an organization or community group.\n- **避免单独行动**：If you act on your own, you may put yourself at risk, it may have a negative effect on coordination efforts, and you are unlikely to be able to link affected people with the resources and support they need.\n\n### 意义\n遵守这些原则有助于维护危机应对的整体协调性，保护帮助者自身，并确保受困者能获得切实有效的支援。",
+    "source_reference": "World Health Organization, War Trauma Foundation, & World Vision International (2011). Psychological first aid: Guide for field workers. Chapter 2.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "危机干预",
+      "crisis intervention",
+      "负责任帮助",
+      "responsible helping",
+      "紧急响应",
+      "emergency response",
+      "角色定位",
+      "role clarity"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于各类危机事件（如自然灾害、事故、暴力事件）现场的心理急救提供者，尤其是刚开始参与或考虑加入援助工作的人员。",
+    "contraindications": "不适用于个人已经直接处于危险中需要立即撤离的情境，此时应以安全优先，而非心理急救原则。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954162"
+  },
+  {
+    "id": "kb_crisis_intervention_170914db",
+    "title": "PFA帮助者自我照顾",
+    "summary": "提供心理急救的帮助者必须关注自身健康与福祉，确保身心能够支持他人。在团队中也要留意同伴的状态。自我照顾是负责任助人的必要部分。",
+    "content": "### 核心概念\n自我照顾（Look after yourself）是负责任助人的关键组成部分。危机情景中的帮助者可能因亲身经历或目睹事件而受到影响，因此需要额外关注自身。只有照顾好自己，才能更好地照顾他人。\n\n### 具体指导（原文引用）\n- **关注自身健康与福祉**：Helping responsibly also means taking care of your own health and wellbeing.\n- **意识到潜在影响**：As a helper, you may be affected by what you experience in a crisis situation, or you or your family may be directly affected by the event.\n- **重视自我照顾**：It is important to pay extra attention to your own wellbeing and be sure that you are physically and emotionally able to help others.\n- **团队互助**：If working in a team, be aware of the wellbeing of your fellow helpers as well.\n\n### 扩展说明\n本章还提示更多关于关爱帮助者的内容在第四章（See Chapter 4 for more on caring for caregivers）。\n\n### 意义\n自我照顾不仅是对个人负责，也是确保援助质量的重要环节。忽视自我照顾可能导致替代性创伤、倦怠，甚至影响受助者安全。",
+    "source_reference": "World Health Organization, War Trauma Foundation, & World Vision International (2011). Psychological first aid: Guide for field workers. Chapter 2, Section 2.4.",
+    "category": "crisis_intervention",
+    "tags": [
+      "自我照顾",
+      "self-care",
+      "帮助者福祉",
+      "helper wellbeing",
+      "心理急救",
+      "psychological first aid",
+      "危机干预",
+      "crisis intervention",
+      "团队互助",
+      "team support"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于所有危机应对人员，包括专业心理工作者、志愿者、救援人员等。在长期或高强度危机响应场景中尤为重要。",
+    "contraindications": "当帮助者自身处于紧急安全威胁时，应优先撤离，而非进行自我照顾。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954168"
+  },
+  {
+    "id": "kb_crisis_intervention_ff3cdbfe",
+    "title": "与受困者的良好沟通",
+    "summary": "与处于痛苦中的人沟通时，保持冷静、理解与尊重至关重要。PFA强调通过恰当沟通帮助受困者感到安全、被理解、被尊重和得到适当照顾。",
+    "content": "### 核心概念\n良好沟通（Good communication）是提供心理急救的基础。经历危机事件的人可能非常不安、焦虑或困惑，有些人还可能自责。沟通方式直接影响他们的安全感与信任感。\n\n### 具体指导（原文引用）\n- **沟通重要性**：The way you communicate with someone in distress is very important.\n- **受困者状态**：People who have been through a crisis event may be very upset, anxious or confused. Some people may blame themselves for things that happened during the crisis.\n- **沟通目标**：Being calm and showing understanding can help people in distress feel more safe and secure, understood, respected and cared for appropriately.\n\n### 实践要点\n- 保持平静的语调与姿态\n- 表达理解与接纳，避免评判\n- 使用简单的语言，清晰传递信息\n- 尊重对方的反应与节奏\n\n### 意义\n良好沟通为后续的倾听与链接（Look, Listen, Link）奠定基础，能够降低受困者的应激反应，促进其心理恢复。",
+    "source_reference": "World Health Organization, War Trauma Foundation, & World Vision International (2011). Psychological first aid: Guide for field workers. Chapter 3, Section 3.1.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "危机沟通",
+      "crisis communication",
+      "受困者沟通",
+      "communication with distressed",
+      "理解",
+      "understanding",
+      "尊重",
+      "respect",
+      "冷静",
+      "calmness"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于任何与危机受困者直接接触的场景，如灾害现场、庇护所、医疗机构等。",
+    "contraindications": "不适用于受困者处于严重精神错乱或暴力倾向状态，此时应以安全为首要。",
+    "dialogue_example": "用户：\"我刚刚看到房子塌了，我什么都做不了……\"\n助手：\"这一定非常可怕。你感到无力是很正常的。我在这里陪着你，你先深呼吸一下，好吗？\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954173"
+  },
+  {
+    "id": "kb_crisis_intervention_9fc7853b",
+    "title": "PFA倾听与沟通技巧",
+    "summary": "心理急救中倾听技巧的核心：不强迫讲述，尊重沉默，注重非言语沟通，适应文化背景，提供安全空间。",
+    "content": "### 心理急救中的倾听与沟通技巧\n\n心理急救（PFA）中，倾听经历过痛苦事件的人讲述故事是一种重要的支持方式。但需注意：\n\n#### 核心原则\n- **不强迫讲述**：有些人可能不想谈论事件或处境，不要施加压力。保持安静陪伴，或提供实际帮助（如食物、水）可能就是最好的支持。\n- **尊重沉默**：不过多说话，允许沉默。沉默可能给当事人空间，鼓励他们自愿分享。\n- **关注非言语沟通**：注意面部表情、眼神接触、手势以及坐/站姿等身体语言。根据对方的文化、年龄、性别、习俗和宗教调整行为。\n\n#### 应做的事（Dos）\n1. 寻找安静的地方交谈，减少外界干扰。\n2. 尊重隐私，适当保密。\n3. 保持适当距离（根据年龄、性别、文化）。\n4. 用点头或“嗯…”等方式表明你在听。\n5. 保持耐心和冷静。\n6. 提供事实信息，诚实告知所知与未知。\n7. 用简单易懂的方式传达信息。\n8. 认可对方的感受和损失（如失去家园或亲人）。\n9. 认可当事人的优势和他们自助的方式。\n10. 允许沉默。\n\n#### 应避免的事（Don'ts）\n- 不要强迫讲述故事。\n- 不要打断或催促（如看手表、语速过快）。\n- 不确定是否合适时不要触碰对方。\n\n#### 核心态度\n做自己，真诚、真心地提供帮助和关怀。",
+    "source_reference": "世界卫生组织 (2011). 心理急救：现场工作者指南. p.14",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "倾听技巧",
+      "沟通技巧",
+      "危机干预",
+      "非言语沟通",
+      "文化适应"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于心理急救场景中与经历痛苦事件的人进行初次接触和建立信任时。",
+    "contraindications": "不适用于需要紧急医疗干预或当事人有严重精神障碍急性发作的情况。",
+    "dialogue_example": "用户：他一直在哭，我应该让他说说发生了什么吗？      助手：建议先不要强迫他讲述。你可以安静地坐在旁边，让他知道你在这里。如果想说话，你会倾听。可以递一杯水或简单说‘我在这里陪你’。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954178"
+  },
+  {
+    "id": "kb_crisis_intervention_63413c93",
+    "title": "心理急救沟通禁忌",
+    "summary": "在心理急救中，应避免评判、使用技术术语、虚假安慰、谈论自身问题等行为，以保持有效沟通。",
+    "content": "在心理急救（PFA）中，与受助者沟通时需避免以下行为：\n- 不要评判他们做了什么或没做什么，或他们的感受。不要说：“你不应该那样感觉”或“你应该庆幸你活了下来”。\n- 不要编造你不知道的事情。\n- 不要使用过于技术性的术语。\n- 不要告诉别人他人的故事。\n- 不要谈论自己的麻烦。\n- 不要给予虚假承诺或虚假安慰。\n- 不要认为自己必须解决所有问题。\n- 不要剥夺受助者的力量和自理能力。\n- 不要用负面词汇谈论他人（例如，不要叫他们“疯子”或“疯子”）。\n这些行为会阻碍建立信任和有效的心理急救。PFA的核心行动原则是“观察、倾听、联系”（Look, Listen, Link），而良好的沟通是基础。",
+    "source_reference": "世界卫生组织. (2011). 心理急救：现场工作者指南 (第15页).",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "沟通禁忌",
+      "communication",
+      "crisis intervention",
+      "沟通技巧",
+      "支持性沟通"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于心理急救现场工作者与受助者沟通时，包括灾后、危机事件后等情境。",
+    "contraindications": "本条目为沟通禁忌，不适用于所有沟通场景，但在PFA中应严格遵守。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954184"
+  },
+  {
+    "id": "kb_crisis_intervention_b2bb11ec",
+    "title": "PFA准备阶段：了解危机情境",
+    "summary": "在进入危机现场前，需要了解危机事件、可用服务、安全与安保等关键信息，以有效实施心理急救。",
+    "content": "心理急救（PFA）的准备阶段（Prepare）要求学习了解危机情境。在进入危机现场前，尽可能获取准确信息，考虑以下问题：\n\n**危机事件**\n- 发生了什么？\n- 何时何地发生的？\n- 可能有多少人受影响？他们是谁？\n\n**可用服务和支持**\n- 谁在提供基本需求，如紧急医疗、食物、水、住所或寻找家人？\n- 人们如何获取这些服务？\n- 还有谁在帮助？社区成员是否参与响应？\n\n**安全与安保问题**\n- 危机事件是否已经结束还是仍在继续（例如余震或持续冲突）？\n- 环境中可能存在哪些危险（如叛军、地雷、受损基础设施）？\n- 是否有因安全原因（如明显物理危险或禁止进入）而应避免进入的区域？\n\n这些准备问题有助于理解所进入的情境，更有效地提供PFA，并提升自身安全意识。",
+    "source_reference": "世界卫生组织. (2011). 心理急救：现场工作者指南 (第16-17页).",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "准备",
+      "preparation",
+      "危机评估",
+      "crisis assessment",
+      "安全",
+      "服务",
+      "信息收集"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "用于心理急救工作者进入危机现场前的准备阶段，适用于各类灾害和危机事件。",
+    "contraindications": "若已进入紧急现场或无法获取准确信息，则应优先关注直接需求，但仍需尽快了解情境。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954188"
+  },
+  {
+    "id": "kb_crisis_intervention_dc983ba1",
+    "title": "心理急救三原则：看、听、连接",
+    "summary": "心理急救（PFA）的三个基本行动原则是“看、听、连接”。看：检查安全、识别有紧急基本需求或严重应激反应的人；听：接近需要支持的人，询问需求并倾听以帮助平静；连接：帮助满足基本需求、获取服务、应对问题、提供信息并与亲人和社会支持连接。",
+    "content": "## 心理急救（PFA）的三个基本行动原则\n\n### 1. 看（Look）\n- **检查安全**：观察环境中的危险，如冲突、受损道路、不稳定建筑、火灾或洪水。确保自己和他人的安全。如果不确定现场安全，不要进入，尽量从安全距离与受困者沟通。\n- **识别有明显紧急基本需求的人**：如是否有重伤需要紧急医疗帮助，或需要救援的人（如被困或处于直接危险中）。\n- **识别有严重应激反应的人**：注意那些表现出极度痛苦的人。\n\n### 2. 听（Listen）\n- **接近可能需要支持的人**：主动靠近，询问他们的需求和担忧。\n- **倾听并帮助平静**：耐心倾听，让对方感到被理解，从而帮助其恢复平静。\n\n### 3. 连接（Link）\n- **帮助满足基本需求并获取服务**：如协助获得食物、水、住所等。\n- **帮助应对问题**：提供实际问题解决建议。\n- **提供信息**：给予有用且准确的信息。\n- **连接亲人和社会支持**：帮助与家人、朋友或其他支持网络取得联系。\n\n### 重要提示\n- 危机情境变化迅速，进入前花时间观察（即使只有几秒钟），以便冷静、安全地行动。\n- 了解自身角色，为需要特殊帮助或明显紧急基本需求的人寻求帮助。重伤者应转给医疗人员或受过身体急救培训的人。",
+    "source_reference": "世界卫生组织 (WHO). 心理急救: 现场工作者指南 (Psychological first aid: Guide for field workers).",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "PFA",
+      "危机干预",
+      "看听连接",
+      "crisis intervention",
+      "psychological first aid",
+      "safety",
+      "listening",
+      "social support"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于各类危机情境，如自然灾害、事故、暴力事件等，为受助者提供即时心理支持和实际帮助。",
+    "contraindications": "当现场存在未解决的安全隐患，或援助者自身安全无法保障时，不应直接进入现场，应保持安全距离并寻求专业救援。",
+    "dialogue_example": "用户：我刚经历了地震，很害怕。\n助手：好的，我们先一起观察周围环境是否安全。（看）你受伤了吗？有哪些需要我帮助的？（听）我会帮你联系家人并获取水和食物。（连接）",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954193"
+  },
+  {
+    "id": "kb_crisis_intervention_d9149170",
+    "title": "PFA初步评估：识别紧急需求与资源",
+    "summary": "心理急救（PFA）中，通过询问紧急基本需求（如保暖、衣物）、识别资源（如周围可帮助的人）以及严重困扰反应（如无法行动、不回应）来快速评估求助者的状态并决定如何提供最佳帮助。",
+    "content": "### 核心概念\n在心理急救中，初步评估是决定如何帮助的关键步骤。评估需关注三个核心问题：\n1. **紧急基本需求**：是否存在明显且紧迫的基本需求，如需要免受天气影响的保护、破损衣物等？\n2. **资源与支持**：周围是否有其他人可以提供帮助？\n3. **严重困扰反应**：是否有人出现极度心烦意乱、无法自行移动、不回应他人或处于休克状态？\n\n### 操作步骤\n1. **观察与询问**：扫视现场，询问“有没有人有明显的紧急基本需求，例如需要抵御天气、破损衣物？”以及“哪些人可能在获取基本服务时需要帮助，并需要特别保护以免受歧视和暴力？”\n2. **识别资源**：询问“我周围还有谁可以帮助？”确定可用的支持网络。\n3. **识别严重困扰者**：观察“是否有人看起来极度心烦意乱、无法自行移动、不回应他人或处于休克状态？”并定位最痛苦的人。\n4. **决定如何帮助**：根据评估结果，考虑谁可能从PFA中受益以及如何最好地提供帮助。\n\n### 注意事项\n- 大多数人在有基本需求支持和周围人帮助后能随时间恢复良好。\n- 严重或持久的困扰反应可能需要比PFA更多的支持，特别是当日常生活功能受损或对自己/他人构成危险时。应确保严重困扰者不被单独留下，并尽力保持其安全，直到反应过去或找到医疗人员、当地领导或其他社区成员帮助。\n\n### 关键引用\n文本来源：World Health Organization (2011). *Psychological first aid: Guide for field workers*. WHO. 第19页。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "初步评估",
+      "需求评估",
+      "危机干预",
+      "crisis intervention",
+      "资源识别",
+      "严重困扰反应"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于灾后或危机现场的初步评估，帮助现场工作者快速识别最需要关注的人并决定帮助策略。",
+    "contraindications": "不适用于需要对紧急医疗或安全威胁进行优先处理的情况（如活动性出血、直接暴力威胁）。",
+    "dialogue_example": "Agent: 请问您有没有特别紧急的需求？比如需要保暖的衣服、避雨的地方，或者有没有受伤？\nUser: 我没有衣服，很冷。\nAgent: 好的，我明白了。我来看看能不能给您找件衣服。另外，您身边有家人或朋友可以照顾您吗？\nUser: 没有，我一个人。\nAgent: 我理解。我会先帮您解决保暖问题，再联系社区志愿者来支持您。请您先坐在这里等一下。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954199"
+  },
+  {
+    "id": "kb_crisis_intervention_2af75ca2",
+    "title": "危机中常见困扰反应",
+    "summary": "人们在危机中可能出现多种困扰反应，包括身体症状（如颤抖、头痛、疲劳）、情绪反应（如哭泣、悲伤、恐惧、易怒）、认知变化（如困惑、麻木、不真实感）以及行为改变（如退缩、不回应、无法自理）。了解这些反应有助于识别需要帮助的人。",
+    "content": "### 核心概念\n危机后，人们可能表现出多种困扰反应。这些反应是正常的应激反应，大多数人在得到基本需求支持和周围人帮助后会随时间恢复。但严重或持久的反应可能需要额外支持。以下列出了常见的困扰反应类型：\n\n#### 身体症状\n- 颤抖\n- 头痛\n- 感觉非常疲倦\n- 食欲不振\n- 身体疼痛\n\n#### 情绪反应\n- 哭泣、悲伤、抑郁心境、哀伤\n- 焦虑、恐惧\n- 易怒、愤怒\n- 内疚、羞耻（例如因幸存，或因没有帮助或拯救他人）\n- 担心坏事即将发生\n\n#### 认知与知觉变化\n- 失眠、噩梦\n- 混乱、情感麻木、感觉不真实或茫然\n- 定向障碍（例如不知道自己名字、来自哪里或发生了什么）\n\n#### 行为反应\n- 看起来退缩或非常静止（不移动）\n- 不回应他人、完全不说话\n- 无法照顾自己或孩子（例如不进食、不饮水、无法做出简单决定）\n\n### 注意事项\n- 有些人可能只有轻微困扰或没有困扰。\n- 严重或持久的困扰反应如影响日常生活功能或对自己/他人构成危险时，需要比PFA更多的支持。\n- 务必确保严重困扰者不被单独留下，尽可能保持其安全，直到反应过去或找到专业帮助。\n\n### 关键引用\n文本来源：World Health Organization (2011). *Psychological first aid: Guide for field workers*. WHO. 第19-20页。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "困扰反应",
+      "distress reactions",
+      "应激反应",
+      "危机后反应",
+      "心理急救",
+      "PFA",
+      "症状识别",
+      "身体症状",
+      "情绪反应",
+      "认知变化"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机现场评估受助者的心理状态，帮助识别哪些人需要立即关注或进一步支持。",
+    "contraindications": "不适用于区分正常应激与精神障碍，需由专业人士进行诊断。",
+    "dialogue_example": "Agent: 您看起来很不舒服，能告诉我您现在感觉怎么样吗？\nUser: 我一直在发抖，头也很痛，而且我睡不着。\nAgent: 这些反应在经历这种事情后很常见。您的身体正在应对压力。我们来慢慢呼吸一下，好吗？\nUser: 好。\nAgent: 您有喝水或吃东西吗？\nUser: 没有，我不想吃。\nAgent: 尽量喝点水，哪怕一小口。我会陪您在这里。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954209"
+  },
+  {
+    "id": "kb_crisis_intervention_936b5e25",
+    "title": "心理急救三步骤：接近、询问与倾听",
+    "summary": "心理急救的核心步骤包括：尊重地接近求助者、询问其需求与担忧、通过全神贯注的倾听帮助其平静。适用于危机后立即提供的心理支持。",
+    "content": "## 心理急救的基本步骤\n\n心理急救（Psychological First Aid, PFA）是危机事件后为受影响人群提供的初步心理支持。其核心包括三个步骤：\n\n### 1. 接近可能需要支持的人\n- 用姓名和组织介绍自己。\n- 根据文化习俗尊重地接近。\n- 询问是否可以提供帮助。\n- 帮助对方感到舒适（如提供水）。\n- 如果可能，找一个安全安静的地方谈话。\n- 尽量保护对方安全：立即脱离危险（如安全）、避免媒体曝光以维护隐私和尊严。\n- 如果对方非常痛苦，确保其不独处。\n\n### 2. 询问人们的需求和担忧\n- 即使有些需求显而易见（如衣物破损需毯子），始终询问对方需要什么、担忧什么。\n- 找出当前最重要的事，帮助对方明确优先级。\n\n### 3. 倾听并帮助对方感到平静\n- 用眼睛、耳朵和心灵去倾听：\n  - 给予全神贯注（不分心）。\n  - 真正听到对方的担忧。\n  - 带着关怀和尊重。\n- 保持靠近对方。\n- 通过倾听理解其处境和需求，帮助其平静，从而提供适当帮助。\n\n### 需特别关注的人群\n- 儿童和青少年，尤其是与照顾者分离者，需保护免受虐待和剥削，并得到照料。\n- 有健康问题或身心障碍者（体弱者、孕妇、严重精神障碍者、视听觉困难者）需特殊帮助到达安全地点、保护免受虐待、获得医疗等服务。\n- 面临歧视或暴力风险的人群（如女性、特定族群）需特殊保护及获取帮助的支持。",
+    "source_reference": "World Health Organization. Psychological first aid: Guide for field workers.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "危机干预",
+      "倾听技巧",
+      "脆弱人群",
+      "灾难心理支持",
+      "创伤干预"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于自然灾害、事故、暴力事件等危机发生后，对幸存者或受影响者进行初步心理支持，特别是对承受急性压力或痛苦的人群。",
+    "contraindications": "不适用于需要紧急医疗救助或长期专业心理治疗的情况；不能替代专业精神卫生服务，如严重精神障碍急性发作时的药物或住院治疗。",
+    "dialogue_example": "救助者：\"您好，我是救援队的小王。您需要帮助吗？我可以在旁边陪您一会儿。\"\n受助者：\"我……我害怕，刚才太可怕了。\"\n救助者：\"我明白，这确实很吓人。我会在这里，您慢慢说。\"（保持眼神接触，认真倾听）",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954214"
+  },
+  {
+    "id": "kb_crisis_intervention_b5ddfad6",
+    "title": "不强迫说话与倾听技巧",
+    "summary": "在心理急救中，不应强迫受害者说话，而是提供倾听机会，帮助他们平静并确保不独处。",
+    "content": "## 核心概念\n在心理急救中，面对危机后非常痛苦的人，不要强迫他们说话。如果他们愿意，可以倾听他们讲述所发生的事情。如果对方非常痛苦，帮助他们感到平静，并确保他们不是独自一人。\n\n## 操作步骤\n1. 不要施加压力要求对方说话。\n2. 如果他们想说话，就准备好倾听。\n3. 如果对方非常痛苦，优先帮助他们恢复平静。\n4. 确保他们身边有人陪伴，避免独处。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO. pp.22.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "倾听",
+      "危机干预",
+      "crisis intervention",
+      "不强迫",
+      "支持"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机事件后感到极度痛苦、焦虑或混乱的人，尤其是那些表现出强烈情绪反应的人。",
+    "contraindications": "不适用于需要紧急医疗救助或处于极度失控状态的人，此类情况需专业医疗干预。",
+    "dialogue_example": "用户：\"我没办法呼吸……\"\nAgent：\"好的，我在这里陪着你。你不需要说话，如果你想说话，我会倾听。让我们先试着一起慢慢呼吸，吸气……呼气……\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954217"
+  },
+  {
+    "id": "kb_grounding_bfc20aaa",
+    "title": "帮助平静的接地技术",
+    "summary": "通过感官接触和呼吸练习，帮助危机中的人从解离或过度激动状态回归当下。",
+    "content": "## 核心概念\n有些经历危机的人可能非常焦虑或不安，感到困惑、不知所措，甚至出现身体反应如颤抖、呼吸困难或心跳加速。以下技术可帮助极度痛苦的人在身心上感到平静。\n\n## 技术步骤\n1. **保持语气平静柔和**：用温和的语气与对方交谈。\n2. **保持眼神接触**：如果文化上合适，尝试与对方保持眼神接触。\n3. **提醒安全与支持**：告诉对方你在此帮助他，并提醒他是安全的（如果属实）。\n4. **接地技术**：如果对方感到不真实或与周围环境脱节，可帮助他与当前环境和自身建立联系：\n   - 将脚放在地上并感受地面。\n   - 用手指或手轻拍大腿。\n   - 注意环境中不令人痛苦的事物，如看到、听到或感受到的东西。请对方告诉你他看到了什么、听到了什么。\n5. **专注呼吸**：鼓励对方专注于呼吸，慢慢呼吸。\n\n## 注意事项\n- 根据文化背景调整眼神接触等行为。\n- 确保提醒安全是真实的，不要欺骗。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO. pp.22-23.",
+    "category": "grounding",
+    "tags": [
+      "接地技术",
+      "grounding",
+      "心理急救",
+      "psychological first aid",
+      "平静技巧",
+      "呼吸练习",
+      "感官",
+      "危机干预",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于经历危机后感到极度焦虑、混乱、解离（不真实感）或身体颤抖的人，也可用于一般性的紧张情绪。",
+    "contraindications": "不适用于有严重创伤后应激障碍且无专业指导者，或当文化上不适宜直接眼神接触时需调整。",
+    "dialogue_example": "用户：\"我觉得自己不在身体里，一切都好假。\"\nAgent：\"我在这里帮你。你是安全的。让我们试试把脚平放在地上，感受地面。告诉我你看到了什么？听到了什么？\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954221"
+  },
+  {
+    "id": "kb_crisis_intervention_50d0d6e4",
+    "title": "心理急救：解决基本需求与应对问题",
+    "summary": "心理急救（PFA）强调通过帮助受影响者满足基本需求（如食物、水、住所）并优先处理问题，增强其控制感和应对能力。",
+    "content": "## 心理急救中的实际支持与问题应对\n\n### 核心概念\n心理急救（Psychological First Aid, PFA）是一种在危机事件后提供短期心理支持的干预方法。其核心是帮助人们重新获得控制感，并利用自身资源应对困难。PFA通常是一次性干预，工作者仅短暂在场，因此需要促进受影响者的自主性。\n\n### 步骤与方法\n\n#### 1. 帮助人们解决基本需求并获得服务\n- **立即响应**：危机事件后，优先帮助满足被请求的基本需求，如食物、水、住所和卫生设施。\n- **具体需求评估**：了解个体特殊需求（如医疗、衣物、婴儿喂养用品），并联系可用资源。\n- **关注弱势群体**：确保脆弱或边缘化人群不被忽视（参见第3.5节）。\n- **跟进承诺**：若承诺后续帮助，务必履行。\n\n#### 2. 帮助人们应对问题\n- **优先排序**：引导个体识别最紧迫的需求，区分“现在必须处理”和“可以稍后解决”的事项。\n- **增强掌控感**：通过解决少数问题，帮助个体重建控制感和应对能力。\n- **识别支持系统**：帮助个体找到生活中可提供帮助的人（如朋友、家人）。\n- **实用建议**：提供具体行动方案，例如如何登记领取食品援助。\n- **回顾成功经验**：询问过去如何应对困境，肯定其现有能力。\n- **促进积极应对**：询问什么能使其感觉更好，鼓励使用积极应对策略，避免消极策略（参考应对策略表）。\n\n### 注意事项\n- 工作者应保持尊重，避免替代决策。\n- 注意文化适宜性，避免强加己方价值观。\n- 对于严重心理障碍或自杀风险者，需转诊专业机构。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "基本需求",
+      "应对策略",
+      "危机干预",
+      "非药物干预",
+      "自助",
+      "priority setting",
+      "psychosocial support"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于灾难、事故、暴力等紧急事件后，对受影响的个体或群体进行短期心理支持；以及日常生活中突发危机时的初步干预。",
+    "contraindications": "不适用于需要紧急医疗处理或精神科紧急干预的个体，如严重外伤、急性精神病发作或自杀未遂当即。",
+    "dialogue_example": "社工：\"您现在感到最需要解决的是什么？是喝水、找地方休息，还是联系家人？\"\n受助者：\"我不知道，太多事情了。\"\n社工：\"我们先挑一件最重要的事。您现在能告诉我，哪件事如果先做，会让您感觉好一些？\"\n受助者：\"我需要给孩子找个暖和的地方。\"\n社工：\"好的，那我们先去那边有毛毯的帐篷。然后我们再聊其他事。\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954226"
+  },
+  {
+    "id": "kb_crisis_intervention_7697a8a6",
+    "title": "积极与消极应对策略建议",
+    "summary": "鼓励危机后使用积极应对策略（如规律饮食、社交、休息）并避免消极策略（如酗酒、孤立），以增强控制感和复原力。需根据文化和情境调整建议。",
+    "content": "### 核心概念\n\n每个人都有自然的应对方式。心理急救员应鼓励当事人使用自己的积极应对策略，同时避免消极策略，这有助于他们感觉更强大并重新获得控制感。建议需根据当事人的文化和具体危机情境进行调整。\n\n### 鼓励的积极应对策略\n\n- **基本生理需求**：尽可能规律进食、饮水，保证充足休息。\n- **社交支持**：与家人朋友交谈和共度时光。\n- **情绪宣泄**：与信任的人讨论问题。\n- **放松活动**：散步、唱歌、祈祷、与孩子玩耍等。\n- **体育锻炼**：进行适量运动。\n- **利他行为**：寻找安全的方式帮助他人，参与社区活动。\n\n### 需要劝阻的消极应对策略\n\n- **物质滥用**：不吸毒、不吸烟、不饮酒。\n- **作息紊乱**：不要整天睡觉。\n- **过度工作**：不要无休止工作而不休息放松。\n- **社交隔离**：不要把自己与朋友和亲人隔绝。\n- **忽视个人卫生**：不要忽略基本个人卫生。\n- **暴力行为**：不要有暴力。\n\n### 操作要点\n\n1. 尊重当事人的自主性，首先询问他们通常如何应对困难。\n2. 对积极策略给予肯定，并鼓励继续使用。\n3. 对于消极策略，以非评判的方式提醒可能带来的后果，并提供替代方案。\n4. 注意文化差异，某些策略在不同文化中的接受度不同。",
+    "source_reference": "World Health Organization (n.d.). Psychological first aid: Guide for field workers.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "应对策略",
+      "coping strategies",
+      "积极应对",
+      "消极应对",
+      "危机干预",
+      "复原力"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机事件后心理急救中，指导当事人采用健康应对方式，增强控制感。",
+    "contraindications": "不适用于需要紧急医疗救治或严重精神障碍急性发作的患者。",
+    "dialogue_example": "来访者：'我现在只想整天喝酒来忘记痛苦。'\n心理急救员：'我理解你感到痛苦，但酗酒可能让情况更糟。试试和其他人聊聊天或者散散步怎么样？'",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954232"
+  },
+  {
+    "id": "kb_crisis_intervention_551516ba",
+    "title": "提供准确信息的方法",
+    "summary": "向危机事件受影响者提供关于事件、亲人安全、服务和权利等准确信息，需保持更新、验证来源，并确保弱势群体知晓。",
+    "content": "### 核心概念\n\n危机事件后，受影响者需要准确信息，包括：事件本身、受影响的亲人或他人、自身安全、权利、如何获取所需服务和物资。获得准确信息可能困难，因为情况会变化，谣言可能频发。心理急救员可能无法立即知晓所有答案，但应尽最大努力提供可靠信息。\n\n### 操作步骤\n\n1. **寻找正确信息来源**：查明哪里可以获取正确信息，以及何时、何地可以获得更新。\n2. **提前准备**：在接触当事人前尽可能多地获取信息。\n3. **持续更新**：了解危机状态、安全问题、可用服务以及失踪或受伤人员的位置和状况。\n4. **传达信息**：确保告知当事人正在发生的事情以及任何计划。\n5. **服务指引**：如果有可用服务（如健康服务、家庭追踪、避难所、食物分发），确保当事人知道并能获取，可提供联系方式或直接转介。\n6. **关注弱势群体**：确保弱势群体也知晓现有服务。\n\n### 注意事项\n\n- 信息要准确、清晰、简洁。\n- 避免传播未经证实的信息。\n- 如果不知道答案，诚实地告诉当事人，并承诺尽快查找。\n- 使用当事人能理解的语言和方式。\n- 注意当事人可能因情绪激动而难以吸收信息，可重复或提供书面材料。",
+    "source_reference": "World Health Organization (n.d.). Psychological first aid: Guide for field workers.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "信息提供",
+      "information giving",
+      "危机沟通",
+      "服务导航",
+      "沟通技巧",
+      "危机干预"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "用于危机事件后，向受影响者传递准确信息，减少不确定性和恐慌。",
+    "contraindications": "避免在信息未核实或可能引起更大恐慌时传播，避免传递可能伤害当事人的细节。",
+    "dialogue_example": "来访者：'我的家人安全吗？'\n心理急救员：'我理解你很担心。我正在努力了解情况。目前我知道救援工作正在进行，我会尽快给你更新的消息。同时，你可以去那边的信息中心登记家人的名字。'",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954237"
+  },
+  {
+    "id": "kb_crisis_intervention_a27595f3",
+    "title": "心理急救信息提供原则",
+    "summary": "提供危机信息时需说明来源可靠性、不编造信息、保持简洁准确、重复确保理解、可向群体传递统一信息，并告知更新计划。同时要理解受助者的愤怒情绪，保持冷静。",
+    "content": "## 核心概念\n心理急救（PFA）中信息提供的基本原则，旨在确保信息清晰、可靠且有助于缓解焦虑。\n\n## 操作方法\n1. **说明信息来源和可靠性**：告知受助者你提供的信息来源于何处，以及其可信度。\n2. **只说自己知道的**：不编造信息或给予虚假保证。\n3. **保持信息简洁准确**：使用简单易懂的语言，重复关键信息以确保理解。\n4. **向群体传递统一信息**：对受影响的群体同时发布相同的信息，避免误解。\n5. **告知更新计划**：让受助者知道你会定期通报新进展，包括时间和地点。\n6. **应对愤怒情绪**：当受助者因期望未满足而愤怒时，保持冷静、表示理解，避免成为目标。\n\n## 注意事项\n- 信息提供者可能成为迁怒对象，需保持专业态度。\n- 优先确保信息的一致性，减少混乱。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. WHO. 第3章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "信息提供",
+      "危机干预",
+      "沟通技巧",
+      "愤怒管理",
+      "PFA"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机后提供心理急救时，向受灾个体或群体传达关键信息。",
+    "contraindications": "不适用于有严重精神障碍急性发作或需要紧急医疗处理的情况。",
+    "dialogue_example": "受助者：为什么还没有救援来？你是不是骗我？\n助人者：我理解您很着急，也很失望。我目前知道的信息是救援队在路上了，但具体到达时间还不确定。我会每隔一小时更新一次信息，您看这样可以吗？",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954241"
+  },
+  {
+    "id": "kb_crisis_intervention_ed709133",
+    "title": "联结亲人与社会支持",
+    "summary": "危机后良好的社会支持有助于心理恢复。PFA应帮助家庭保持团聚、联系亲友、提供通信工具、联系宗教/灵性社区，并促进受灾者互助。",
+    "content": "## 核心概念\n研究表明，危机后感知到良好社会支持的人适应得更好。因此，联结受助者与其亲人和社会支持网络是心理急救（PFA）的关键部分。\n\n## 具体步骤\n1. **保持家庭团聚**：尽量不让家庭成员分离，特别要确保儿童与父母或照顾者在一起。\n2. **帮助联系亲友**：提供方式让受助者给朋友和亲属打电话或发信息，以获得支持。\n3. **尊重灵性需求**：如果受助者提到祈祷、宗教实践或宗教领袖的帮助可能有用，尝试联系其精神社区。参考下文“危机与灵性”建议。\n4. **促进社区互助**：鼓励受灾者互相帮助，例如请年轻人照顾老人，或将无家人陪伴的个体链接到其他社区成员。\n\n## 注意事项\n- 尊重受助者的宗教信仰和文化背景。\n- 在危机情境下，灵性/宗教信念可能提供意义和希望，但也可能被挑战，需敏感对待。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. WHO. 第3章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "社会支持",
+      "social support",
+      "心理急救",
+      "家庭团聚",
+      "灵性关怀",
+      "社区互助",
+      "危机干预",
+      "PFA"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机后心理急救现场，帮助受灾者重建社会联系。",
+    "contraindications": "若受助者处于极度惊恐或精神错乱状态，应先稳定情绪再进行联结。",
+    "dialogue_example": "受助者：我好害怕，不知道家人怎么样了。\n助人者：我理解。我们这里有电话可以借给您打给家人。您记得他们的号码吗？",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954246"
+  },
+  {
+    "id": "kb_crisis_intervention_1add005e",
+    "title": "危机与灵性关怀建议",
+    "summary": "危机中灵性或宗教信仰对受助者可能很重要，能带来安慰和意义，但也可能被挑战。助人者应尊重并考虑其宗教背景，提供支持但不强迫。",
+    "content": "## 核心概念\n危机情境下，灵性/宗教信念可成为重要的应对资源，帮助人们度过痛苦、提供意义和希望。同时，灾难也可能动摇信仰。助人者需要敏感地处理灵性需求。\n\n## 具体建议\n1. **尊重宗教背景**：了解并尊重受助者的宗教传统，例如允许祈祷或宗教仪式。\n2. **提供灵性支持**：若受助者表达需要，协助联系宗教领袖或社区。\n3. **不施加信仰**：不要强迫受助者接受某种信仰，尊重其质疑或改变信仰的自由。\n4. **注意文化差异**：不同文化对灵性的表达和需求不同，注意敏感应对。\n\n## 注意事项\n- 灵性支持是心理急救的一部分，但不应取代专业心理健康服务。\n- 助人者自身可能有不同信仰，需保持中立和尊重。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. WHO. 第3章 方框内容.",
+    "category": "crisis_intervention",
+    "tags": [
+      "灵性关怀",
+      "spirituality",
+      "心理急救",
+      "宗教支持",
+      "危机干预",
+      "文化敏感",
+      "PFA"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机后与受灾者互动时，当其表达灵性或宗教需求时使用。",
+    "contraindications": "不适用于受助者明确拒绝或表现出对宗教话题反感时。",
+    "dialogue_example": "受助者：我想去教堂祈祷，可以吗？\n助人者：当然可以，我理解这对您很重要。我来帮您联系附近的教堂，或者我们可以找一个安静的地方让您祈祷。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954250"
+  },
+  {
+    "id": "kb_crisis_intervention_eca1fa70",
+    "title": "心理急救中尊重精神信仰的原则",
+    "summary": "在提供心理急救时，应询问当事人什么通常对其有帮助，鼓励其采用包括精神仪式在内的应对方式，同时尊重并避免评判其精神信仰。不得强加自己的信仰，也不得同意或拒绝其危机解释。",
+    "content": "### 核心概念\n在心理急救（Psychological First Aid, PFA）中，尊重当事人的精神信仰是提供有效支持的关键原则。危机可能引发精神层面的疑问或依赖，急救者需以开放、非评判的态度回应。\n\n### 具体步骤与指导\n1. **询问应对策略**：向当事人询问什么通常能帮助其感觉更好，鼓励其采取有助于应对的行为，包括精神仪式（如果当事人提及）。\n2. **尊重倾听**：以尊重和非评判的方式倾听当事人的精神信仰或疑问。\n3. **避免强加**：不要将自己的信仰或对危机的精神/宗教解释强加于当事人。\n4. **避免赞同或拒绝**：即使当事人要求，也不要赞同或拒绝其精神信仰或对危机的解释。\n\n### 注意事项\n- 急救者应保持中立，聚焦于支持当事人的自主应对能力。\n- 这一原则适用于所有文化背景，但需注意不同文化中精神信仰的具体表达方式。\n\n### 关键引用\n> “Ask the person what generally helps them to feel better. Encourage them to do things that help them to cope, including spiritual routines if they mention these. Listen respectfully, and without judgment, to spiritual beliefs or questions the person may have.”\n> “Don’t impose your beliefs, or spiritual or religious interpretations of the crisis, on the person.”\n> “Don’t agree with or reject a spiritual belief or interpretation of the crisis, even if the person asks you to do so.”",
+    "source_reference": "World Health Organization. (2011). Psychological first aid: Guide for field workers. p. 29.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "精神信仰",
+      "spiritual beliefs",
+      "尊重",
+      "非评判",
+      "crisis intervention",
+      "应对策略"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于所有危机情境中需要心理急救的个体，特别是当当事人提到精神信仰或对危机有宗教解释时。",
+    "contraindications": "不适用于需要立即医学干预或当事人处于严重精神障碍发作期的情况。",
+    "dialogue_example": "助人者：\"您觉得什么通常能让您感觉好一些？有没有一些您经常做的事情，比如祈祷或冥想，能帮您度过困难时刻？\"\n当事人：\"我通常会祈祷，但我不确定上帝是否会听。\"\n助人者：\"我听到您说祈祷对您很重要。您可以继续做对您有帮助的事情，我会在这里支持您。\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954269"
+  },
+  {
+    "id": "kb_crisis_intervention_54aee7db",
+    "title": "心理急救中结束帮助的指导",
+    "summary": "在心理急救结束时，应根据危机情境、自身角色和他人需求判断何时停止帮助。应告知当事人离开，如可能，介绍后续帮助人员或服务。以积极方式告别，祝愿当事人安好。",
+    "content": "### 核心概念\n心理急救（PFA）的结束阶段同样重要，需根据具体情境和当事人需求妥善处理。目标是确保当事人获得持续支持，并以积极方式结束互动。\n\n### 具体步骤\n1. **判断离开时机**：根据危机情境、你的角色和处境、当事人的需求，以及你自己的需求，运用最佳判断来决定何时停止提供帮助。\n2. **告知当事人**：如果合适，向当事人清楚说明你将要离开。\n3. **介绍后续支持**：如果接下来有其他人继续帮助，尽力介绍他们认识。\n4. **链接其他服务**：如果你已将当事人与其他服务联系起来，告知他们接下来的期望，确保他们掌握后续细节。\n5. **积极告别**：无论你的经历如何，都可以通过祝愿当事人安好来以积极方式说再见。\n\n### 注意事项\n- 结束帮助的决定应灵活，避免突然中断造成二次创伤。\n- 确保当事人有联系信息或后续计划，减少不确定性。\n\n### 关键引用\n> “When and how you stop providing help will depend on the context of the crisis, your role and situation, and the needs of the people you are helping. Use your best judgment of the situation, the person’s needs and your own needs.”\n> “If appropriate, explain to the person that you are leaving, and if someone else will be helping them from that point on, try and introduce them to that person.”\n> “No matter what your experience has been with the person, you can say goodbye in a positive way by wishing them well.”",
+    "source_reference": "World Health Organization. (2011). Psychological first aid: Guide for field workers. p. 29.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "结束帮助",
+      "ending help",
+      "转介",
+      "服务链接",
+      "积极告别",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于任何提供心理急救后的结束阶段，特别是当救援者需要离开而当事人需要后续支持时。",
+    "contraindications": "在当事人处于严重危急状态（如急性自杀风险）且尚无替代支持时，不应匆忙结束。",
+    "dialogue_example": "助人者：\"我接下来需要离开这里去帮助其他人。我已经联系了当地的心理支持团队，他们会在30分钟内到达。这是他们的电话，您有任何需要可以随时联系。希望您一切顺利。\"\n当事人：\"谢谢你的帮助。\"\n助人者：\"不客气，祝您安好。\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954275"
+  },
+  {
+    "id": "kb_crisis_intervention_3d8f4243",
+    "title": "儿童在危机中的脆弱性与反应",
+    "summary": "儿童在危机情境中特别脆弱，面临性暴力、虐待和剥削等风险，其反应取决于年龄、发展阶段和照顾者支持。不同年龄段有不同表现：幼儿退行行为，学龄儿童自责与恐惧，青少年疏离与冒险行为。",
+    "content": "## 核心概念\n\n危机事件会破坏儿童熟悉的世界，包括让他们感到安全的人员、场所和日常活动。受危机影响的儿童面临性暴力、虐待和剥削的风险，这些在大规模危机混乱中更常见。幼儿尤其脆弱，因为他们无法满足基本需求或自我保护，且照顾者可能不堪重负。年长儿童可能被贩卖、性剥削或招募入伍。女童和男童面临不同风险，通常女童面临性暴力和剥削的风险最大，受虐者可能被污名化和孤立。\n\n## 儿童的反应\n\n儿童对危机苦难（如目睹破坏、受伤或死亡、暴露于恶劣环境、缺乏食物和水）的反应取决于其年龄和发展阶段，也取决于照顾者及其他成年人与他们的互动方式。例如，幼儿可能不完全理解周围发生的事，特别需要照顾者的支持。总体而言，当身边有稳定、冷静的成人时，儿童应对得更好。\n\n### 不同年龄段的特定痛苦反应\n- **幼儿（0-5岁）**：可能退回到早期行为（如尿床、吸吮拇指），依赖照顾者，减少游戏或使用与痛苦事件相关的重复游戏。\n- **学龄儿童（6-12岁）**：可能认为坏事是自己造成的，产生新的恐惧，变得不太有感情，感到孤独，并专注于保护或救助危机中的人。\n- **青少年（13-18岁）**：可能感到“麻木”，觉得自己与朋友不同或孤立，表现出冒险行为和消极态度。\n\n这些反应与成人类似的痛苦反应并存（参见原指南第3.3节）。\n\n## 关键引用\n\n来源：Pynoos, et al. (2009). 参见《心理急救：现场工作者指南》参考文献。",
+    "source_reference": "世界卫生组织等 (2011). 心理急救：现场工作者指南. 第30-31页.",
+    "category": "crisis_intervention",
+    "tags": [
+      "儿童",
+      "children",
+      "危机",
+      "crisis",
+      "心理急救",
+      "psychological first aid",
+      "脆弱性",
+      "vulnerability",
+      "发展反应",
+      "developmental reactions"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机现场对儿童进行心理急救时，了解其特殊脆弱性和典型反应，以提供适当支持。",
+    "contraindications": "不适用于无危机情境的常规儿童咨询。",
+    "dialogue_example": "儿童：\"我昨晚又尿床了，我是不是很没用？\"\n工作者：\"很多和你一样大的孩子在经历可怕的事情后都会有这样的情况，这不是你的错。你现在安全了，有我在你身边。\"",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954280"
+  },
+  {
+    "id": "kb_crisis_intervention_7c3a4da9",
+    "title": "危机后照护者支持各年龄段儿童",
+    "summary": "危机事件中，照护者是儿童的重要保护和支持来源。分离的儿童应尽快与家人团聚，并联系儿童保护机构。不同年龄段的儿童需要不同的支持方式，包括保持安全、常规、耐心陪伴、提供简单事实等。",
+    "content": "## 核心概念\n危机事件中，家庭和其他照护者是儿童重要的保护与情感支持来源。与照护者分离的儿童在危机中可能处于陌生环境，极度恐惧且无法正确判断风险。首要步骤是尽快将分离的儿童（包括青少年）与家人或照护者团聚，但不应独自尝试，应立即联系可信的儿童保护机构进行登记和照顾。\n\n## 不同年龄段的照护建议\n### 婴儿\n- 保持温暖和安全。\n- 远离噪音和混乱。\n- 给予拥抱。\n- 尽可能保持规律喂食和睡眠。\n- 用平静、温柔的声音说话。\n\n### 幼儿\n- 给予额外的时间和关注。\n- 经常提醒他们安全。\n- 解释他们不应为坏事负责。\n- 避免将幼儿与照护者、兄弟姐妹和亲人分开。\n- 尽量保持常规作息。\n- 对发生的事情给出简单回答，避免恐怖细节。\n- 如果他们害怕或黏人，允许他们靠近你。\n- 对出现退行行为（如吸吮拇指、尿床）保持耐心。\n- 如果可能，提供玩耍和放松的机会。\n\n### 大龄儿童和青少年\n- 给予时间和关注。\n- 帮助他们保持常规。\n- 提供事实说明发生了什么及当前情况。\n- 允许他们悲伤，不要期望他们坚强。\n- 询问他们面临的危险，支持他们。\n- 倾听他们的想法和恐惧，不做评判。\n- 设定明确的规则和期望。\n\n## 注意事项\n- 不要独自尝试团聚，避免错误带来更坏后果。\n- 优先联系专业儿童保护机构。\n- 照护者自身的情绪健康也需要关注。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "危机干预",
+      "crisis intervention",
+      "心理急救",
+      "psychological first aid",
+      "儿童照护",
+      "caregiver support",
+      "婴幼儿",
+      "青少年",
+      "家庭团聚",
+      "child protection"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机事件后（如自然灾害、冲突、事故等）为儿童提供心理急救的照护者、志愿者和工作人员。",
+    "contraindications": "不适用于需要紧急医疗救治的儿童，应先处理急性医疗问题。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954297"
+  },
+  {
+    "id": "kb_crisis_intervention_ae4e5ebd",
+    "title": "儿童心理急救：保护、陪伴与沟通",
+    "summary": "在危机中，保护儿童免受身心伤害，尽量保持他们与家人在一起，用温和的方式倾听和交流，并提供安全的玩耍机会，是心理急救的关键原则。",
+    "content": "## 核心原则\n\n1. **保持与家人在一起**：尽可能不让孩子与照顾者分离。如果孩子独自一人，应联系可信的儿童保护机构或网络，不要留下孩子无人看管。若无机构可用，自行帮助寻找家人或联系其他亲属。\n\n2. **保障安全**：保护孩子免受血腥场景、恐怖故事或媒体采访的伤害。在混乱中，成人往往无暇顾及儿童所见所闻，需主动屏蔽不良刺激。\n\n3. **倾听、交谈和玩耍**：\n   - 保持冷静、轻声细语、态度和蔼。\n   - 倾听孩子对自己处境的看法。\n   - 与孩子平视，使用他们能理解的词语和解释。\n   - 自我介绍，说明来意，询问姓名和来源信息以便寻找家人。\n   - 支持照顾者照料孩子。\n   - 若有时间，根据年龄引导孩子参与游戏或简单对话（如兴趣话题）。\n\n## 注意事项\n- 若照顾者受伤或极度不安无法照顾孩子，应安排帮助照顾者并照料孩子，同时尽力确保儿童与照顾者不分离。例如，照顾者被送医时，尽量让孩子随行或记录去向以便团聚。\n- 儿童可能聚集在危机现场，目睹可怕事件，即使他们未直接受灾。应尽量庇护他们免受刺激。\n\n## 引用来源\n世界卫生组织 (WHO). (2011). *Psychological first aid: Guide for field workers*. 第33页。",
+    "source_reference": "WHO (2011). Psychological first aid: Guide for field workers.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "儿童",
+      "children",
+      "危机干预",
+      "crisis intervention",
+      "保护",
+      "陪伴",
+      "沟通",
+      "field workers"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机（如自然灾害、事故、暴力事件）现场中需要帮助儿童的人道主义工作者、志愿者或心理健康专业人员。",
+    "contraindications": "不适用于需要紧急医疗处理的生命威胁情况，应先确保儿童身体安全，再进行心理急救。",
+    "dialogue_example": "“你好，我叫小明，是来这里帮忙的。你叫什么名字？我们可以一起找你的家人吗？你愿意跟我说话吗？我们也可以先画个画，等一会儿。”",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954301"
+  },
+  {
+    "id": "kb_crisis_intervention_81454b0d",
+    "title": "儿童应对资源支持",
+    "summary": "儿童有自己的应对资源，应支持和加强积极应对策略，避免消极应对。年龄较大的儿童和青少年可以帮助应对危机，让他们安全参与有助于增强控制感。",
+    "content": "记住儿童也有自己的应对资源。了解这些资源并支持积极的应对策略，同时帮助他们避免消极应对策略。年龄较大的儿童和青少年通常能在危机情况下提供帮助。找到让他们安全参与的方式，可能有助于他们感到更有控制感。",
+    "source_reference": "Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "儿童",
+      "children",
+      "应对资源",
+      "coping resources",
+      "心理急救",
+      "psychological first aid",
+      "危机干预",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机事件后对儿童的心理急救，特别是帮助儿童利用自身资源积极应对。",
+    "contraindications": "不适用于需要紧急医疗或精神科干预的儿童，应优先转介专业服务。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954304"
+  },
+  {
+    "id": "kb_crisis_intervention_4f07d905",
+    "title": "帮助有健康或残疾者",
+    "summary": "有慢性健康问题、身体或精神残疾或老年人可能需要特殊帮助，包括前往安全地点、满足基本需求、获取药物和医疗服务。危机可能加重高血压、心脏病、哮喘、焦虑等状况。",
+    "content": "以下是可以帮助有健康状况或残疾的人的具体方法：\n- 帮助他们前往安全地点。\n- 帮助他们满足基本需求，如饮食、清洁水、自我照顾或搭建避难所。\n- 询问他们是否有健康问题或是否定期服药。尽量帮助他们获得药物或医疗服务（如果可用）。\n- 如果你需要离开，陪伴他们或确保有人帮助他们。考虑将他们与保护机构或其他相关支持联系起来，以长期帮助他们。\n- 给他们提供如何获得可用服务的信息。\n\n此外，孕妇和哺乳期女性可能经历严重压力影响自身和婴儿健康。行动不便、视听障碍的人可能难以找到亲人或获得服务。",
+    "source_reference": "Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "健康状况",
+      "health conditions",
+      "残疾",
+      "disability",
+      "老年人",
+      "elderly",
+      "心理急救",
+      "psychological first aid",
+      "危机干预",
+      "crisis intervention",
+      "特殊需求",
+      "special needs"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机事件后帮助有慢性疾病、残疾、老年人或其他特殊需求的人群。",
+    "contraindications": "不适用于需要紧急医疗干预的重症患者，应优先提供医疗救助。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954308"
+  },
+  {
+    "id": "kb_crisis_intervention_ce02ef75",
+    "title": "协助风险人群",
+    "summary": "为受歧视或暴力风险的人群提供特殊保护，包括帮助他们找到安全住所、联系亲人及获取服务。",
+    "content": "**核心概念**：在危机情境中，遭受歧视或暴力风险的人群（如被排除在基本服务、决策之外，或成为暴力目标）需要特殊保护和安全保障，并需额外帮助以满足基本需求和获取服务。\n\n**操作步骤**：\n1. 识别这些人群并保持警觉。\n2. 帮助他们找到安全住所。\n3. 帮助他们与亲人及其他可信赖的人联系。\n4. 提供可用服务的信息，并在必要时直接帮助他们与这些服务对接。\n\n**注意事项**：确保行动尊重个体自主权，避免标签化，并注意保密原则。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. 第3章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "风险人群",
+      "歧视风险",
+      "暴力保护",
+      "危机干预"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机现场工作者在紧急情况中识别并协助受歧视或暴力威胁的个体。",
+    "contraindications": "不适用于需要立即医疗救援的严重身体创伤患者。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954311"
+  },
+  {
+    "id": "kb_crisis_intervention_a09e9a17",
+    "title": "自我照顾：准备帮助",
+    "summary": "帮助者在危机中需做好准备，包括了解情境、评估自身健康及家庭状况，并诚实决定是否参与。",
+    "content": "**核心概念**：在危机情境中提供帮助前，帮助者需先做好自我准备，以确保自身能够胜任角色并减少额外的压力。\n\n**准备步骤**：\n1. 了解危机情境，以及不同帮助者的角色和责任。\n2. 考虑自身的健康状况，以及可能因承担帮助角色而引发严重压力的个人或家庭问题。\n3. 诚实地决定自己是否准备好在此特定危机情境下、在此特定时间提供帮助。\n\n**注意事项**：自我评估应持续进行，必要时寻求督导或同伴支持。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. 第4章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "自我照顾",
+      "self-care",
+      "准备帮助",
+      "危机工作者",
+      "心理健康"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于所有即将或正在参与危机应对的助人者，包括专业人员和志愿者。",
+    "contraindications": "不适用于已有严重心理障碍且未得到治疗的个人。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954315"
+  },
+  {
+    "id": "kb_crisis_intervention_5a0121eb",
+    "title": "管理压力：健康习惯",
+    "summary": "帮助者的主要压力源来自日常工作，尤其是危机期间的时间、责任和管理问题，需培养健康习惯应对。",
+    "content": "**核心概念**：帮助者面临的主要压力来源是日常工作的压力，尤其在危机期间。常见压力因素包括：长时间工作、责任过重、缺乏明确的工作描述、沟通或管理不善、在不安全区域工作。\n\n**健康习惯建议**：\n- 建立合理的工作与生活界限。\n- 确保充足休息和规律作息。\n- 培养健康的饮食和运动习惯。\n- 定期进行放松和减压活动。\n- 寻求同事和督导的社会支持。\n\n**注意事项**：压力管理是持续性过程，若出现严重应激反应，应及时寻求专业帮助。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. 第4章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "压力管理",
+      "stress management",
+      "健康习惯",
+      "危机工作者",
+      "自我照顾",
+      "职业倦怠预防"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于所有危机应对中的助人者，用于预防职业倦怠和保持心理健康。",
+    "contraindications": "不适用于已经出现严重心理障碍需立即治疗的情况。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954318"
+  },
+  {
+    "id": "kb_crisis_intervention_6f03338e",
+    "title": "帮助者压力管理",
+    "summary": "给危机环境中帮助者的自我压力管理建议，包括合理作息、分工合作、减少酒精咖啡因摄入、互相支持等。",
+    "content": "## 核心概念\n作为帮助者，可能目睹或经历破坏、伤害、死亡或暴力，以及倾听他人的痛苦故事，这些都会影响您和同事。有效管理自身压力，并支持同事，至关重要。\n\n## 具体建议\n- **回顾过往应对方式**：思考过去什么帮助您应对困难，以及现在如何保持坚强。\n- **保证基本需求**：尽量安排时间进食、休息和放松，即使是短时间。\n- **合理安排工作时间**：避免过度劳累，例如在危机急性期进行分工、轮班，保证定期休息。\n- **接受局限性**：危机后人们有很多问题，当无法帮助解决所有问题时，可能会感到不足或沮丧。记住您不负责解决所有人的问题，尽力帮助人们自助。\n- **减少不良物质摄入**：尽量减少酒精、咖啡因或尼古丁的摄入，避免使用非处方药物。\n- **互相支持**：与同事彼此关心，寻找支持彼此的方式。\n- **寻求社会支持**：与朋友、亲人或其他信任的人交谈。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. p.39",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "帮助者",
+      "helper",
+      "压力管理",
+      "stress management",
+      "自我关照",
+      "self-care",
+      "危机干预",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1"
+    ],
+    "applicability": "适用于在危机现场工作的心理急救人员、志愿者、救援人员等帮助者进行自我压力管理。",
+    "contraindications": "不适用于需要紧急医疗或精神科援助的个体，或处于严重耗竭状态无法执行建议的情况。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954321"
+  },
+  {
+    "id": "kb_crisis_intervention_02faa83d",
+    "title": "结束帮助后的休息与反思",
+    "summary": "危机援助结束后，帮助者需要进行休息和反思以促进自身恢复，包括分享经历、肯定贡献、接纳限制等。",
+    "content": "## 核心概念\n结束帮助角色后，花时间休息和反思是重要的恢复步骤。危机情境和所遇人员的需求可能极具挑战性，难以承受他们的痛苦。以下建议有助于自我恢复。\n\n## 具体建议\n- **分享经历**：与主管、同事或信任的人谈论在危机中提供帮助的经历。\n- **肯定贡献**：承认自己帮助他人的所作所为，即使是微小的。\n- **反思与接纳**：学习反思并接纳自己做得好、不太顺利以及在当时条件下所能做到的限制。\n- **休息放松**：如果可能，在重新开始工作和生活职责前，花些时间休息和放松。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. p.39",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "帮助者恢复",
+      "helper recovery",
+      "休息",
+      "rest",
+      "反思",
+      "reflection",
+      "创伤后成长",
+      "post-traumatic growth",
+      "自我关照",
+      "self-care"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1"
+    ],
+    "applicability": "适用于完成危机援助任务后的心理急救人员、志愿者等帮助者进行自我恢复。",
+    "contraindications": "不适用于正在经历严重应激反应或需要立即专业干预的个体。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954325"
+  },
+  {
+    "id": "kb_crisis_intervention_c2666ec1",
+    "title": "创伤后应激反应症状与求助",
+    "summary": "识别创伤事件后的常见应激反应症状（如痛苦回忆、焦虑、悲伤、失眠、物质滥用），并强调若持续超过一个月需寻求专业支持。",
+    "content": "### 核心概念\n当个体经历创伤事件后，可能出现以下应激反应症状：\n- **闯入性记忆**: 对事件的不愉快回忆或想法反复出现\n- **情绪障碍**: 极度紧张、焦虑或悲伤\n- **睡眠问题**: 难以入睡或保持睡眠\n- **物质滥用**: 过量饮酒或使用药物\n\n### 操作指引\n1. **自我觉察**: 注意上述症状是否出现，尤其是持续时间。\n2. **寻求社会支持**: 向信任的人（如家人、朋友）倾诉。\n3. **专业咨询**: 若症状持续超过一个月，应主动联系医疗工作者或心理健康专家。\n4. **避免自我伤害**: 如果出现酒精或药物滥用倾向，及时求助。\n\n### 注意事项\n- 短期应激反应（少于1个月）属于正常范围，但仍需关怀。\n- 长期未缓解可能发展为创伤后应激障碍（PTSD），需专业干预。\n- 本指导适用于各类危机事件（灾难、暴力、意外等）后的心理急救。",
+    "source_reference": "世界卫生组织 (2011). Psychological first aid: Guide for field workers. WHO.",
+    "category": "crisis_intervention",
+    "tags": [
+      "创伤后应激",
+      "PTSD",
+      "症状识别",
+      "求助",
+      "心理急救",
+      "PFA",
+      "应激反应",
+      "心理支持",
+      "专业咨询",
+      "self-care"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于经历创伤事件后出现短期情绪困扰个体的自我评估与求助指导。",
+    "contraindications": "不适用于急性危机期需要立即医疗救助的情况（如自杀、暴力行为）。",
+    "dialogue_example": "用户: 我最近总是想起那场地震，害怕得睡不着，还开始喝酒。\n助手: 听起来你经历了一些非常痛苦的回忆。建议你先试试和信任的朋友或家人聊聊，如果这种状态超过一个月，最好联系心理医生或拨打危机热线，他们会给你专业帮助。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954329"
+  },
+  {
+    "id": "kb_crisis_intervention_8f311a7e",
+    "title": "危机情境下的团队工作与安全",
+    "summary": "在灾后等危机现场，建议以团队或结对形式开展工作，以提供相互支持、保障安全，并提高效率。同时，可寻求机构提供的物资、交通、通信等支持，并建立伙伴系统。",
+    "content": "## 核心概念\n在危机情境（特别是大规模灾难后）提供帮助时，应考虑以团队或结对形式工作的优势。团队工作可在困难情况下提供支持和后备，对确保自身安全至关重要。\n\n## 团队优势\n- **相互支持**：同伴之间可以互相鼓励、分担压力。\n- **安全备份**：一个人出现问题时，另一个人可以及时帮助。\n- **提高效率**：例如，一人陪伴受助者，另一人可寻求医疗等特殊帮助。\n\n## 伙伴系统（Buddy System）\n建议尝试建立“伙伴系统”，即两名救援者之间定期互相检查、提供支持和帮助。\n\n## 机构支持\n一些机构可提供支持，如：\n- 物资供应\n- 交通工具\n- 通讯设备\n- 最新情况或安全信息\n- 与其他团队成员或服务的协调\n\n## 注意事项\n- 始终优先考虑自身安全，因为只有安全才能有效助人。\n- 即使单独行动，也要与团队保持联系。\n- 现场行动前评估安全状况。",
+    "source_reference": "Psychological first aid: Guide for field workers. Page 43.",
+    "category": "crisis_intervention",
+    "tags": [
+      "危机干预",
+      "crisis intervention",
+      "心理急救",
+      "psychological first aid",
+      "团队工作",
+      "teamwork",
+      "安全",
+      "safety",
+      "伙伴系统",
+      "buddy system",
+      "大规模灾难",
+      "mass disaster"
+    ],
+    "related_risk_levels": [
+      "level_3"
+    ],
+    "applicability": "适用于灾后或其他危机现场的心理援助工作，特别是需要长时程、高压力操作的场景。",
+    "contraindications": "若现场安全无法保障（如持续余震、枪战），应首先撤离或等待专业救援。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954333"
+  },
+  {
+    "id": "kb_crisis_intervention_991ddf1c",
+    "title": "心理急救现场评估与接近技巧",
+    "summary": "在危机现场，需快速评估环境安全、可用服务、基本需求及严重情绪反应者；接近受助者时，应自我介绍、询问需求、倾听并给予安慰。",
+    "content": "## 现场评估要点\n移动过程中，需关注以下问题：\n- 危机现场是否足够安全？\n- 有哪些服务和支持可用？\n- 是否有明显紧急基本需求的人（如食物、水、医疗）？\n- 是否有明显严重情绪反应的人？\n- 谁可能需要特殊帮助？\n- 在哪里可以提供心理急救（PFA）？\n\n## 接近受助者的技巧\n- **自我介绍**：表明身份和所属机构。\n- **询问意愿**：礼貌询问是否可以交谈。\n- **识别基本需求**：了解受助者需要什么。\n- **强调安全**：在情境中帮助受助者免受伤害。\n- **倾听与安慰**：耐心倾听，给予情感支持。\n\n## 对话示例（见 dialogue_example）",
+    "source_reference": "Psychological first aid: Guide for field workers. Page 43.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "现场评估",
+      "field assessment",
+      "接近技巧",
+      "approach skills",
+      "倾听",
+      "active listening",
+      "灾难心理",
+      "disaster psychology",
+      "危机干预",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于灾后现场心理援助初始接触，用于快速评估和建立初步信任。",
+    "contraindications": "若受助者处于急性应激状态且拒绝接触，应等待并尊重其反应，不强行干预。",
+    "dialogue_example": "你: 您好，我叫__。我在机构__工作。可以和您谈谈吗？\n女士: 太可怕了！我正要走进大楼，突然开始晃动！我不知道发生了什么！\n你: 是的，这是一场地震，我理解这对您来说非常可怕。您叫什么名字？\n女士: 我叫Jasmina Salem。我非常害怕！[颤抖、哭泣] 我是否应该进去找我的同事们？我不知道他们是否安全！",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954338"
+  },
+  {
+    "id": "kb_crisis_intervention_ff1b1d3a",
+    "title": "心理急救沟通技巧",
+    "summary": "心理急救中通过自我介绍、安全转移、倾听、反映需求等步骤，帮助受创伤者恢复安全感。",
+    "content": "## 心理急救沟通技巧\n\n### 核心概念\n心理急救（Psychological First Aid）是在灾难或创伤事件后，为受影响的个体提供即时心理支持的干预方法。本条目基于《心理急救：现场工作者指南》中的对话示例，总结关键沟通技巧。\n\n### 关键步骤\n1. **自我介绍与机构告知**：介绍自己的名字和所属机构（如“救助组织”）。\n2. **征求谈话意愿**：询问对方是否愿意交谈（如“如果您愿意，我们可以到那边安全的地方坐一会儿”）。\n3. **尊重称呼**：使用对方的姓氏（如“Ms. Salem”），以示尊重。\n4. **转移到安全地点**：保护对方免受进一步伤害（如“走到远离倒塌建筑的安静地方”）。\n5. **提供实用舒适**：如提供水或毯子（“我可以给您拿点水吗？”）。\n6. **非强迫性陪伴**：安静地坐在旁边，不强迫说话（“静坐两到三分钟”）。\n7. **倾听与共情**：认真倾听故事，表达理解（“我理解”、“我很抱歉”）。\n8. **反映适当行为**：肯定对方已经做出的正确决定（“您跑出来是出于本能反应，这保护了您”）。\n9. **识别需求与担忧**：询问具体需求和担忧（“我需要知道家人是否安全”）。\n10. **提供实际帮助**：如协助联系家人（“我可以帮您打电话给家人，然后一起想办法回家”）。\n\n### 注意事项\n- 保持耐心，让对方主导谈话节奏。\n- 避免评判或给出未经验证的建议。\n- 注意自身安全，避免再次暴露于危险中。\n\n### 引用原文摘录\n> “You: Ms. Salem, it’s not safe at all to go in the building now... If you like, we can talk just over there where the area is safer...”\n> “You: I can help you call your family, and then we can figure out together how you can get to them.”",
+    "source_reference": "世界卫生组织 (2011). 心理急救：现场工作者指南. 第5章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "危机干预",
+      "沟通技巧",
+      "倾听",
+      "安全",
+      "共情",
+      "灾难支持",
+      "尊重",
+      "实际帮助"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "在灾难、事故或创伤事件后，为受惊、悲伤或困惑的个体提供初步心理支持时使用。",
+    "contraindications": "不适用于需要紧急医疗救治或处于严重精神障碍急性发作（如精神病、严重自杀风险）的个体。",
+    "dialogue_example": "**受害者：** 我觉得很糟糕！我应该留在楼里帮助别人！\\n**助人者：** 我理解。\\n**受害者：** 我跑出来了，但我为其他人感到难过！\\n**助人者：** 在这种情况下很难知道该怎么做。但听起来您跑出来是出于好的本能，否则您可能受伤了。\\n（安静倾听后）\\n**助人者：** 我可以帮您打电话给家人，然后我们一起想办法怎么去他们那里。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954343"
+  },
+  {
+    "id": "kb_crisis_intervention_e0c45c66",
+    "title": "心理急救的信息与实用支持链接",
+    "summary": "心理急救中，帮助受影响人群获取信息、实际支持（食物、住所、医疗）并联系家人，同时考虑特殊群体（儿童、健康问题者）和文化敏感性。",
+    "content": "## 心理急救：链接信息与实用支持\n\n在危机事件中，心理急救（PFA）的一个重要方面是帮助人们获取必要的**信息和实际支持**。以下是通过反思问题促进的关键点：\n\n### 核心考虑\n1. **资源与服务了解**：评估当前情境下获取可用资源（食物、住所、水）或服务可能遇到的挑战。\n2. **关注与顾虑**：考虑受影响人们可能有的担忧和顾虑，并提供实用建议帮助他们解决问题。\n3. **信息需求**：他们需要什么信息？在哪里可以找到关于危机事件的最新、可靠信息？\n4. **联系家人与服务**：如何帮助人们与亲人或服务建立联系？可能有哪些挑战？\n5. **特殊群体**：儿童、青少年或患有健康问题的人需要什么？如何帮助脆弱人群与亲人和服务链接？\n\n### 案例场景：暴力和流离失所\n情境：难民因战争被转移到新地点，表现出恐惧、迷茫、放松等情绪。作为志愿者，你需要考虑：\n- **了解人群**：他们的文化背景？是否有需要遵守的行为准则？（例如女性志愿者更适合与女性难民交谈）\n- **经历与行程**：他们经历了多远旅程？所经历的冲突细节？\n- **可用服务**：难民接收地点提供了哪些服务？团队如何组织分工？\n- **基本需求**：多数难民是否需要食物、水、休息？有无伤员或病患？\n\n### 注意事项\n- 保持团队协调，明确各自任务。\n- 注意文化敏感性和适当的沟通方式。\n- 警惕创伤后应激反应（如听到响声误以为枪声）。\n\n这些反思有助于心理急救工作者更有效地提供支持。",
+    "source_reference": "World Health Organization (2011). Psychological first aid: Guide for field workers. WHO Press.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "Psychological First Aid",
+      "PFA",
+      "信息支持",
+      "实践支持",
+      "难民",
+      "流离失所",
+      "特殊群体",
+      "文化适应",
+      "团队协调"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于灾后或危机事件中，心理急救工作者思考如何为受影响人群提供信息和实际支持。",
+    "contraindications": "无特定禁忌，但需要根据文化背景和安全环境调整方法。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954349"
+  },
+  {
+    "id": "kb_crisis_intervention_4c34f8cb",
+    "title": "心理急救：无人陪伴儿童对话",
+    "summary": "为无人陪伴儿童提供心理急救时，采用温暖、尊重的态度，通过自我介绍、提供实际帮助、询问家人信息、表达理解和支持等步骤，帮助儿童缓解恐惧并建立安全感。",
+    "content": "### 核心概念\n心理急救（Psychological First Aid, PFA）是一种在危机事件后为受影响人群提供心理支持的干预方法。本条目聚焦于如何与无人陪伴儿童进行有效对话。\n\n### 操作步骤\n1. **接近儿童**：在边缘处发现独自一人、显得害怕的儿童时，蹲下至与儿童眼睛平齐的高度。\n2. **自我介绍**：使用温暖、友好的语气说出自己的姓名和所属机构。\n3. **询问姓名和提供实际帮助**：先问儿童的名字，然后提供实物帮助（如食物、饮料、毛毯）。\n4. **询问家人下落**：“你的家人在哪里？”如果儿童开始哭泣，表达理解。\n5. **表达支持**：告诉儿童“我会帮你”，并尝试帮助寻找家人。\n6. **收集信息**：询问姓氏、家乡、最后一次见到家人的时间、兄弟姐妹的姓名和年龄等。\n7. **安抚情绪**：承认儿童的恐惧，强调“你现在安全了”。\n8. **提出具体帮助**：提议陪伴儿童并一起寻找家人。\n\n### 注意事项\n- 保持温和、自然的语调。\n- 不强迫儿童回答。\n- 尊重儿童的文化背景。\n- 对儿童的哭泣和恐惧给予接纳。\n\n### 示例对话\n见原文中与Adam的对话。",
+    "source_reference": "世界卫生组织 (WHO) (2011). Psychological first aid: Guide for field workers. 第47页.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "无人陪伴儿童",
+      "unaccompanied children",
+      "危机干预",
+      "crisis intervention",
+      "对话技巧",
+      "communication skills",
+      "儿童创伤",
+      "child trauma"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于危机现场（如难民营、灾后安置点）中，与无人陪伴儿童进行初步心理支持时使用。",
+    "contraindications": "不适用于儿童有紧急医疗需求或严重精神障碍需要专业治疗时。",
+    "dialogue_example": "Agent: [蹲下至儿童眼睛平齐的高度] 你好，我叫[名字]，是[机构]的，我来这里帮忙。你叫什么名字？\nChild: Adam。\nAgent: 你好Adam。你长途跋涉到这里，渴不渴？[递水或食物] 你的家人在哪里？\nChild: 我不知道。[开始哭]\nAgent: 我看得出你很害怕，Adam。我会尽力帮你，联系人们帮你找到家人。你能告诉我你的姓和从哪里来吗？\nChild: 好的，我叫Adam Duvall，从[村庄]来。\nAgent: 谢谢你，Adam。你最后一次见到家人是什么时候？\nChild: 我姐姐在卡车来的时候还在，但现在找不到她。\nAgent: 你姐姐多大了？叫什么名字？\nChild: 她叫Rose，15岁。\nAgent: 我会尽力帮你找到姐姐。你的父母呢？\nChild: 我们听到枪声就跑出村子，和父母走散了。[哭]\nAgent: 我很抱歉，Adam。那一定很可怕，但你现在安全了。\nChild: 我很害怕！\nAgent: 我理解。我想帮助你。我可以陪你一会儿，我们一起找你姐姐，好吗？\nChild: 好的，谢谢。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954353"
+  },
+  {
+    "id": "kb_crisis_intervention_e3baaffc",
+    "title": "与无人陪伴儿童建立联系",
+    "summary": "通过蹲下平视、平静友善、收集家庭信息并保持陪伴，帮助无人陪伴儿童注册可信赖的家庭追踪组织，确保其安全直到家庭找到。",
+    "content": "在与无人陪伴儿童互动时，心理急救员应遵循以下步骤：\n1. 发现无人陪伴儿童（如难民中的儿童）。\n2. 蹲下与儿童保持同一视线水平，以降低威胁感。\n3. 用平静、友善的语气说话，建立信任。\n4. 询问儿童的家庭信息，例如兄弟姐妹的姓名。\n5. 留在儿童身边，帮助其联系可信赖的家庭追踪或儿童保护组织，为其安排安全住所直至家庭团聚。\n示例对话：\n工作者：Adam，我们必须和那边的人谈谈，他们可以帮助找到你的妹妹或其他家人。我会陪你一起去找他们。\n注意：确保组织是正规且信誉良好的。",
+    "source_reference": "世界卫生组织等 (2011). Psychological first aid: Guide for field workers. 第5章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "无人陪伴儿童",
+      "unaccompanied child",
+      "心理急救",
+      "psychological first aid",
+      "家庭追踪",
+      "family tracing",
+      "儿童保护",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_3"
+    ],
+    "applicability": "适用于灾难、冲突或难民危机中发现无人陪伴儿童时。",
+    "contraindications": "若无可信赖的家庭追踪组织，应优先联系当地儿童保护机构。",
+    "dialogue_example": "工作者：Adam，重要的是我们要和那边的人谈谈，他们可以帮你找到你的妹妹或其他家人。我会陪你一起去找他们。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954357"
+  },
+  {
+    "id": "kb_crisis_intervention_67ef463d",
+    "title": "事故现场心理急救快速评估",
+    "summary": "在事故现场，心理急救员需保持冷静，快速评估安全、自身风险，并优先处理严重伤员的医疗需求。",
+    "content": "在前往事故现场时，心理急救员应进行以下快速评估：\n1. **安全评估**：考虑是否存在对自身或他人的安全威胁（如二次事故、危险物品等）。\n2. **自身状态**：保持冷静，避免恐慌影响判断。\n3. **紧急需求识别**：确定最紧迫的需求，例如重伤员的医疗救助，并立即呼叫急救服务。\n4. **情境应对**：评估如何整体应对现场，包括安抚家属和疏导围观者。\n注意：只有在确保安全的前提下才能提供心理急救，否则应等待专业救援。",
+    "source_reference": "世界卫生组织等 (2011). Psychological first aid: Guide for field workers. 第5章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "事故",
+      "accident",
+      "心理急救",
+      "psychological first aid",
+      "安全评估",
+      "safety assessment",
+      "危机干预",
+      "crisis intervention"
+    ],
+    "related_risk_levels": [
+      "level_3"
+    ],
+    "applicability": "适用于交通事故等突发事件现场的初始心理急救响应。",
+    "contraindications": "若现场危险未排除（如漏油、坍塌风险），应优先撤离，不进行心理急救。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954360"
+  },
+  {
+    "id": "kb_crisis_intervention_af1c6c00",
+    "title": "医疗紧急情况下的心理急救",
+    "summary": "在医疗紧急事件中，心理急救（PFA）提供者需确保现场安全、呼叫救护车、管理交通、不移动伤者、检查所有受影响人员，并给予平静温暖的安慰。",
+    "content": "## 核心概念\n心理急救（Psychological First Aid, PFA）是一种在危机事件后为受影响人群提供即时心理支持的方法。在医疗紧急情况下，PFA提供者的首要任务是确保安全并协调医疗援助，然后以尊重和共情的方式与伤者及家属沟通。\n\n## 操作步骤\n1. **扫视安全**：接近现场前确认环境安全（如繁忙公路上的交通风险）。\n2. **呼叫急救**：询问是否有人呼叫救护车，若无则指挥旁观者立即呼叫。\n3. **管理现场**：要求旁观者协助疏导交通，确保伤者与救援人员的安全。\n4. **避免移动伤者**：若怀疑脊柱损伤，明确禁止移动伤者，等待专业救护人员。\n5. **提供躯体急救**：若有人受过训练，可对重伤者实施初步躯体急救。检查其他人员（如家属）是否受伤。\n6. **提供PFA**：待伤者得到适当处理后，向家属提供心理急救。\n\n## 关键对话示例\n- “请问有人叫了救护车吗？”（若无）——“请您立刻叫一辆救护车。”\n- 对其他旁观者：“我们需要疏导交通，你们能帮忙吗？”\n- 对试图移动伤者的人：“请不要移动他！他可能伤了脖子。已经叫了救护车。”\n- 对伤者家属：“我叫______。已经叫了救护车。您和您女儿受伤了吗？”\n- 温和地询问姓名，耐心倾听哭泣与担忧。\n\n## 注意事项\n- 若自身非专业人员，勿随意进行躯体急救，只需确保已呼叫专业医护。\n- 关注儿童目击者（如文中女儿），确保其母亲能照顾和安慰她。\n- 保持声音平静温暖，避免被家属的剧烈情绪冲垮。\n- 现场需有相对安全和安静的空间以进行PFA。",
+    "source_reference": "世界卫生组织 (2011). 心理急救：现场工作者指南. 日内瓦: WHO. 第5章.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "医疗紧急情况",
+      "medical emergency",
+      "危机干预",
+      "crisis intervention",
+      "现场救护",
+      "急性应激",
+      "急救步骤"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于医疗紧急事件（如交通事故）中，对伤者及其家属进行初步心理支持，尤其是在急救人员到达前的现场管理。",
+    "contraindications": "若现场环境仍然危险（如持续交通威胁、火灾等），或施救者自身未受过安全训练，不应贸然介入，应先确保自身和他人安全。",
+    "dialogue_example": "用户：在车祸现场，我该如何提供心理急救？\nAgent：首先确保安全，询问是否有人叫了救护车。若无，立即请旁观者呼叫。然后请其他人疏导交通。接近伤者时，如果看到有人要移动他，请阻止：“请不要移动他！他可能伤了脖子。已经叫了救护车。”对家属轻声说：“我叫______。请问您受伤了吗？您叫什么名字？”耐心倾听，保持平静温暖。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954365"
+  },
+  {
+    "id": "kb_crisis_intervention_e874098e",
+    "title": "心理急救中的家庭支持与儿童关怀",
+    "summary": "在危机事件中，心理急救人员应快速评估安全、呼叫急救、防止二次伤害，同时尊重和温暖地沟通，特别关注儿童的需求，帮助安排照顾并保持家庭团聚，以减轻应激反应。",
+    "content": "### 核心概念\n心理急救（Psychological First Aid, PFA）是针对危机事件后受影响的个人和家庭提供的即时心理支持。本示例展示了在丈夫受伤的危机情境中，如何支持妻子和女儿，重点关注家庭整体福祉和儿童的特殊需求。\n\n### 关键步骤\n1. **安全评估**：快速扫描现场确保安全，识别严重受伤者，立即呼叫救护车（防止移动伤者造成二次伤害）。\n2. **建立连接**：以尊重和温暖的方式与受害者沟通，自我介绍，表达陪伴意愿。\n3. **关注儿童**：直接与儿童交流，降低视线至其水平，温和询问名字，关注其情绪和行为反应（如沉默）。\n4. **评估需求**：询问家庭当前最迫切的需求和担忧，引导母亲关注女儿的心理状态。\n5. **安排照顾**：帮助母亲联系可靠亲友（如姐妹）照顾女儿，避免儿童独处。\n6. **保持团聚**：协调医院安排，尽量让家庭成员在一起，减少分离焦虑。\n7. **后续建议**：如果儿童出现持续症状（如沉默），建议就医检查。\n\n### 注意事项\n- 保持冷静、非侵入性的态度。\n- 语言简洁、温暖，适合儿童理解。\n- 尊重文化背景和个人意愿。\n- 不要强迫对话，允许沉默。",
+    "source_reference": "世界卫生组织 (2011). 心理急救：现场工作指南. 日内瓦：世界卫生组织. 第51页.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "Psychological First Aid",
+      "PFA",
+      "危机干预",
+      "家庭支持",
+      "儿童关怀",
+      "安全评估",
+      "沟通技巧",
+      "应激反应"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于危机事件（如事故、灾害、暴力等）发生后，需要为受影响的家庭成员（特别是儿童）提供即时心理支持的情境。",
+    "contraindications": "当现场存在持续安全威胁（如正在发生的暴力）或需要立即医疗救助时，应优先处理安全与医疗问题。",
+    "dialogue_example": "您：Hanna，我知道您很害怕。已经叫了救护车来帮助您的丈夫。我会留在这里陪您。您和您的女儿现在有其他需要或担忧吗？\n妻子：我女儿没事吧？\n您：您的女儿似乎没有受伤。您能告诉我她的名字，这样我可以和她说话吗？\n妻子：这是Sarah。\n您（蹲下，平视儿童）：你好Sarah，我叫__，我来帮助你和妈妈。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954369"
+  },
+  {
+    "id": "kb_crisis_intervention_ff7e6c3a",
+    "title": "心理急救(PFA)定义与核心原则",
+    "summary": "心理急救(PFA)是对遭受痛苦、可能需要支持的个体提供的人道、支持性回应。负责任地提供PFA需尊重安全、尊严与权利，适应文化，了解其他应急措施，并照顾好自己。",
+    "content": "## 核心概念\n心理急救（Psychological First Aid, PFA）描述了一种对人道主义的、支持性的回应，针对正在遭受痛苦并可能需要支持的同胞。\n\n## 负责任地提供PFA意味着：\n1. **尊重安全、尊严和权利**。\n2. **调整你的行动**，考虑当事人的文化。\n3. **了解其他应急响应措施**。\n4. **照顾好自己**。\n\n## 准备\n- 了解危机事件。\n- 了解可用的服务和支持。\n- 了解安全与安保问题。\n\n## 行动原则：LOOK, LISTEN, LINK\n- **LOOK**：检查安全，检查有明显紧急基本需求的人，检查有严重痛苦反应的人。\n- **LISTEN**：接近可能需要支持的人，询问他们的需求和担忧，倾听并帮助他们平静下来。\n- **LINK**：帮助人们满足基本需求和获取服务，帮助应对问题，提供信息，将人们与亲人和社交支持联系起来。\n\n## 伦理指南\n- 诚实可信。\n- 尊重人们自己做决定的权利。\n- 意识到并搁置自己的偏见和成见。\n- 尊重隐私，适当保密。\n- 行为适当，考虑文化、年龄和性别。\n- 不要利用关系，不要索要钱财或好处，不要虚假承诺。\n- 明确告知即使现在拒绝帮助，将来仍可获得帮助。",
+    "source_reference": "世界卫生组织 (WHO). Psychological first aid: Guide for field workers; Psychological first aid: Pocket guide.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "危机干预",
+      "灾难响应",
+      "伦理",
+      "支持性回应",
+      "行动原则"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于灾难、危机事件后的现场心理支持，为遭受痛苦或需要支持的个体提供初步帮助。",
+    "contraindications": "不适用于需要紧急医疗救助或严重精神障碍急性发作的个体，此类情况需优先转介专业服务。",
+    "dialogue_example": "助手：你好，我是心理急救志愿者。我看到你刚刚经历了这场地震，你现在感觉怎么样？有什么我可以帮你的吗？\n受访者：我很害怕，不知道家人怎么样了。\n助手：我理解你的担心。我们先确保你安全，然后一起想办法联系家人。你能告诉我你的家人名字吗？我可以帮你查询信息。",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954374"
+  },
+  {
+    "id": "kb_crisis_intervention_15a708ed",
+    "title": "PFA行动原则:LOOK LISTEN LINK",
+    "summary": "PFA的三大核心行动原则：LOOK（观察安全、紧急需求和严重痛苦者）、LISTEN（接近、询问、倾听、安抚）、LINK（满足基本需求、提供信息、连接亲人和社会支持）。",
+    "content": "## PFA行动原则\n\n### LOOK（观察）\n- 检查安全：评估环境是否有持续危险。\n- 检查有明显紧急基本需求的人：如受伤、缺水、暴露等。\n- 检查有严重痛苦反应的人：如惊恐、木僵、极度悲伤。\n\n### LISTEN（倾听）\n- 接近可能需要支持的人，主动询问。\n- 询问人们的需要和担忧。\n- 倾听他们，并帮助他们平静下来。\n\n### LINK（连接）\n- 帮助人们满足基本需求和获取服务（如食物、水、医疗）。\n- 帮助人们应对问题。\n- 提供信息（如服务地点、家人情况）。\n- 将人们与亲人和社会支持联系起来。\n\n## 准备\n- 了解危机事件。\n- 了解可用的服务和支持。\n- 了解安全与安保问题。\n\n这些原则应灵活适应当地文化。",
+    "source_reference": "世界卫生组织 (WHO). Psychological first aid: Guide for field workers; Psychological first aid: Pocket guide.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "PFA",
+      "行动原则",
+      "观察",
+      "倾听",
+      "连接",
+      "危机干预",
+      "灾难心理援助"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "用于指导危机现场心理急救人员按步骤提供支持，适用于灾后或突发事件现场。",
+    "contraindications": "不适用于需要长期心理治疗或严重精神障碍的个体，需转介专业机构。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954377"
+  },
+  {
+    "id": "kb_crisis_intervention_eaaf52f6",
+    "title": "PFA伦理原则与操守",
+    "summary": "心理急救的伦理准则：诚实守信、尊重自主、搁置偏见、保护隐私、行为恰当、避免剥削、不作虚假承诺，并明确告知未来仍可求助。",
+    "content": "## 伦理原则\n\n提供心理急救时应遵循伦理准则，以避免对当事人造成进一步伤害，提供最佳关怀，并仅以最佳利益行事。以最合适和舒适的方式提供帮助。考虑这些伦理准则在自身文化背景下的含义。\n\n### 具体准则\n1. **诚实可信**：不利用关系，不索要钱财或好处，不作虚假承诺。\n2. **尊重人们自己做决定的权利**：明确告知即使现在拒绝帮助，将来仍可获取帮助。\n3. **意识到并搁置自己的偏见和成见**。\n4. **尊重隐私，适当保密**：不泄露当事人故事。\n5. **行为适当，考虑当事人的文化、年龄和性别**。\n\n### 注意\n- 作为帮助者，不要利用关系。\n- 不索要钱财或好处作为帮助的回报。\n- 不作虚假承诺。\n- 如果适当，尊重隐私并保密。",
+    "source_reference": "世界卫生组织 (WHO). Psychological first aid: Guide for field workers; Psychological first aid: Pocket guide.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "伦理",
+      "操守",
+      "保密",
+      "尊重",
+      "文化敏感",
+      "危机干预"
+    ],
+    "related_risk_levels": [
+      "level_1",
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于所有心理急救场景，指导帮助者行为，确保不伤害、尊重当事人。",
+    "contraindications": "无特殊禁忌，但应灵活应用于不同文化背景。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954381"
+  },
+  {
+    "id": "kb_crisis_intervention_75ae8b07",
+    "title": "心理急救中的禁忌行为",
+    "summary": "在提供心理急救（PFA）时，应避免提供虚假信息、夸大技能、强迫帮助、打听隐私、分享故事或评判他人，以免造成二次伤害。",
+    "content": "心理急救（Psychological First Aid, PFA）的提供者应遵守以下禁忌行为，以确保援助安全有效：\n\n- **不要提供虚假信息**：避免夸大或编造信息，保持诚实和透明。\n- **不要夸大自己的技能**：实事求是地说明自己的能力范围。\n- **不要强迫帮助他人**：避免侵入性或强推的行为，尊重对方的自主权。\n- **不要逼迫他人讲述经历**：让对方自愿分享，避免施加压力。\n- **不要将他人的故事告诉别人**：保护隐私，除必要情况外不透露信息。\n- **不要评判他人的行为或感受**：保持非评判性态度，接纳对方的反应。\n\n这些指导原则旨在维护受助者的尊严和安全感，是PFA实施中的基本伦理要求。",
+    "source_reference": "International Federation of the Red Cross (2009). Module 5: Psychological First Aid and Supportive Communication. In: Community-Based Psychosocial Support, A Training Kit. Denmark: International Federation Reference Centre for Psychosocial Support.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "禁忌",
+      "伦理",
+      "crisis intervention",
+      "支持性沟通"
+    ],
+    "related_risk_levels": [
+      "level_0",
+      "level_1",
+      "level_2"
+    ],
+    "applicability": "适用于所有提供心理急救的场景，包括灾难、事故、暴力事件等紧急情况。",
+    "contraindications": "不适用于需要立即紧急医疗救助或生命支持的情况。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954384"
+  },
+  {
+    "id": "kb_crisis_intervention_2f21828a",
+    "title": "需要更高级心理急救支持的指征",
+    "summary": "当受助者存在生命威胁、无法自理、有自伤或伤人风险时，需立即转介专业医疗或心理支持，超出PFA范畴。",
+    "content": "心理急救（PFA）并非适用于所有人。以下情况需要更高级或更紧急的支持，而非单纯PFA：\n\n- **严重危及生命的伤害**：需要紧急医疗处置。\n- **情绪极度失控，无法照顾自己或孩子**：需要专业心理或医疗干预。\n- **可能伤害自己**：自伤风险需立即评估和干预。\n- **可能伤害他人**：攻击性风险需安全管理和危机干预。\n\n援助者应认清自身能力边界，及时请求医疗或其他专业援助，以挽救生命或防止进一步伤害。",
+    "source_reference": "International Federation of the Red Cross (2009). Module 5: Psychological First Aid and Supportive Communication. In: Community-Based Psychosocial Support, A Training Kit. Denmark: International Federation Reference Centre for Psychosocial Support.",
+    "category": "crisis_intervention",
+    "tags": [
+      "心理急救",
+      "psychological first aid",
+      "PFA",
+      "风险识别",
+      "转介",
+      "crisis intervention",
+      "紧急支持"
+    ],
+    "related_risk_levels": [
+      "level_2",
+      "level_3"
+    ],
+    "applicability": "适用于紧急事件中初步评估受助者是否需要更高级别支持的场景。",
+    "contraindications": "不适用于已确定只需PFA的稳定个体。",
+    "dialogue_example": "",
+    "language": "zh",
+    "source_file": "who_pfa_english.pdf",
+    "created_at": "2026-07-20T15:28:28.954387"
+  }
+]
