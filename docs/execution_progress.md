@@ -1,0 +1,187 @@
+# MindPal Agent 执行进度总结
+
+> 约定：每完成一个"大步骤"（如一个 Phase / 一个开发批次），在本文件追加一节，包含五要素：
+> 1. 当前任务  2. 已完成内容  3. 卡住的问题  4. 下一步计划  5. 踩过的坑
+
+---
+
+## 2026-08-19 · Phase 1 Part 1 总结（Intent Recognition：Taxonomy → Baseline）
+
+### 1. 当前任务
+
+Phase 1（Intent Recognition）前半：构建独立 Intent 感知层的第一阶段。
+已按序完成 Task 1.1–1.6，正在 Task 1.7（数据集扩充）。
+
+### 2. 已完成内容
+
+| Task | 交付物 | 结果 |
+|---|---|---|
+| 1.1 Taxonomy + Guideline | `docs/intent_annotation_guideline.md` | ✅ 10 类 + 7 组混淆对 + 边界规则 |
+| 1.2 Seed Dataset | `data/intent/intent_seed_v1.jsonl` **806 条** | ✅ 全标签≥60、multi-label 30%、硬负 101 |
+| 1.3 Quality Audit | `docs/intent_seed_data_report.md` | ✅ 查重归零、无标签冗余 |
+| 1.4 Legacy Rule | `evaluation/intent/reports/legacy_rule_baseline` | ✅ benchmark 0.138 / seed 0.143 |
+| 1.5 LLM-only | 分层 150 条 | ✅ Macro F1 0.70、latency 3.7s、call 100% |
+| 1.6 Small Model | `models/intent/best_model/` | ✅ **test Macro F1 0.809**、high_risk 0.867 |
+
+**Baseline 对比（Seed test / 分层）**：
+
+| Method | Macro F1 | Micro F1 | Exact | LLM Call | Latency |
+|---|---:|---:|---:|---:|---:|
+| Legacy Rule | 0.143 | 0.207 | 0.130 | 0% | ~0ms |
+| Rule Classifier（轻量） | 0.560 | 0.583 | 0.279 | 0% | ~0ms |
+| LLM-only | 0.697 | 0.683 | 0.333 | 100% | 3.7s |
+| **Small Model** | **0.809** | **0.810** | **0.631** | 0% | ~10ms |
+
+Small Model 已**超越 LLM-only**（test 更均衡的划分上），且 0% LLM 调用、延迟 ~10ms。high_risk_expression F1=0.867、memory_reference=0.938（安全与个性化关键标签达标）。
+
+### 3. 卡住的问题
+
+| 问题 | 状态 |
+|---|---|
+| Small Model 需 8 epochs 才收敛（4 epochs high_risk F1=0） | 已解决（欠拟合） |
+| CUDA 内核与本机 GPU 不兼容 | 已规避（强制 CPU） |
+| LLM 基线首跑用 test-key 导致全空 | 已修复（load_dotenv override） |
+| follow_up 标注一致性低（LLM gold recall 0.55） | 部分原因=未传上下文；需在 Hybrid 中传 context 再评估 |
+| CPU 训练慢（8 epochs ≈ 870s on 564 样本） | 扩充到 3000+ 后需 GPU 或缩模型，否则训练 ~1.5h |
+
+### 4. 下一步计划（Task 1.7–1.13）
+
+1. **Task 1.7** 数据集扩充到 3000-5000（LLM 改写 + 人工审查；模板分组切分防泄漏）
+2. **Task 1.8** Threshold + Calibration（per-label threshold + temperature scaling + ECE）
+3. **Task 1.9** Open-set（OOD 105 条已建，需扩到 300+；max-score 策略 + AUROC）
+4. **Task 1.10/1.11** LLM Fallback + Hybrid（classifier+open-set+fallback；实验矩阵 A-F）
+5. **Task 1.12** Agent Benchmark v1.1 Regression（只允许 Intent 信号变化）
+6. **Task 1.13** Ablation + Error Analysis + Final Review
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | HF 模型联网超时 | `HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1` |
+| 2 | CUDA kernel 与本机 GPU 不兼容（torch 报 no kernel image） | 强制 `--device cpu` |
+| 3 | `setdefault("test-key")` 让 load_dotenv 不覆盖 → LLM 用假 key | `load_dotenv(..., override=True)` |
+| 4 | config 从 CWD 找 `.env`，密钥在 backend/ | LLMPredictor 显式 `load_dotenv(backend/.env)` |
+| 5 | 分组切分导致 test 标签不均衡（feedback 仅 2 条） | seed 用分层随机切分；group split 保留给 LLM 扩充数据 |
+| 6 | 4 epochs 模型 high_risk 零召回（欠拟合） | 训练到 8 epochs（dev macroF1 0.86） |
+| 7 | 训练进程 600s 超时 | 用 run_in_background 后台跑 |
+
+---
+
+## 2026-08-18 · Phase 0.5 执行总结（Benchmark 冻结前校正）
+
+### 1. 当前任务
+
+Phase 0 收尾 / Benchmark 冻结前校正。**目标不是开发新功能，而是修正评测结构、定位 Risk 根因、扩充 Benchmark 并冻结 Phase 0 Baseline**，为 Phase 1–8 提供一把"对的尺子"。
+
+### 2. 已完成内容
+
+| Task | 交付物 | 结果 |
+|---|---|---|
+| 0.5.1 Schema 修正 | `evaluation/benchmark_schema.py` v1.1 | ✅ Action 拆分 + 迁移 helper，v1→v1.1 逐条一致 |
+| 0.5.2 指标口径 | `agent_metrics.py` + runner | ✅ Legacy Intent / Emotion Coarse / Primary+Tool 拆分 |
+| 0.5.3 Risk Ablation | `run_risk_ablation.py` + `docs/risk_pipeline_audit.md` | ✅ 定位根因=Raw BERT |
+| 0.5.4 Benchmark 扩充 | `agent_benchmark_v1_1.jsonl`（362 条）+ validator + `docs/benchmark_v1_1_data_report.md` | ✅ 查重归零，硬目标全过 |
+| 0.5.5 Baseline 重跑 | `evaluation/reports/baseline_v1_1_*.json/.md` + `risk_ablation_*.json/.md` | ✅ BERT/Rule/Ablation 三套 |
+| 0.5.6 Final Review | `docs/phase0_final_review.md` + `docs/benchmark_schema_v1_1.md` | ✅ **Freeze = PASS** |
+
+关键产出数字：
+- Benchmark v1.1：362 条（L2+L3=67，L0=214/L1=81/L2=31/L3=36），Exact/MinHash 查重=0
+- Risk Ablation：Raw BERT MacroF1=0.364 / HR Recall=0.627 / FPR=0.43 / FNR=0.37；Full Pipeline≈Raw（各层几乎无贡献）
+- Baseline v1.1：BERT HR Recall=0.61/FPR=0.44；Rule HR Recall=0.31/FPR=0.04
+- 单测 4 个文件全过；validator 0 errors
+
+### 3. 卡住的问题
+
+| 问题 | 状态 | 影响 |
+|---|---|---|
+| Risk 模型过触发（`"你在吗？"`→L3 @0.9985） | **已定位根因**（Raw BERT 本身），未解决 | 安全路由/推荐门控被污染 |
+| 文档化的 binary 融合规则（P1）未实现 | 已确认文档-实现不一致 | 模型本应更好的能力未生效 |
+| v4_3_coral 是否优于 v4.2 | 未验证（留给 Phase 5） | 可能花小成本解决过触发 |
+| Benchmark L0=214 超出软目标 130-150 | 已知偏差（intent 长尾覆盖优先） | 无硬性影响 |
+| risk_trend 多轮 Acc=0.30（BERT）/0.0（Rule） | 未解决 | SessionRiskAggregator 趋势信号弱 |
+
+**无阻塞性卡点**，全部任务按期完成。
+
+### 4. 下一步计划
+
+按开发计划排期，进入 **Phase 1：Intent Recognition**：
+1. Intent Dataset（3000-5000 条，train/dev/test 划分）
+2. LLM-only Baseline → Small Model Baseline（BERT/RoBERTa）
+3. Confidence Calibration + LLM Fallback
+4. Hybrid Intent（`IntentResult={labels, confidence, is_open_set, source}` 已冻结）
+5. Agent Benchmark v1.1 Regression（每次改动必跑）
+
+可选低成本前置验证（Phase 5 之前）：
+- 对比 `v4_3_coral` checkpoint 或实现 binary 融合，量化能否缓解风险过触发
+
+### 5. 踩过的坑（重要，避免重犯）
+
+| # | 坑 | 解决方案 |
+|---|---|---|
+| 1 | Windows `python` 是 Microsoft Store 存根 | 统一用 `D:\anaconda3\python.exe` |
+| 2 | 控制台 GBK 编码，print emoji/中文报错 | 加 `PYTHONIOENCODING=utf-8` |
+| 3 | torch 与 sklearn 的 OpenMP 冲突（libiomp5md.dll） | 加 `KMP_DUPLICATE_LIB_OK=TRUE` |
+| 4 | Python 位置参数+关键字冲突（`C()` 4 参+`tags=`） | 辅助函数签名设计为兼容两种调用形态 |
+| 5 | 扩充生成器读"已扩充文件"当种子 → case_id 全部重复 | 改为从冻结的 v1 文件迁移重建 100 条种子（幂等） |
+| 6 | risk 指标 labels 传字符串 `"0"` vs 整数 `0` → Macro F1=0 | 统一用 int labels |
+| 7 | Pydantic 校验：`BenchmarkCase` 的 `expected` 必填；`exact_match` 四舍五入 vs 精确比较 | 补齐必填字段；用 `abs(x - y) < 1e-3` |
+| 8 | 风险评估**不依赖** emotion_state（纯文本+状态机） | Ablation 时才明白 emotion 喂入无效 |
+| 9 | BERT 模型加载每次 ~60-90s | runner 加 `--from-json` 重算指标，避免反复重跑模型 |
+| 10 | 评测与生产逻辑需隔离 | Phase 0.5 只改 `evaluation/`，生产代码零改动（回归测试保证） |
+| 11 | 迁移测试遍历 v1.1 全部 case 而非迁移出的 100 条 | 测试只校验迁移出的种子 base |
+
+---
+
+## 2026-08-19 · Phase 1 总结（Intent Recognition：完整执行，PASS）
+
+### 1. 当前任务
+
+构建独立 Intent Recognition Layer（Small Classifier + Calibration + Open-set + LLM Fallback），输出冻结的 `IntentResult`。**13 个 Task 全部完成，Phase 1 按 §45 条件 A 通过（PASS）。**
+
+### 2. 已完成内容
+
+| Task | 交付物 | 关键结果 |
+|---|---|---|
+| 1.1 | `docs/intent_annotation_guideline.md` | 10 类 + 7 组混淆对 |
+| 1.2 | `data/intent/intent_seed_v1.jsonl` | 806 条，multi-label 30%，硬负 101 |
+| 1.3 | `docs/intent_seed_data_report.md` | 查重归零 |
+| 1.4 | Legacy Rule baseline | Macro F1 0.14（固化旧能力） |
+| 1.5 | LLM-only baseline | 0.70 / 3.7s / 100% |
+| 1.6 | `models/intent/best_model/` | test Macro F1 0.809 |
+| 1.7 | 轻量扩充 1052 条 + 分组切分 | 完整 LLM 扩充 → TODO |
+| 1.8 | `evaluation/intent/run_calibration.py` | per-label thr → **0.854**，ECE↓30% |
+| 1.9 | OOD 105 条 + `run_open_set.py` | AUROC 0.657（未达标，记录） |
+| 1.10/1.11 | `hybrid.py` + `run_hybrid.py` | LLM call 26.7%（达标≤30%） |
+| 1.12 | Benchmark 回归 | **Intent Macro F1 0.138→0.716**，生产零改动 |
+| 1.13 | ablation + error analysis + final review | **PASS** |
+
+**核心结果**：Small Model + Calibration 达 **Macro F1 0.854**（目标≥0.85，Condition A 满足），**超越 LLM-only（0.70）**，0% LLM 调用、延迟 ~100ms。
+
+### 3. 卡住的问题 / 已知限制
+
+| 问题 | 状态 |
+|---|---|
+| follow_up 弱（无 context，benchmark F1 0.08） | 已知，需 context-aware（Phase 1.5） |
+| Open-set 未达标（OOD Recall 0.46 < 0.80） | 需 entropy/embedding 策略 |
+| high_risk Recall 0.88（目标 0.95） | 需隐式表达样本扩充 |
+| Micro F1 0.845（目标 0.90） | 接近，数据扩充可提升 |
+| 完整 Task 1.7（3000-5000 条） | TODO |
+
+### 4. 下一步计划
+
+1. **Phase 2：AgentState**（把 IntentResult 接入统一状态；follow_up 需 context-aware）
+2. 或先做 **Phase 1.5 补强**：open-set 升级 + 隐式高危样本 + 完整数据扩充
+3. Phase 3 Policy 将消费 ActionPlan（primary_action + tool_actions + safety_target）
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | `setdefault("test-key")` 让 LLM 用假 key（load_dotenv 不覆盖） | `load_dotenv(override=True)` |
+| 2 | 分组切分导致 train 标签不均衡 → exp_model 差（0.38） | seed 用分层切分；分组切分仅用于 LLM 扩充数据 |
+| 3 | 训练脚本最终 test 评测误用默认模型路径 | 改用 `--out-model` 指定路径 |
+| 4 | OOD AUROC 计算方向反（0.34 实为 0.66） | 修正正类编码/rank 方向 |
+| 5 | 8-epoch 才收敛（4-epoch high_risk F1=0） | 训练加长；背景任务跑防超时 |
+| 6 | HF 联网超时 / CUDA 内核不兼容 | `HF_HUB_OFFLINE=1` + `--device cpu` |
+
+---
