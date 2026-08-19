@@ -16,6 +16,7 @@ from emotion_analyzer import emotion_analyzer
 from risk_evaluator import risk_evaluator
 from risk_memory import RiskMemoryReader, RiskMemoryWriter
 from recommend_gate import recommend_gate
+from content_recommender import content_recommender
 from output_safety_checker import output_safety_checker
 from recommendation_trace import TraceEvent, write_trace
 from rejection_detector import detect_rejection
