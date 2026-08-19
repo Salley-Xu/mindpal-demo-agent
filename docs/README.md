@@ -30,15 +30,13 @@
 | [benchmark_v1_1_data_report.md](benchmark_v1_1_data_report.md) | Benchmark v1.1 数据审计（362 条，查重归零） |
 | [baseline_report.md](baseline_report.md) | 系统级 Baseline 报告（含 v1.1 更新主表） |
 | [risk_pipeline_audit.md](risk_pipeline_audit.md) | **Risk 根因审计**：Ablation 定位 = Raw BERT 本身 |
-| `evaluation/docs/benchmark_schema.md` | Schema v1（历史，被 v1.1 取代） |
 
 ## 4. Phase 评审（决策结论）
 
 | 文档 | 结论 |
 |---|---|
 | [phase0_final_review.md](phase0_final_review.md) | Benchmark v1.1 **冻结 PASS**；Risk 根因 = Raw BERT（情况 B） |
-| [phase1_final_review.md](phase1_final_review.md) | Intent Layer 建立 **PASS**（Macro 0.854） |
-| [phase1_5_final_review.md](phase1_5_final_review.md) | **Intent Layer 正式冻结 PASS（有条件）** |
+| [phase1_5_final_review.md](phase1_5_final_review.md) | **Intent Layer 正式冻结 PASS（有条件）**（含 Phase 1 汇总） |
 
 ## 5. Intent 模块（Phase 1 / 1.5）
 
@@ -46,18 +44,14 @@
 | 文档 | 说明 |
 |---|---|
 | [intent_annotation_guideline.md](intent_annotation_guideline.md) | **标注指南**：10 类 + 7 组混淆对 + 边界规则 |
-| [intent_seed_data_report.md](intent_seed_data_report.md) | Seed 数据审计（806 条） |
-| [intent_dataset_report.md](intent_dataset_report.md) | Phase 1 数据集报告（轻量扩充 1052 条） |
-| [phase1_5_dataset_report.md](phase1_5_dataset_report.md) | Phase 1.5 数据集报告（951 条 + 独立测试 535 + Uncertainty 65） |
+| [phase1_5_dataset_report.md](phase1_5_dataset_report.md) | 数据集报告（seed 951 条 + 独立测试 535 + Uncertainty 65） |
 
 ### 实验与分析
 | 文档 | 说明 |
 |---|---|
-| [phase1_ablation_report.md](phase1_ablation_report.md) | Phase 1 Ablation（Legacy/LLM/Small/Calibration/Hybrid） |
-| [phase1_intent_error_analysis.md](phase1_intent_error_analysis.md) | Phase 1 错误分析（I03/I04/I09） |
 | [phase1_5_context_ablation.md](phase1_5_context_ablation.md) | **Context-aware Ablation**（+1 turn 最优） |
 | [phase1_5_unified_evaluation.md](phase1_5_unified_evaluation.md) | **统一评测**：独立测试 535 条上 6 方法对比 |
-| [phase1_5_error_analysis.md](phase1_5_error_analysis.md) | Phase 1.5 错误分析（C03/C04/C05） |
+| [phase1_5_error_analysis.md](phase1_5_error_analysis.md) | 错误分析（C03/C04/C05） |
 
 ## 6. 执行进度
 

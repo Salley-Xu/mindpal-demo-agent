@@ -18,7 +18,7 @@ Phase 1（Intent Recognition）前半：构建独立 Intent 感知层的第一�
 |---|---|---|
 | 1.1 Taxonomy + Guideline | `docs/intent_annotation_guideline.md` | ✅ 10 类 + 7 组混淆对 + 边界规则 |
 | 1.2 Seed Dataset | `data/intent/intent_seed_v1.jsonl` **806 条** | ✅ 全标签≥60、multi-label 30%、硬负 101 |
-| 1.3 Quality Audit | `docs/intent_seed_data_report.md` | ✅ 查重归零、无标签冗余 |
+| 1.3 Quality Audit | Seed 质量审计（已并入 `docs/phase1_5_dataset_report.md`） | ✅ 查重归零、无标签冗余 |
 | 1.4 Legacy Rule | `evaluation/intent/reports/legacy_rule_baseline` | ✅ benchmark 0.138 / seed 0.143 |
 | 1.5 LLM-only | 分层 150 条 | ✅ Macro F1 0.70、latency 3.7s、call 100% |
 | 1.6 Small Model | `models/intent/best_model/` | ✅ **test Macro F1 0.809**、high_risk 0.867 |
@@ -144,7 +144,7 @@ Phase 0 收尾 / Benchmark 冻结前校正。**目标不是开发新功能，而
 |---|---|---|
 | 1.1 | `docs/intent_annotation_guideline.md` | 10 类 + 7 组混淆对 |
 | 1.2 | `data/intent/intent_seed_v1.jsonl` | 806 条，multi-label 30%，硬负 101 |
-| 1.3 | `docs/intent_seed_data_report.md` | 查重归零 |
+| 1.3 | Seed 质量审计（已并入 `docs/phase1_5_dataset_report.md`） | 查重归零 |
 | 1.4 | Legacy Rule baseline | Macro F1 0.14（固化旧能力） |
 | 1.5 | LLM-only baseline | 0.70 / 3.7s / 100% |
 | 1.6 | `models/intent/best_model/` | test Macro F1 0.809 |
