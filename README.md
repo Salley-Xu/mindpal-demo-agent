@@ -6,6 +6,17 @@
 
 ---
 
+## 📚 技术文档索引
+
+> 面向 **Agent 算法 / 搜推算法求职** 的技术叙事（Stateful Adaptive Agent 升级全过程）：
+
+- **[docs/README.md](docs/README.md)** — 全部技术文档的整合索引（计划 → 架构 → 评测 → Phase 评审 → Intent → 进度）
+- **评测体系**：Benchmark v1.1 冻结（362 条）· Risk Ablation 根因审计 · Baseline 报告
+- **Intent Recognition**：独立感知层（Macro 0.844 / high_risk Recall 0.873，已冻结）
+- **[docs/execution_progress.md](docs/execution_progress.md)** — 每阶段五要素执行日志（任务/完成/卡点/计划/踩坑）
+
+---
+
 ## ✨ 核心功能
 
 - **💬 智能对话** — ReAct Agent 编排器，LLM Function Calling，6 个心理支持工具
