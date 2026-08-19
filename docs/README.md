@@ -38,6 +38,18 @@
 | [phase0_final_review.md](phase0_final_review.md) | Benchmark v1.1 **冻结 PASS**；Risk 根因 = Raw BERT（情况 B） |
 | [phase1_5_final_review.md](phase1_5_final_review.md) | **Intent Layer 正式冻结 PASS（有条件）**（含 Phase 1 汇总） |
 | [phase2_final_review.md](phase2_final_review.md) | **AgentState v1 冻结 PASS**（Transition Acc 1.0） |
+| [phase3_final_review.md](phase3_final_review.md) | **AgentPolicy v1 冻结 PASS**（Deterministic 全指标达标，Shadow 集成） |
+
+## 4.6 Agent Policy 模块（Phase 3）
+
+| 文档 | 说明 |
+|---|---|
+| [agent_policy_contract_v1.md](agent_policy_contract_v1.md) | **Policy Contract v1（冻结）**：AgentState → PolicyResult → ActionPlan |
+| [legacy_policy_audit.md](legacy_policy_audit.md) | **Legacy 审计**：12 条规则 → ActionPlan 映射 |
+| [policy_invariants_v1.md](policy_invariants_v1.md) | **Policy Invariants v1**：INV-01~11 + Safety precedence |
+| [phase3_policy_design.md](phase3_policy_design.md) | Phase 3 设计：P0 Safety → P1 Deterministic → P3 Ambiguity → P4 LLM |
+| [phase3_policy_ablation.md](phase3_policy_ablation.md) | **Ablation**：Legacy vs Deterministic vs Hybrid（oracle + predicted） |
+| [phase3_policy_error_analysis.md](phase3_policy_error_analysis.md) | **错误分析**：Policy-intrinsic vs Upstream-caused 归因 |
 
 ## 4.5 AgentState 模块（Phase 2）
 

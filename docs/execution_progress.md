@@ -274,3 +274,50 @@ Phase 1 Core 通过后的冻结前收尾：解决 context、泛化、独立评�
 | 3 | risk_trend/stress 未传 inputs → 3 case 不完全匹配 | 补传后 Transition Acc 1.0 |
 | 4 | orchestrator 加钩子要绝对行为保持 | try/except 包裹 + 不碰生产变量 |
 
+
+---
+
+## 2026-08-20 · Phase 3 总结（Hybrid Agent Policy：分层决策引擎，FREEZE）
+
+### 1. 当前任务
+
+把散落在 orchestrator / risk routing / RecommendGate / ReAct 前置逻辑里的决策，
+统一收敛为显式分层决策引擎 `AgentState v1 → AgentPolicy v1 → ActionPlan v1`。
+前置：Phase 3 Preflight（P3-0.1~0.4）PASS → Implementation GO。**13 个 Task 完成，AgentPolicy v1 冻结（PASS）**。
+
+### 2. 已完成内容
+
+| 批次 | 交付物 | 关键结果 |
+|---|---|---|
+| Preflight | `docs/agent_policy_contract_v1.md` / `legacy_policy_audit.md` / `policy_invariants_v1.md` / `backend/policy/legacy_policy_adapter.py` / `current_policy_baseline.md` | 契约+不变量冻结；Frozen Benchmark 回归 after-before=0；content_recommender bug 独立修复 |
+| 3.1-3.6 Policy Core | `backend/policy/{engine,safety,deterministic,ambiguity}.py` | P0 Safety（S01/S02/S03）+ P1 规则（primary/tools/rec）+ P3 Ambiguity |
+| 3.7 Learned | 跳过 | Deterministic 单独达标（§29），不强行加复杂度 |
+| 3.8-3.9 LLM+Hybrid | `llm_fallback.py` + `validator.py` + `hybrid.py` | LLM 永不覆盖 Safety；INV-01~11 校验 |
+| 3.10 Shadow | `policy/shadow.py` + orchestrator hook | legacy vs new ActionPlan 差异记录，行为保持 |
+| 3.11-3.12 Benchmark/Ablation/Error | `run_ablation.py` + `policy_edge_cases_v1.jsonl` + 2 份文档 | oracle-state 全指标达标；感知瓶颈归因 |
+| 3.13 Final Review | `phase3_final_review.md` | **AgentPolicy v1 = FREEZE（PASS）** |
+
+**Oracle-state 指标（Policy 上限）**：Primary 0.9475 / Macro F1 0.874 / Safety Recall 1.0 /
+Safety Target 1.0 / Tool Micro F1 0.868 / Rec Mode 0.887 / Exact 0.782 / LLM rate 1.4% —— **全部达标**。
+
+### 3. 卡住的问题
+
+| 问题 | 状态 |
+|---|---|
+| Predicted-state 端到端 safety recall 低（rule 0.31 / bert 0.61） | **非 Policy 问题**：ablation 证明 Legacy 与 New Policy 指标完全相同 → 感知瓶颈（Raw BERT FNR/FPR），Phase 5 范围 |
+| L2 self 的 rec 语义（safety_only vs none） | 以 benchmark gold 为准改为 none（gold 24/31），且满足 INV-02 |
+
+### 4. 下一步计划
+
+1. **Phase 4：Memory 2.0 重构**（已有长期记忆基础，需统一到 AgentState 消费）
+2. 生产保持 shadow 模式观察 `logs/policy_shadow_trace.jsonl`；端到端指标依赖 Phase 5（Risk 感知修复）
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | `--policy deterministic` 不含 Safety 层 → safety recall 0.0 | 拆 Safety 为独立 P0 层，deterministic ablation = Safety + P1 栈 |
+| 2 | 后台 BERT 任务与前台结果矛盾 | 后台任务启动早于代码编辑（旧 get_policy 无 Safety）；前台重跑确认 |
+| 3 | 极短文本误判含糊 → 把"推荐点书吧"当 ask_clarification | 极短规则要求 intent 为空才触发 |
+| 4 | rule 通道风险关键词漏隐式高风险（"撑不下去了"→L0） | 改用 BERT 通道 + oracle-state 双轨评测，归因为感知 |
+| 5 | ModulePredictor 意图极粗（4 类）→ info/记忆意图永不预测 | oracle-state 提供 Policy 上限；predicted 归因为感知 |

@@ -271,7 +271,7 @@ class AgentOrchestrator:
             # ── Shadow Mode（Phase 2）：旁路构建 AgentState，不影响生产决策 ──
             try:
                 from state.shadow import shadow_runner
-                shadow_runner.run(
+                _shadow_state = shadow_runner.run(
                     user_id=request.user_id,
                     session_id=request.session_id,
                     request_text=request.text,
@@ -284,6 +284,12 @@ class AgentOrchestrator:
                     historical_high_risk_count=historical_high_risk_count,
                     trace_id=run_id,
                 )
+                # ── Shadow Mode（Phase 3）：New Policy 旁路决策，记录与 legacy 的差异 ──
+                try:
+                    from policy.shadow import policy_shadow_runner
+                    policy_shadow_runner.run(_shadow_state)
+                except Exception:
+                    pass  # Policy Shadow 绝不干扰生产逻辑
             except Exception:
                 pass  # Shadow 绝不干扰生产逻辑
 
