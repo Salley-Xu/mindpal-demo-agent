@@ -148,6 +148,42 @@ def test_safety_risk_plus_memory():
     assert ToolAction.RETRIEVE_MEMORY not in r.action_plan.tool_actions
 
 
+# ===== S04: high_risk_intent fallback（Contract A，C3.1）=====
+
+def test_safety_intent_high_risk_low():
+    """Intent 高 / Risk 低冲突 → S04 兜底触发 self safety（Contract A）。"""
+    st = _state("我脑子里全是想死的念头", intent=["high_risk_expression"], risk_level=0,
+                emotion="绝望")
+    r = safety_policy.decide(st)
+    assert r is not None
+    assert r.action_plan.primary_action == PrimaryAction.SAFETY_INTERVENTION
+    assert r.action_plan.safety_target == SafetyTarget.SELF
+    assert "S04" in "".join(r.matched_rules)
+
+
+def test_safety_intent_high_with_safe_denial():
+    """Intent 高但 safe_denial → S04 不触发（INV-11）。"""
+    st = _state("我没有想死", intent=["high_risk_expression"], risk_level=0,
+                emotion="悲伤", risk_ctx={"is_safe_denial": True})
+    r = safety_policy.decide(st)
+    assert r is None or r.action_plan.primary_action != PrimaryAction.SAFETY_INTERVENTION
+
+
+def test_safety_intent_high_with_discussion():
+    """Intent 高但 discussion 语境 → S04 不触发（INV-11）。"""
+    st = _state("电影里的主角想自杀", intent=["high_risk_expression"], risk_level=0,
+                emotion="中性", risk_ctx={"subject": "discussion", "is_discussion_context": True})
+    r = safety_policy.decide(st)
+    assert r is None or r.action_plan.primary_action != PrimaryAction.SAFETY_INTERVENTION
+
+
+def test_safety_intent_high_no_fpr_on_normal():
+    """正常对话不因 intent 误触发 S04。"""
+    st = _state("今天心情不错", intent=["casual_chat"], risk_level=0, emotion="中性")
+    r = safety_policy.decide(st)
+    assert r is None
+
+
 # ===== Deterministic: Primary Action =====
 
 def test_primary_information_response():

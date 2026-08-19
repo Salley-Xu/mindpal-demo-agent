@@ -39,6 +39,7 @@
 | [phase1_5_final_review.md](phase1_5_final_review.md) | **Intent Layer 正式冻结 PASS（有条件）**（含 Phase 1 汇总） |
 | [phase2_final_review.md](phase2_final_review.md) | **AgentState v1 冻结 PASS**（Transition Acc 1.0） |
 | [phase3_final_review.md](phase3_final_review.md) | **AgentPolicy v1 冻结 PASS**（Deterministic 全指标达标，Shadow 集成） |
+| [phase3_final_independent_review.md](phase3_final_independent_review.md) | **AgentPolicy v1 FINAL FREEZE PASS**（独立测试集泛化验证） |
 
 ## 4.6 Agent Policy 模块（Phase 3）
 
@@ -50,6 +51,9 @@
 | [phase3_policy_design.md](phase3_policy_design.md) | Phase 3 设计：P0 Safety → P1 Deterministic → P3 Ambiguity → P4 LLM |
 | [phase3_policy_ablation.md](phase3_policy_ablation.md) | **Ablation**：Legacy vs Deterministic vs Hybrid（oracle + predicted） |
 | [phase3_policy_error_analysis.md](phase3_policy_error_analysis.md) | **错误分析**：Policy-intrinsic vs Upstream-caused 归因 |
+| [phase3_safety_contract_reconciliation.md](phase3_safety_contract_reconciliation.md) | **合同对齐**：high_risk_intent fallback（S04，方案 A） |
+| [phase3_independent_policy_eval.md](phase3_independent_policy_eval.md) | **独立评测**：430 cases 新措辞，全指标 PASS |
+| [phase3_independent_safety_eval.md](phase3_independent_safety_eval.md) | **独立 Safety Slice**：124 cases，Recall 1.0 / FPR 0 |
 
 ## 4.5 AgentState 模块（Phase 2）
 

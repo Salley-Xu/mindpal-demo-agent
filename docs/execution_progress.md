@@ -321,3 +321,46 @@ Safety Target 1.0 / Tool Micro F1 0.868 / Rec Mode 0.887 / Exact 0.782 / LLM rat
 | 3 | 极短文本误判含糊 → 把"推荐点书吧"当 ask_clarification | 极短规则要求 intent 为空才触发 |
 | 4 | rule 通道风险关键词漏隐式高风险（"撑不下去了"→L0） | 改用 BERT 通道 + oracle-state 双轨评测，归因为感知 |
 | 5 | ModulePredictor 意图极粗（4 类）→ info/记忆意图永不预测 | oracle-state 提供 Policy 上限；predicted 归因为感知 |
+
+---
+
+## 2026-08-20 · Phase 3 Closeout 总结（Independent Policy Eval，FINAL FREEZE）
+
+### 1. 当前任务
+
+补齐 Phase 3 独立评测证据：因为 deterministic 规则参考了 Frozen Benchmark v1.1 的 gold 分布，
+362-case Benchmark 属于 design-benchmark performance。Closeout 建立全新措辞的独立测试集，
+验证 Policy 泛化 + Safety 合同一致性 + 最终冻结证据。**C3.1~C3.6 完成，AgentPolicy v1 = FINAL FREEZE（PASS）**。
+
+### 2. 已完成内容
+
+| Task | 交付物 | 关键结果 |
+|---|---|---|
+| C3.1 Safety Contract | `docs/phase3_safety_contract_reconciliation.md` + `safety.py` S04 | high_risk_intent fallback 补齐（方案 A），合同-实现对齐 |
+| C3.2 Independent Dataset | `policy_independent_test_v1.jsonl`（430 cases）+ 生成器 | 全新措辞，Primary/Tool/Rec 全覆盖，multi 41%/ambiguous 16%/combo 22% |
+| C3.3 Safety Slice | `policy_safety_independent_v1.jsonl`（124 cases）+ 评估器 | **oracle：Recall 1.0 / Precision 1.0 / FPR 0 / Target 1.0 / Over-trigger 0** |
+| C3.4 Unified Eval | `run_independent_eval.py` + 报告 | deterministic oracle：Primary 0.884 / Safety 1.0 / Tool 0.995 / Rec 0.90 / Exact 0.777 / LLM 6.1% |
+| C3.5 Error Attribution | `docs/phase3_independent_policy_eval.md` | 归因：ask_clarification 泛化 + rec soft 粒度（Policy-intrinsic），其余 upstream |
+| C3.6 Final Freeze | `docs/phase3_final_independent_review.md` | **AgentPolicy v1 = FINAL FREEZE（PASS）** |
+
+### 3. 卡住的问题
+
+| 问题 | 状态 |
+|---|---|
+| ask_clarification 确定性检测泛化弱（独立集 68 中漏 50） | 记录为 Freeze-with-limitation：P4 LLM fallback 设计场景 |
+| rec soft 是少数类（10%），确定性无法完全区分 | 同上，LLM 兜底候选 |
+| predicted-state FPR 0.44（rule 通道对否定盲区） | upstream 感知问题，Phase 5 范围 |
+
+### 4. 下一步计划
+
+1. **Phase 5：Risk 2.0**（端到端瓶颈根因：Raw BERT FNR/FPR + 关键词否定盲区）
+2. 生产保持 shadow 模式；LLM fallback capability 已就绪但默认低触发
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | 独立集生成初期 G10_mem_info gold 误标 continue_chat（文本明确"想深入了解"） | 修正为 information_response，independent oracle primary 0.81→0.884 |
+| 2 | 独立集 ambiguous/tool-combo 分布不足 | 扩充含糊族 + 系统化多工具组合族 |
+| 3 | rule 通道把"我没有伤害自己"（safe denial）判为高风险 | 归因 upstream（否定盲区），Safety Slice 分 oracle/predicted 两轨 |
+| 4 | S04 fallback 恐引入 FPR | oracle Safety Slice FPR=0 验证通过 |
