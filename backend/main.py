@@ -12,6 +12,7 @@ import uvicorn
 
 from api_endpoints import router
 from application import create_app
+from config import config
 
 # 配置日志
 logging.basicConfig(level=logging.INFO)
@@ -29,4 +30,4 @@ if __name__ == "__main__":
     print("📝 接口文档: http://localhost:8000/docs")
     print("="*60 + "\n")
     
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host=config.HOST, port=config.PORT)

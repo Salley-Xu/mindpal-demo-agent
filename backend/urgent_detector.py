@@ -178,7 +178,8 @@ class UrgentDetector:
         """针对紧急情况生成特殊回应"""
         level = self._normalize_level((urgent_issue or {}).get('level'))
         if is_emergency_risk(level):
-            return await self._generate_urgent_response_async(user_input, urgent_issue)
+            # Level 3 must not depend on network/model latency or availability.
+            return self._get_default_urgent_response()
         elif is_non_low_risk(level):
             return await self._generate_warning_response_async(user_input, urgent_issue)
         return None
@@ -190,34 +191,9 @@ class UrgentDetector:
         conversation_summary: Dict,
     ) -> str:
         """为第三方危机求助生成专门回应。"""
-        prompt = f"""用户正在为他人的风险状态求助："{user_input}"
-
-请生成支持性回应，目标是帮助用户安全地支持对方：
-1. 先肯定用户愿意求助很重要
-2. 明确建议优先确保对方不是一个人，并尽快联系现实中的成年人、家属、老师、辅导员或当地紧急资源
-3. 鼓励用户直接询问对方当前是否安全，是否已经有具体行动计划
-4. 避免把风险当成用户本人
-5. 不提供危险细节
-
-回应要求：
-- 不超过180字
-- 直接、可执行
-- 保持冷静支持
-"""
-        try:
-            response = await self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": "你是一位帮助用户处理第三方心理危机求助的安全支持助手。"},
-                    {"role": "user", "content": prompt},
-                ],
-                temperature=0.3,
-                max_tokens=300,
-            )
-            return response.choices[0].message.content.strip()
-        except Exception as e:
-            logger.error(f"生成第三方危机支持回应失败: {e}")
-            return self._get_default_third_party_support_response()
+        # Third-party crisis guidance is also deterministic: the requester
+        # should receive actionable instructions even when the LLM is down.
+        return self._get_default_third_party_support_response()
     
     async def _generate_urgent_response_async(self, user_input: str, urgent_issue: Dict) -> str:
         """生成紧急情况回应"""

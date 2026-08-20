@@ -136,11 +136,10 @@ class AgentOrchestrator:
             if "user_profile" not in arguments:
                 arguments["user_profile"] = user_profile or {}
 
-        # Inject common context (user_id, session_id) if missing
-        if "user_id" not in arguments:
-            arguments["user_id"] = user_id
-        if "session_id" not in arguments:
-            arguments["session_id"] = session_id
+        # Identity is trusted request context, never model-controlled input.
+        # Overwrite even when a tool call attempts to provide different IDs.
+        arguments["user_id"] = user_id
+        arguments["session_id"] = session_id
 
         tool_result_str = ""
         tool_success = True
@@ -251,7 +250,8 @@ class AgentOrchestrator:
             except Exception:
                 pass
 
-            urgent_issue = risk_evaluator.evaluate(
+            urgent_issue = await asyncio.to_thread(
+                risk_evaluator.evaluate,
                 text=request.text,
                 emotion_state=preliminary_emotion_state,
                 conversation_summary=conversation_summary,
@@ -837,10 +837,10 @@ class AgentOrchestrator:
                 return ""
 
             # 检索知识
-            result = knowledge_store.search(KBQuery(
-                query=query_text,
-                top_k=3,
-            ))
+            result = await asyncio.to_thread(
+                knowledge_store.search,
+                KBQuery(query=query_text, top_k=3),
+            )
             if not result.chunks:
                 return ""
 

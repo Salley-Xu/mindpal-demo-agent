@@ -1,6 +1,7 @@
 # config.py - 配置文件
 import os
-from typing import List
+import json
+from typing import Dict, List
 from dotenv import load_dotenv
 
 # 加载环境变量
@@ -49,6 +50,8 @@ class Config:
 
     # API 安全配置（Bearer Token 认证，空字符串=不启用）
     API_AUTH_TOKEN: str = os.getenv("API_AUTH_TOKEN", "")
+    API_AUTH_REQUIRED: bool = os.getenv("API_AUTH_REQUIRED", "false").lower() == "true"
+    API_USER_TOKENS_JSON: str = os.getenv("API_USER_TOKENS_JSON", "{}")
 
     # 推荐配置（规则 + 画像 + 可选 AI rerank）
     ENABLE_RECOMMEND_AI_RERANK: bool = os.getenv("ENABLE_RECOMMEND_AI_RERANK", "true").lower() == "true"
@@ -107,12 +110,28 @@ class Config:
         """验证配置"""
         if not self.DEEPSEEK_API_KEY:
             raise ValueError("DEEPSEEK_API_KEY 环境变量未设置")
+        try:
+            token_map = self.user_token_map()
+        except (TypeError, ValueError, json.JSONDecodeError) as exc:
+            raise ValueError("API_USER_TOKENS_JSON 必须是 token 到 user_id 的 JSON 对象") from exc
+        if self.API_AUTH_REQUIRED and not self.API_AUTH_TOKEN and not token_map:
+            raise ValueError("API_AUTH_REQUIRED=true 时必须配置 API_AUTH_TOKEN 或 API_USER_TOKENS_JSON")
         
         # 确保必要的目录存在
         os.makedirs(self.LOG_DIR, exist_ok=True)
         os.makedirs(os.path.dirname(self.CONTENT_DB_FILE), exist_ok=True)
         
         return self
+
+    def user_token_map(self) -> Dict[str, str]:
+        parsed = json.loads(self.API_USER_TOKENS_JSON or "{}")
+        if not isinstance(parsed, dict):
+            raise TypeError("API_USER_TOKENS_JSON must be an object")
+        return {
+            str(token): str(user_id)
+            for token, user_id in parsed.items()
+            if str(token) and str(user_id)
+        }
 
 # 创建配置实例
 config = Config().validate()

@@ -7,6 +7,7 @@
 
 import logging
 import re
+import threading
 from typing import Any, Dict, List, Optional
 
 from risk_levels import (
@@ -29,6 +30,8 @@ class RiskEvaluator:
 
     def __init__(self):
         self._predictor = None
+        self._predictor_lock = threading.Lock()
+        self._degraded_reason: Optional[str] = None
         self._session_aggregator = SessionRiskAggregator()
 
     # ---------------------------------------------------------------
@@ -36,23 +39,40 @@ class RiskEvaluator:
     # ---------------------------------------------------------------
     def _get_predictor(self):
         if self._predictor is None:
-            try:
-                from bert_risk_predictor import BertRiskPredictor
-                from config import config
+            with self._predictor_lock:
+                if self._predictor is None:
+                    try:
+                        from bert_risk_predictor import BertRiskPredictor
+                        from config import config
 
-                self._predictor = BertRiskPredictor(
-                    model_path=config.BERT_MODEL_PATH,
-                    device=config.BERT_DEVICE,
-                    binary_threshold=config.BERT_BINARY_THRESHOLD,
-                )
-                logger.info(
-                    "BERT 风险预测器已初始化: path=%s device=%s threshold=%.2f",
-                    config.BERT_MODEL_PATH, config.BERT_DEVICE, config.BERT_BINARY_THRESHOLD,
-                )
-            except Exception as e:
-                logger.error("BERT 风险预测器初始化失败，使用安全降级: %s", e)
-                self._predictor = _FallbackPredictor()
+                        self._predictor = BertRiskPredictor(
+                            model_path=config.BERT_MODEL_PATH,
+                            device=config.BERT_DEVICE,
+                            binary_threshold=config.BERT_BINARY_THRESHOLD,
+                        )
+                        self._degraded_reason = None
+                        logger.info(
+                            "BERT 风险预测器已初始化: path=%s device=%s threshold=%.2f",
+                            config.BERT_MODEL_PATH,
+                            config.BERT_DEVICE,
+                            config.BERT_BINARY_THRESHOLD,
+                        )
+                    except Exception as e:
+                        self._degraded_reason = str(e)
+                        logger.error("BERT 风险预测器初始化失败，启用确定性安全兜底: %s", e)
+                        self._predictor = _FallbackPredictor(self._analyze_context)
         return self._predictor
+
+    def get_status(self) -> Dict[str, Any]:
+        """Return readiness information without forcing the large model to load."""
+        if self._predictor is None:
+            return {"status": "not_loaded", "degraded": False, "reason": None}
+        degraded = isinstance(self._predictor, _FallbackPredictor)
+        return {
+            "status": "degraded" if degraded else "ready",
+            "degraded": degraded,
+            "reason": self._degraded_reason if degraded else None,
+        }
 
     # ---------------------------------------------------------------
     # 公开接口
@@ -74,7 +94,8 @@ class RiskEvaluator:
         """
         summary = conversation_summary or {}
         predictor = self._get_predictor()
-        bert_result = predictor.predict(text)
+        with self._predictor_lock:
+            bert_result = predictor.predict(text)
 
         utterance_level = bert_result["level"]
 
@@ -154,6 +175,7 @@ class RiskEvaluator:
                     "binary_probability": bert_result["binary_probability"],
                     "class_probabilities": bert_result["class_probabilities"],
                     "rule_matched": bert_result["rule_matched"],
+                    "degraded_mode": bool(bert_result.get("degraded_mode", False)),
                 },
             },
             "risk_trend": session_result["risk_trend"],
@@ -247,16 +269,59 @@ class RiskEvaluator:
 
 
 class _FallbackPredictor:
-    """BERT 模型不可用时的安全降级预测器，始终返回 LEVEL_0。"""
+    """Deterministic, fail-safe predictor used when BERT is unavailable."""
+
+    URGENT_KEYWORDS = (
+        "自杀", "不想活了", "结束生命", "想死", "自我了断",
+        "跳楼", "割腕", "服毒", "上吊", "烧炭",
+    )
+    WARNING_KEYWORDS = (
+        "活不下去", "撑不住", "崩溃", "想消失", "没有希望", "想放弃",
+    )
+
+    def __init__(self, context_analyzer):
+        self._context_analyzer = context_analyzer
 
     def predict(self, text: str) -> Dict:
+        text = text or ""
+        context = self._context_analyzer(text)
+        urgent_hits = [token for token in self.URGENT_KEYWORDS if token in text]
+        warning_hits = [token for token in self.WARNING_KEYWORDS if token in text]
+
+        if context.get("is_discussion_context") or context.get("is_safe_denial"):
+            level = LEVEL_0
+            probability = 0.0
+            rule_matched = False
+        elif context.get("is_third_party_risk"):
+            # Preserve the dedicated third-party support route without treating
+            # the requester as the person at immediate risk.
+            level = LEVEL_1 if context.get("is_help_request") and urgent_hits else LEVEL_0
+            probability = 0.35 if level == LEVEL_1 else 0.0
+            rule_matched = bool(urgent_hits)
+        elif urgent_hits:
+            level = LEVEL_3
+            probability = 1.0
+            rule_matched = True
+        elif warning_hits:
+            level = LEVEL_2 if len(warning_hits) >= 2 else LEVEL_1
+            probability = 0.75 if level == LEVEL_2 else 0.4
+            rule_matched = True
+        else:
+            level = LEVEL_0
+            probability = 0.0
+            rule_matched = False
+
+        level_index = risk_level_index(level)
+        probabilities = [0.0, 0.0, 0.0, 0.0]
+        probabilities[level_index] = 1.0
         return {
-            "level": LEVEL_0,
-            "level_4_prediction": 0,
-            "binary_probability": 0.0,
-            "class_probabilities": [0.0, 0.0, 0.0, 0.0],
-            "fusion_source": "fallback",
-            "rule_matched": False,
+            "level": level,
+            "level_4_prediction": level_index,
+            "binary_probability": probability,
+            "class_probabilities": probabilities,
+            "fusion_source": "deterministic_safety_fallback",
+            "rule_matched": rule_matched,
+            "degraded_mode": True,
         }
 
 

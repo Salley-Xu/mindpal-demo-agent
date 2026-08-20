@@ -1,5 +1,5 @@
 # api_endpoints.py - 完整路由版本
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Request
 from typing import Optional
 import logging
 import time
@@ -25,6 +25,8 @@ from utils import validate_user_input
 from agent_orchestrator import agent_orchestrator
 from agent_tools import UserProfileTool
 from risk_levels import is_non_low_risk
+from risk_evaluator import risk_evaluator
+from middleware import authorize_user, require_admin
 
 logger = logging.getLogger(__name__)
 
@@ -63,13 +65,21 @@ async def root():
     }
 
 @router.get("/health")
-async def health_check():
+async def health_check(request: Request):
     """健康检查"""
     from database import adb_manager
     stats = await adb_manager.get_session_statistics()
+    risk_model = risk_evaluator.get_status()
+    scheduler = getattr(request.app.state, "scheduler", None)
+    scheduler_running = bool(scheduler and scheduler.running)
     return {
-        "status": "ok",
+        "status": "degraded" if risk_model["degraded"] else "ok",
         "model": "deepseek-chat",
+        "risk_model": {
+            "status": risk_model["status"],
+            "degraded": risk_model["degraded"],
+        },
+        "scheduler_running": scheduler_running,
         "conversation_manager": "active",
         "session_count": len(conversation_manager.sessions),
         "total_sessions": stats.get("total_sessions", 0),
@@ -80,8 +90,9 @@ async def health_check():
 
 # ==================== 情绪分析API ====================
 @router.post("/emotion/analyze", response_model=EmotionResponse)
-async def analyze_emotion(input_data: TextInput):
+async def analyze_emotion(input_data: TextInput, http_request: Request = None):
     """情绪分析API"""
+    authorize_user(http_request, input_data.user_id)
     if not validate_user_input(input_data.text):
         raise HTTPException(status_code=400, detail="输入文本无效")
     
@@ -128,8 +139,9 @@ async def analyze_emotion(input_data: TextInput):
 
 # ==================== 智能对话API ====================
 @router.post("/chat/intelligent", response_model=ChatResponse)
-async def intelligent_chat(chat_request: ChatRequest):
+async def intelligent_chat(chat_request: ChatRequest, http_request: Request = None):
     """智能对话API(基于 Agent 编排器的轻量封装)"""
+    authorize_user(http_request, chat_request.user_id)
     if not validate_user_input(chat_request.text):
         raise HTTPException(status_code=400, detail="输入文本无效")
 
@@ -150,8 +162,9 @@ async def intelligent_chat(chat_request: ChatRequest):
 
 
 @router.post("/agent/run", response_model=AgentRunResponse)
-async def agent_run(request: AgentRunRequest):
+async def agent_run(request: AgentRunRequest, http_request: Request = None):
     """统一 Agent 入口：返回对话回复 + 可选步骤与工具调用摘要"""
+    authorize_user(http_request, request.user_id)
     if not validate_user_input(request.text):
         raise HTTPException(status_code=400, detail="输入文本无效")
 
@@ -163,8 +176,9 @@ async def agent_run(request: AgentRunRequest):
 
 # ==================== 会话管理API ====================
 @router.get("/session/{user_id}/{session_id}/summary")
-async def get_session_summary(user_id: str, session_id: str):
+async def get_session_summary(user_id: str, session_id: str, request: Request = None):
     """获取会话摘要"""
+    authorize_user(request, user_id)
     session_exists = await conversation_manager.session_exists_async(user_id, session_id)
     if not session_exists:
         raise HTTPException(status_code=404, detail="会话不存在")
@@ -181,8 +195,9 @@ async def get_session_summary(user_id: str, session_id: str):
     }
 
 @router.get("/session/{user_id}/{session_id}/history")
-async def get_session_history(user_id: str, session_id: str, limit: int = 50):
+async def get_session_history(user_id: str, session_id: str, limit: int = 50, request: Request = None):
     """获取会话完整历史记录"""
+    authorize_user(request, user_id)
     session = await conversation_manager.get_or_create_session_async(user_id, session_id)
     
     if not session.get('history'):
@@ -198,8 +213,9 @@ async def get_session_history(user_id: str, session_id: str, limit: int = 50):
     }
 
 @router.get("/session/{user_id}/list")
-async def get_user_sessions(user_id: str, limit: int = 10):
+async def get_user_sessions(user_id: str, limit: int = 10, request: Request = None):
     """获取用户的所有会话列表"""
+    authorize_user(request, user_id)
     from database import adb_manager
     sessions = await adb_manager.get_user_sessions(user_id, limit)
     
@@ -210,8 +226,9 @@ async def get_user_sessions(user_id: str, limit: int = 10):
     }
 
 @router.delete("/session/{user_id}/{session_id}")
-async def clear_session(user_id: str, session_id: str):
+async def clear_session(user_id: str, session_id: str, request: Request = None):
     """清除会话"""
+    authorize_user(request, user_id)
     success = await conversation_manager.delete_session_async(user_id, session_id)
     
     if success:
@@ -221,8 +238,9 @@ async def clear_session(user_id: str, session_id: str):
         raise HTTPException(status_code=404, detail="会话不存在")
 
 @router.post("/session/cleanup")
-async def cleanup_sessions(days: int = 30):
+async def cleanup_sessions(days: int = 30, request: Request = None):
     """清理过期会话（管理员接口）"""
+    require_admin(request)
     if days < 1 or days > 365:
         raise HTTPException(status_code=400, detail="天数必须在1-365之间")
     
@@ -235,8 +253,12 @@ async def cleanup_sessions(days: int = 30):
     }
 
 @router.get("/session/statistics")
-async def get_session_statistics(user_id: Optional[str] = None):
+async def get_session_statistics(user_id: Optional[str] = None, request: Request = None):
     """获取会话统计信息"""
+    if user_id:
+        authorize_user(request, user_id)
+    else:
+        require_admin(request)
     from database import adb_manager
     stats = await adb_manager.get_session_statistics(user_id)
     
@@ -247,8 +269,9 @@ async def get_session_statistics(user_id: Optional[str] = None):
 
 # ==================== 紧急情况管理API ====================
 @router.get("/urgent/cases")
-async def get_recent_urgent_cases(days: int = 1, level: Optional[str] = None):
+async def get_recent_urgent_cases(days: int = 1, level: Optional[str] = None, request: Request = None):
     """获取最近的紧急情况记录"""
+    require_admin(request)
     if days > 30:  # 限制查询天数
         days = 30
     
@@ -288,8 +311,10 @@ async def get_emergency_resources():
 
 # ==================== 内容推荐API ====================
 @router.post("/content/recommend", response_model=ContentRecommendResponse)
-async def recommend_content(request: ContentRecommendRequest):
+async def recommend_content(request: ContentRecommendRequest, http_request: Request = None):
     """个性化内容推荐API"""
+    if request.user_id:
+        authorize_user(http_request, request.user_id)
     try:
         key_concerns = request.key_concerns
         if isinstance(key_concerns, str):
@@ -347,8 +372,9 @@ async def recommend_content(request: ContentRecommendRequest):
 
 
 @router.post("/content/feedback", response_model=RecommendationFeedbackResponse)
-async def submit_recommendation_feedback(request: RecommendationFeedbackRequest):
+async def submit_recommendation_feedback(request: RecommendationFeedbackRequest, http_request: Request = None):
     """记录用户对推荐内容的反馈"""
+    authorize_user(http_request, request.user_id)
     valid_feedback = {"accepted", "preferred", "helpful", "neutral", "rejected", "not_helpful", "avoid"}
     if request.feedback not in valid_feedback:
         raise HTTPException(status_code=400, detail="反馈值无效")

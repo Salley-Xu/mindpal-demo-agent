@@ -9,6 +9,7 @@ Phase 3: 接入混合检索
 
 import json
 import logging
+from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
@@ -32,22 +33,34 @@ class MemoryStore:
     # 连接管理 + 惰性建表
     # ---------------------------------------------------------------
 
-    async def _get_conn(self) -> aiosqlite.Connection:
-        """获取连接，:memory: 模式下复用连接以保持数据。"""
-        if self.db_path == ':memory:' and self._conn is not None:
+    async def _open_conn(self) -> aiosqlite.Connection:
+        """Open and configure a connection; callers own its lifecycle."""
+        if self.db_path == ":memory:" and self._conn is not None:
             return self._conn
-        conn = await aiosqlite.connect(self.db_path)
+        conn = await aiosqlite.connect(self.db_path, timeout=30)
         conn.row_factory = aiosqlite.Row
-        await conn.execute("PRAGMA busy_timeout = 5000")
+        await conn.execute("PRAGMA busy_timeout = 30000")
+        await conn.execute("PRAGMA foreign_keys = ON")
         await self._ensure_tables(conn)
-        if self.db_path == ':memory:':
+        if self.db_path == ":memory:":
             self._conn = conn
         return conn
+
+    @asynccontextmanager
+    async def _connection(self):
+        """Reuse in-memory storage but close every file-backed connection."""
+        conn = await self._open_conn()
+        try:
+            yield conn
+        finally:
+            if self.db_path != ":memory:":
+                await conn.close()
 
     @staticmethod
     async def _ensure_tables(conn: aiosqlite.Connection):
         """确保 memory_items 表存在。"""
-        await conn.execute("""
+        await conn.execute(
+            """
             CREATE TABLE IF NOT EXISTS memory_items (
                 id TEXT PRIMARY KEY,
                 user_id TEXT NOT NULL,
@@ -76,11 +89,20 @@ class MemoryStore:
                 last_accessed_at TIMESTAMP,
                 expires_at TIMESTAMP
             )
-        """)
-        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_type ON memory_items(user_id, memory_type)")
-        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_user_status ON memory_items(user_id, status)")
-        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_created_at ON memory_items(created_at)")
-        await conn.execute("CREATE INDEX IF NOT EXISTS idx_memory_expires_at ON memory_items(expires_at)")
+        """
+        )
+        await conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_memory_user_type ON memory_items(user_id, memory_type)"
+        )
+        await conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_memory_user_status ON memory_items(user_id, status)"
+        )
+        await conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_memory_created_at ON memory_items(created_at)"
+        )
+        await conn.execute(
+            "CREATE INDEX IF NOT EXISTS idx_memory_expires_at ON memory_items(expires_at)"
+        )
         await conn.commit()
 
     async def close(self):
@@ -108,9 +130,9 @@ class MemoryStore:
         if not item.id:
             item.id = generate_memory_id()
         now = datetime.now(timezone.utc).isoformat()
-        conn = await self._get_conn()
-        await conn.execute(
-            """
+        async with self._connection() as conn:
+            await conn.execute(
+                """
             INSERT INTO memory_items (
                 id, user_id, session_id, turn_id, memory_type,
                 content, summary, source_text,
@@ -120,33 +142,49 @@ class MemoryStore:
                 access_count, created_at, updated_at, last_accessed_at, expires_at
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
-            (
-                item.id, item.user_id, item.session_id, item.turn_id, item.memory_type,
-                item.content, item.summary, item.source_text,
-                item.emotion, item.emotion_intensity, item.risk_level, item.stress_source, item.user_intent,
-                item.importance, item.confidence, item.sensitivity,
-                json.dumps(item.tags, ensure_ascii=False),
-                json.dumps(item.metadata, ensure_ascii=False),
-                item.source, item.scope, item.status,
-                item.access_count,
-                now, now, now,
-                item.expires_at.isoformat() if item.expires_at else None,
-            ),
-        )
-        await conn.commit()
+                (
+                    item.id,
+                    item.user_id,
+                    item.session_id,
+                    item.turn_id,
+                    item.memory_type,
+                    item.content,
+                    item.summary,
+                    item.source_text,
+                    item.emotion,
+                    item.emotion_intensity,
+                    item.risk_level,
+                    item.stress_source,
+                    item.user_intent,
+                    item.importance,
+                    item.confidence,
+                    item.sensitivity,
+                    json.dumps(item.tags, ensure_ascii=False),
+                    json.dumps(item.metadata, ensure_ascii=False),
+                    item.source,
+                    item.scope,
+                    item.status,
+                    item.access_count,
+                    now,
+                    now,
+                    now,
+                    item.expires_at.isoformat() if item.expires_at else None,
+                ),
+            )
+            await conn.commit()
         return item.id
 
     async def batch_write(self, items: List[MemoryItem]) -> List[str]:
         """事务写入多条记忆。"""
         ids = []
-        conn = await self._get_conn()
         now = datetime.now(timezone.utc).isoformat()
-        for item in items:
-            if not item.id:
-                item.id = generate_memory_id()
-            ids.append(item.id)
-            await conn.execute(
-                """
+        async with self._connection() as conn:
+            for item in items:
+                if not item.id:
+                    item.id = generate_memory_id()
+                ids.append(item.id)
+                await conn.execute(
+                    """
                 INSERT INTO memory_items (
                     id, user_id, session_id, turn_id, memory_type,
                     content, summary, source_text,
@@ -156,20 +194,36 @@ class MemoryStore:
                     access_count, created_at, updated_at, last_accessed_at, expires_at
                 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (
-                    item.id, item.user_id, item.session_id, item.turn_id, item.memory_type,
-                    item.content, item.summary, item.source_text,
-                    item.emotion, item.emotion_intensity, item.risk_level, item.stress_source, item.user_intent,
-                    item.importance, item.confidence, item.sensitivity,
-                    json.dumps(item.tags, ensure_ascii=False),
-                    json.dumps(item.metadata, ensure_ascii=False),
-                    item.source, item.scope, item.status,
-                    item.access_count,
-                    now, now, now,
-                    item.expires_at.isoformat() if item.expires_at else None,
-                ),
-            )
-        await conn.commit()
+                    (
+                        item.id,
+                        item.user_id,
+                        item.session_id,
+                        item.turn_id,
+                        item.memory_type,
+                        item.content,
+                        item.summary,
+                        item.source_text,
+                        item.emotion,
+                        item.emotion_intensity,
+                        item.risk_level,
+                        item.stress_source,
+                        item.user_intent,
+                        item.importance,
+                        item.confidence,
+                        item.sensitivity,
+                        json.dumps(item.tags, ensure_ascii=False),
+                        json.dumps(item.metadata, ensure_ascii=False),
+                        item.source,
+                        item.scope,
+                        item.status,
+                        item.access_count,
+                        now,
+                        now,
+                        now,
+                        item.expires_at.isoformat() if item.expires_at else None,
+                    ),
+                )
+            await conn.commit()
         return ids
 
     # ---------------------------------------------------------------
@@ -178,19 +232,19 @@ class MemoryStore:
 
     async def get(self, memory_id: str) -> Optional[MemoryItem]:
         """按 ID 获取单条记忆（自动更新 access_count）。"""
-        conn = await self._get_conn()
-        cursor = await conn.execute(
-            "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
-        )
-        row = await cursor.fetchone()
-        if not row:
-            return None
-        await self._touch(conn, memory_id)
-        # 重新读取以获取更新后的 access_count
-        cursor = await conn.execute(
-            "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
-        )
-        row = await cursor.fetchone()
+        async with self._connection() as conn:
+            cursor = await conn.execute(
+                "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
+            )
+            row = await cursor.fetchone()
+            if not row:
+                return None
+            await self._touch(conn, memory_id)
+            # 重新读取以获取更新后的 access_count
+            cursor = await conn.execute(
+                "SELECT * FROM memory_items WHERE id = ?", (memory_id,)
+            )
+            row = await cursor.fetchone()
         return self._row_to_item(row)
 
     async def get_active_items(
@@ -200,29 +254,29 @@ class MemoryStore:
         limit: int = 100,
     ) -> List[MemoryItem]:
         """获取用户 active 状态的记忆条目。"""
-        conn = await self._get_conn()
-        if memory_types:
-            placeholders = ",".join("?" for _ in memory_types)
-            cursor = await conn.execute(
-                f"""
+        async with self._connection() as conn:
+            if memory_types:
+                placeholders = ",".join("?" for _ in memory_types)
+                cursor = await conn.execute(
+                    f"""
                 SELECT * FROM memory_items
                 WHERE user_id = ? AND status = 'active' AND memory_type IN ({placeholders})
                 ORDER BY importance DESC, created_at DESC
                 LIMIT ?
                 """,
-                (user_id, *memory_types, limit),
-            )
-        else:
-            cursor = await conn.execute(
-                """
+                    (user_id, *memory_types, limit),
+                )
+            else:
+                cursor = await conn.execute(
+                    """
                 SELECT * FROM memory_items
                 WHERE user_id = ? AND status = 'active'
                 ORDER BY importance DESC, created_at DESC
                 LIMIT ?
                 """,
-                (user_id, limit),
-            )
-        rows = await cursor.fetchall()
+                    (user_id, limit),
+                )
+            rows = await cursor.fetchall()
         return [self._row_to_item(r) for r in rows]
 
     async def search(
@@ -232,38 +286,38 @@ class MemoryStore:
         基础搜索（Phase 2：按 user_id + memory_type + status 过滤）。
         Phase 3 起将使用 MemoryRetriever 多路召回替换。
         """
-        conn = await self._get_conn()
-        conditions = ["user_id = ?", "status = 'active'"]
-        params: List[Any] = [query.text]
+        async with self._connection() as conn:
+            conditions = ["user_id = ?", "status = 'active'"]
+            params: List[Any] = [query.text]
 
-        if query.memory_types:
-            placeholders = ",".join("?" for _ in query.memory_types)
-            conditions.append(f"memory_type IN ({placeholders})")
-            params.extend(query.memory_types)
+            if query.memory_types:
+                placeholders = ",".join("?" for _ in query.memory_types)
+                conditions.append(f"memory_type IN ({placeholders})")
+                params.extend(query.memory_types)
 
-        if query.risk_level:
-            conditions.append("risk_level = ?")
-            params.append(query.risk_level)
+            if query.risk_level:
+                conditions.append("risk_level = ?")
+                params.append(query.risk_level)
 
-        sql = f"""
-            SELECT * FROM memory_items
-            WHERE {' AND '.join(conditions)}
-            ORDER BY importance DESC, created_at DESC
-            LIMIT ?
-        """
-        params.append(limit)
-        cursor = await conn.execute(sql, params)
-        rows = await cursor.fetchall()
-        items = [self._row_to_item(r) for r in rows]
+            sql = f"""
+                SELECT * FROM memory_items
+                WHERE {' AND '.join(conditions)}
+                ORDER BY importance DESC, created_at DESC
+                LIMIT ?
+            """
+            params.append(limit)
+            cursor = await conn.execute(sql, params)
+            rows = await cursor.fetchall()
+            items = [self._row_to_item(r) for r in rows]
 
-        # 批量更新 access_count
-        now = datetime.now(timezone.utc).isoformat()
-        for item in items:
-            await conn.execute(
-                "UPDATE memory_items SET access_count = access_count + 1, last_accessed_at = ? WHERE id = ?",
-                (now, item.id),
-            )
-        await conn.commit()
+            # 批量更新 access_count
+            now = datetime.now(timezone.utc).isoformat()
+            for item in items:
+                await conn.execute(
+                    "UPDATE memory_items SET access_count = access_count + 1, last_accessed_at = ? WHERE id = ?",
+                    (now, item.id),
+                )
+            await conn.commit()
 
         return [
             MemorySearchResult(item=item, score=0.5, rank=i, retrieval_method="basic")
@@ -280,31 +334,31 @@ class MemoryStore:
         patch["updated_at"] = now
         set_clauses = ", ".join(f"{k} = ?" for k in patch)
         values = list(patch.values()) + [memory_id]
-        conn = await self._get_conn()
-        await conn.execute(
-            f"UPDATE memory_items SET {set_clauses} WHERE id = ?", values
-        )
-        await conn.commit()
+        async with self._connection() as conn:
+            await conn.execute(
+                f"UPDATE memory_items SET {set_clauses} WHERE id = ?", values
+            )
+            await conn.commit()
 
     async def archive(self, memory_id: str, reason: str = "") -> None:
         """归档记忆（设置 status='archived'）。"""
         now = datetime.now(timezone.utc).isoformat()
-        conn = await self._get_conn()
-        await conn.execute(
-            "UPDATE memory_items SET status = 'archived', updated_at = ?, metadata = json_set(COALESCE(metadata, '{}'), '$.archive_reason', ?) WHERE id = ?",
-            (now, reason, memory_id),
-        )
-        await conn.commit()
+        async with self._connection() as conn:
+            await conn.execute(
+                "UPDATE memory_items SET status = 'archived', updated_at = ?, metadata = json_set(COALESCE(metadata, '{}'), '$.archive_reason', ?) WHERE id = ?",
+                (now, reason, memory_id),
+            )
+            await conn.commit()
 
     async def delete(self, memory_id: str) -> None:
         """软删除（设置 status='deleted'）。"""
         now = datetime.now(timezone.utc).isoformat()
-        conn = await self._get_conn()
-        await conn.execute(
-            "UPDATE memory_items SET status = 'deleted', updated_at = ? WHERE id = ?",
-            (now, memory_id),
-        )
-        await conn.commit()
+        async with self._connection() as conn:
+            await conn.execute(
+                "UPDATE memory_items SET status = 'deleted', updated_at = ? WHERE id = ?",
+                (now, memory_id),
+            )
+            await conn.commit()
 
     # ---------------------------------------------------------------
     # 辅助

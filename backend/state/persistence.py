@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import logging
 import os
+import hashlib
 from pathlib import Path
 from typing import Dict, Optional
 
@@ -49,7 +50,10 @@ class AgentStateStore:
 
     def _append_history(self, state: AgentState) -> None:
         try:
-            path = _DEBUG_HISTORY_DIR / f"{state.identity.session_id}.jsonl"
+            safe_session_key = hashlib.sha256(
+                state.identity.session_id.encode("utf-8")
+            ).hexdigest()[:24]
+            path = _DEBUG_HISTORY_DIR / f"{safe_session_key}.jsonl"
             with open(path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(state.to_debug_dict(), ensure_ascii=False) + "\n")
         except Exception as e:  # noqa: BLE001

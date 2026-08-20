@@ -1,6 +1,8 @@
 import hashlib
+import asyncio
 import logging
 import re
+import threading
 import time
 from typing import Any, Dict, Optional, Tuple
 
@@ -13,6 +15,7 @@ logger = logging.getLogger(__name__)
 # BERT 情绪模型（延迟加载）
 _bert_predictor = None
 _emotion_to_chinese = {}
+_bert_predict_lock = threading.Lock()
 
 def _get_bert_predictor():
     """延迟加载 BERT 情绪预测器"""
@@ -35,6 +38,15 @@ def _get_bert_predictor():
         logger.warning(f"BERT 情绪模型加载失败，回退到 LLM: {e}")
         return None
     return _bert_predictor
+
+
+def _predict_emotion_with_bert(text: str):
+    """Run lazy model initialization and inference outside the event loop."""
+    with _bert_predict_lock:
+        predictor = _get_bert_predictor()
+        if predictor is None:
+            return None
+        return predictor.predict(text)
 
 class EmotionAnalyzer:
     """情绪分析器"""
@@ -109,10 +121,11 @@ class EmotionAnalyzer:
                 return cached_result
 
             # 使用 BERT 进行基础情绪分析（替代 LLM）
-            predictor = _get_bert_predictor()
-            if predictor is not None:
+            bert_prediction = await asyncio.to_thread(_predict_emotion_with_bert, text)
+            bert_used = bert_prediction is not None
+            if bert_used:
                 # BERT 返回英文标签 + 置信度
-                bert_label, bert_confidence = predictor.predict(text)
+                bert_label, bert_confidence = bert_prediction
                 current_emotion = _emotion_to_chinese.get(bert_label, "中性")
                 confidence = bert_confidence
             else:
@@ -125,7 +138,7 @@ class EmotionAnalyzer:
                 conversation_summary
                 and conversation_summary.get('turn_count', 0) > 0
                 and (
-                    not predictor  # 没 BERT 时全量走 LLM
+                    not bert_used  # 没 BERT 时全量走 LLM
                     or confidence < config.EMOTION_CONFIDENCE_THRESHOLD  # BERT 低置信度
                 )
             )
@@ -136,7 +149,7 @@ class EmotionAnalyzer:
 
             result = (current_emotion, context_emotion, confidence)
             self._update_cache(cache_key, result)
-            source = "bert" if predictor else "llm"
+            source = "bert" if bert_used else "llm"
             logger.info(f"情绪分析({source}): 当前={current_emotion}, 深层={context_emotion}, 置信度={confidence}")
             return result
         except Exception as e:

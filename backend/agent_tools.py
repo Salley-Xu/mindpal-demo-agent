@@ -390,12 +390,7 @@ TOOL_DEFINITIONS = [
             "description": "获取用户的长期画像（偏好、风险等级等）",
             "parameters": {
                 "type": "object",
-                "properties": {
-                    "user_id": {
-                        "type": "string",
-                        "description": "用户ID (自动填充)"
-                    }
-                },
+                "properties": {},
                 "required": []
             }
         }
@@ -408,7 +403,6 @@ TOOL_DEFINITIONS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "user_id": {"type": "string", "description": "用户ID (自动填充)"},
                     "risk_level": {
                         "type": "string",
                         "enum": ["level_0", "level_1", "level_2", "level_3"],
@@ -433,8 +427,6 @@ TOOL_DEFINITIONS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "user_id": {"type": "string", "description": "自动填充"},
-                    "session_id": {"type": "string", "description": "自动填充"},
                     "emotion": {"type": "string", "description": "检测到的情绪"},
                     "emotion_type": {"type": "string", "description": "标准化情绪类型"},
                     "emotion_intensity": {"type": "number", "description": "情绪强度 0-1"},
@@ -461,7 +453,6 @@ TOOL_DEFINITIONS = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "user_id": {"type": "string", "description": "自动填充"},
                     "limit": {"type": "integer", "description": "返回的记录数量", "default": 10}
                 },
                 "required": []

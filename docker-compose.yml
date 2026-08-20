@@ -11,7 +11,8 @@ services:
       dockerfile: Dockerfile
     container_name: mindpal-backend
     ports:
-      - "8000:8000"
+      # 默认只暴露给宿主机本地；公网部署应通过带认证的反向代理。
+      - "127.0.0.1:8000:8000"
     volumes:
       # 持久化数据（SQLite sessions.db + content_db.json）
       - mindpal_data:/app/backend/data

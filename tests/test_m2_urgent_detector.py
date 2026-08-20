@@ -37,18 +37,12 @@ def test_detect_returns_normalized_four_level_semantics():
 @pytest.mark.asyncio
 async def test_generate_crisis_response_keeps_legacy_level_compatibility():
     original_warning = urgent_detector._generate_warning_response_async
-    original_urgent = urgent_detector._generate_urgent_response_async
 
     async def fake_warning(user_input, urgent_issue):
         assert urgent_issue["level"] == "warning_high"
         return "warning-response"
 
-    async def fake_urgent(user_input, urgent_issue):
-        assert urgent_issue["level"] == "urgent"
-        return "urgent-response"
-
     urgent_detector._generate_warning_response_async = fake_warning
-    urgent_detector._generate_urgent_response_async = fake_urgent
     try:
         warning_result = await urgent_detector.generate_crisis_response_async(
             user_input="我感觉快撑不住了。",
@@ -62,10 +56,10 @@ async def test_generate_crisis_response_keeps_legacy_level_compatibility():
         )
     finally:
         urgent_detector._generate_warning_response_async = original_warning
-        urgent_detector._generate_urgent_response_async = original_urgent
 
     assert warning_result == "warning-response"
-    assert urgent_result == "urgent-response"
+    assert "立即联系专业帮助" in urgent_result
+    assert "400-161-9995" in urgent_result
 
 
 def main():
