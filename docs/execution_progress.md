@@ -409,3 +409,45 @@ Safety Target 1.0 / Tool Micro F1 0.868 / Rec Mode 0.887 / Exact 0.782 / LLM rat
 | 4 | 第三方风险（"我室友...安眠药"）v5 漏检 | 第二轮扩展加入第三方正例（v5.1），Recall 0.69→0.94 |
 | 5 | 训练脚本从根目录跑 backend import 失败 | sys.path 加 backend |
 | 6 | CPU 训练每 epoch ~7 分钟（1205 条） | 后台运行 + 监控 checkpoint 更新 |
+
+---
+
+## 2026-08-20 · Phase 4/6/7/8 总结（Memory 2.0 / Rec 2.0 / Observability / Final Eval，全部 FREEZE）
+
+### 1. 当前任务
+
+按主路线图完成剩余阶段：Memory 2.0（治理层）→ Recommendation 2.0（反馈闭环）→
+Observability（Trace/Replay/Attribution）→ Final Evaluation（全系统验收）。**全部完成并冻结**。
+
+### 2. 已完成内容
+
+| Phase | 核心交付 | 关键结果 |
+|---|---|---|
+| 4 Memory 2.0 | `backend/memory_v2/`（gate/resolver/updater）+ benchmark v2 | Gate F1 0.965 / **Over-retrieval 1.0→0.0** / Conflict 1.0 / 检索量 -61% |
+| 6 Rec 2.0 | `backend/recommendation_v2/`（ranker/feedback/cooldown/safety/tool） | Safety violation 0 / Repeat 0 / Feedback 闭环生效 |
+| 7 Observability | `backend/tracing/`（schema/logger/replay/attribution） | Trace coverage 100% / Replay 成功 / 归因到层 |
+| 8 Final Eval | `docs/final_*` 4 报告 + `resume_evidence.md` | 全系统 PASS，证据链完整 |
+
+**全系统端到端（冻结 benchmark，predicted）**：Primary 0.52→**0.75** / Safety Target 0.57→**0.94** / Exact 0.06→**0.45**。
+
+### 3. 卡住的问题
+
+| 问题 | 状态 |
+|---|---|
+| Memory conflict 误判（"不错"含"不"） | 细化强化/更新标记 → Conflict 1.0 |
+| Rec cooldown 不是硬阻断 | 同 item 硬阻断 → Repeat 0 |
+| Effective-boost 测试被 cooldown 干扰 | 换新候选池 → PASS |
+
+### 4. 下一步计划
+
+- 全部阶段 FREEZE，系统可交付
+- 生产 shadow 观察；L3 F1/sos 域偏差留待数据迭代
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | MemoryTypeConfig 位置参数报错 | pydantic 用 keyword args |
+| 2 | Retrieval Gate 对 info_request 误检索 | info 是知识查询非个性化 → 移除 |
+| 3 | Rec tool 不尊重 rec_mode="none" | 显式返回空 |
+| 4 | conflict 阈值 0.85 过严 | 降到 0.70 + 强化表达规则 |

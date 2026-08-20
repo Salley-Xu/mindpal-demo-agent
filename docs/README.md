@@ -41,6 +41,10 @@
 | [phase3_final_review.md](phase3_final_review.md) | **AgentPolicy v1 冻结 PASS**（Deterministic 全指标达标，Shadow 集成） |
 | [phase3_final_independent_review.md](phase3_final_independent_review.md) | **AgentPolicy v1 FINAL FREEZE PASS**（独立测试集泛化验证） |
 | [phase5_final_review.md](phase5_final_review.md) | **RiskResult v2 FREEZE PASS**（FPR 0.42→0.02，HR Recall→0.94） |
+| [phase4_final_review.md](phase4_final_review.md) | **Memory 2.0 FREEZE PASS**（Over-retrieval 1.0→0.0） |
+| [phase6_final_review.md](phase6_final_review.md) | **Recommendation 2.0 FREEZE PASS**（Feedback 闭环 + Cooldown） |
+| [phase7_final_review.md](phase7_final_review.md) | **Trace/Replay/Attribution FREEZE PASS** |
+| [phase8_final_review.md](phase8_final_review.md) | **全系统 PASS（可交付）** |
 
 ## 4.6 Agent Policy 模块（Phase 3）
 
@@ -100,12 +104,13 @@
 ## 7. 技术故事线（总览）
 
 ```text
-模型理解用户           → Intent/Emotion/Risk 感知层（Phase 1 完成，Intent 冻结）
-State 表示用户状态      → AgentState（Phase 2，待做）
-Policy 决定动作        → Agent Policy（Phase 3，待做）
-Memory 提供长期上下文   → Memory 2.0（Phase 4，已有基础）
-Recommendation/Safety  → 执行层（已有 Gate/干预，需反馈闭环）
-Evaluation 判断是否变好 → Benchmark v1.1 + 评测框架（完成）
+模型理解用户           → Intent/Emotion/Risk 感知层（Phase 1/5 完成，Risk v5.1 冻结）
+State 表示用户状态      → AgentState v1（Phase 2，冻结）
+Policy 决定动作        → AgentPolicy v1（Phase 3，FINAL FREEZE）
+Memory 提供长期上下文   → Memory 2.0（Phase 4，冻结）
+Recommendation/Safety  → Recommendation 2.0（Phase 6，冻结）
+Observability          → Trace/Replay/Attribution（Phase 7，冻结）
+Evaluation 判断是否变好 → 多套独立 Benchmark + 评测框架（完成）
 ```
 
 **核心成果**（截至 2026-08-19）：

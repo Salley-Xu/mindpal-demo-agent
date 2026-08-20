@@ -411,3 +411,82 @@ def test_dynamic_state_third_party():
                  context={"subject": "third_party", "is_third_party_risk": True})
     assert s.subject == "third_party"
     assert s.is_high_risk
+
+
+# ===== Phase 4: Memory 2.0 =====
+
+def test_memory_retrieval_gate():
+    from memory_v2.retrieval_gate import retrieval_gate
+    from state.builder import build_agent_state
+    # memory_reference → 检索
+    st = build_agent_state(user_id="u", session_id="s", request_text="还记得我之前说的吗", turn_index=2,
+                           intent_result={"labels": ["memory_reference"], "confidence": 0.8, "is_open_set": False, "source": "t"},
+                           emotion_state={}, urgent_issue={}, conversation_summary={}, user_profile={})
+    assert retrieval_gate.decide(st).retrieve_memory is True
+    # casual 首轮 → 不检索
+    st2 = build_agent_state(user_id="u", session_id="s", request_text="今天天气不错", turn_index=1,
+                            intent_result={"labels": ["casual_chat"], "confidence": 0.8, "is_open_set": False, "source": "t"},
+                            emotion_state={}, urgent_issue={}, conversation_summary={}, user_profile={})
+    assert retrieval_gate.decide(st2).retrieve_memory is False
+
+
+def test_memory_conflict_supersede():
+    from memory_v2.resolver import conflict_resolver
+    from models import MemoryCandidate, MemoryItem
+    existing = [MemoryItem(id="m1", user_id="u", memory_type="preference", content="喜欢冥想")]
+    cand = MemoryCandidate(user_id="u", memory_type="preference", content="我现在不冥想也不想做了",
+                           source="explicit", confidence=0.9)
+    op, _, reason = conflict_resolver.resolve(cand, existing)
+    assert op.value == "SUPERSEDE"
+
+
+# ===== Phase 6: Recommendation 2.0 =====
+
+def test_rec_safety_block():
+    from recommendation_v2.tool import recommendation_tool
+    from recommendation_v2.schema import CandidateFeatures
+    from state.builder import build_agent_state
+    st = build_agent_state(user_id="u", session_id="s", request_text="我很难受", turn_index=1,
+                           intent_result={"labels": ["emotional_expression"], "confidence": 0.8, "is_open_set": False, "source": "t"},
+                           emotion_state={}, urgent_issue={"level": "level_3", "risk_trend": "new", "risk_context": {}},
+                           conversation_summary={}, user_profile={})
+    cand = [CandidateFeatures(item_id="c1", category="relax")]
+    top = recommendation_tool.recommend(st, cand, rec_mode="safety_only")
+    assert top == []
+
+
+def test_rec_feedback_closure():
+    from recommendation_v2.feedback import feedback_tracker
+    from recommendation_v2.schema import FeedbackEvent, FeedbackType
+    feedback_tracker._weights = {}  # noqa: SLF001
+    feedback_tracker._rejected_items = set()  # noqa: SLF001
+    w = feedback_tracker.apply(FeedbackEvent(user_id="u", item_id="c1", item_category="relax",
+                                             feedback=FeedbackType.TRIED_EFFECTIVE))
+    assert w.category_weight > 1.0
+    feedback_tracker.apply(FeedbackEvent(user_id="u", item_id="c2", item_category="reading",
+                                         feedback=FeedbackType.REJECT))
+    assert feedback_tracker.is_item_rejected("c2")
+
+
+# ===== Phase 7: Tracing =====
+
+def test_trace_logger_roundtrip():
+    from tracing.logger import trace_logger
+    t = trace_logger.new_trace("tr_test_001", "s1", 1)
+    t.perception = {"intent_result": {"labels": ["casual_chat"]}}
+    t.policy = {"action_plan": {"primary_action": "continue_chat"}}
+    trace_logger.write(t)
+    rt = trace_logger.read("tr_test_001")
+    assert rt is not None
+    assert rt.versions["risk"] == "v5_1"
+    assert rt.policy["action_plan"]["primary_action"] == "continue_chat"
+
+
+def test_error_attribution_policy_miss():
+    from tracing.attribution import error_attributor
+    from tracing.logger import trace_logger
+    t = trace_logger.new_trace("tr_attr_001", "s1", 1)
+    t.state = {"risk": {"level": 2}}
+    t.policy = {"action_plan": {"primary_action": "continue_chat"}}
+    attr = error_attributor.attribute(t)
+    assert attr.first_error_layer == "policy"
