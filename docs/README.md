@@ -101,6 +101,12 @@
 |---|---|
 | [execution_progress.md](execution_progress.md) | **五要素进度日志**：每阶段总结（任务/完成/卡点/计划/踩坑） |
 
+## 6.5 完整技术总结
+
+| 文档 | 说明 |
+|---|---|
+| [technical_summary.md](technical_summary.md) | **完整技术总结**：架构演进 + 各层技术细节 + 系统改进 + 关键决策 + 复现 |
+
 ## 7. 技术故事线（总览）
 
 ```text
