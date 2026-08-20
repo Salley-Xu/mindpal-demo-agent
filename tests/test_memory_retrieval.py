@@ -18,6 +18,7 @@ sys.path.extend([PROJECT_ROOT, BACKEND_DIR])
 
 import asyncio
 import tempfile
+import pytest
 from models import MemoryItem, MemoryQuery, MemorySearchResult
 from memory_store import MemoryStore
 from memory_retriever import MemoryRetriever, MemoryBM25Retriever
@@ -60,6 +61,7 @@ def test_bm25_extra_terms():
 # MemoryRetriever 集成测试
 # ============================================================
 
+@pytest.mark.asyncio
 async def test_retriever_risk_priority():
     """MemoryRetriever 的 RRF + 重排应将风险记忆排在前面。"""
     db = tempfile.NamedTemporaryFile(suffix=".db", delete=False)
@@ -99,6 +101,7 @@ async def test_retriever_risk_priority():
     print("PASS: retriever returns results with risk priority")
 
 
+@pytest.mark.asyncio
 async def test_retriever_with_real_memory_items():
     """从 memory_items 表写入后能检索到。"""
     store = MemoryStore(db_path=":memory:")
@@ -196,6 +199,7 @@ def test_injector_skipped_ids():
 # MemoryContextBuilder 集成测试
 # ============================================================
 
+@pytest.mark.asyncio
 async def test_context_builder_with_data():
     """MemoryContextBuilder 在 memory_items 有数据时应返回注入结果。"""
     import tempfile, os

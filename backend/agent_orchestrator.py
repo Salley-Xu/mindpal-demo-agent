@@ -9,6 +9,7 @@ from typing import List, Dict, Any, Optional
 
 from openai import AsyncOpenAI
 
+from background_tasks import background_tasks
 from config import config
 from conversation_manager import conversation_manager
 from urgent_detector import urgent_detector, urgent_logger
@@ -525,7 +526,9 @@ class AgentOrchestrator:
                     'ai_response': final_response_text
                 }
                 # Fire and forget (async)
-                asyncio.create_task(urgent_logger.log_interaction_async(interaction_data))
+                background_tasks.schedule(
+                    urgent_logger.log_interaction_async(interaction_data)
+                )
 
             # Extract recommendations
             final_recommendations, final_rationale = self._extract_recommendations(messages)
@@ -903,9 +906,23 @@ class AgentOrchestrator:
                 risk_state=urgent_issue,
                 conversation_summary=summary,
             )
-            relevant_memory_context = f"（记忆注入: {_memory_ctx.used_tokens}/{int(config.MAX_CONTEXT_TOKENS * config.MEMORY_INJECTION_BUDGET_RATIO)} tokens, {len(_memory_ctx.included_memory_ids)} 条注入）\n"
             if _memory_ctx.text:
-                relevant_memory_context += _memory_ctx.text
+                relevant_memory_context = (
+                    f"（记忆注入: {_memory_ctx.used_tokens}/"
+                    f"{int(config.MAX_CONTEXT_TOKENS * config.MEMORY_INJECTION_BUDGET_RATIO)} tokens, "
+                    f"{len(_memory_ctx.included_memory_ids)} 条注入）\n{_memory_ctx.text}"
+                )
+            else:
+                # The v2 store can legitimately be empty for a new or migrated
+                # user. Preserve useful profile and mood-event context instead of
+                # replacing it with an empty section.
+                relevant_memory_context = await self._build_relevant_memory_context(
+                    text=text,
+                    user_id=user_id,
+                    summary=summary,
+                    emotion_state=emotion_state,
+                    user_profile=user_profile,
+                )
         except Exception as e:
             logger.warning("MemoryContextBuilder 失败，回退旧路径: %s", e)
             relevant_memory_context = await self._build_relevant_memory_context(

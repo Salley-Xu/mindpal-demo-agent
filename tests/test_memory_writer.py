@@ -16,6 +16,7 @@ sys.path.extend([PROJECT_ROOT, BACKEND_DIR])
 
 import asyncio
 import tempfile
+import pytest
 from datetime import datetime
 
 from memory_policy import MemoryPolicy
@@ -148,6 +149,7 @@ def test_extractor_skips_low_intensity():
 # MemoryWriter 集成测试
 # ============================================================
 
+@pytest.mark.asyncio
 async def test_writer_writes_to_memory_items():
     """MemoryWriter.process_turn 应写入 memory_items 表。"""
     import tempfile
@@ -180,6 +182,7 @@ async def test_writer_writes_to_memory_items():
     os.unlink(db_path)
 
 
+@pytest.mark.asyncio
 async def test_writer_skips_low_value():
     """MemoryWriter 应跳过低价值输入（不写入任何 memory_items）。"""
     store = MemoryStore(db_path=":memory:")
@@ -199,6 +202,7 @@ async def test_writer_skips_low_value():
     await store.close()
 
 
+@pytest.mark.asyncio
 async def test_memory_store_persistence():
     """MemoryStore 文件模式：写入 → 读取 → 更新 → 归档 完整流程。"""
     import tempfile

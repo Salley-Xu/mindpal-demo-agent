@@ -1388,7 +1388,6 @@ class AsyncDatabaseManager:
                     ),
                 )
             await conn.commit()
-            await conn.commit()
 
     async def upsert_recommendation_feedback(
         self,

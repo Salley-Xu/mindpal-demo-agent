@@ -44,6 +44,8 @@ class Config:
     SESSION_PERSISTENCE_ENABLED: bool = os.getenv("SESSION_PERSISTENCE_ENABLED", "true").lower() == "true"
     SESSION_DB_PATH: str = os.getenv("SESSION_DB_PATH", "data/sessions.db")
     SESSION_CLEANUP_DAYS: int = int(os.getenv("SESSION_CLEANUP_DAYS", "30"))
+    SESSION_CLEANUP_HOUR: int = int(os.getenv("SESSION_CLEANUP_HOUR", "3"))
+    SESSION_CLEANUP_MINUTE: int = int(os.getenv("SESSION_CLEANUP_MINUTE", "0"))
 
     # API 安全配置（Bearer Token 认证，空字符串=不启用）
     API_AUTH_TOKEN: str = os.getenv("API_AUTH_TOKEN", "")

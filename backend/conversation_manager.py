@@ -5,8 +5,8 @@ import logging
 from database import db_manager, adb_manager
 from config import config
 import asyncio
+from background_tasks import background_tasks
 from risk_levels import LEVEL_0, is_non_low_risk, normalize_risk_level
-from config import config as app_config
 
 logger = logging.getLogger(__name__)
 
@@ -83,11 +83,11 @@ class ConversationManager:
         }
 
     def _schedule_persistence(self, coro):
-        try:
-            loop = asyncio.get_running_loop()
-            loop.create_task(coro)
-        except RuntimeError:
-            asyncio.run(coro)
+        background_tasks.schedule(coro)
+
+    async def wait_for_persistence(self) -> None:
+        """Wait for writes owned by the current event loop to finish."""
+        await background_tasks.drain()
     
     @staticmethod
     def _build_loaded_session_dict(
@@ -314,7 +314,7 @@ class ConversationManager:
                 raise
 
         # Phase 2: MemoryWriter — 将重要信号写入 memory_items
-        if app_config.MEMORY_ENABLED:
+        if config.MEMORY_ENABLED:
             try:
                 from memory_writer import memory_writer as _mw
                 from models import TurnContext as _TurnContext
@@ -759,6 +759,7 @@ class ConversationManager:
     
     
     async def delete_session_async(self, user_id: str, session_id: str) -> bool:
+        await self.wait_for_persistence()
         key = f"{user_id}_{session_id}"
         if key in self.sessions:
             del self.sessions[key]
