@@ -377,3 +377,37 @@ def test_shadow_runner_never_raises():
 if __name__ == "__main__":
     import pytest
     raise SystemExit(pytest.main([__file__, "-v"]))
+
+
+# ===== Phase 5: DynamicRiskState =====
+
+def test_dynamic_state_escalation():
+    from risk.dynamic_state import DynamicRiskTracker
+    t = DynamicRiskTracker()
+    states = [t.update(level=l, confidence=0.9, text="x") for l in [0, 0, 1, 2, 3]]
+    assert [s.level for s in states] == [0, 0, 1, 2, 3]
+    assert states[-1].is_high_risk
+    assert states[-1].escalation  # 3 > 2
+
+
+def test_dynamic_state_persistence():
+    from risk.dynamic_state import DynamicRiskTracker
+    t = DynamicRiskTracker()
+    states = [t.update(level=l, confidence=0.9, text="x") for l in [2, 2, 2]]
+    assert states[-1].persistence == 3
+
+
+def test_dynamic_state_safe_denial():
+    from risk.dynamic_state import DynamicRiskTracker
+    t = DynamicRiskTracker()
+    s = t.update(level=1, confidence=0.9, text="我没有想死", context={"is_safe_denial": True})
+    assert s.safe_denial is True
+
+
+def test_dynamic_state_third_party():
+    from risk.dynamic_state import DynamicRiskTracker
+    t = DynamicRiskTracker()
+    s = t.update(level=3, confidence=0.9, text="我朋友想自杀",
+                 context={"subject": "third_party", "is_third_party_risk": True})
+    assert s.subject == "third_party"
+    assert s.is_high_risk

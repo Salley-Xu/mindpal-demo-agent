@@ -40,6 +40,7 @@
 | [phase2_final_review.md](phase2_final_review.md) | **AgentState v1 冻结 PASS**（Transition Acc 1.0） |
 | [phase3_final_review.md](phase3_final_review.md) | **AgentPolicy v1 冻结 PASS**（Deterministic 全指标达标，Shadow 集成） |
 | [phase3_final_independent_review.md](phase3_final_independent_review.md) | **AgentPolicy v1 FINAL FREEZE PASS**（独立测试集泛化验证） |
+| [phase5_final_review.md](phase5_final_review.md) | **RiskResult v2 FREEZE PASS**（FPR 0.42→0.02，HR Recall→0.94） |
 
 ## 4.6 Agent Policy 模块（Phase 3）
 
@@ -54,6 +55,17 @@
 | [phase3_safety_contract_reconciliation.md](phase3_safety_contract_reconciliation.md) | **合同对齐**：high_risk_intent fallback（S04，方案 A） |
 | [phase3_independent_policy_eval.md](phase3_independent_policy_eval.md) | **独立评测**：430 cases 新措辞，全指标 PASS |
 | [phase3_independent_safety_eval.md](phase3_independent_safety_eval.md) | **独立 Safety Slice**：124 cases，Recall 1.0 / FPR 0 |
+
+## 4.7 Risk 模块（Phase 5）
+
+| 文档 | 说明 |
+|---|---|
+| [risk_dataset_audit_v2.md](risk_dataset_audit_v2.md) | **Risk 数据审计**：test 同源 / hard negatives / 覆盖缺口 |
+| [phase5_checkpoint_ablation.md](phase5_checkpoint_ablation.md) | **Checkpoint 对比**：v4_2/coral/ft/rule（全高 FPR） |
+| [phase5_fusion_calibration.md](phase5_fusion_calibration.md) | **Fusion/Calibration**：既有模型无法达标 → 重训 |
+| [phase5_multiturn_risk_eval.md](phase5_multiturn_risk_eval.md) | **DynamicRiskState + 轨迹评测**（全 PASS） |
+| [phase5_policy_end_to_end.md](phase5_policy_end_to_end.md) | **Policy 联动**：Risk v5.1 → Frozen Policy 系统收益 |
+| [phase5_final_review.md](phase5_final_review.md) | **RiskResult v2 FREEZE PASS** |
 
 ## 4.5 AgentState 模块（Phase 2）
 

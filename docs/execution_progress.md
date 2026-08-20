@@ -364,3 +364,48 @@ Safety Target 1.0 / Tool Micro F1 0.868 / Rec Mode 0.887 / Exact 0.782 / LLM rat
 | 2 | 独立集 ambiguous/tool-combo 分布不足 | 扩充含糊族 + 系统化多工具组合族 |
 | 3 | rule 通道把"我没有伤害自己"（safe denial）判为高风险 | 归因 upstream（否定盲区），Safety Slice 分 oracle/predicted 两轨 |
 | 4 | S04 fallback 恐引入 FPR | oracle Safety Slice FPR=0 验证通过 |
+
+---
+
+## 2026-08-20 · Phase 5 总结（Risk 2.0：最大端到端瓶颈修复，FREEZE）
+
+### 1. 当前任务
+
+修复 Risk Perception——Phase 3 已证明端到端主瓶颈是 Raw BERT 的 FPR/FNR（v4_2 FPR 0.42 / HR Recall 0.48）。
+目标：单轮分类 + 多轮动态风险状态，并验证 Policy 联动收益。**5.1~5.9 完成，RiskResult v2 = FREEZE（PASS）**。
+
+### 2. 已完成内容
+
+| Task | 交付物 | 关键结果 |
+|---|---|---|
+| 5.1 Dataset Audit | `docs/risk_dataset_audit_v2.md` | test 与 train 同源 sos-1k；hard negatives 确认；denial/quoted 覆盖缺口 |
+| 5.2 Checkpoint Shootout | `docs/phase5_checkpoint_ablation.md` | v4_2 FPR 0.42 / coral 0.69 / ft 0.81 —— 全部严重过度触发 |
+| 5.3-5.4 Fusion/Calib | `docs/phase5_fusion_calibration.md` | 阈值扫描证明既有模型无法达标（FPR≤0.10 时 Recall 仅 0.25） |
+| 5.5 Expansion + 重训 | v5（1027）+ v5.1（1205）+ `bert_data/scripts/*` | **v5.1：Macro 0.706 / HR Recall 0.936 / FPR 0.022 / L2 F1 0.648** |
+| 5.6-5.7 DynamicRiskState | `backend/risk/dynamic_state.py` + 轨迹基准 | 轨迹 Accuracy 1.0 / Early Detect 1.0 / Recovery 1.0 |
+| 5.8 Policy 联动 | `docs/phase5_policy_end_to_end.md` | Primary 0.52→0.75 / Safety Target 0.57→0.94 |
+| 5.9 Final Review | `docs/phase5_final_review.md` | **RiskResult v2 / DynamicRiskState = FREEZE（PASS）** |
+
+### 3. 卡住的问题
+
+| 问题 | 状态 |
+|---|---|
+| L3 F1 0.515 < 0.80 目标 | Freeze-with-limitation：L2/L3 混淆，但 HR 合并 Recall 0.936 达标 |
+| sos-1k 域 FPR 0.70（v4_2 亦 0.76） | 域偏移，sos 标签病态；生产对话域 FPR 0.022 是目标场景 |
+| HR Recall 0.936 ≈ 0.95 | 余量小，持续监控 |
+
+### 4. 下一步计划
+
+1. **Phase 4：Memory 2.0**（长期记忆生命周期 + Retrieval Gate）
+2. 生产切换 BERT_MODEL_PATH=v5_1_tuned（shadow 观察）；L3 F1/sos 偏差留待迭代
+
+### 5. 踩过的坑
+
+| # | 坑 | 解决 |
+|---|---|---|
+| 1 | shootout 控制台表头 key 不匹配显示全 0 | key_map 映射（report JSON 一直正确） |
+| 2 | test_v3/dev_v3 无 conversation/expected 字段 | 单独 eval_raw 加载 text/cssrs_lite_level |
+| 3 | 恢复轨迹被惯性规则拖慢（3→2→2→2） | 基准期望对齐状态机设计（渐进恢复），非 bug |
+| 4 | 第三方风险（"我室友...安眠药"）v5 漏检 | 第二轮扩展加入第三方正例（v5.1），Recall 0.69→0.94 |
+| 5 | 训练脚本从根目录跑 backend import 失败 | sys.path 加 backend |
+| 6 | CPU 训练每 epoch ~7 分钟（1205 条） | 后台运行 + 监控 checkpoint 更新 |
