@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from typing import List
 
+from recommendation_v2.cooldown import cooldown_controller
 from recommendation_v2.feedback import feedback_tracker
 from recommendation_v2.ranker import feature_ranker
 from recommendation_v2.safety import recommendation_safety
@@ -32,7 +33,7 @@ class RecommendationTool:
         candidates = [c for c in candidates
                       if not feedback_tracker.is_item_rejected(c.item_id)
                       and recommendation_safety.item_allowed(c, state.risk.level)
-                      and not feature_ranker.in_cooldown(c.item_id)]
+                      and not cooldown_controller.is_in_cooldown(c.item_id)]
         if not candidates:
             return []
 
@@ -40,8 +41,8 @@ class RecommendationTool:
         scored = []
         feedback_weights = feedback_tracker.get_weights()
         for c in candidates:
-            c = feature_ranker.apply_cooldown(c, state.turn.turn_index)
-            score = feature_ranker.score(c, feedback_weights)
+            cat_penalty = cooldown_controller.category_penalty(c.category)
+            score = feature_ranker.score(c, feedback_weights) - cat_penalty * 0.2
             scored.append((score, c))
 
         scored.sort(key=lambda x: -x[0])
@@ -49,7 +50,7 @@ class RecommendationTool:
 
         # 4. 记录推荐（cooldown）
         for c in top:
-            feature_ranker.record_recommendation(c.item_id, c.category)
+            cooldown_controller.record(c.item_id, c.category)
             feedback_tracker._seen.add(c.item_id)  # noqa: SLF001
         return top
 
